@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Owner</string>
+    <!--cần tiền tố và comment trước khi sử dụng-->
+    <!--more screen start-->
+    <string name="more_about">About</string>
+    <!--more screen end-->
+
+
+    <!--khác-->
+    <string name="default_language">Mặc định</string>
+</resources>
