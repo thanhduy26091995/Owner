@@ -6,4 +6,9 @@
 
     <color name="colorWhite">#FFF</color>
     <color name="colorBlack">#000</color>
+    
+    
+    <color name="home_background_maid_aound">#ffbf41</color>
+    <color name="home_background_your_tasks">#5fd81b</color>
+    <color name="home_background_history">#33c5cd</color>
 </resources>
