@@ -2,9 +2,19 @@
     <string name="app_name">Owner</string>
 
     <!--cần tiền tố và comment trước khi sử dụng-->
-    <!--more screen start-->
-    <string name="more_about">About</string>
-    <!--more screen end-->
+    
+    <!--home screen start-->
+    <!--<string name="home_home">Home</string>-->
+    <!--<string name="home_maid_around">Maid around</string>-->
+    <!--<string name="home_your_tasks">Your tasks</string>-->
+    <!--<string name="home_history">History</string>-->
+    <!--<string name="home_copy_right">Copyright(c).HBB Solution. All right reserved</string>-->
+    <string name="home_home">Trang chủ</string>
+    <string name="home_maid_around">Công việc quanh đây</string>
+    <string name="home_your_tasks">Quản lý công việc</string>
+    <string name="home_history">Lịch sử công việc</string>
+    <string name="home_copy_right">Niềm tin - Chất lượng</string>
+    <!--home screen end-->
 
 
     <!--khác-->
