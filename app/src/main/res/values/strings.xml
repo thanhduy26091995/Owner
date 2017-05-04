@@ -19,4 +19,5 @@
 
     <!--khác-->
     <string name="default_language">Default</string>
+    <string name="more">More</string>
 </resources>

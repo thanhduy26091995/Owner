@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class FontManager {
 
     public static final String ROOT = "fonts/",
-            FONTAWESOME = ROOT + "fonts/ionicons.ttf";
+            FONTAWESOME = ROOT + "ionicons.ttf";
 
     public static Typeface getTypeface(Context context, String font) {
         return Typeface.createFromAsset(context.getAssets(), font);
