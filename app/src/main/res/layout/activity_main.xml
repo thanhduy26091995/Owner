@@ -10,14 +10,22 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorWhite">
+
+            <TextView
+                android:id="@+id/home_title_toothbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
+                />
 
         </android.support.v7.widget.Toolbar>
 
@@ -33,7 +41,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3" />
+            android:layout_weight="3.2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,6 +52,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/lo_maid_around"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -65,9 +74,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginLeft="20dp"
+                        android:maxLines="2"
                         android:text="@string/home_maid_around"
                         android:textAlignment="center"
                         android:textColor="@color/colorWhite" />
@@ -77,6 +87,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/lo_your_tasks"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -99,9 +110,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginRight="22dp"
-                        android:layout_marginLeft="22dp"
                         android:text="@string/home_your_tasks"
                         android:textAlignment="center"
                         android:textColor="@color/colorWhite" />
@@ -110,6 +121,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/lo_history"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -131,9 +143,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="22dp"
                         android:layout_marginLeft="22dp"
+                        android:layout_marginRight="22dp"
+                        android:layout_marginTop="5dp"
                         android:text="@string/home_history"
                         android:textAlignment="center"
                         android:textColor="@color/colorWhite" />
@@ -145,30 +157,49 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:background="@color/colorWhite">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="3">
 
-                <ImageView
-                    android:layout_width="170dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/icon_logo_test"
-                    android:scaleType="fitXY"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.8"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/icon_logo_test" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="@string/home_copy_right"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack" />
+                    android:textColor="@color/colorBlack"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

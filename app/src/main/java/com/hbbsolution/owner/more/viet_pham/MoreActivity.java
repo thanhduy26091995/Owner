@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 
@@ -19,6 +20,8 @@ public class MoreActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.more_title_toothbar)
+    TextView txtMore_title_toothbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,10 +29,11 @@ public class MoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_more);
         ButterKnife.bind(this);
         //config toolbar
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.more));
+        txtMore_title_toothbar.setText(getResources().getString(R.string.more));
     }
 
     @Override
