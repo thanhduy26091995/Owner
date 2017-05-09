@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Transition Activity
     private void TransActivity(Class activity){
         Intent itTransActivity = new Intent(MainActivity.this, activity);
         startActivity(itTransActivity);
