@@ -1,10 +1,13 @@
 package com.hbbsolution.owner.more.viet_pham;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
@@ -22,6 +25,8 @@ public class MoreActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.more_title_toothbar)
     TextView txtMore_title_toothbar;
+    @BindView(R.id.cv_sign_in)
+    CardView cvSignIn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class MoreActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtMore_title_toothbar.setText(getResources().getString(R.string.more));
+        addEvents();
     }
 
     @Override
@@ -42,5 +48,16 @@ public class MoreActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addEvents()
+    {
+        cvSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MoreActivity.this,SignInActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

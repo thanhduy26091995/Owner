@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ion_chevron_right">&#xf125;</string>
+    <string name="ion_android_person">&#xf3a0;</string>
+    <string name="ion_android_lock">&#xf392;</string>
 </resources>

@@ -13,6 +13,7 @@ public class OwnerApplication extends Application {
     private static OwnerApplication instance;
 
     public static OwnerApplication getInstance() {
+
         return instance;
     }
 
