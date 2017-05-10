@@ -20,6 +20,7 @@
         <activity android:name=".more.viet_pham.MoreActivity"/>
         <activity android:name=".more.duy_nguyen.TermsActivity"/>
         <activity android:name=".more.viet_pham.SignInActivity"/>
+        <activity android:name=".more.viet_pham.SignUpActivity"/>
         <activity android:name=".work_management.WorkManagement"/>
     </application>
 
