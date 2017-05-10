@@ -8,4 +8,7 @@
     <string name="ic_gender">&#xf4f5;</string>
     <string name="ic_phone_portr">&#xf3a2;</string>
     <string name="ic_home">&#xf144;</string>
+    <string name="ic_locked">&#xf200;</string>
+    <string name="ic_google">&#xf34f;</string>
+    <string name="ic_facebook">&#xf231;</string>
 </resources>
