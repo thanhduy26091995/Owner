@@ -2,14 +2,22 @@
 <resources>
     <string name="app_name">Owner</string>
     <!--cần tiền tố và comment trước khi sử dụng-->
-    <!--more screen start-->
+
+    <!--home screen start-->
     <string name="home_home">Trang chủ</string>
     <string name="home_maid_around">Công việc quanh đây</string>
     <string name="home_your_tasks">Quản lý công việc</string>
     <string name="home_history">Lịch sử công việc</string>
     <string name="home_copy_right">Niềm tin - Chất lượng</string>
 
-    <!--more screen end-->
+    <!--home screen end-->
+
+    <!--terms_screen start-->
+    <string name="terms">Điều khoản sử dụng</string>
+    <string name="terms_btn_ok">OK</string>
+
+
+    <!--terms screen end-->
 
 
     <!--khác-->

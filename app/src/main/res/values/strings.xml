@@ -2,7 +2,7 @@
     <string name="app_name">Owner</string>
 
     <!--cần tiền tố và comment trước khi sử dụng-->
-    
+
     <!--home screen start-->
     <!--<string name="home_home">Home</string>-->
     <!--<string name="home_maid_around">Maid around</string>-->
@@ -16,6 +16,12 @@
     <string name="home_copy_right">Niềm tin - Chất lượng</string>
     <string name="more_sign_in">Sign In</string>
     <!--home screen end-->
+
+    <!--terms_screen start-->
+    <string name="terms">Điều khoản sử dụng</string>
+    <string name="terms_btn_ok">OK</string>
+
+    <!--terms screen end-->
 
 
     <!--khác-->

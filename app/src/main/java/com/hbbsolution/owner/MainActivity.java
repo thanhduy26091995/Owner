@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.more.viet_pham.MoreActivity;
+import com.hbbsolution.owner.work_management.WorkManagement;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ShowToast("Maid Around");
                 break;
             case R.id.lo_your_tasks:
-                ShowToast("Your tasks");
+                TransActivity(WorkManagement.class);
                 break;
             case R.id.lo_history:
                 ShowToast("History");
@@ -91,4 +92,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void ShowToast(String msg){
         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -25,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/colorBlack"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold"/>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -136,6 +137,7 @@
             android:background="@android:color/darker_gray" />
 
         <RelativeLayout
+            android:id="@+id/lo_terms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
@@ -155,6 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView"
                 android:layout_alignBottom="@+id/textView"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:text="@string/ion_chevron_right"
