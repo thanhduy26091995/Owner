@@ -71,7 +71,9 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Email"
+                    android:hint="@string/sign_up_email"
+                    android:fontFamily="@string/font_family_thin"
+                    android:inputType="textEmailAddress"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
@@ -105,7 +107,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Tên đầy đủ"
+                    android:hint="@string/sign_up_full_name"
+                    android:fontFamily="@string/font_family_thin"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
@@ -139,7 +142,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Giới tính"
+                    android:hint="@string/sign_up_gender"
+                    android:fontFamily="@string/font_family_thin"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
@@ -173,7 +177,9 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Số điện thoại"
+                    android:hint="@string/sign_up_phone_number"
+                    android:inputType="number"
+                    android:fontFamily="@string/font_family_thin"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
@@ -207,7 +213,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Email"
+                    android:hint="@string/sign_up_address"
+                    android:fontFamily="@string/font_family_thin"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
