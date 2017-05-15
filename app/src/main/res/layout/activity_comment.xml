@@ -4,45 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hbbsolution.owner.more.duy_nguyen.CommentActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.hbbsolution.owner.more.duy_nguyen.CommentActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite">
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:background="@color/colorPrimary">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:elevation="0dp"
-            app:theme="@style/AppTheme.PopupOverlay">
-
-            <TextView
-                android:id="@+id/more_title_toothbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/yourcomment"
-                android:textColor="@color/colorBlack"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </android.support.v7.widget.Toolbar>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/colorBlack" />
-    </android.support.design.widget.AppBarLayout>
         <LinearLayout
             android:layout_width="70dp"
             android:layout_height="?attr/actionBarSize"
@@ -50,6 +19,7 @@
             android:layout_alignParentRight="true"
             android:id="@+id/lnCheck"
             android:gravity="end|center"
+            android:background="@color/colorWhite"
 
             >
             <ImageView
@@ -62,12 +32,41 @@
                 android:tint="@color/home_background_history"
                 />
         </LinearLayout>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:layout_toLeftOf="@+id/lnCheck"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:id="@+id/more_title_toothbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/yourcomment"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
-        android:background="@color/color_line_view"
-        android:layout_marginTop="20dp"/>
+        android:background="@color/colorBlack" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_line_view" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -135,41 +134,48 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
             android:background="@color/color_line_view" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/rate"
-                android:textSize="@dimen/text_size_large"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="@string/rate"
+                android:textColor="@color/edittext_hint"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical">
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:numStars="5"
-                android:stepSize="1.0"
-                android:rating="1.0"
-                android:clickable="false"
-                android:isIndicator="false"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
-                style="?android:attr/ratingBarStyleIndicator"/>
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:rating="1.0"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:stepSize="1.0" />
             </LinearLayout>
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
@@ -179,16 +185,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/colorWhite"
-        >
+        android:background="@color/colorWhite">
+
         <EditText
+            android:id="@+id/edtComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/comment"
-            android:id="@+id/edtComment"
             android:layout_margin="10dp"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:hint="@string/comment" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"

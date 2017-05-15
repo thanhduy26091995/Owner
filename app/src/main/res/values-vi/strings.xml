@@ -26,4 +26,5 @@
     <string name="yourcomment">Nhận xét của bạn</string>
     <string name="comment">Bình luận</string>
     <string name="rate">Đánh giá</string>
+    <string name="completed">Đã hoàn thành</string>
 </resources>

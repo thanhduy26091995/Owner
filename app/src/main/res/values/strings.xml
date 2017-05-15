@@ -31,8 +31,8 @@
     <string name="sign_in_sign_now">Đăng ký ngay</string>
     <string name="sign_in_by">Đăng nhập bằng</string>
     <!--signin_screen end-->
-    
-    
+
+
     <!--signup_screen start-->
     <string name="sign_up_confirm_password">Xác nhận mật khẩu</string>
     <string name="sign_up_next">Next</string>
@@ -51,4 +51,5 @@
     <string name="yourcomment">Your comment</string>
     <string name="comment">Comment</string>
     <string name="rate">Rating</string>
+    <string name="completed">Completed</string>
 </resources>

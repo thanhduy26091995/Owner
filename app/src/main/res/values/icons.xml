@@ -26,4 +26,6 @@
     <string name="manager_ic_check">&#xf383;</string>
     <!--job screen end-->
 
+    <!--history job screen start-->
+    <string name="histoty_ic_clock">&#xf35a;</string>
 </resources>

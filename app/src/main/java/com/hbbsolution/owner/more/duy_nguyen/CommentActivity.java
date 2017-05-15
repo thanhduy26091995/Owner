@@ -15,26 +15,29 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class CommentActivity extends AppCompatActivity implements View.OnClickListener{
     @BindView(R.id.toolbar)
-    private Toolbar toolbar;
+    Toolbar toolbar;
     @BindView(R.id.img_avatar)
-    private ImageView imgOwner;;
+    ImageView imgOwner;;
     @BindView(R.id.tvOwner)
-    private TextView tvOwner;
+    TextView tvOwner;
     @BindView(R.id.tvAddress)
-    private TextView tvAddress;;
+    TextView tvAddress;;
     @BindView(R.id.ratingBar)
-    private RatingBar ratingBar;
+    RatingBar ratingBar;
     @BindView(R.id.edtComment)
-    private EditText edtComment;
+    EditText edtComment;
     @BindView(R.id.lnCheck)
-    private LinearLayout lnCheck;
+    LinearLayout lnCheck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        ButterKnife.bind(this);
+        lnCheck.setVisibility(View.VISIBLE);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         lnCheck.setOnClickListener(this);
