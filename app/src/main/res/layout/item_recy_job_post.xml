@@ -154,7 +154,6 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/txt_right_address"
                 android:layout_toRightOf="@+id/img_address"
                 android:orientation="vertical">
 
