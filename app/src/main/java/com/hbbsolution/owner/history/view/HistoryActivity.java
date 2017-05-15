@@ -1,7 +1,7 @@
-package com.hbbsolution.owner.more.duy_nguyen;
+package com.hbbsolution.owner.history.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.hbbsolution.owner.R;
 
