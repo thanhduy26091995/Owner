@@ -1,4 +1,4 @@
-package com.hbbsolution.owner;
+package com.hbbsolution.owner.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +11,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.viet_pham.MoreActivity;
-import com.hbbsolution.owner.work_management.WorkManagement;
+import com.hbbsolution.owner.work_management.WorkManagementActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ShowToast("Maid Around");
                 break;
             case R.id.lo_your_tasks:
-                TransActivity(WorkManagement.class);
+                TransActivity(WorkManagementActivity.class);
                 break;
             case R.id.lo_history:
                 ShowToast("History");
@@ -85,12 +86,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Transition Activity
     private void TransActivity(Class activity){
-        Intent itTransActivity = new Intent(MainActivity.this, activity);
+        Intent itTransActivity = new Intent(HomeActivity.this, activity);
         startActivity(itTransActivity);
     }
 
     private void ShowToast(String msg){
-        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(HomeActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
 }

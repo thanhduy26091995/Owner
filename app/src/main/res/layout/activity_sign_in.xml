@@ -91,8 +91,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Tên đăng nhập"
-                    android:inputType="text"
+                    android:hint="@string/sign_in_user_name"
+                    android:inputType="textEmailAddress"
+                    android:fontFamily="@string/font_family_thin"
                     android:textColor="@android:color/black"
                     android:textColorLink="@android:color/transparent" />
 
@@ -125,8 +126,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Mật khẩu"
+                    android:hint="@string/sign_in_password"
                     android:inputType="textPassword"
+                    android:fontFamily="@string/font_family_thin"
                     android:textColor="@android:color/black"
                     android:textColorLink="@android:color/transparent" />
 
@@ -154,7 +156,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/home_background_history"
-                android:text="Đăng nhập" />
+                android:text="@string/sign_in_sign_in" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -168,7 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:text="Quên mật khẩu"
+                    android:text="@string/sign_in_forget_password"
                     android:textAllCaps="false"
                     android:textColor="@color/home_background_history" />
 
@@ -185,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:text="Đăng ký ngay"
+                    android:text="@string/sign_in_sign_now"
                     android:textAllCaps="false"
                     android:textColor="@color/home_background_history" />
             </LinearLayout>
@@ -203,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="20dp"
                 android:paddingTop="10dp"
-                android:text="Đăng nhập bằng"
+                android:text="@string/sign_in_by"
                 android:textAllCaps="false"
                 android:textColor="@android:color/darker_gray" />
 

@@ -7,15 +7,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/lo_item_pending"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/item_recy_job_post"/>
-            <include layout="@layout/item_recy_job_post"/>
-            <include layout="@layout/item_recy_job_post"/>
-            <include layout="@layout/item_recy_job_post"/>
-            <include layout="@layout/item_recy_job_post"/>
+            <include layout="@layout/item_job_pending"/>
+            <include layout="@layout/item_job_pending"/>
+            <include layout="@layout/item_job_pending"/>
+            <include layout="@layout/item_job_pending"/>
+            <include layout="@layout/item_job_pending"/>
 
         </LinearLayout>
 

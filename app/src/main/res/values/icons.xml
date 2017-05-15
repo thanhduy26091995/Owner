@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--sign in screen start-->
+
     <string name="ion_chevron_right">&#xf125;</string>
     <string name="ion_android_person">&#xf3a0;</string>
     <string name="ion_android_lock">&#xf392;</string>
@@ -11,4 +13,17 @@
     <string name="ic_locked">&#xf200;</string>
     <string name="ic_google">&#xf34f;</string>
     <string name="ic_facebook">&#xf231;</string>
+
+    <!--sign in screen end-->
+
+    <!--job screen start-->
+    <string name="manager_ic_clock">&#xf35a;</string>
+    <string name="manager_ic_home">&#xf38f;</string>
+    <string name="manager_ic_money">&#xf353;</string>
+    <string name="manager_ic_compose">&#xf417;</string>
+    <string name="manager_ic_logout">&#xf29e;</string>
+    <string name="manager_ic_edit">&#xf2bf;</string>
+    <string name="manager_ic_check">&#xf383;</string>
+    <!--job screen end-->
+
 </resources>
