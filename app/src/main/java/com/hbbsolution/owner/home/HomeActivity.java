@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.MoreActivity;
 import com.hbbsolution.owner.work_management.WorkManagementActivity;
 
@@ -57,7 +58,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.actio_more) {
-            TransActivity(MoreActivity.class);
+            transActivity(MoreActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -71,12 +72,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        switch (id){
+        switch (id) {
             case R.id.lo_maid_around:
-                ShowToast("Maid Around");
+                transActivity(MaidProfileActivity.class);
+                //ShowToast("Maid Around");
                 break;
             case R.id.lo_your_tasks:
-                TransActivity(WorkManagementActivity.class);
+                transActivity(WorkManagementActivity.class);
                 break;
             case R.id.lo_history:
                 ShowToast("History");
@@ -85,12 +87,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // Transition Activity
-    private void TransActivity(Class activity){
+    private void transActivity(Class activity) {
         Intent itTransActivity = new Intent(HomeActivity.this, activity);
         startActivity(itTransActivity);
     }
 
-    private void ShowToast(String msg){
+    private void ShowToast(String msg) {
         Toast.makeText(HomeActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 

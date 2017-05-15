@@ -13,7 +13,6 @@
     <string name="ic_locked">&#xf200;</string>
     <string name="ic_google">&#xf34f;</string>
     <string name="ic_facebook">&#xf231;</string>
-
     <!--sign in screen end-->
 
     <!--job screen start-->
@@ -28,4 +27,9 @@
 
     <!--history job screen start-->
     <string name="histoty_ic_clock">&#xf35a;</string>
+    <!--profile maid-->
+    <string name="ic_usd">&#xf353;</string>
+    <string name="ic_checkmark">&#xf122;</string>
+    <!--profile maid-->
+
 </resources>
