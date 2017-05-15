@@ -27,4 +27,7 @@
     <!--khác-->
     <string name="default_language">Default</string>
     <string name="more">More</string>
+    <string name="yourcomment">Your comment</string>
+    <string name="comment">Comment</string>
+    <string name="rate">Rating</string>
 </resources>

@@ -2,11 +2,11 @@
 <resources>
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#000</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffbf41</color>
 
     <color name="colorWhite">#FFF</color>
     <color name="colorBlack">#000</color>
-    
+    <color name="color_line_view">#C0C0C0</color>
     
     <color name="home_background_maid_aound">#ffbf41</color>
     <color name="home_background_your_tasks">#5fd81b</color>
