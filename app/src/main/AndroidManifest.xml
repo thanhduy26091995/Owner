@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hbbsolution.owner">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,24 +13,25 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".home.HomeActivity">
-            <intent-filter >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".more.viet_pham.MoreActivity"/>
-        <activity android:name=".more.duy_nguyen.TermsActivity"/>
-        <activity android:name=".more.viet_pham.SignInActivity"/>
-        <activity android:name=".more.viet_pham.SignUp1Activity"/>
-        <activity android:name=".more.viet_pham.SignUp2Activity"/>
-        <activity android:name=".work_management.WorkManagementActivity"/>
-        <activity android:name=".work_management.view.DetailJobPostActivity"/>
-        <activity android:name=".work_management.view.DetailJobPendingActivity"/>
-        <activity android:name=".work_management.view.DetailJobDoingActivity"/>
-        <activity android:name=".work_management.view.JobPostActivity"/>
+        <activity android:name=".more.viet_pham.MoreActivity" />
+        <activity android:name=".more.duy_nguyen.TermsActivity" />
+        <activity android:name=".more.viet_pham.SignInActivity" />
+        <activity android:name=".more.viet_pham.SignUp1Activity" />
+        <activity android:name=".more.viet_pham.SignUp2Activity" />
+        <activity android:name=".work_management.WorkManagementActivity" />
+        <activity android:name=".work_management.view.DetailJobPostActivity" />
+        <activity android:name=".work_management.view.DetailJobPendingActivity" />
+        <activity android:name=".work_management.view.DetailJobDoingActivity" />
+        <activity android:name=".work_management.view.JobPostActivity" />
         <activity android:name=".work_management.view.ListUserRecruitmentActivity" />
+        <activity android:name=".maid_profile.view.MaidProfileActivity" />
     </application>
 
 </manifest>

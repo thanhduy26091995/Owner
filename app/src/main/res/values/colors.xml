@@ -13,4 +13,6 @@
     <color name="home_background_history">#33c6cd</color>
 
     <color name="job_number_person">#F44336</color>
+
+    <color name="gray">#efeff4</color>
 </resources>

@@ -13,7 +13,6 @@
     <string name="ic_locked">&#xf200;</string>
     <string name="ic_google">&#xf34f;</string>
     <string name="ic_facebook">&#xf231;</string>
-
     <!--sign in screen end-->
 
     <!--job screen start-->
@@ -25,5 +24,10 @@
     <string name="manager_ic_edit">&#xf2bf;</string>
     <string name="manager_ic_check">&#xf383;</string>
     <!--job screen end-->
+
+    <!--profile maid-->
+    <string name="ic_usd">&#xf353;</string>
+    <string name="ic_checkmark">&#xf122;</string>
+    <!--profile maid-->
 
 </resources>
