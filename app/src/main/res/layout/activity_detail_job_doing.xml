@@ -55,13 +55,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:background="@color/colorWhite"
                 android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
+                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="10dp">
+                android:paddingTop="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_address"
@@ -72,11 +72,11 @@
                     android:src="@drawable/avatar" />
 
                 <LinearLayout
-                    android:id="@+id/lo_user"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_toRightOf="@+id/img_address"
                     android:orientation="vertical">
 
@@ -91,7 +91,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="123 đường số 1, quận 1, Tp.HCM"
+                        android:paddingRight="10dp"
+                        android:text="123 đường số 1, quận 1, Tp.HCM, Việt Nam"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
 
@@ -99,14 +100,19 @@
                     android:id="@+id/txt_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/lo_user"
+                    android:layout_marginRight="5dp"
                     android:text="@string/ion_chevron_right"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="@dimen/icon_size_normal" />
 
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@android:color/darker_gray" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -135,7 +141,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/job_doing_txtDone"
                     android:gravity="right"
-                    android:paddingRight="20dp"
+                    android:paddingRight="10dp"
                     android:text="@string/manager_ic_logout"
                     android:textColor="@color/home_background_history"
                     android:textSize="20sp" />

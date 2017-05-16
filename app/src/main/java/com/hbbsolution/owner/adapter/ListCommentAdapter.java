@@ -40,7 +40,7 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
         holder.txtCommentContent.setText(comment.getType());
         holder.txtCommentType.setText(comment.getContent());
         holder.txtCommentTime.setText("15/05/2017");
-      //  holder.ratingBar.setRating((int) comment.getRating());
+        //  holder.ratingBar.setRating((int) comment.getRating());
     }
 
     @Override

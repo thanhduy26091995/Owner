@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="15dp">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -43,14 +41,17 @@
                     android:layout_height="wrap_content"
                     android:text="Nguyễn Văn A"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorBlack" />
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="123 đường số 1, quận 1, Tp hcm"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:paddingRight="10dp"
+                    android:text="123 đường số 1, quận 1, Tp.HCM, Việt Nam"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/colorBlack" />
             </LinearLayout>
 
             <com.hbbsolution.owner.base.IconTextView
@@ -59,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:text="@string/ion_chevron_right"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/icon_size_normal" />
@@ -69,43 +70,42 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/job_doing_txtDone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
+                android:layout_alignParentLeft="true"
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
-                android:layout_alignParentLeft="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
                 android:text="Chọn người giúp việc"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/home_background_history"
-                />
+                android:textColor="@color/home_background_history" />
 
             <com.hbbsolution.owner.base.IconTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/job_doing_txtDone"
                 android:layout_alignParentRight="true"
-                android:gravity="right"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/job_doing_txtDone"
+                android:gravity="right"
                 android:paddingRight="15dp"
                 android:text="@string/manager_ic_check"
                 android:textColor="@color/home_background_history"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </RelativeLayout>
-
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
+

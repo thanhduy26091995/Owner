@@ -49,7 +49,7 @@ public class SignUp1Activity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUp1Activity.this,SignUp2Activity.class);
+                Intent intent = new Intent(SignUp1Activity.this, SignUp2Activity.class);
                 startActivity(intent);
             }
         });

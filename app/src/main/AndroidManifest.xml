@@ -11,6 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value=" AIzaSyAzSFwRry4u2KYJYq3IT_oc-w9sww5yVpY" />
+
+
         <activity android:name=".home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +35,7 @@
         <activity android:name=".work_management.view.DetailJobDoingActivity" />
         <activity android:name=".work_management.view.JobPostActivity" />
         <activity android:name=".work_management.view.ListUserRecruitmentActivity" />
-        <activity android:name=".more.duy_nguyen.HistoryActivity"></activity>
+        <activity android:name=".history.view.HistoryActivity"/>
         <activity android:name=".maid_profile.view.MaidProfileActivity" />
     </application>
 
