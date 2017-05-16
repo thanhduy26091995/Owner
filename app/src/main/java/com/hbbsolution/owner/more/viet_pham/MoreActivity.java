@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
@@ -55,12 +54,11 @@ public class MoreActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addEvents()
-    {
+    public void addEvents() {
         cvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MoreActivity.this,SignInActivity.class);
+                Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
         });
@@ -69,7 +67,7 @@ public class MoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(MoreActivity.this, "AAA", Toast.LENGTH_SHORT).show();
-                Intent itTerms = new Intent(MoreActivity.this,TermsActivity.class);
+                Intent itTerms = new Intent(MoreActivity.this, TermsActivity.class);
                 startActivity(itTerms);
             }
         });

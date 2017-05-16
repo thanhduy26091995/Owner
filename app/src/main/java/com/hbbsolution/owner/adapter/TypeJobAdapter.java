@@ -15,13 +15,13 @@ import java.util.List;
  * Created by tantr on 5/15/2017.
  */
 
-public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobViewHolder>{
+public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobViewHolder> {
 
     private Context context;
     private List<String> listTypeJob;
     private Callback callback;
 
-    public TypeJobAdapter(Context context, List<String> listTypeJob){
+    public TypeJobAdapter(Context context, List<String> listTypeJob) {
         this.context = context;
         this.listTypeJob = listTypeJob;
     }
@@ -29,6 +29,7 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobV
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
+
     @Override
     public TypeJobViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = View.inflate(context, R.layout.item_recy_job_type, null);
@@ -42,7 +43,7 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobV
             @Override
             public void onClick(View v) {
                 if (callback != null) {
-                    callback.onItemClick( position);
+                    callback.onItemClick(position);
                 }
             }
         });

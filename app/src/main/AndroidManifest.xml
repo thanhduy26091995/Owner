@@ -29,7 +29,7 @@
         <activity android:name=".work_management.view.DetailJobDoingActivity" />
         <activity android:name=".work_management.view.JobPostActivity" />
         <activity android:name=".work_management.view.ListUserRecruitmentActivity" />
-        <activity android:name=".more.duy_nguyen.HistoryActivity"></activity>
+        <activity android:name=".history.view.HistoryActivity"/>
         <activity android:name=".maid_profile.view.MaidProfileActivity" />
     </application>
 

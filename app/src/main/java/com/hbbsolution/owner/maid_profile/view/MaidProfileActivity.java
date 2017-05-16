@@ -1,7 +1,5 @@
 package com.hbbsolution.owner.maid_profile.view;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -13,9 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
@@ -31,11 +27,11 @@ import butterknife.ButterKnife;
  * Created by buivu on 15/05/2017.
  */
 
-public class MaidProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
-//
+public class MaidProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+    //
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-//    @BindView(R.id.toolbar_coll)
+    //    @BindView(R.id.toolbar_coll)
 //    Toolbar toolbar_coll;
 //    @BindView(R.id.manager_info_user_title_toothbar)
     TextView txtManager_info_user_title_toothbar;
@@ -48,7 +44,6 @@ public class MaidProfileActivity extends AppCompatActivity implements AppBarLayo
 
     private ListCommentAdapter listCommentAdapter;
     private List<Comment> commentList = new ArrayList<>();
-
 
 
     @Override
@@ -110,10 +105,10 @@ public class MaidProfileActivity extends AppCompatActivity implements AppBarLayo
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        if(collapsingToolbarLayout.getHeight() + verticalOffset <=  1 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)){
+        if (collapsingToolbarLayout.getHeight() + verticalOffset <= 1 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)) {
             toolbar.setVisibility(View.VISIBLE);
             toolbar.animate().alpha(1).setDuration(200);
-        }else{
+        } else {
             toolbar.setVisibility(View.GONE);
             toolbar.animate().alpha(0).setDuration(200);
         }
