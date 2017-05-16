@@ -41,9 +41,9 @@
         android:layout_marginRight="20dp"
         android:background="@android:color/transparent"
         android:hint="Tiêu đề"
-        android:textSize="16sp"
         android:inputType="text"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textSize="16sp" />
 
     <View
         android:layout_width="match_parent"
@@ -56,15 +56,15 @@
         android:id="@+id/job_post_txtType_job"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="false"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/transparent"
+        android:focusable="false"
         android:hint="Loại công việc"
-        android:textSize="16sp"
-        android:textColor="@color/colorBlack"
         android:inputType="text"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="16sp" />
 
     <View
         android:layout_width="match_parent"
@@ -81,9 +81,9 @@
         android:layout_marginRight="20dp"
         android:background="@android:color/transparent"
         android:hint="Mô tả công việc"
-        android:textSize="16sp"
         android:inputType="text"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textSize="16sp" />
 
     <View
         android:layout_width="match_parent"
@@ -99,9 +99,9 @@
         android:layout_marginRight="20dp"
         android:background="@android:color/transparent"
         android:hint="Địa chỉ"
-        android:textSize="16sp"
         android:inputType="text"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textSize="16sp" />
 
     <View
         android:layout_width="match_parent"
@@ -110,53 +110,82 @@
         android:layout_marginRight="22dp"
         android:background="@color/colorBlack" />
 
-    <RadioGroup
-        android:id="@+id/radio_group"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical"
-        android:weightSum="2">
+        android:orientation="horizontal">
 
-        <RadioButton
-            android:layout_width="match_parent"
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="Nhập số tiền công" />
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            android:weightSum="2">
 
-        <View
+            <RadioButton
+                android:id="@+id/rad_type_money_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_weight="1"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:buttonTint="@color/home_background_history"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/colorBlack" />
+
+            <RadioButton
+                android:id="@+id/rad_type_money_khoan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:buttonTint="@color/home_background_history"/>
+
+        </RadioGroup>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/colorBlack" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="Khoán tiền công theo thời gian" />
+            <EditText
+                android:id="@+id/edt_monney_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:background="@android:color/transparent"
+                android:hint="Nhập số tiền công"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
 
-    </RadioGroup>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/colorBlack" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginRight="22dp"
-        android:background="@color/colorBlack" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:background="@android:color/transparent"
+                android:text="Khoán tiền công theo thời gian"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/transparent"
-        android:hint="Số tiền công"
-        android:textSize="16sp"
-        android:inputType="text"
-        android:padding="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"
@@ -178,9 +207,9 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="Ngày làm việc"
+            android:textColor="@color/colorBlack"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorBlack" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -208,8 +237,9 @@
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:text="Thời gian làm việc"
-        android:textAppearance="?android:attr/textAppearanceSmall"        android:textStyle="bold"
-        android:textColor="@color/colorBlack" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -257,5 +287,15 @@
         android:layout_marginLeft="22dp"
         android:layout_marginRight="22dp"
         android:background="@color/colorBlack" />
+
+    <Button
+        android:id="@+id/btn_post_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/home_background_history"
+        android:text="Hoàn tất" />
 
 </LinearLayout>

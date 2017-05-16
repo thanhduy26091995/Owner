@@ -32,7 +32,8 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
     @Override
     public JobPostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = View.inflate(context, R.layout.item_recy_job_pending, null);
-        return new JobPostAdapter.JobPostViewHolder(rootView);    }
+        return new JobPostAdapter.JobPostViewHolder(rootView);
+    }
 
     @Override
     public void onBindViewHolder(JobPostViewHolder holder, int position) {
