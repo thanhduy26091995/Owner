@@ -71,8 +71,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="@string/sign_up_email"
                     android:fontFamily="@string/font_family_thin"
+                    android:hint="@string/sign_up_email"
                     android:inputType="textEmailAddress"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
@@ -107,8 +107,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="@string/sign_up_full_name"
                     android:fontFamily="@string/font_family_thin"
+                    android:hint="@string/sign_up_full_name"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
@@ -142,8 +142,9 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="@string/sign_up_gender"
+                    android:focusable="false"
                     android:fontFamily="@string/font_family_thin"
+                    android:hint="@string/sign_up_gender"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
@@ -177,9 +178,9 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
+                    android:fontFamily="@string/font_family_thin"
                     android:hint="@string/sign_up_phone_number"
                     android:inputType="number"
-                    android:fontFamily="@string/font_family_thin"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
@@ -213,8 +214,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="50dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="@string/sign_up_address"
                     android:fontFamily="@string/font_family_thin"
+                    android:hint="@string/sign_up_address"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 

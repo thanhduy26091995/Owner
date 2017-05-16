@@ -52,4 +52,6 @@
     <string name="comment">Comment</string>
     <string name="rate">Rating</string>
     <string name="completed">Completed</string>
+    <string name="gender_men">Nam</string>
+    <string name="gender_women">Nữ</string>
 </resources>
