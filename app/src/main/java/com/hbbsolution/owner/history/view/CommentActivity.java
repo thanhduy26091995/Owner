@@ -21,11 +21,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.img_avatar)
-    ImageView imgOwner;;
+    ImageView imgOwner;
     @BindView(R.id.tvOwner)
     TextView tvOwner;
     @BindView(R.id.tvAddress)
-    TextView tvAddress;;
+    TextView tvAddress;
     @BindView(R.id.ratingBar)
     RatingBar ratingBar;
     @BindView(R.id.edtComment)

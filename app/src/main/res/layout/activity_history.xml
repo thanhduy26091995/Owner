@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hbbsolution.owner.more.duy_nguyen.HistoryActivity"
+    tools:context="com.hbbsolution.owner.history.view.HistoryActivity"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,20 +16,21 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:id="@+id/lnCheck"
+            android:id="@+id/lnEdit"
             android:gravity="end|center"
             android:background="@color/colorWhite"
 
             >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_black_24dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:tint="@color/home_background_history"
-                />
+            <com.hbbsolution.owner.base.IconTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/histoty_ic_compose"
+                android:textColor="@color/home_background_history"
+                android:textSize="32sp" />
         </LinearLayout>
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -51,14 +52,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/yourcomment"
+            android:text="@string/home_history"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
     <android.support.design.widget.TabLayout
         android:background="@color/colorWhite"
-        android:id="@+id/tab_layout"
+        android:id="@+id/tab_layout_history"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         app:tabSelectedTextColor="@color/home_background_history"
@@ -67,7 +68,7 @@
 
     </android.support.design.widget.TabLayout>
     <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+        android:id="@+id/view_pager_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
