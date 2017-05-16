@@ -39,6 +39,7 @@ public class SignInActivity extends AppCompatActivity {
     ImageButton imbFacebook;
     @BindView(R.id.imb_google)
     ImageButton imbGoogle;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +61,12 @@ public class SignInActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addEvents()
-    {
+    public void addEvents() {
         // Sign up now
         btnSignUpNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignInActivity.this,SignUp1Activity.class);
+                Intent intent = new Intent(SignInActivity.this, SignUp1Activity.class);
                 startActivity(intent);
             }
         });

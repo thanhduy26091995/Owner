@@ -24,6 +24,7 @@ public class SignUp2Activity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.button_next)
     Button buttonNext;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,15 +39,13 @@ public class SignUp2Activity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void addEvents()
-    {
+    public void addEvents() {
         // Event click next page
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override

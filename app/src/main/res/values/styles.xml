@@ -55,4 +55,21 @@
     </style>
     <!--Style Material Dialog Bottom Sheet-->
 
+
+    <!--Style CollapsingToolbarLayout-->
+    <style name="expandedappbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/collapsedappbar</item>
+    </style>
+
+    <style name="collapsedappbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@string/font_family_medium</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <!--Style CollapsingToolbarLayout-->
+
+
 </resources>

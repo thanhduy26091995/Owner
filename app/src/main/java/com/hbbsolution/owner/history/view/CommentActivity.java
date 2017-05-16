@@ -17,7 +17,7 @@ import com.hbbsolution.owner.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CommentActivity extends AppCompatActivity implements View.OnClickListener{
+public class CommentActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.img_avatar)
@@ -32,6 +32,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     EditText edtComment;
     @BindView(R.id.lnCheck)
     LinearLayout lnCheck;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +45,14 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         setBackgroundRatingBar();
 
     }
-    public void setBackgroundRatingBar()
-    {
+
+    public void setBackgroundRatingBar() {
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         stars.getDrawable(0).setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         stars.getDrawable(1).setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
     }
+
     @Override
     public void onClick(View v) {
 
