@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Loại công việc"
+        android:textColor="@color/home_background_history"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <View

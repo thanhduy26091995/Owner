@@ -29,11 +29,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg" />
+
+                    <com.hbbsolution.owner.base.IconTextView
+                        android:id="@+id/txt_ic_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="10dp"
+                        android:text="@string/ic_back"
+                        android:textColor="@color/home_background_history"
+                        android:textSize="30sp" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -267,32 +280,7 @@
                     android:background="@android:color/darker_gray" />
             </LinearLayout>
 
-            <!--<android.support.v7.widget.Toolbar-->
-                <!--android:id="@+id/toolbar_coll"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-                <!--app:layout_collapseMode="pin"-->
-                <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
-                <!--app:theme="@style/toolbar_theme">-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--&gt;-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/manager_info_user_title_toothbar"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_gravity="center"-->
-                        <!--android:text="Thông tin"-->
-                        <!--android:textColor="@color/colorBlack"-->
-                        <!--android:textSize="20sp"-->
-                        <!--android:textStyle="bold"-->
-                         <!--/>-->
-                <!--</LinearLayout>-->
-
-            <!--</android.support.v7.widget.Toolbar>-->
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
