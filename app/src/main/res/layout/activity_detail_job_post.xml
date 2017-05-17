@@ -29,15 +29,16 @@
                 android:textStyle="bold" />
 
             <com.hbbsolution.owner.base.IconTextView
-                android:id="@+id/job_psot_edit_toothbar"                android:layout_width="wrap_content"
+                android:id="@+id/job_psot_edit_toothbar"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:gravity="center"
                 android:layout_marginRight="15dp"
+                android:gravity="center"
                 android:text="@string/manager_ic_edit"
                 android:textColor="@color/home_background_history"
-                android:textStyle="bold"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -46,7 +47,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,16 +56,14 @@
             android:orientation="vertical"
             android:weightSum="10">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/map" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="Đang chờ ứng tuyển"
+                android:textColor="@color/colorBlack" />
 
 
             <LinearLayout
@@ -137,9 +137,9 @@
                     android:background="@color/colorWhite"
                     android:gravity="center_vertical"
                     android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
+                    android:paddingTop="10dp"
                     android:text="Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h. Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h."
                     android:textColor="@color/colorBlack" />
 
@@ -167,11 +167,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
-                        android:paddingLeft="3dp"
                         android:gravity="center"
+                        android:paddingLeft="3dp"
                         android:text="@string/manager_ic_money"
                         android:textColor="@color/home_background_history"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/icon_size" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -204,7 +205,7 @@
                         android:gravity="center"
                         android:text="@string/manager_ic_clock"
                         android:textColor="@color/home_background_history"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/icon_size" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -248,7 +249,7 @@
                         android:gravity="top"
                         android:text="@string/manager_ic_home"
                         android:textColor="@color/home_background_history"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/icon_size" />
 
                     <TextView
                         android:id="@+id/job_post_txtAdress"

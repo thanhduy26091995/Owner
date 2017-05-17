@@ -1,6 +1,8 @@
 package com.hbbsolution.owner.work_management.view;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,19 +14,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPostAdapter;
 import com.hbbsolution.owner.adapter.TypeJobAdapter;
 import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.work_management.model.Time;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,6 +44,7 @@ import butterknife.ButterKnife;
  */
 
 public class JobPostActivity extends AppCompatActivity implements View.OnClickListener {
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.job_post_title_toothbar)
@@ -49,6 +59,13 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
     Button btn_post_complete;
     @BindView(R.id.edt_monney_work)
     EditText edt_monney_work;
+    @BindView(R.id.txtTime_start)
+    TextView txtTime_start;
+    @BindView(R.id.txtTime_end)
+    TextView txtTime_end;
+    @BindView(R.id.txtDate_start_work)
+    TextView txtDate_start_work;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,32 +79,15 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getDateCurrent();
+
         txtType_job.setOnClickListener(this);
         btn_post_complete.setOnClickListener(this);
-
-        rad_type_money_work.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edt_monney_work.setEnabled(true);
-                Toast.makeText(JobPostActivity.this, "AAA", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        rad_type_money_khoan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edt_monney_work.setEnabled(false);
-                Toast.makeText(JobPostActivity.this, "BBB", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        if (rad_type_money_work.isChecked()) {
-            edt_monney_work.setEnabled(true);
-            Toast.makeText(JobPostActivity.this, "AAA", Toast.LENGTH_SHORT).show();
-        } else if(rad_type_money_khoan.isChecked()){
-            edt_monney_work.setEnabled(false);
-            Toast.makeText(JobPostActivity.this, "BBB", Toast.LENGTH_SHORT).show();
-        }
+        txtTime_start.setOnClickListener(this);
+        txtTime_end.setOnClickListener(this);
+        txtDate_start_work.setOnClickListener(this);
+        rad_type_money_work.setOnClickListener(this);
+        rad_type_money_khoan.setOnClickListener(this);
 
     }
 
@@ -107,14 +107,6 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
         mRecycler.setLayoutManager(linearLayoutManager);
         mRecycler.setAdapter(mTypeJobtAdapter);
         mTypeJobtAdapter.notifyDataSetChanged();
-
-
-//        TextView txtBackup = (TextView) view.findViewById(R.id.txt_backup);
-//        TextView txtDetail = (TextView) view.findViewById(R.id.txt_detail);
-//        TextView txtOpen = (TextView) view.findViewById(R.id.txt_open);
-//        TextView txtCancle = (TextView) view.findViewById(R.id.txt_cancel);
-//        TextView txtUninstall = (TextView) view.findViewById(R.id.txt_uninstall);
-//        TextView txtMore = (TextView) view.findViewById(R.id.txt_More);
 
         final Dialog mBottomSheetDialog = new Dialog(JobPostActivity.this, R.style.MaterialDialogSheet);
         mBottomSheetDialog.setContentView(view);
@@ -138,62 +130,7 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-
-//        txtBackup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(JobPostActivity.this, "Dọn dẹp", Toast.LENGTH_SHORT).show();
-//                txtType_job.setText("Dọn dẹp");
-//                mBottomSheetDialog.dismiss();
-//            }
-//        });
-//
-//        txtDetail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(JobPostActivity.this, "Nấu ăn", Toast.LENGTH_SHORT).show();
-//                txtType_job.setText("Nấu ăn");
-//                mBottomSheetDialog.dismiss();
-//            }
-//        });
-//
-//        txtOpen.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(JobPostActivity.this, "Trông em bé", Toast.LENGTH_SHORT).show();
-//                txtType_job.setText("Trông em bé");
-//                mBottomSheetDialog.dismiss();
-//            }
-//        });
-//
-//        txtUninstall.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(JobPostActivity.this, "Chăm sóc thú cưng", Toast.LENGTH_SHORT).show();
-//                txtType_job.setText("Chăm sóc thú cưng");
-//                mBottomSheetDialog.dismiss();
-//            }
-//        });
-//
-//        txtMore.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(JobPostActivity.this, "Khác", Toast.LENGTH_SHORT).show();
-//                txtType_job.setText("Khác");
-//                mBottomSheetDialog.dismiss();
-//            }
-//        });
-//
-//
-//        txtCancle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(JobPostActivity.this, "Hủy", Toast.LENGTH_SHORT).show();
-//                mBottomSheetDialog.dismiss();
-//            }
-//        });
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -211,22 +148,135 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
+            case R.id.rad_type_money_work:
+                edt_monney_work.setEnabled(true);
+                break;
+
+            case R.id.rad_type_money_khoan:
+                edt_monney_work.setEnabled(false);
+                break;
+
             case R.id.job_post_txtType_job:
                 eventClick();
                 break;
-            case R.id.btn_post_complete:
-                saveDataBeforeMoving();
-        }
 
+            case R.id.txtTime_start:
+                getTimePicker(txtTime_start);
+                break;
+
+            case R.id.txtTime_end:
+                getTimePicker(txtTime_end);
+                validateTimeWork();
+                break;
+
+            case R.id.txtDate_start_work:
+                getDatePicker();
+                break;
+
+            case R.id.btn_post_complete:
+//                saveDataBeforeMoving();
+                break;
+
+        }
     }
 
     private void saveDataBeforeMoving() {
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
-            Toast.makeText(JobPostActivity.this, "AAA", Toast.LENGTH_SHORT).show();
         } else {
             edt_monney_work.setEnabled(false);
         }
     }
+
+    private void getTimePicker(final TextView txtTime) {
+        final Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(0, 0, 0, hourOfDay, minute);
+                txtTime.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        timePickerDialog.show();
+    }
+
+    private void getDatePicker(){
+        final Calendar calendar = Calendar.getInstance();
+        int date = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        DatePickerDialog mDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                calendar.set(i, i1, i2);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
+                if (CompareDays(txtDate_start_work.getText().toString())) {
+                    Toast.makeText(JobPostActivity.this, "Sai ngày", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(JobPostActivity.this, "Đúng ngày", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, year, month , date);
+        mDatePickerDialog.show();
+    }
+
+    private void getDateCurrent(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
+    }
+
+    private boolean CompareDays(String dateStartWork) {
+        Date date1 = null;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        Date date = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = sdf.parse(dateStartWork);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if ( date1.after(date))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private  boolean CompareTime(String start, String end){
+
+        String startTime = start;
+        String endTime = end;
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        Date d1 = null, d2 = null;
+        try {
+            d1 = sdf.parse(startTime);
+            d2 = sdf.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long elapsed = d2.getTime() - d1.getTime();
+        if(elapsed > 0){
+            return true;
+        }
+        return false;
+    }
+
+    private void validateTimeWork(){
+        if (CompareTime(txtTime_start.getText().toString(), txtTime_end.getText().toString())){
+            Toast.makeText(JobPostActivity.this, "Đúng giờ", Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(JobPostActivity.this, "Sai giờ", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

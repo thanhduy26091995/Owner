@@ -12,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
+import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.model.Comment;
 
 import java.util.ArrayList;
@@ -27,14 +29,14 @@ import butterknife.ButterKnife;
  * Created by buivu on 15/05/2017.
  */
 
-public class MaidProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class MaidProfileActivity extends AppCompatActivity implements View.OnClickListener,AppBarLayout.OnOffsetChangedListener {
     //
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    //    @BindView(R.id.toolbar_coll)
-//    Toolbar toolbar_coll;
-//    @BindView(R.id.manager_info_user_title_toothbar)
-    TextView txtManager_info_user_title_toothbar;
+    @BindView(R.id.txt_ic_back)
+    IconTextView txt_ic_back;
+    //@BindView(R.id.manager_info_user_title_toothbar)
+//    TextView txtManager_info_user_title_toothbar;
     @BindView(R.id.info_user_appbar)
     AppBarLayout appBarLayout;
     @BindView(R.id.collapsing_toolbar)
@@ -58,6 +60,13 @@ public class MaidProfileActivity extends AppCompatActivity implements AppBarLayo
         getSupportActionBar().setTitle("");
 
         appBarLayout.addOnOffsetChangedListener(this);
+        txt_ic_back.setOnClickListener(this);
+//        txt_ic_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(MaidProfileActivity.this, "AAA", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         initDataComment();
     }
@@ -111,6 +120,15 @@ public class MaidProfileActivity extends AppCompatActivity implements AppBarLayo
         } else {
             toolbar.setVisibility(View.GONE);
             toolbar.animate().alpha(0).setDuration(200);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.txt_ic_back:
+                finish();
+                break;
         }
     }
 }
