@@ -7,6 +7,7 @@
     android:background="@color/gray"
     android:orientation="vertical"
     tools:context="com.hbbsolution.owner.history.view.DetailWorkHistoryActivity">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -34,26 +35,15 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:background="@color/color_line_view" />
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MÔ TẢ"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp"
-        android:orientation="vertical"
-        android:weightSum="10">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,345 +52,375 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:weightSum="5">
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MÔ TẢ" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:orientation="vertical"
+                android:weightSum="10">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/detail_work_history_type"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:src="@drawable/dondepnha" />
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:background="@color/colorWhite"
+                        android:orientation="horizontal"
+                        android:weightSum="5">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/detail_work_history_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:src="@drawable/dondepnha" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="4"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:weightSum="2">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/detail_work_history_tvJob"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Lau dọn nhà"
+                                    android:textColor="@color/colorBlack"
+                                    android:textSize="@dimen/text_size_large"
+                                    android:textStyle="bold" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="Dọn dẹp nhà cửa" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/detail_work_history_tvContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h. Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h."
+                        android:textColor="@color/colorBlack" />
+
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/color_line_view" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@android:color/darker_gray" />
+
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="4"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:weightSum="2">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:paddingLeft="3dp"
+                            android:text="@string/manager_ic_money"
+                            android:textColor="@color/home_background_history"
+                            android:textSize="24sp" />
 
                         <TextView
-                            android:id="@+id/detail_work_history_tvJob"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Lau dọn nhà"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_size_large"
-                            android:textStyle="bold" />
+                            android:id="@+id/detail_work_history_tvSalary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginStart="12dp"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:text="500.000  VND"
+                            android:textColor="@color/colorBlack" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_above="@+id/linear_button"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
+                            android:gravity="center"
+                            android:text="@string/manager_ic_clock"
+                            android:textColor="@color/home_background_history"
+                            android:textSize="24sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:gravity="center"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/detail_work_history_tvDate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="10/05/2017"
+                                android:textColor="@color/colorBlack" />
+
+                            <TextView
+                                android:id="@+id/detail_work_history_tvTime"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="9h00 am - 12h00 pm" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_above="@+id/linear_button"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/darker_gray" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="top"
+                            android:text="@string/manager_ic_home"
+                            android:textColor="@color/home_background_history"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/detail_work_history_tvAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="left|center"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:text="123 đường số 1, quận 1, Tp.HCM, Việt Nam"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/color_line_view" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NGƯỜI THỰC HIỆN" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/color_line_view" />
+
+                <RelativeLayout
+                    android:id="@+id/rela_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/detail_helper_history_avatar"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/avatar" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/detail_helper_history_avatar"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/detail_helper_history_helper_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Nguyễn Văn A"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/text_size_large"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="0dp"
+                                android:id="@+id/detail_work_history_helper_address"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="4"
-                                android:text="Dọn dẹp nhà cửa" />
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
+                                android:text="123 đường 1, Quận 1, Thành phố Hồ Chí Minh" />
+
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/detail_work_history_tvContent"
-                android:background="@color/colorWhite"
-                android:gravity="center_vertical"
-                android:paddingBottom="10dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h. Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h."
-                android:textColor="@color/colorBlack" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/color_line_view" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.hbbsolution.owner.base.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:gravity="center"
-                    android:paddingLeft="3dp"
-                    android:text="@string/manager_ic_money"
-                    android:textColor="@color/home_background_history"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/detail_work_history_tvSalary"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginStart="12dp"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:text="500.000  VND"
-                    android:textColor="@color/colorBlack" />
-
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_above="@+id/linear_button"
-                android:layout_marginLeft="10dp"
-                android:background="@android:color/darker_gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.hbbsolution.owner.base.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:gravity="center"
-                    android:text="@string/manager_ic_clock"
-                    android:textColor="@color/home_background_history"
-                    android:textSize="24sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:id="@+id/detail_work_history_tvDate"
-                        android:text="10/05/2017"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:id="@+id/detail_work_history_tvTime"
-                        android:text="9h00 am - 12h00 pm" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_above="@+id/linear_button"
-                android:layout_marginLeft="10dp"
-                android:background="@android:color/darker_gray" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.hbbsolution.owner.base.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="top"
-                    android:text="@string/manager_ic_home"
-                    android:textColor="@color/home_background_history"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/detail_work_history_tvAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="left|center"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:text="123 đường số 1, quận 1, Tp.HCM, Việt Nam"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorBlack" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/color_line_view" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NGƯỜI THỰC HIỆN"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp"
-        android:background="@color/colorWhite"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/color_line_view" />
-
-        <RelativeLayout
-            android:id="@+id/rela_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/detail_helper_history_avatar"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/avatar" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/detail_helper_history_avatar"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/detail_helper_history_helper_name"
+                    <com.hbbsolution.owner.base.IconTextView
+                        android:id="@+id/txt_right"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="Nguyễn Văn A"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/text_size_large"
-                        android:textStyle="bold" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/ion_chevron_right"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="@dimen/icon_size_normal" />
                 </RelativeLayout>
 
-                <LinearLayout
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_line_view" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal"
-                    >
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Công việc đã hoàn thành"
+                    android:textSize="@dimen/text_size_large" />
 
-                    <TextView
-                        android:id="@+id/detail_work_history_helper_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="123 đường 1, Quận 1, Thành phố Hồ Chí Minh"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginRight="20dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_line_view" />
 
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/txt_history_list_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/yourcomment"
+                    android:textColor="@color/home_background_history"
+                    android:textSize="@dimen/text_size_large" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_line_view" />
             </LinearLayout>
-            <com.hbbsolution.owner.base.IconTextView
-                android:id="@+id/txt_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/ion_chevron_right"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/icon_size_normal" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_line_view" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Công việc đã hoàn thành"
-            android:textSize="@dimen/text_size_large" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/color_line_view" />
-        <TextView
-            android:id="@+id/txt_history_list_work"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/yourcomment"
-            android:textColor="@color/home_background_history"
-            android:textSize="@dimen/text_size_large"
-             />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/color_line_view" />
-    </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
