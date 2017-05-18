@@ -59,8 +59,7 @@
                     android:layout_alignParentRight="true"
                     android:numStars="5"
                     android:rating="4"
-                    android:stepSize="1"
-                    android:theme="@style/RatingBar" />
+                    android:stepSize="1" />
             </RelativeLayout>
         </LinearLayout>
 
