@@ -11,6 +11,9 @@ public class Work {
     @SerializedName("_id")
     @Expose
     private String id;
+    @SerializedName("image")
+    @Expose
+    private String image;
     @SerializedName("name")
     @Expose
     private String name;
@@ -29,5 +32,13 @@ public class Work {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
