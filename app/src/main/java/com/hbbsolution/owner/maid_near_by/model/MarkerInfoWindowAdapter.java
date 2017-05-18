@@ -1,14 +1,17 @@
 package com.hbbsolution.owner.maid_near_by.model;
 
 import android.app.Activity;
-import android.util.Log;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -21,6 +24,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
     private Activity mActivity;
     private HashMap<Marker, MyMarker> mMarkerHashMap = new HashMap<>();
     private HashMap<String, Boolean> mMarkerLoadImage = new HashMap<>();
+    private OnInfoWindowElemTouchListener chooseMaidListener;
 
     public MarkerInfoWindowAdapter(Activity mActivity, HashMap<Marker, MyMarker> mMarkerHashMap, HashMap<String, Boolean> mMarkerLoadImage) {
         this.mActivity = mActivity;
@@ -35,15 +39,17 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
     }
 
     @Override
-    public View getInfoContents(Marker marker) {
-        View view = mActivity.getLayoutInflater().inflate(R.layout.custom_marker_layout, null);
+    public View getInfoContents(final Marker marker) {
+        final View view = mActivity.getLayoutInflater().inflate(R.layout.custom_marker_layout, null);
 
         ImageView imgAvatar = (ImageView) view.findViewById(R.id.image_avatar);
         TextView txtName = (TextView) view.findViewById(R.id.text_name);
         TextView txtPrice = (TextView) view.findViewById(R.id.text_price);
+        RelativeLayout relaChooseMaid = (RelativeLayout) view.findViewById(R.id.rela_choose_maid);
         //load data
-        MyMarker mMyMarker = mMarkerHashMap.get(marker);
+        final MyMarker mMyMarker = mMarkerHashMap.get(marker);
         boolean isLoadImage = mMarkerLoadImage.get(marker.getId());
+
 
         if (isLoadImage) {
             Picasso.with(mActivity)
@@ -63,17 +69,16 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
         //load infor
         txtName.setText(mMyMarker.getName());
         txtPrice.setText(mMyMarker.getPrice());
-        imgAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("CLICK", "AVATAR");
-            }
-        });
 
         return view;
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        MyMarker myMarker = mMarkerHashMap.get(marker);
+        Toast.makeText(mActivity, "Info window clicked",
+                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(mActivity, MaidProfileActivity.class);
+        mActivity.startActivity(intent);
     }
 }

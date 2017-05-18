@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -36,7 +37,6 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Dnasdna,"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/text_size_large"
                     android:textStyle="bold" />
@@ -61,8 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/ic_money"
-                        android:text="Dasdasda" />
+                        android:layout_toRightOf="@+id/ic_money" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
