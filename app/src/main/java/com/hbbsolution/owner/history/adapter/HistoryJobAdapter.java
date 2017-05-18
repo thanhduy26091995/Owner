@@ -16,16 +16,19 @@ import com.hbbsolution.owner.history.view.DetailWorkHistoryActivity;
  * Created by Administrator on 16/05/2017.
  */
 
-public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.RecyclerViewHolder>{
+public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.RecyclerViewHolder> {
     private Context context;
+
     @Override
     public HistoryJobAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_job, parent, false);
         return new RecyclerViewHolder(view);
     }
-    public HistoryJobAdapter(Context context){
-        this.context=context;
+
+    public HistoryJobAdapter(Context context) {
+        this.context = context;
     }
+
     @Override
     public void onBindViewHolder(HistoryJobAdapter.RecyclerViewHolder holder, int position) {
 
@@ -35,16 +38,18 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     public int getItemCount() {
         return 1;
     }
+
     class RecyclerViewHolder extends RecyclerView.ViewHolder implements
-            View.OnClickListener, View.OnLongClickListener{
-        private TextView tvJob,tvTime,tvDate,tvDeitalTime;
+            View.OnClickListener, View.OnLongClickListener {
+        private TextView tvJob, tvTime, tvDate, tvDeitalTime;
         private ImageView imgType;
+
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            tvJob = (TextView)itemView.findViewById(R.id.tvJob);
-            tvDate = (TextView)itemView.findViewById(R.id.tvDate);
-            tvTime = (TextView)itemView.findViewById(R.id.tvTime);
-            tvDeitalTime = (TextView)itemView.findViewById(R.id.tvDetailTime);
+            tvJob = (TextView) itemView.findViewById(R.id.tvJob);
+            tvDate = (TextView) itemView.findViewById(R.id.tvDate);
+            tvTime = (TextView) itemView.findViewById(R.id.tvTime);
+            tvDeitalTime = (TextView) itemView.findViewById(R.id.tvDetailTime);
             itemView.setOnClickListener(this);
         }
 
