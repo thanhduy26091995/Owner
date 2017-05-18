@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.view.DetailWorkHistoryActivity;
 import com.hbbsolution.owner.work_management.model.Datum;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,10 +37,10 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     @Override
     public void onBindViewHolder(HistoryJobAdapter.RecyclerViewHolder holder, int position) {
         holder.tvJob.setText(listData.get(position).getInfo().getTitle());
-//        Pica.with(context).load(listData.get(position).getInfo().getWork().getImage())
-//                .placeholder(R.drawable.avatar)
-//                .error(R.drawable.avatar)
-//                .into(holder.imgType);
+        Picasso.with(context).load(listData.get(position).getInfo().getWork().getImage())
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(holder.imgType);
     }
 
     @Override
