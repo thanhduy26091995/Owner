@@ -36,4 +36,7 @@
     <string name="ic_checkmark">&#xf122;</string>
     <!--profile maid-->
 
+    <!--maid near by-->
+    <string name="ic_filter">&#xf4a6;</string>
+    <!---->
 </resources>

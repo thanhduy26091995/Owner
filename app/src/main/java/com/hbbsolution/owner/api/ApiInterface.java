@@ -1,6 +1,5 @@
 package com.hbbsolution.owner.api;
 
-import com.hbbsolution.owner.history.presenter.WorkHistoryResponse;
 import com.hbbsolution.owner.work_management.model.WorkManagerResponse;
 
 import retrofit2.Call;
@@ -18,4 +17,7 @@ public interface ApiInterface {
 
     @GET("owner/getAllTasks")
     Call<WorkHistoryResponse> getInfoWorkHistory(@Header("hbbgvauth") String token, @Query("process") String idProcess);
+
+    @GET("maid/getAll")
+    Call<MaidNearByResponse> getMaidNearBy(@Header("hbbgvauth") String token, @Query("lat") Double lat, @Query("lng") Double lng);
 }

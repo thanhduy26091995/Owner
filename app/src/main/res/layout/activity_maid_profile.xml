@@ -29,24 +29,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg" />
-
-                    <com.hbbsolution.owner.base.IconTextView
-                        android:id="@+id/txt_ic_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="10dp"
-                        android:text="@string/ic_back"
-                        android:textColor="@color/home_background_history"
-                        android:textSize="30sp" />
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -280,7 +267,32 @@
                     android:background="@android:color/darker_gray" />
             </LinearLayout>
 
+            <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar_coll"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+            <!--app:layout_collapseMode="pin"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
+            <!--app:theme="@style/toolbar_theme">-->
 
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--&gt;-->
+            <!--<TextView-->
+            <!--android:id="@+id/manager_info_user_title_toothbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="Thông tin"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:textSize="20sp"-->
+            <!--android:textStyle="bold"-->
+            <!--/>-->
+            <!--</LinearLayout>-->
+
+            <!--</android.support.v7.widget.Toolbar>-->
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -289,18 +301,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray"
         android:orientation="vertical"
-        android:paddingBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ĐÁNH GIÁ" />
+            android:background="@color/gray"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ĐÁNH GIÁ" />
+        </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
@@ -318,26 +341,26 @@
     </LinearLayout>
 
     <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:layout_marginBottom="?attr/actionBarSize"
-    android:background="@color/colorWhite"
-    android:visibility="gone"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:popupTheme="@style/AppTheme.PopupOverlay"
-    app:theme="@style/toolbar_theme">
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:theme="@style/toolbar_theme">
 
-    <TextView
-    android:id="@+id/manager_doing_title_toothbar"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="Thông tin"
-    android:textColor="@color/colorBlack"
-    android:textSize="20sp"
-    android:textStyle="bold" />
-    />
+        <TextView
+            android:id="@+id/manager_doing_title_toothbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Thông tin"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        />
 
     </android.support.v7.widget.Toolbar>
 
