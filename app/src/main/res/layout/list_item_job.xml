@@ -22,7 +22,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+
             android:layout_weight="2"
             android:orientation="horizontal"
             android:weightSum="5">
@@ -101,11 +101,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -130,8 +131,8 @@
                     android:id="@+id/tvDate"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="3"
                     android:gravity="center"
                     android:text="10/10/2017"
@@ -143,16 +144,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:gravity="center_vertical"
-                    android:weightSum="4">
+                    android:weightSum="17">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"></LinearLayout>
+                    android:layout_weight="4"/>
                 <TextView
                     android:id="@+id/tvDetailTime"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
+                    android:layout_weight="13"
                     android:gravity="center_vertical"
                     android:text="9h00 am - 12h00 am"
                     android:textSize="13sp" />
