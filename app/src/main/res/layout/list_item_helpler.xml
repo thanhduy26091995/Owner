@@ -2,96 +2,129 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-    <RelativeLayout
-        android:id="@+id/rela_info"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="15dp"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_history_avatar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/avatar" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/color_line_view" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/rela_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/img_history_avatar"
-            android:orientation="vertical">
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp">
 
-            <TextView
-                android:id="@+id/txt_history_name"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_history_avatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/avatar" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Nguyễn Văn A"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_large"
-                android:textStyle="bold" />
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/img_history_avatar"
+                android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/txt_history_birthday"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/txt_history_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Nguyễn Văn A"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_size_large"
+                        android:textStyle="bold" />
+
+                    <com.hbbsolution.owner.base.IconTextView
+                        android:id="@+id/txt_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/ion_chevron_right"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="@dimen/icon_size_normal" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:text="12/03/2016" />
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
 
-                <RatingBar
-                    android:id="@+id/rating_history"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:numStars="5"
-                    android:rating="4"
-                    android:stepSize="1"
-                    android:theme="@style/RatingBar" />
-            </RelativeLayout>
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/txt_history_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="12/03/2016" />
 
-    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2">
 
-    <TextView
-        android:id="@+id/txt_history_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Lau dọn phòng khách"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:textSize="@dimen/text_size_large"/>
+                        <RatingBar
+                            android:id="@+id/ratingBar"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:clickable="false"
+                            android:isIndicator="false"
+                            android:numStars="5"
+                            android:rating="3.0"
+                            android:stepSize="1.0" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_history_comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:text="Bạn siêng năng đúng giờ"
-        android:textColor="@android:color/black" />
+        </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/darker_gray" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_line_view" />
 
+        <TextView
+            android:id="@+id/txt_history_list_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Danh sách công việc"
+            android:textColor="@color/home_background_history"
+            android:textSize="@dimen/text_size_large" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_line_view" />
+    </LinearLayout>
 </LinearLayout>

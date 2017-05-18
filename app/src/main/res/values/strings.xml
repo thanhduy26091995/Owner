@@ -52,4 +52,9 @@
     <string name="comment">Comment</string>
     <string name="rate">Rating</string>
     <string name="completed">Completed</string>
+
+    <!--history_screen start-->
+    <string name="completedjob">Completed work</string>
+    <string name="completedhelpler">Completed helper</string>
+    <!--history_screen end-->
 </resources>

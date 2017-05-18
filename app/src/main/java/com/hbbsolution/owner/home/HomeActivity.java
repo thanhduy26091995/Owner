@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.MoreActivity;
 import com.hbbsolution.owner.work_management.WorkManagementActivity;
@@ -81,7 +82,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 transActivity(WorkManagementActivity.class);
                 break;
             case R.id.lo_history:
-                ShowToast("History");
+                transActivity(HistoryActivity.class);
                 break;
         }
     }

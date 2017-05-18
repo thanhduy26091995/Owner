@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hbbsolution.owner">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,11 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value=" AIzaSyAzSFwRry4u2KYJYq3IT_oc-w9sww5yVpY" />
-
 
         <activity android:name=".home.HomeActivity">
             <intent-filter>
@@ -35,8 +33,9 @@
         <activity android:name=".work_management.view.DetailJobDoingActivity" />
         <activity android:name=".work_management.view.JobPostActivity" />
         <activity android:name=".work_management.view.ListUserRecruitmentActivity" />
-        <activity android:name=".history.view.HistoryActivity"/>
+        <activity android:name=".history.view.HistoryActivity" />
         <activity android:name=".maid_profile.view.MaidProfileActivity" />
+        <activity android:name=".history.view.DetailWorkHistoryActivity"></activity>
     </application>
 
 </manifest>
