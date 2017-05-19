@@ -27,6 +27,7 @@
 
     <!--history job screen start-->
     <string name="histoty_ic_clock">&#xf35a;</string>
+    <string name="histoty_ic_compose">&#xf12c;</string>
     <!--history job screen end-->
 
     <!--profile maid-->
@@ -35,4 +36,7 @@
     <string name="ic_checkmark">&#xf122;</string>
     <!--profile maid-->
 
+    <!--maid near by-->
+    <string name="ic_filter">&#xf4a6;</string>
+    <!---->
 </resources>

@@ -37,6 +37,8 @@
         <activity android:name=".work_management.view.ListUserRecruitmentActivity" />
         <activity android:name=".history.view.HistoryActivity"/>
         <activity android:name=".maid_profile.view.MaidProfileActivity" />
+        <activity android:name=".history.view.DetailWorkHistoryActivity"></activity>
+        <activity android:name=".maid_near_by.view.MaidNearByActivity"/>
     </application>
 
 </manifest>

@@ -11,12 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
-import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.model.Comment;
 
 import java.util.ArrayList;
@@ -33,8 +30,8 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
     //
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.txt_ic_back)
-    IconTextView txt_ic_back;
+//    @BindView(R.id.txt_ic_back)
+//    IconTextView txt_ic_back;
     //@BindView(R.id.manager_info_user_title_toothbar)
 //    TextView txtManager_info_user_title_toothbar;
     @BindView(R.id.info_user_appbar)
@@ -60,7 +57,7 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setTitle("");
 
         appBarLayout.addOnOffsetChangedListener(this);
-        txt_ic_back.setOnClickListener(this);
+       // txt_ic_back.setOnClickListener(this);
 //        txt_ic_back.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -126,9 +123,9 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.txt_ic_back:
-                finish();
-                break;
+//            case R.id.txt_ic_back:
+//                finish();
+//                break;
         }
     }
 }

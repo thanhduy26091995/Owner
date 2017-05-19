@@ -36,50 +36,13 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="10">
-
-            <LinearLayout
-                android:id="@+id/lo_list_recruitment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/job_post_txtTitle_job"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="4"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:text="Danh sách ứng tuyển"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/home_background_history" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/circle"
-                    android:gravity="center"
-                    android:text="2"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/icon_size_normal" />
-
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:paddingBottom="10dp"
                         android:text="MÔ TẢ"
                         android:textStyle="bold" />
@@ -281,10 +244,51 @@
                 </LinearLayout>
 
             </LinearLayout>
-
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+    <ExpandableListView
+        android:id="@+id/eplHelperList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/lo_list_recruitment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/job_post_txtTitle_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="Danh sách ứng tuyển"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/home_background_history" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/icon_size_normal" />
+
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

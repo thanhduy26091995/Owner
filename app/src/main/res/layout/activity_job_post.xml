@@ -10,7 +10,8 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -127,11 +128,11 @@
                 android:id="@+id/rad_type_money_work"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:layout_weight="1"
-                android:paddingTop="15dp"
+                android:buttonTint="@color/home_background_history"
+                android:checked="true"
                 android:paddingBottom="15dp"
-                android:buttonTint="@color/home_background_history"/>
+                android:paddingTop="15dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -143,9 +144,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingTop="15dp"
+                android:buttonTint="@color/home_background_history"
                 android:paddingBottom="15dp"
-                android:buttonTint="@color/home_background_history"/>
+                android:paddingTop="15dp" />
 
         </RadioGroup>
 
@@ -159,11 +160,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="10dp"
                 android:background="@android:color/transparent"
+                android:enabled="false"
                 android:hint="Nhập số tiền công"
+                android:padding="10dp"
                 android:textColor="@color/colorBlack"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -175,9 +177,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:background="@android:color/transparent"
                 android:text="Khoán tiền công theo thời gian"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp" />/>

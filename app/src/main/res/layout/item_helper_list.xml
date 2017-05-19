@@ -26,18 +26,20 @@
             android:layout_marginTop="10dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_history_avatar"
+                android:id="@+id/img_avatar_helper"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
+                android:src="@drawable/avatar"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/avatar" />
+                android:layout_alignParentStart="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/img_history_avatar"
+                android:layout_toRightOf="@+id/img_avatar_helper"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -45,7 +47,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/txt_history_name"
+                        android:id="@+id/txt_name_helper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -77,7 +79,7 @@
                     android:weightSum="5">
 
                     <TextView
-                        android:id="@+id/txt_history_date"
+                        android:id="@+id/txt_salary_helper"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -117,7 +119,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:text="Danh sách công việc"
+            android:text="Chọn người giúp việc"
             android:textColor="@color/home_background_history"
             android:textSize="@dimen/text_size_large" />
 

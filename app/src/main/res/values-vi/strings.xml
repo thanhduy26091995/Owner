@@ -27,4 +27,9 @@
     <string name="comment">Bình luận</string>
     <string name="rate">Đánh giá</string>
     <string name="completed">Đã hoàn thành</string>
+
+    <!--history_screen start-->
+    <string name="completedjob">Công việc hoàn thành</string>
+    <string name="completedhelpler">Người giúp việc đã làm</string>
+    <!--history_screen end-->
 </resources>

@@ -1,12 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:scrollbars="vertical"
-        android:scrollbarStyle="insideOverlay"
-        android:id="@+id/list_history_helper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:padding="10dp"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="12/5/2017"
+            android:textColor="@color/home_background_history"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_large"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="đến"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="20/6/2017"
+            android:textColor="@color/home_background_history"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_large"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/color_line_view" />
+    <android.support.v7.widget.RecyclerView
+    android:scrollbars="vertical"
+    android:scrollbarStyle="insideOverlay"
+    android:id="@+id/recycleview_history_helper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/list_item_helpler"/>
+            <include layout="@layout/list_item_helpler"/>
+            <include layout="@layout/list_item_helpler"/>
+            <include layout="@layout/list_item_helpler"/>
+            <include layout="@layout/list_item_helpler"/>
+            <include layout="@layout/list_item_helpler"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
