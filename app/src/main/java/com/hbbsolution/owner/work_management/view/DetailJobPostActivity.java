@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.IconTextView;
-import com.hbbsolution.owner.more.viet_pham.MoreActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

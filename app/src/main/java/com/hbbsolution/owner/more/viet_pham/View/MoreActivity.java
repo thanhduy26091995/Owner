@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.more.viet_pham;
+package com.hbbsolution.owner.more.viet_pham.View;
 
 import android.content.Intent;
 import android.os.Bundle;

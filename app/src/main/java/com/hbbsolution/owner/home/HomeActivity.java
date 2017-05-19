@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
-import com.hbbsolution.owner.more.viet_pham.MoreActivity;
+import com.hbbsolution.owner.more.viet_pham.View.MoreActivity;
 import com.hbbsolution.owner.work_management.WorkManagementActivity;
 
 import butterknife.BindView;

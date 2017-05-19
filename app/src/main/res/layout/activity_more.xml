@@ -26,183 +26,407 @@
                 android:layout_gravity="center"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv_sign_in"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:contentPadding="5dp">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_avatar"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/avatar" />
-
-            <LinearLayout
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/txt_right"
-                android:layout_toRightOf="@+id/img_avatar"
-                android:orientation="vertical">
+                android:layout_marginTop="20dp"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPadding="5dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nguyễn Văn A"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/text_size_large" />
+                    android:orientation="vertical">
 
-                <TextView
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_avatar"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/avatar" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@+id/txt_right"
+                            android:layout_toRightOf="@+id/img_avatar"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Nguyễn Văn A"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_size_large" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="123 đường số 1, quận 1, Tp hcm" />
+                        </LinearLayout>
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:id="@+id/txt_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ion_chevron_right"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/icon_size_normal" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/more_job_statistic"
+                            android:textColor="@color/colorBlack" />
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ion_chevron_right"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/icon_size_normal" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPadding="5dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="123 đường số 1, quận 1, Tp hcm" />
-            </LinearLayout>
+                    android:orientation="vertical">
 
-            <com.hbbsolution.owner.base.IconTextView
-                android:id="@+id/txt_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
-                android:text="@string/ion_chevron_right"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/icon_size_normal" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/more_notification"
+                            android:textColor="@color/colorBlack" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_above="@+id/linear_button"
-            android:background="@android:color/darker_gray" />
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:theme="@style/SCBSwitch" />
+                    </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="15dp">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@android:color/darker_gray" />
 
-            <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/more_languge"
+                            android:textColor="@color/colorBlack" />
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ion_chevron_right"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/icon_size_normal" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Về chúng tôi"
-                android:textColor="@color/colorBlack" />
+                android:layout_marginTop="20dp"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPadding="5dp">
 
-            <com.hbbsolution.owner.base.IconTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
-                android:text="@string/ion_chevron_right"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/icon_size_normal" />
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_above="@+id/linear_button"
-            android:layout_marginLeft="10dp"
-            android:background="@android:color/darker_gray" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_above="@+id/linear_button"
+                        android:background="@android:color/darker_gray" />
 
-        <RelativeLayout
-            android:id="@+id/lo_terms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="15dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
 
-            <TextView
-                android:id="@+id/textView"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Về chúng tôi"
+                            android:textColor="@color/colorBlack" />
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ion_chevron_right"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/icon_size_normal" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_above="@+id/linear_button"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/lo_terms1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Điều khoản sử dụng"
+                            android:textColor="@color/colorBlack" />
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/textView"
+                            android:layout_alignBottom="@+id/textView"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ion_chevron_right"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/icon_size_normal" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_above="@+id/linear_button"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/lo_terms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/more_contact"
+                            android:textColor="@color/colorBlack" />
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/textView1"
+                            android:layout_alignBottom="@+id/textView1"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ion_chevron_right"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/icon_size_normal" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_above="@+id/linear_button"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/darker_gray" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Điều khoản sử dụng"
-                android:textColor="@color/colorBlack" />
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPadding="5dp">
 
-            <com.hbbsolution.owner.base.IconTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView"
-                android:layout_alignBottom="@+id/textView"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/ion_chevron_right"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/icon_size_normal" />
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_above="@+id/linear_button"
-            android:layout_marginLeft="10dp"
-            android:background="@android:color/darker_gray" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="15dp">
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ic_share"
+                            android:textColor="@color/home_background_history"
+                            android:textSize="@dimen/icon_size_normal" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ngôn ngữ"
-                android:textColor="@color/colorBlack" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/more_share_app_Gv24"
+                            android:textColor="@color/home_background_history" />
 
-            <com.hbbsolution.owner.base.IconTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
-                android:text="@string/ion_chevron_right"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/icon_size_normal" />
-        </RelativeLayout>
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ion_chevron_right"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/icon_size_normal" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_above="@+id/linear_button"
-            android:background="@android:color/darker_gray" />
-    </LinearLayout>
+                    </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/darker_gray" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp">
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ic_facebook"
+                            android:textColor="@color/home_background_history"
+                            android:textSize="@dimen/icon_size_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/more_follow_Gv24_on_facebook"
+                            android:textColor="@color/home_background_history" />
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/ion_chevron_right"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/icon_size_normal" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

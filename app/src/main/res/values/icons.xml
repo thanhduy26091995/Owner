@@ -39,4 +39,8 @@
     <!--maid near by-->
     <string name="ic_filter">&#xf4a6;</string>
     <!---->
+
+    <!--More activity-->
+    <string name="ic_share">&#xf3ac;</string>
+    <!--More activity-->
 </resources>
