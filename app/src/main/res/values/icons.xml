@@ -20,9 +20,11 @@
     <string name="manager_ic_home">&#xf38f;</string>
     <string name="manager_ic_money">&#xf353;</string>
     <string name="manager_ic_compose">&#xf417;</string>
-    <string name="manager_ic_logout">&#xf29e;</string>
+    <string name="manager_ic_login">&#xf29e;</string>
+    <string name="manager_ic_logout">&#xf29f;</string>
     <string name="manager_ic_edit">&#xf2bf;</string>
     <string name="manager_ic_check">&#xf383;</string>
+    <string name="manager_ic_trash">&#xf4c4;</string>
     <!--job screen end-->
 
     <!--history job screen start-->

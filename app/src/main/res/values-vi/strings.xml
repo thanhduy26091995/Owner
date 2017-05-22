@@ -15,9 +15,12 @@
     <!--terms_screen start-->
     <string name="terms">Điều khoản sử dụng</string>
     <string name="terms_btn_ok">OK</string>
-
-
     <!--terms screen end-->
+
+    <!--profile  start-->
+    <string name="pro_file_gender_male">Nam</string>
+    <string name="pro_file_gender_female">Nữ</string>
+    <!--profile end-->
 
 
     <!--khác-->

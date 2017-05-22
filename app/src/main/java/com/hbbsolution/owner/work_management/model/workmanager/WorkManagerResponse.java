@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.work_management.model;
+package com.hbbsolution.owner.work_management.model.workmanager;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

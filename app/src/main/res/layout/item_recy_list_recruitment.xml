@@ -10,6 +10,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/lo_info_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -36,34 +37,64 @@
                 android:layout_toRightOf="@+id/img_address"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nguyễn Văn A"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"/>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/txtName_recruitment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:text="Nguyễn Văn A"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
+
+                    <com.hbbsolution.owner.base.IconTextView
+                        android:id="@+id/txt_right"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/ion_chevron_right"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="@dimen/icon_size_normal" />
+
+                </LinearLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:paddingRight="10dp"
-                    android:text="123 đường số 1, quận 1, Tp.HCM, Việt Nam"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorBlack" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtPrice_and_Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:paddingRight="10dp"
+                        android:text="150.000 VND"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorBlack" />
+
+                    <RatingBar
+                        android:id="@+id/rating_comment"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:numStars="5"
+                        android:rating="4"
+                        android:stepSize="1" />
+
+                </RelativeLayout>
             </LinearLayout>
 
-            <com.hbbsolution.owner.base.IconTextView
-                android:id="@+id/txt_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="5dp"
-                android:text="@string/ion_chevron_right"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/icon_size_normal" />
 
         </RelativeLayout>
 
@@ -73,6 +104,7 @@
             android:background="@android:color/darker_gray" />
 
         <RelativeLayout
+            android:id="@+id/lo_ChosenMaid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
@@ -93,12 +125,14 @@
                 android:textColor="@color/home_background_history" />
 
             <com.hbbsolution.owner.base.IconTextView
+                android:id="@+id/img_ic_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/job_doing_txtDone"
                 android:gravity="right"
+                android:visibility="gone"
                 android:paddingRight="15dp"
                 android:text="@string/manager_ic_check"
                 android:textColor="@color/home_background_history"

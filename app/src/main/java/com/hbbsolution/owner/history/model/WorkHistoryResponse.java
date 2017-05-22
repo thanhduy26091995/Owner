@@ -2,7 +2,7 @@ package com.hbbsolution.owner.history.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.hbbsolution.owner.work_management.model.Datum;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 
 import java.util.List;
 

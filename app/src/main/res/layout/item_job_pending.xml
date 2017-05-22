@@ -40,27 +40,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="4"
+                    android:layout_marginRight="5dp"
+                    android:maxLines="1"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
-                    android:maxLines="1"
                     android:text="Lau dọn nhà"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/circle"
-                    android:gravity="center"
-                    android:text="2"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/icon_size_normal" />
 
             </LinearLayout>
 
@@ -74,7 +62,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:text="Đang chờ ứng tuyển"
+                    android:text="Đang chờ xác nhận"
                     android:textSize="12sp" />
 
                 <View

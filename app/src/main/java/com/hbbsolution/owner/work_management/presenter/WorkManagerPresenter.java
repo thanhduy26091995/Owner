@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.work_management.model.WorkManagerResponse;
-import com.hbbsolution.owner.work_management.view.WorkManagerView;
+import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
+import com.hbbsolution.owner.work_management.view.workmanager.WorkManagerView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +35,7 @@ public class WorkManagerPresenter {
                         mWorkManagerView.getInfoJob(workManagerResponse);
                     }catch (Exception e){
                         Log.e("exception", e.toString());
+                        mWorkManagerView.getError();
                     }
                 }
             }

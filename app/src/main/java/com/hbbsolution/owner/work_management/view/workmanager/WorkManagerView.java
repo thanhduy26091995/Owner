@@ -1,6 +1,6 @@
-package com.hbbsolution.owner.work_management.view;
+package com.hbbsolution.owner.work_management.view.workmanager;
 
-import com.hbbsolution.owner.work_management.model.WorkManagerResponse;
+import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 
 /**
  * Created by tantr on 5/10/2017.

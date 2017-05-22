@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.work_management;
+package com.hbbsolution.owner.work_management.view.workmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,17 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.adapter.JobPostAdapter;
-import com.hbbsolution.owner.work_management.model.Datum;
-import com.hbbsolution.owner.work_management.model.WorkManagerResponse;
+import com.hbbsolution.owner.adapter.ManageJobAdapter;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
+import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.presenter.WorkManagerPresenter;
-import com.hbbsolution.owner.work_management.view.DetailJobPostActivity;
-import com.hbbsolution.owner.work_management.view.WorkManagerView;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by tantr on 5/9/2017.
@@ -32,12 +29,12 @@ import butterknife.ButterKnife;
 public class JobPostedFragment extends Fragment implements WorkManagerView {
 
     private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
-    private String idProcess = "000000000000000000000001";
+    private String idProcess = "000000000000000000000002";
 
     private View rootView;
     private WorkManagerPresenter mWorkManagerPresenter;
     private List<Datum> mJobList = new ArrayList<>();
-    private JobPostAdapter mJobPostAdapter;
+    private ManageJobAdapter mJobPostAdapter;
     private RecyclerView mRecycler;
     private LinearLayout lo_item_post;
 
@@ -47,19 +44,9 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_job_posted, container, false);
 
-            lo_item_post = (LinearLayout) rootView.findViewById(R.id.lo_item_post);
-
-            lo_item_post.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getContext(), DetailJobPostActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-//            mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_post);
-//            mWorkManagerPresenter = new WorkManagerPresenter(this);
-//            mWorkManagerPresenter.getInfoWorkList(token, idProcess);
+            mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_post);
+            mWorkManagerPresenter = new WorkManagerPresenter(this);
+            mWorkManagerPresenter.getInfoWorkList(token, idProcess);
         }else {
             ViewGroup parent = (ViewGroup) container.getParent();
             parent.removeView(rootView);
@@ -73,9 +60,19 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
         mJobList = mExample.getData();
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        mJobPostAdapter = new JobPostAdapter(getActivity(), mJobList);
+        mJobPostAdapter = new ManageJobAdapter(getActivity(), mJobList, true);
         mRecycler.setLayoutManager(linearLayoutManager);
         mRecycler.setAdapter(mJobPostAdapter);
+//
+        mJobPostAdapter.setCallback(new ManageJobAdapter.Callback() {
+            @Override
+            public void onItemClick(Datum mDatum) {
+                Intent itDetailJobPost = new Intent(getActivity(), DetailJobPostActivity.class);
+                itDetailJobPost.putExtra("mDatum", mDatum);
+                startActivity(itDetailJobPost);
+            }
+        });
+
     }
 
     @Override

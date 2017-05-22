@@ -14,7 +14,7 @@
         android:paddingTop="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/job_post_img_type"
+            android:id="@+id/imgTypeJobPost"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_alignParentLeft="true"
@@ -27,20 +27,41 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/job_post_img_type"
+            android:layout_toRightOf="@+id/imgTypeJobPost"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/job_post_txtTitle_job"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Cần giúp nấu ăn lau dọn vệ sinh nhà"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtTitleJobPost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_marginRight="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Cần giúp nấu ăn lau dọn vệ sinh nhà"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtNumber_request_detail_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/icon_size_normal" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,6 +83,7 @@
                     android:background="@android:color/darker_gray" />
 
                 <TextView
+                    android:id="@+id/txtTimePostHistory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -94,6 +116,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/txtDatePostHistory"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -104,6 +127,7 @@
             android:textColor="@color/colorBlack" />
 
         <TextView
+            android:id="@+id/txtTimeDoingPost"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
