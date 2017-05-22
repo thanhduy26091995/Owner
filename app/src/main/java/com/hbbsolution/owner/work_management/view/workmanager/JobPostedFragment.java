@@ -56,7 +56,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
 
     @Override
     public void getInfoJob(WorkManagerResponse mExample) {
-        Toast.makeText(this.getContext(), "Hoàn thành", Toast.LENGTH_SHORT).show();
+
         mJobList = mExample.getData();
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());

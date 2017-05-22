@@ -30,7 +30,6 @@ public class ListMaidPresenter {
             @Override
             public void onResponse(Call<ListMaidResponse> call, Response<ListMaidResponse> response) {
                 if(response.isSuccessful()){
-                    mListMaidView.getError();
                     Log.e("successfuly", "successful");
                     try{
                         ListMaidResponse mListMaidResponse = response.body();
