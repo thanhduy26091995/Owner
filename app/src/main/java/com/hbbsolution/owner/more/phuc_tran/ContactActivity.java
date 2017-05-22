@@ -4,11 +4,13 @@ package com.hbbsolution.owner.more.phuc_tran;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
@@ -17,19 +19,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ContactActivity extends AppCompatActivity {
-    @BindView(R.id.toobar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.contact_title_toothbar)
+    TextView txtTerms_title_toothbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
         ButterKnife.bind(this);
+
+        //config toolbar
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        txtTerms_title_toothbar.setText(getResources().getString(R.string.contact));
+
         addEvents();
     }
 
@@ -76,7 +84,7 @@ public class ContactActivity extends AppCompatActivity {
             startActivity(i);
 
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(ContactActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ContactActivity.this, R.string.no_email_client, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -85,7 +93,7 @@ public class ContactActivity extends AppCompatActivity {
             String dial = "tel:" + phoneNo;
             startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
         } else {
-            Toast.makeText(ContactActivity.this, "Enter a phone number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ContactActivity.this, R.string.enter_phonenumber, Toast.LENGTH_SHORT).show();
         }
     }
 }
