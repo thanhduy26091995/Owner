@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.history.presenter;
+package com.hbbsolution.owner.history.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

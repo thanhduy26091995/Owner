@@ -1,6 +1,6 @@
 package com.hbbsolution.owner.api;
 
-import com.hbbsolution.owner.history.presenter.WorkHistoryResponse;
+import com.hbbsolution.owner.history.model.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.work_management.model.WorkManagerResponse;
 
