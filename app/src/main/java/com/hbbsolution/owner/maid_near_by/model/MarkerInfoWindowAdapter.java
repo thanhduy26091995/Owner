@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +44,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
         ImageView imgAvatar = (ImageView) view.findViewById(R.id.image_avatar);
         TextView txtName = (TextView) view.findViewById(R.id.text_name);
         TextView txtPrice = (TextView) view.findViewById(R.id.text_price);
-        RelativeLayout relaChooseMaid = (RelativeLayout) view.findViewById(R.id.rela_choose_maid);
+       // RelativeLayout relaChooseMaid = (RelativeLayout) view.findViewById(R.id.linear_maid_profile);
         //load data
         final MyMarker mMyMarker = mMarkerHashMap.get(marker);
         boolean isLoadImage = mMarkerLoadImage.get(marker.getId());

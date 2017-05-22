@@ -11,7 +11,7 @@ public class WorkInfo {
     private Integer price;
     @SerializedName("evaluation_point")
     @Expose
-    private Integer evaluationPoint;
+    private float evaluationPoint;
 
     public Integer getPrice() {
         return price;
@@ -21,11 +21,11 @@ public class WorkInfo {
         this.price = price;
     }
 
-    public Integer getEvaluationPoint() {
+    public float getEvaluationPoint() {
         return evaluationPoint;
     }
 
-    public void setEvaluationPoint(Integer evaluationPoint) {
+    public void setEvaluationPoint(float evaluationPoint) {
         this.evaluationPoint = evaluationPoint;
     }
 

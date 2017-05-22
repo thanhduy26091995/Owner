@@ -25,6 +25,26 @@
                 android:orientation="vertical"
                 app:layout_collapseMode="parallax">
 
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorWhite"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:theme="@style/toolbar_theme">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Thông tin"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    />
+
+                </android.support.v7.widget.Toolbar>
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -35,17 +55,6 @@
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg" />
-
-                    <com.hbbsolution.owner.base.IconTextView
-                        android:id="@+id/txtBackInfoMaid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="@string/ic_back"
-                        android:textColor="@color/home_background_history"
-                        android:textSize="30dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -349,7 +358,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Thông tin"
+            android:text="Đánh giá"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="bold" />

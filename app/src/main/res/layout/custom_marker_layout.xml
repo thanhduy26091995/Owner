@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/linear_maid_profile"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -66,36 +67,36 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/darker_gray" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.1dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@android:color/darker_gray" />-->
 
-        <RelativeLayout
-            android:id="@+id/rela_choose_maid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rela_choose_maid"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingTop="10dp">-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/txt_chk"
-                android:text="Chọn người giúp việc"
-                android:textColor="@color/home_background_history"
-                android:textSize="@dimen/text_size_large" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toLeftOf="@+id/txt_chk"-->
+                <!--android:text="Chọn người giúp việc"-->
+                <!--android:textColor="@color/home_background_history"-->
+                <!--android:textSize="@dimen/text_size_large" />-->
 
-            <com.hbbsolution.owner.base.IconTextView
-                android:id="@+id/txt_chk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:gravity="top|center"
-                android:text="@string/ic_checkmark"
-                android:textColor="@color/home_background_history"
-                android:textSize="@dimen/icon_size" />
-        </RelativeLayout>
+            <!--<com.hbbsolution.owner.base.IconTextView-->
+                <!--android:id="@+id/txt_chk"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:gravity="top|center"-->
+                <!--android:text="@string/ic_checkmark"-->
+                <!--android:textColor="@color/home_background_history"-->
+                <!--android:textSize="@dimen/icon_size" />-->
+        <!--</RelativeLayout>-->
     </LinearLayout>
 </LinearLayout>

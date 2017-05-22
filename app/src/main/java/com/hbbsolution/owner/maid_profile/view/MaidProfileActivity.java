@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 15/05/2017.
  */
 
-public class MaidProfileActivity extends AppCompatActivity implements View.OnClickListener,AppBarLayout.OnOffsetChangedListener {
+public class MaidProfileActivity extends AppCompatActivity implements View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -41,8 +41,6 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.recycler_comment)
     RecyclerView mRecycler;
-    @BindView(R.id.txtBackInfoMaid)
-    TextView txtBackInfoMaid;
     @BindView(R.id.txtNameInfoMaid)
     TextView txtNameInfoMaid;
     @BindView(R.id.txtPriceInfoMaid)
@@ -57,6 +55,8 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
     RatingBar ratingInfoMaid;
     @BindView(R.id.lo_ChosenMaidInfo)
     RelativeLayout lo_ChosenMaidInfo;
+    @BindView(R.id.toolbar_header)
+    Toolbar toolbarHeader;
 
     private ListCommentAdapter listCommentAdapter;
     private List<Comment> commentList = new ArrayList<>();
@@ -68,17 +68,31 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_maid_profile);
         ButterKnife.bind(this);
         //init
-        setSupportActionBar(toolbar);
+
+        setSupportActionBar(toolbarHeader);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == android.R.id.home){
+                    finish();
+                }
+                return true;
+            }
+        });
+
         appBarLayout.addOnOffsetChangedListener(this);
-        txtBackInfoMaid.setOnClickListener(this);
         lo_ChosenMaidInfo.setOnClickListener(this);
 
         mMaid = (Maid) getIntent().getSerializableExtra("maid");
-        if(mMaid != null){
+        if (mMaid != null) {
             txtNameInfoMaid.setText(mMaid.getInfoMaid().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaid.getWorkInfo().getPrice()));
             txtGenderInfoMaid.setText(getGenderMaid(mMaid.getInfoMaid().getGender()));
@@ -144,17 +158,15 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.txtBackInfoMaid:
-                finish();
-                break;
+        switch (view.getId()) {
             case R.id.lo_ChosenMaidInfo:
                 Toast.makeText(MaidProfileActivity.this, "Đã Chọn", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
-    private String getGenderMaid(int gender){
-        if(gender == 0){
+
+    private String getGenderMaid(int gender) {
+        if (gender == 0) {
             return getResources().getString(R.string.pro_file_gender_male);
         }
         return getResources().getString(R.string.pro_file_gender_female);
