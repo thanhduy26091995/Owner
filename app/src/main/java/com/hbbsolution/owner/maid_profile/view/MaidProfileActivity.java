@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
+import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
 import com.hbbsolution.owner.model.Comment;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
@@ -36,8 +38,8 @@ import butterknife.ButterKnife;
 
 public class MaidProfileActivity extends AppCompatActivity implements MaidProfileView, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.lo_toolbar)
+    LinearLayout toolbar;
     @BindView(R.id.info_user_appbar)
     AppBarLayout appBarLayout;
     @BindView(R.id.collapsing_toolbar)
@@ -60,6 +62,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     RelativeLayout lo_ChosenMaidInfo;
     @BindView(R.id.toolbar_header)
     Toolbar toolbarHeader;
+    @BindView(R.id.txtBackInfoMaid)
+    IconTextView txtBackInfoMaid;
 
     private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
 
@@ -87,18 +91,9 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         mMaidProfilePresenter = new MaidProfilePresenter(this);
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == android.R.id.home){
-                    finish();
-                }
-                return true;
-            }
-        });
-
         appBarLayout.addOnOffsetChangedListener(this);
         lo_ChosenMaidInfo.setOnClickListener(this);
+        txtBackInfoMaid.setOnClickListener(this);
 
         mMaid = (Maid) getIntent().getSerializableExtra("maid");
         if (mMaid != null) {
@@ -172,6 +167,9 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             case R.id.lo_ChosenMaidInfo:
                 Toast.makeText(MaidProfileActivity.this, "Đã Chọn", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.txtBackInfoMaid:
+                finish();
+                break;
         }
     }
 
@@ -184,13 +182,14 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     @Override
     public void getListCommentMaid(CommentMaidResponse mCommentMaidResponse) {
-        Toast.makeText(this, "Hoàn thành", Toast.LENGTH_SHORT).show();
+
         commentList = mCommentMaidResponse.getData().getDocs();
         listCommentAdapter = new ListCommentAdapter(this, commentList);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRecycler.setHasFixedSize(true);
         mRecycler.setAdapter(listCommentAdapter);
-        listCommentAdapter.notifyDataSetChanged();    }
+        listCommentAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void getMessager() {
