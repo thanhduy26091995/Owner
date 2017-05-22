@@ -12,16 +12,16 @@ import java.io.Serializable;
 public class Request implements Serializable{
     @SerializedName("maid")
     @Expose
-    private Maid maid;
+    private MaidInfo maid;
     @SerializedName("time")
     @Expose
     private String time;
 
-    public Maid getMaid() {
+    public MaidInfo getMaid() {
         return maid;
     }
 
-    public void setMaid(Maid maid) {
+    public void setMaid(MaidInfo maid) {
         this.maid = maid;
     }
 

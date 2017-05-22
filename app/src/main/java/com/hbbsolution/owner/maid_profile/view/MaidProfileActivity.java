@@ -21,10 +21,9 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
-import com.hbbsolution.owner.model.Comment;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
-import com.hbbsolution.owner.work_management.model.maid.Maid;
+import com.hbbsolution.owner.work_management.model.maid.MaidInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +70,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     private List<Doc> commentList = new ArrayList<>();
     private ListCommentAdapter listCommentAdapter;
 //    private List<Comment> commentList = new ArrayList<>();
-    private Maid mMaid;
+    private MaidInfo mMaid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,7 +94,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         lo_ChosenMaidInfo.setOnClickListener(this);
         txtBackInfoMaid.setOnClickListener(this);
 
-        mMaid = (Maid) getIntent().getSerializableExtra("maid");
+        mMaid = (MaidInfo) getIntent().getSerializableExtra("maid");
         if (mMaid != null) {
             txtNameInfoMaid.setText(mMaid.getInfoMaid().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaid.getWorkInfo().getPrice()));
@@ -103,38 +102,10 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtPhoneInfoMaid.setText(mMaid.getInfoMaid().getPhone());
             txtAddressInfoMaid.setText(mMaid.getInfoMaid().getAddress().getName());
             ratingInfoMaid.setRating(4);
-            mMaidProfilePresenter.getInfoListMaid(token, "590a909315539005c0b05fed", 1);
+            mMaidProfilePresenter.getInfoListMaid(token, mMaid.getId(), 1);
         }
 
-//        initDataComment();
     }
-
-
-//    private void initDataComment() {
-//        Comment comment = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment1 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment2 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment3 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment4 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment5 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment6 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        //add to list
-//        commentList.add(comment);
-//        commentList.add(comment1);
-//        commentList.add(comment2);
-//        commentList.add(comment3);
-//        commentList.add(comment4);
-//        commentList.add(comment5);
-//        commentList.add(comment6);
-//
-//
-//        listCommentAdapter = new ListCommentAdapter(this, commentList);
-//        mRecycler.setLayoutManager(new LinearLayoutManager(this));
-//        mRecycler.setHasFixedSize(true);
-//
-//        mRecycler.setAdapter(listCommentAdapter);
-//        listCommentAdapter.notifyDataSetChanged();
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
