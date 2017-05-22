@@ -45,14 +45,6 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-                <TextView
-                    android:id="@+id/txtNext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bỏ qua"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:fontFamily="@string/font_family_condensed"
-                    android:textColor="@color/home_background_history"/>
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
@@ -79,10 +71,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:orientation="vertical"
-        android:weightSum="3">
+        android:weightSum="3"
+        android:paddingTop="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,7 +85,8 @@
             android:layout_marginStart="10dp"
             android:layout_weight="2"
             android:orientation="horizontal"
-            android:weightSum="5">
+            android:weightSum="5"
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -102,8 +96,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_avatar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:layout_gravity="center"
                     android:src="@drawable/avatar" />
             </LinearLayout>
@@ -168,7 +162,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp">
 
                 <RatingBar
                     android:id="@+id/ratingBar"
