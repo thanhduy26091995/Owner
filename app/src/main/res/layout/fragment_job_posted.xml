@@ -6,31 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_post"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/lo_item_post"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/item_job_post"/>
-            <include layout="@layout/item_job_post"/>
-            <include layout="@layout/item_job_post"/>
-            <include layout="@layout/item_job_post"/>
-            <include layout="@layout/item_job_post"/>
-
-        </LinearLayout>
-    </ScrollView>
-
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/recycler_post"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:clipToPadding="false"-->
-        <!--android:scrollbars="vertical"-->
-        <!--tools:listitem="@layout/item_recy_job_pending" />-->
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_recy_job_pending" />
 
 </LinearLayout>

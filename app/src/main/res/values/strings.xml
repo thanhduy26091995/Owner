@@ -44,6 +44,11 @@
     <string name="sign_up_address">Địa chỉ</string>
     <!--signup_screen end-->
 
+    <!--profile  start-->
+    <string name="pro_file_gender_male">Male</string>
+    <string name="pro_file_gender_female">Female</string>
+    <!--terms screen end-->
+
 
     <!--khác-->
     <string name="default_language">Default</string>

@@ -48,23 +48,12 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:text="Đang chờ ứng tuyển"
-                android:textColor="@color/colorBlack" />
-
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,7 +86,7 @@
                     android:paddingTop="5dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/img_address"
+                        android:id="@+id/imgType_job_detail_post"
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_alignParentLeft="true"
@@ -110,10 +99,11 @@
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_toRightOf="@+id/img_address"
+                        android:layout_toRightOf="@+id/imgType_job_detail_post"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/txtTitle_job_detail_post"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Lau dọn phòng khách"
@@ -122,6 +112,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/txtType_job_detail_post"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -132,6 +123,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/txtContent_job_detail_psot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
@@ -174,6 +166,7 @@
                         android:textSize="@dimen/icon_size" />
 
                     <TextView
+                        android:id="@+id/txtPrice_job_detail_post"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
@@ -208,6 +201,7 @@
                         android:textSize="@dimen/icon_size" />
 
                     <TextView
+                        android:id="@+id/txtDate_job_detail_post"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -218,6 +212,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
+                        android:id="@+id/txtTime_work_doing_detail_post"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -252,7 +247,7 @@
                         android:textSize="@dimen/icon_size" />
 
                     <TextView
-                        android:id="@+id/job_post_txtAdress"
+                        android:id="@+id/txtAddress_detail_post"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -265,6 +260,78 @@
                         android:textColor="@color/colorBlack" />
 
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lo_list_recruitment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/job_post_txtTitle_job"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="Danh sách ứng tuyển"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/home_background_history" />
+
+                <TextView
+                    android:id="@+id/txtNumber_request_detail_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/icon_size_normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lo_clear_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtClearJob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="Xóa công việc"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/home_background_maid_aound" />
+
+                <com.hbbsolution.owner.base.IconTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="@string/manager_ic_trash"
+                    android:textColor="@color/home_background_history"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

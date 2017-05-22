@@ -5,22 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_doing"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/lo_item_doing"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
 
-            <include layout="@layout/item_job_post"/>
-            <include layout="@layout/item_job_post"/>
-            <include layout="@layout/item_job_post"/>
-            <include layout="@layout/item_job_post"/>
-            <include layout="@layout/item_job_post"/>
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/lo_item_doing"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
 
-        </LinearLayout>
-    </ScrollView>
+            <!--<include layout="@layout/item_job_post"/>-->
+            <!--<include layout="@layout/item_job_post"/>-->
+            <!--<include layout="@layout/item_job_post"/>-->
+            <!--<include layout="@layout/item_job_post"/>-->
+            <!--<include layout="@layout/item_job_post"/>-->
+
+        <!--</LinearLayout>-->
+    <!--</ScrollView>-->
 
 </LinearLayout>

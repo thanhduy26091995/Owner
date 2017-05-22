@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.work_management;
+package com.hbbsolution.owner.work_management.view.workmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -15,8 +14,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
 import com.hbbsolution.owner.base.IconTextView;
-import com.hbbsolution.owner.work_management.model.Work;
-import com.hbbsolution.owner.work_management.view.JobPostActivity;
+import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,7 +85,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     private void setupViewPagerUser(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new JobPostedFragment(), "Đã đăng");
-        adapter.addFragment(new JobPendingFragment(), "Chờ duyệt");
+        adapter.addFragment(new JobPendingFragment(), "Đã phân công");
         adapter.addFragment(new JobDoingFragment(), "Đang làm");
         viewPager.setAdapter(adapter);
     }

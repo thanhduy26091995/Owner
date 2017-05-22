@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.history.view;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -11,8 +12,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.model.Comment;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobPendingActivity;
+import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,17 +37,22 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     EditText edtComment;
     @BindView(R.id.lnCheck)
     LinearLayout lnCheck;
+    @BindView(R.id.txtNext)
+    TextView txtNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         ButterKnife.bind(this);
+
         lnCheck.setVisibility(View.VISIBLE);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         lnCheck.setOnClickListener(this);
         setBackgroundRatingBar();
+
+        txtNext.setOnClickListener(this);
 
     }
 
@@ -55,6 +65,12 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.txtNext:
+                Intent itPayment = new Intent(CommentActivity.this, PaymentActivity.class);
+                startActivity(itPayment);
+                finish();
+                break;
+        }
     }
 }

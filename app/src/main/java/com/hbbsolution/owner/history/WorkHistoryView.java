@@ -1,6 +1,6 @@
 package com.hbbsolution.owner.history;
 
-import com.hbbsolution.owner.work_management.model.Datum;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 
 import java.util.List;
 

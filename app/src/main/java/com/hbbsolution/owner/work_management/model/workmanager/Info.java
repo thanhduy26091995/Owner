@@ -1,13 +1,15 @@
-package com.hbbsolution.owner.work_management.model;
+package com.hbbsolution.owner.work_management.model.workmanager;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 /**
  * Created by tantr on 5/10/2017.
  */
 
-public class Info {
+public class Info implements Serializable{
     @SerializedName("title")
     @Expose
     private String title;

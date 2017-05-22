@@ -34,12 +34,12 @@ public class HistoryHelperFragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_history_helper, container, false);
         //Gán adapter các thứ
-        historyHelperAdapter = new HistoryHelperAdapter(getActivity());
-        recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
-        layoutManager = new LinearLayoutManager(getActivity());
-        historyHelperAdapter.notifyDataSetChanged();
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(historyHelperAdapter);
+//        historyHelperAdapter = new HistoryHelperAdapter(getActivity());
+//        recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
+//        layoutManager = new LinearLayoutManager(getActivity());
+//        historyHelperAdapter.notifyDataSetChanged();
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(historyHelperAdapter);
         return v;
     }
 }

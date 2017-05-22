@@ -11,10 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.model.Comment;
+import com.hbbsolution.owner.work_management.model.maid.Maid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,23 +32,35 @@ import butterknife.ButterKnife;
  */
 
 public class MaidProfileActivity extends AppCompatActivity implements View.OnClickListener,AppBarLayout.OnOffsetChangedListener {
-    //
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-//    @BindView(R.id.txt_ic_back)
-//    IconTextView txt_ic_back;
-    //@BindView(R.id.manager_info_user_title_toothbar)
-//    TextView txtManager_info_user_title_toothbar;
     @BindView(R.id.info_user_appbar)
     AppBarLayout appBarLayout;
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.recycler_comment)
     RecyclerView mRecycler;
+    @BindView(R.id.txtBackInfoMaid)
+    TextView txtBackInfoMaid;
+    @BindView(R.id.txtNameInfoMaid)
+    TextView txtNameInfoMaid;
+    @BindView(R.id.txtPriceInfoMaid)
+    TextView txtPriceInfoMaid;
+    @BindView(R.id.txtGenderInfoMaid)
+    TextView txtGenderInfoMaid;
+    @BindView(R.id.txtPhoneInfoMaid)
+    TextView txtPhoneInfoMaid;
+    @BindView(R.id.txtAddressInfoMaid)
+    TextView txtAddressInfoMaid;
+    @BindView(R.id.ratingInfoMaid)
+    RatingBar ratingInfoMaid;
+    @BindView(R.id.lo_ChosenMaidInfo)
+    RelativeLayout lo_ChosenMaidInfo;
 
     private ListCommentAdapter listCommentAdapter;
     private List<Comment> commentList = new ArrayList<>();
-
+    private Maid mMaid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,13 +74,18 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setTitle("");
 
         appBarLayout.addOnOffsetChangedListener(this);
-       // txt_ic_back.setOnClickListener(this);
-//        txt_ic_back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(MaidProfileActivity.this, "AAA", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        txtBackInfoMaid.setOnClickListener(this);
+        lo_ChosenMaidInfo.setOnClickListener(this);
+
+        mMaid = (Maid) getIntent().getSerializableExtra("maid");
+        if(mMaid != null){
+            txtNameInfoMaid.setText(mMaid.getInfoMaid().getUsername());
+            txtPriceInfoMaid.setText(String.valueOf(mMaid.getWorkInfo().getPrice()));
+            txtGenderInfoMaid.setText(getGenderMaid(mMaid.getInfoMaid().getGender()));
+            txtPhoneInfoMaid.setText(mMaid.getInfoMaid().getPhone());
+            txtAddressInfoMaid.setText(mMaid.getInfoMaid().getAddress().getName());
+            ratingInfoMaid.setRating(4);
+        }
 
         initDataComment();
     }
@@ -123,9 +145,18 @@ public class MaidProfileActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-//            case R.id.txt_ic_back:
-//                finish();
-//                break;
+            case R.id.txtBackInfoMaid:
+                finish();
+                break;
+            case R.id.lo_ChosenMaidInfo:
+                Toast.makeText(MaidProfileActivity.this, "Đã Chọn", Toast.LENGTH_SHORT).show();
+                break;
         }
+    }
+    private String getGenderMaid(int gender){
+        if(gender == 0){
+            return getResources().getString(R.string.pro_file_gender_male);
+        }
+        return getResources().getString(R.string.pro_file_gender_female);
     }
 }

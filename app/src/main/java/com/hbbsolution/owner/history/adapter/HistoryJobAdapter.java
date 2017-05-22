@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.view.DetailWorkHistoryActivity;
-import com.hbbsolution.owner.work_management.model.Datum;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

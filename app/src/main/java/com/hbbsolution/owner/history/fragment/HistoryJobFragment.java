@@ -12,7 +12,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.WorkHistoryView;
 import com.hbbsolution.owner.history.adapter.HistoryJobAdapter;
 import com.hbbsolution.owner.history.presenter.WorkHistoryPresenter;
-import com.hbbsolution.owner.work_management.model.Datum;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 
 import java.util.List;
 

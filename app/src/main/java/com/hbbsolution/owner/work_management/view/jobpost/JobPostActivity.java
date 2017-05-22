@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.work_management.view;
+package com.hbbsolution.owner.work_management.view.jobpost;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -12,22 +12,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.adapter.JobPostAdapter;
 import com.hbbsolution.owner.adapter.TypeJobAdapter;
-import com.hbbsolution.owner.base.IconTextView;
-import com.hbbsolution.owner.work_management.model.Time;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
