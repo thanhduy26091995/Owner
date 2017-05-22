@@ -40,5 +40,7 @@
 
     <!--maid near by-->
     <string name="ic_filter">&#xf4a6;</string>
+    <string name="ic_setting">&#xf2f7;</string>
+    <string name="ic_calendar">&#xf2d1;</string>
     <!---->
 </resources>

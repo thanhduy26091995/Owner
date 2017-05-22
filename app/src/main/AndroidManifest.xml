@@ -34,14 +34,16 @@
         <activity android:name=".work_management.view.detail.DetailJobDoingActivity" />
         <activity android:name=".work_management.view.jobpost.JobPostActivity" />
         <activity android:name=".work_management.view.listmaid.ListUserRecruitmentActivity" />
-        <activity android:name=".history.view.CommentActivity"/>
-        <activity android:name=".work_management.view.payment.PaymentActivity"/>
-        <activity android:name=".history.view.HistoryActivity"/>
+        <activity android:name=".history.view.CommentActivity" />
+        <activity android:name=".work_management.view.payment.PaymentActivity" />
+        <activity android:name=".history.view.HistoryActivity" />
         <activity android:name=".maid_profile.view.MaidProfileActivity" />
         <activity android:name=".history.view.DetailWorkHistoryActivity" />
         <activity android:name=".maid_near_by.view.MaidNearByActivity" />
         <activity android:name=".more.duy_nguyen.StatisticActivity"></activity>
-        <activity android:name=".more.phuc_tran.ContactActivity"/>
+        <activity android:name=".more.phuc_tran.ContactActivity" />
+        <activity android:name=".report.view.ReportMaidActivity" />
+        <activity android:name=".maid_near_by.view.FilterActivity" />
     </application>
 
 </manifest>

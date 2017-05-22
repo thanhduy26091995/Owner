@@ -1,10 +1,12 @@
 package com.hbbsolution.owner.model;
 
+import java.io.Serializable;
+
 /**
  * Created by buivu on 15/05/2017.
  */
 
-public class Comment {
+public class Comment implements Serializable{
     private String commentBy;
     private long timestamp;
     private float rating;

@@ -4,7 +4,9 @@ package com.hbbsolution.owner.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MaidInfo {
+import java.io.Serializable;
+
+public class MaidInfo implements Serializable{
 
     @SerializedName("_id")
     @Expose
