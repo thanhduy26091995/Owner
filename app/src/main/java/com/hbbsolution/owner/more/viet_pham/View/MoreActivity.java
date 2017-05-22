@@ -72,4 +72,10 @@ public class MoreActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
+    }
 }

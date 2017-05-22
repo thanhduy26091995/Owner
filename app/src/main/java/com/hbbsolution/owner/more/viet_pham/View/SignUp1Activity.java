@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 
@@ -23,6 +25,12 @@ public class SignUp1Activity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.button_next)
     Button buttonNext;
+    @BindView(R.id.edit_username)
+    EditText edtUserName;
+    @BindView(R.id.edit_password)
+    EditText edtPassword;
+    @BindView(R.id.edit_confirm_password)
+    EditText edtConfirmPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,9 +57,30 @@ public class SignUp1Activity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUp1Activity.this, SignUp2Activity.class);
-                startActivity(intent);
+                String username = edtUserName.getText().toString();
+                String password = edtPassword.getText().toString();
+                String confirmPassword = edtConfirmPassword.getText().toString();
+                if (username.trim().length() == 0 || password.length() == 0 || confirmPassword.length() == 0) {
+                    Toast.makeText(SignUp1Activity.this, "Vui long nhap day du thong tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (password.equals(confirmPassword)) {
+                        Intent iSignUp1 = new Intent(SignUp1Activity.this, SignUp2Activity.class);
+                        Bundle bNextPage = new Bundle();
+                        bNextPage.putString("username", username);
+                        bNextPage.putString("password", password);
+                        iSignUp1.putExtra("bNextPage", bNextPage);
+                        startActivity(iSignUp1);
+                    } else {
+                        Toast.makeText(SignUp1Activity.this,"Xác nhận mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
     }
 }

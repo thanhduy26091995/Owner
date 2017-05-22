@@ -71,4 +71,10 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
+    }
 }
