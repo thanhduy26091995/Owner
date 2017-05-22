@@ -32,6 +32,9 @@ public class ContactActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //config toolbar
+
+        //a
+
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
