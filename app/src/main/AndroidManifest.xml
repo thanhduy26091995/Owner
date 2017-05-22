@@ -42,6 +42,7 @@
         <activity android:name=".maid_profile.view.MaidProfileActivity" />
         <activity android:name=".history.view.DetailWorkHistoryActivity"></activity>
         <activity android:name=".maid_near_by.view.MaidNearByActivity"/>
+        <activity android:name=".more.phuc_tran.ContactActivity"/>
     </application>
 
 </manifest>
