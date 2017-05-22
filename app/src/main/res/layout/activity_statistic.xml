@@ -105,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:weightSum="15">
+                    android:weightSum="20">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="13">
+                        android:layout_weight="18">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -148,7 +148,7 @@
                                 android:gravity="center"
                                 android:text="1.5 triệu"
                                 android:textColor="@color/home_background_history"
-                                android:textSize="35dp"
+                                android:textSize="40sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -170,7 +170,8 @@
             android:layout_weight="3"
             android:orientation="horizontal"
             android:weightSum="3"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            android:paddingBottom="5dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -185,10 +186,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:text="6"
                     android:textColor="@color/home_background_maid_aound"
-                    android:textSize="45sp"
+                    android:textSize="40sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -212,10 +213,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:text="5"
                     android:textColor="@color/home_background_your_tasks"
-                    android:textSize="45sp"
+                    android:textSize="40sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -239,10 +240,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:text="8"
                     android:textColor="@color/home_background_history"
-                    android:textSize="45sp"
+                    android:textSize="40sp"
                     android:textStyle="bold" />
 
                 <TextView
