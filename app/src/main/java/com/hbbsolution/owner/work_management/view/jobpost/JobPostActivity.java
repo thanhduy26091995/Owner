@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.TypeJobAdapter;
 
+import org.joda.time.DateTime;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,6 +63,10 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.txtDate_start_work)
     TextView txtDate_start_work;
 
+    private String mDateStartWork, mTimeStartWork, mTimeEndWork;
+    private boolean isTimeStart;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +92,59 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void eventClick() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rad_type_money_work:
+                edt_monney_work.setEnabled(true);
+                break;
+
+            case R.id.rad_type_money_khoan:
+                edt_monney_work.setEnabled(false);
+                break;
+
+            case R.id.job_post_txtType_job:
+                eventClickTypeWork();
+                break;
+
+            case R.id.txtTime_start:
+                isTimeStart = true;
+                SgetTimePicker(txtTime_start);
+                break;
+
+            case R.id.txtTime_end:
+                isTimeStart = false;
+                SgetTimePicker(txtTime_end);
+                break;
+
+            case R.id.txtDate_start_work:
+                getDatePicker();
+                break;
+
+            case R.id.btn_post_complete:
+//                saveDataBeforeMoving();
+                validateTimeWork();
+
+                break;
+
+        }
+    }
+
+    private void eventClickTypeWork() {
         View view = getLayoutInflater().inflate(R.layout.job_post_bottom_sheet, null);
         TextView txtCancle = (TextView) view.findViewById(R.id.txt_cancel);
         RecyclerView mRecycler = (RecyclerView) view.findViewById(R.id.recy_type_job);
@@ -127,55 +185,6 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.bind(this).unbind();
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.rad_type_money_work:
-                edt_monney_work.setEnabled(true);
-                break;
-
-            case R.id.rad_type_money_khoan:
-                edt_monney_work.setEnabled(false);
-                break;
-
-            case R.id.job_post_txtType_job:
-                eventClick();
-                break;
-
-            case R.id.txtTime_start:
-                getTimePicker(txtTime_start);
-                break;
-
-            case R.id.txtTime_end:
-                getTimePicker(txtTime_end);
-                validateTimeWork();
-                break;
-
-            case R.id.txtDate_start_work:
-                getDatePicker();
-                break;
-
-            case R.id.btn_post_complete:
-//                saveDataBeforeMoving();
-                break;
-
-        }
-    }
-
     private void saveDataBeforeMoving() {
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
@@ -183,6 +192,29 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
             edt_monney_work.setEnabled(false);
         }
     }
+
+    private void SgetTimePicker(final TextView txtTime) {
+        final Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(0, 0, 0, hourOfDay, minute);
+                DateTime dateTime = new DateTime(calendar);
+                if(isTimeStart){
+                    mTimeStartWork = dateTime.toString();
+                    Toast.makeText(JobPostActivity.this, "AAA",Toast.LENGTH_SHORT).show();
+                } else {
+                    mTimeEndWork = dateTime.toString();
+                    Toast.makeText(JobPostActivity.this, "BBB",Toast.LENGTH_SHORT).show();
+                }
+                txtTime.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        timePickerDialog.show();
+
+    }
+
 
     private void getTimePicker(final TextView txtTime) {
         final Calendar calendar = Calendar.getInstance();
@@ -206,6 +238,8 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 calendar.set(i, i1, i2);
+                DateTime dateTime = new DateTime(calendar);
+                mDateStartWork = dateTime.toString();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
                 if (CompareDays(txtDate_start_work.getText().toString())) {
@@ -268,7 +302,7 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
 
     private void validateTimeWork(){
         if (CompareTime(txtTime_start.getText().toString(), txtTime_end.getText().toString())){
-            Toast.makeText(JobPostActivity.this, "Đúng giờ", Toast.LENGTH_LONG).show();
+            Toast.makeText(JobPostActivity.this, "Đúng giờ " + mTimeStartWork + mTimeEndWork, Toast.LENGTH_LONG).show();
         }else {
             Toast.makeText(JobPostActivity.this, "Sai giờ", Toast.LENGTH_LONG).show();
         }

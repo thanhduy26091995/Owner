@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "https://yukotest123.herokuapp.com/en/";
+    public static final String BASE_URL = "https://yukotest123.herokuapp.com/vi/";
     public static String language = "vi";
 
     private static Retrofit retrofit = null;

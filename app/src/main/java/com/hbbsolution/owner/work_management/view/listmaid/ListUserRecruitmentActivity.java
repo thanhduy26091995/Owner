@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.adapter.ListUserRecruitmentAdapter;
 import com.hbbsolution.owner.history.adapter.HistoryHelperAdapter;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.Request;
@@ -38,7 +39,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     private ListMaidPresenter mListMaidPresenter;
     private List<Request> mListMaid = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
-    private HistoryHelperAdapter historyHelperAdapter;
+    private ListUserRecruitmentAdapter listUserRecruitmentAdapter;
     private RecyclerView mRecycler;
 
     @Override
@@ -83,12 +84,12 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
             mListMaid.addAll(mListMaidRespose.getData().get(i).getRequest());
 
         }
-        historyHelperAdapter = new HistoryHelperAdapter(this, mListMaid, false);
+        listUserRecruitmentAdapter = new ListUserRecruitmentAdapter(this, mListMaid, false);
         mRecycler = (RecyclerView) findViewById(R.id.recycler_listmaid);
         layoutManager = new LinearLayoutManager(this);
-        historyHelperAdapter.notifyDataSetChanged();
+        listUserRecruitmentAdapter.notifyDataSetChanged();
         mRecycler.setLayoutManager(layoutManager);
-        mRecycler.setAdapter(historyHelperAdapter);
+        mRecycler.setAdapter(listUserRecruitmentAdapter);
     }
 
     @Override

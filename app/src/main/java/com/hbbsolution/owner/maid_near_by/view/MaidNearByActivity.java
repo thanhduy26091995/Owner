@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +29,8 @@ import com.hbbsolution.owner.maid_near_by.presenter.MaidNearByPresenter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.MaidInfo;
 import com.hbbsolution.owner.model.MaidNearByResponse;
+import com.joanzapata.iconify.IconDrawable;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -60,7 +63,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
     private MaidNearByPresenter presenter;
     private MapWrapperLayout mapWrapperLayout;
     private ViewGroup infoWindow;
-    private RelativeLayout relaChooseMaid;
+    private LinearLayout linearMaidProfile;
     private OnInfoWindowElemTouchListener infoRelaListener;
 
     @Override
@@ -86,8 +89,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         mTextTitle.setText("Người giúp việc quanh đây");
         //get data
         loadData();
-        relaChooseMaid = (RelativeLayout) infoWindow.findViewById(R.id.rela_choose_maid);
-        relaChooseMaid.setOnClickListener(new View.OnClickListener() {
+        linearMaidProfile = (LinearLayout) infoWindow.findViewById(R.id.linear_maid_profile);
+        linearMaidProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -102,7 +105,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
                 startActivity(intent);
             }
         };
-        this.relaChooseMaid.setOnTouchListener(infoRelaListener);
+        this.linearMaidProfile.setOnTouchListener(infoRelaListener);
 
         googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
@@ -175,6 +178,19 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         }
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_filter_maid, menu);
+        menu.findItem(R.id.action_filter).setIcon(
+                new IconDrawable(this, FontAwesomeIcons.fa_sliders)
+                        .color(R.color.home_background_history)
+                        .colorRes(R.color.home_background_history)
+                        .sizeDp(24)
+                        .actionBarSize()
+        );
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

@@ -5,6 +5,9 @@ import android.app.Application;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
+
 /**
  * Created by buivu on 28/04/2017.
  */
@@ -20,7 +23,7 @@ public class OwnerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        Iconify.with(new FontAwesomeModule());
         instance = this;
         // register to be informed of activities starting up
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {

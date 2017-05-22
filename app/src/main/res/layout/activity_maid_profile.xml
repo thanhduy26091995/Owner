@@ -25,6 +25,26 @@
                 android:orientation="vertical"
                 app:layout_collapseMode="parallax">
 
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorWhite"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:theme="@style/toolbar_theme">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Thông tin"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    />
+
+                </android.support.v7.widget.Toolbar>
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -35,17 +55,6 @@
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg" />
-
-                    <com.hbbsolution.owner.base.IconTextView
-                        android:id="@+id/txtBackInfoMaid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="@string/ic_back"
-                        android:textColor="@color/home_background_history"
-                        android:textSize="30dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -290,12 +299,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
+<android.support.v4.widget.NestedScrollView
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
@@ -333,29 +346,42 @@
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+</android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/lo_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
         android:layout_marginBottom="?attr/actionBarSize"
         android:background="@color/colorWhite"
-        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:theme="@style/toolbar_theme">
 
+        <com.hbbsolution.owner.base.IconTextView
+            android:id="@+id/txtBackInfoMaid"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/ic_back"
+            android:textColor="@color/home_background_history"
+            android:textSize="30dp" />
+
         <TextView
             android:id="@+id/manager_doing_title_toothbar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Thông tin"
+            android:gravity="center"
+            android:text="Đánh giá"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="bold" />
         />
 
-    </android.support.v7.widget.Toolbar>
+    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

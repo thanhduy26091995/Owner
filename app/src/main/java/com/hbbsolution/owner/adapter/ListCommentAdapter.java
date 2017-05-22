@@ -10,7 +10,13 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.model.Comment;
+import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
 
+import org.joda.time.DateTime;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,9 +26,9 @@ import java.util.List;
 public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.ListCommentViewHolder> {
 
     public Activity activity;
-    public List<Comment> comments;
+    public List<Doc> comments;
 
-    public ListCommentAdapter(Activity activity, List<Comment> comments) {
+    public ListCommentAdapter(Activity activity, List<Doc> comments) {
         this.activity = activity;
         this.comments = comments;
     }
@@ -35,12 +41,20 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
 
     @Override
     public void onBindViewHolder(ListCommentViewHolder holder, int position) {
-        Comment comment = comments.get(position);
-        holder.txtCommentName.setText("Nguyễn Văn A");
-        holder.txtCommentContent.setText(comment.getType());
-        holder.txtCommentType.setText(comment.getContent());
-        holder.txtCommentTime.setText("15/05/2017");
-        //  holder.ratingBar.setRating((int) comment.getRating());
+
+//        Comment comment = comments.get(position);
+//        holder.txtCommentName.setText("Nguyễn Văn A");
+//        holder.txtCommentContent.setText(comment.getType());
+//        holder.txtCommentType.setText(comment.getContent());
+//        holder.txtCommentTime.setText("15/05/2017");
+//        //  holder.ratingBar.setRating((int) comment.getRating());
+
+        Doc comment = comments.get(position);
+        holder.txtCommentName.setText(comment.getFromId().getInfo().getName());
+        holder.txtCommentContent.setText(comment.getContent());
+        holder.txtCommentType.setText(comment.getTask().getInfoTask().getTitle());
+        holder.txtCommentTime.setText(getDatePostHistory(comment.getCreateAt()));
+        holder.ratingBar.setRating(comment.getEvaluationPoint());
     }
 
     @Override
@@ -61,6 +75,14 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
             txtCommentTime = (TextView) itemView.findViewById(R.id.txt_comment_time);
             txtCommentType = (TextView) itemView.findViewById(R.id.txt_comment_type);
             txtCommentContent = (TextView) itemView.findViewById(R.id.txt_comment_content);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.rating_comment);
         }
+    }
+
+    private String getDatePostHistory(String createDatePostHistory) {
+        Date date = new DateTime(createDatePostHistory).toDate();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String mDateTimePostHistory = df.format(date);
+        return mDateTimePostHistory;
     }
 }
