@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hbbsolution.owner">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,11 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value=" AIzaSyAzSFwRry4u2KYJYq3IT_oc-w9sww5yVpY" />
-
 
         <activity android:name=".home.HomeActivity">
             <intent-filter>
@@ -35,12 +33,13 @@
         <activity android:name=".work_management.view.detail.DetailJobDoingActivity" />
         <activity android:name=".work_management.view.jobpost.JobPostActivity" />
         <activity android:name=".work_management.view.listmaid.ListUserRecruitmentActivity" />
-        <activity android:name=".history.view.CommentActivity"/>
-        <activity android:name=".work_management.view.payment.PaymentActivity"/>
-        <activity android:name=".history.view.HistoryActivity"/>
+        <activity android:name=".history.view.CommentActivity" />
+        <activity android:name=".work_management.view.payment.PaymentActivity" />
+        <activity android:name=".history.view.HistoryActivity" />
         <activity android:name=".maid_profile.view.MaidProfileActivity" />
-        <activity android:name=".history.view.DetailWorkHistoryActivity"></activity>
-        <activity android:name=".maid_near_by.view.MaidNearByActivity"/>
+        <activity android:name=".history.view.DetailWorkHistoryActivity" />
+        <activity android:name=".maid_near_by.view.MaidNearByActivity" />
+        <activity android:name=".more.duy_nguyen.StatisticActivity"></activity>
     </application>
 
 </manifest>

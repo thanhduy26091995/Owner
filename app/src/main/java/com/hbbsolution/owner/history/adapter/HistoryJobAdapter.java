@@ -1,7 +1,10 @@
 package com.hbbsolution.owner.history.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +15,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.history.model.Datum;
 import com.hbbsolution.owner.history.view.DetailWorkHistoryActivity;
-import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -34,6 +39,10 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     private String startTime, endTime;
     private int lastPosition = -1;
     private int previousPosition = 0;
+    private String type,title,work,description,address,avatar,name,address_;
+    private int price;
+    private Datum datum;
+    private Pair<View, String> pairJobType;
     @Override
     public HistoryJobAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_job, parent, false);
@@ -49,12 +58,16 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     public void onBindViewHolder(HistoryJobAdapter.RecyclerViewHolder holder, int position) {
         holder.tvJob.setText(listData.get(position).getInfo().getTitle());
         Picasso.with(context).load(listData.get(position).getInfo().getWork().getImage())
-                .placeholder(R.drawable.avatar)
-                .error(R.drawable.avatar)
+                .placeholder(R.drawable.no_image)
+                .error(R.drawable.no_image)
                 .into(holder.imgType);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
+        DateFormatSymbols symbols = new DateFormatSymbols(Locale.getDefault());
+        // OVERRIDE SOME symbols WHILE RETAINING OTHERS
+        symbols.setAmPmStrings(new String[] { "am", "pm" });
+        time.setDateFormatSymbols(symbols);
         try {
             Date endDate = simpleDateFormat.parse(listData.get(position).getInfo().getTime().getEndAt());
             Date nowDate = new Date();
@@ -79,9 +92,14 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         holder.tvDeitalTime.setText(startTime.replace(":","h") + " - "+endTime.replace(":","h"));
         setAnimation(holder.itemView, position);
         previousPosition=position;
+        getData(position);
+
     }
 
-
+    public void getData(int position)
+    {
+       datum=listData.get(position);
+    }
     @Override
     public int getItemCount() {
         return listData.size();
@@ -105,7 +123,14 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, DetailWorkHistoryActivity.class);
-            context.startActivity(intent);
+
+            intent.putExtra("app",listData.get(getAdapterPosition()));
+            intent.putExtra("work",datum);
+            ActivityOptionsCompat learningOption =
+                    ActivityOptionsCompat
+                            .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_job_type), "icJobType");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent, learningOption.toBundle());
         }
 
         @Override

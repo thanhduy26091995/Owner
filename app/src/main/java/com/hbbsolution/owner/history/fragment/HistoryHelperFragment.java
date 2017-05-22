@@ -3,7 +3,6 @@ package com.hbbsolution.owner.history.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.adapter.HistoryHelperAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,6 +29,7 @@ public class HistoryHelperFragment extends Fragment {
     private TextView tvStartDate, tvEndDate;
     private Calendar cal;
     private Date startDate,endDate;
+    private String strStartDate, strEndDate;
 
     public static HistoryHelperFragment newInstance() {
         HistoryHelperFragment fragment = new HistoryHelperFragment();
@@ -43,12 +44,12 @@ public class HistoryHelperFragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_history_helper, container, false);
         //Gán adapter các thứ
-        historyHelperAdapter = new HistoryHelperAdapter(getActivity());
-        recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
-        layoutManager = new LinearLayoutManager(getActivity());
-        historyHelperAdapter.notifyDataSetChanged();
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(historyHelperAdapter);
+//        historyHelperAdapter = new HistoryHelperAdapter(getActivity());
+//        recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
+//        layoutManager = new LinearLayoutManager(getActivity());
+//        historyHelperAdapter.notifyDataSetChanged();
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(historyHelperAdapter);
 
         cal = Calendar.getInstance();
         tvStartDate = (TextView) v.findViewById(R.id.tvStartDate);
@@ -65,6 +66,7 @@ public class HistoryHelperFragment extends Fragment {
                 showDatePickerDialog2();
             }
         });
+        getTime();
         return v;
     }
 
@@ -116,5 +118,17 @@ public class HistoryHelperFragment extends Fragment {
         DatePickerDialog pic = new DatePickerDialog(getActivity(), callback, nam, thang, ngay);
         pic.setTitle("Chọn ngày kết thúc");
         pic.show();
+    }
+    public void getTime() {
+        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+        Date myDate = new Date();
+        strEndDate = date.format(myDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(myDate);
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        Date newDate = calendar.getTime();
+        strStartDate=date.format(newDate);
+        tvStartDate.setText(strStartDate);
+        tvEndDate.setText(strEndDate);
     }
 }

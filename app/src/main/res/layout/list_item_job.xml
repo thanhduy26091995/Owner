@@ -28,7 +28,8 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/dondepnha" />
+                    android:src="@drawable/dondepnha"
+                    android:transitionName="icJobType"/>
             </LinearLayout>
 
             <LinearLayout

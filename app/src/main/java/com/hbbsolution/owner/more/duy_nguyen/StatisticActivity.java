@@ -1,94 +1,38 @@
-package com.hbbsolution.owner.history.fragment;
+package com.hbbsolution.owner.more.duy_nguyen;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.WorkHistoryView;
-import com.hbbsolution.owner.history.adapter.HistoryJobAdapter;
-import com.hbbsolution.owner.history.presenter.WorkHistoryPresenter;
-import com.hbbsolution.owner.history.model.Datum;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-/**
- * Created by Administrator on 15/05/2017.
- */
-
-public class HistoryJobFragment extends Fragment implements WorkHistoryView {
-    private View v;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private HistoryJobAdapter historyJobAdapter;
-    private WorkHistoryPresenter workHistoryPresenter;
-    private TextView tvStartDate, tvEndDate;
+public class StatisticActivity extends AppCompatActivity implements View.OnClickListener{
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tvStartDate)
+    TextView tvStartDate;
+    @BindView(R.id.tvEndDate)
+    TextView tvEndDate;
     private Calendar cal;
-    private Date startDate, endDate;
+    private Date startDate,endDate;
     private String strStartDate, strEndDate;
 
-    public HistoryJobFragment() {
-    }
-
-    public static HistoryJobFragment newInstance() {
-        HistoryJobFragment fragment = new HistoryJobFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_history_job, container, false);
-        //Gán adapter các thứ
-        workHistoryPresenter = new WorkHistoryPresenter(this);
-        workHistoryPresenter.getInfoWorkHistory("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", "000000000000000000000005");
-        cal = Calendar.getInstance();
-        recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_job);
-        tvStartDate = (TextView) v.findViewById(R.id.tvStartDate);
-        tvStartDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog1();
-            }
-        });
-        tvEndDate = (TextView) v.findViewById(R.id.tvEndDate);
-        tvEndDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog2();
-            }
-        });
-        getTime();
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        return v;
-    }
-
-    @Override
-    public void getInfoWorkHistory(List<Datum> listWorkHistory) {
-        historyJobAdapter = new HistoryJobAdapter(getActivity(), listWorkHistory);
-        historyJobAdapter.notifyDataSetChanged();
-        recyclerView.setAdapter(historyJobAdapter);
-    }
-
-    @Override
-    public void getError() {
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_statistic);
+        ButterKnife.bind(this);
     }
 
     public void showDatePickerDialog1() {
@@ -111,7 +55,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
         int nam = Integer.parseInt(strArrtmp[2]);
-        DatePickerDialog pic = new DatePickerDialog(getActivity(), callback, nam, thang, ngay);
+        DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
         pic.setTitle("Chọn ngày bắt đầu");
         pic.show();
     }
@@ -136,11 +80,10 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
         int nam = Integer.parseInt(strArrtmp[2]);
-        DatePickerDialog pic = new DatePickerDialog(getActivity(), callback, nam, thang, ngay);
+        DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
         pic.setTitle("Chọn ngày kết thúc");
         pic.show();
     }
-
     public void getTime() {
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         Date myDate = new Date();
@@ -152,5 +95,18 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         strStartDate=date.format(newDate);
         tvStartDate.setText(strStartDate);
         tvEndDate.setText(strEndDate);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.tvStartDate:
+                showDatePickerDialog1();
+                break;
+            case R.id.tvEndDate:
+                showDatePickerDialog2();
+                break;
+        }
     }
 }

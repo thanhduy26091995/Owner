@@ -1,15 +1,14 @@
+
 package com.hbbsolution.owner.history.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Administrator on 18/05/2017.
- */
+public class Example implements Serializable {
 
-public class WorkHistoryResponse {
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -43,4 +42,5 @@ public class WorkHistoryResponse {
     public void setData(List<Datum> data) {
         this.data = data;
     }
+
 }
