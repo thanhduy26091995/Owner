@@ -7,13 +7,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="5"
         android:padding="10dp"
         android:background="@color/colorWhite">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:id="@+id/tvStartDate"
             android:text="12/5/2017"
             android:textColor="@color/home_background_history"
             android:gravity="center"
@@ -28,7 +29,8 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:id="@+id/tvEndDate"
             android:text="20/6/2017"
             android:textColor="@color/home_background_history"
             android:gravity="center"

@@ -61,12 +61,17 @@
                     android:text="MÔ TẢ" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="-5dp"
+                android:background="@color/color_line_view" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-5dp"
                 android:orientation="vertical"
-                android:weightSum="10">
+                android:weightSum="10"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,22 +84,22 @@
                         android:layout_weight="2"
                         android:background="@color/colorWhite"
                         android:orientation="horizontal"
-                        android:weightSum="5">
+                        android:weightSum="5"
+                        android:padding="10dp">
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:gravity="center">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/detail_work_history_type"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/dondepnha" />
+                                android:src="@drawable/no_image"
+                                android:transitionName="icJobType" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -116,7 +121,6 @@
                                     android:id="@+id/detail_work_history_tvJob"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Lau dọn nhà"
                                     android:textColor="@color/colorBlack"
                                     android:textSize="@dimen/text_size_large"
                                     android:textStyle="bold" />
@@ -131,7 +135,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="4"
-                                        android:text="Dọn dẹp nhà cửa" />
+                                        android:id="@+id/detail_work_history_tvWork"/>
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
@@ -146,7 +150,6 @@
                         android:paddingBottom="10dp"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:text="Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h. Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h."
                         android:textColor="@color/colorBlack" />
 
                 </LinearLayout>
@@ -155,11 +158,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:background="@color/color_line_view" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:background="@android:color/darker_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -176,6 +174,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:gravity="center"
                             android:paddingLeft="3dp"
                             android:text="@string/manager_ic_money"
@@ -191,7 +190,6 @@
                             android:gravity="center_vertical"
                             android:paddingBottom="10dp"
                             android:paddingTop="10dp"
-                            android:text="500.000  VND"
                             android:textColor="@color/colorBlack" />
 
 
@@ -200,8 +198,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
-                        android:layout_above="@+id/linear_button"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginStart="45dp"
                         android:background="@android:color/darker_gray" />
 
                     <LinearLayout
@@ -234,7 +232,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="10/05/2017"
                                 android:textColor="@color/colorBlack" />
 
                             <TextView
@@ -242,15 +239,15 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="9h00 am - 12h00 pm" />
+                                android:textColor="@color/color_line_view"/>
                         </LinearLayout>
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
-                        android:layout_above="@+id/linear_button"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginStart="45dp"
                         android:background="@android:color/darker_gray" />
 
 
@@ -275,10 +272,10 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:gravity="left|center"
                             android:paddingBottom="10dp"
                             android:paddingTop="10dp"
-                            android:text="123 đường số 1, quận 1, Tp.HCM, Việt Nam"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="@color/colorBlack" />
                     </LinearLayout>
@@ -346,7 +343,6 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="Nguyễn Văn A"
                                 android:textColor="@android:color/black"
                                 android:textSize="@dimen/text_size_large"
                                 android:textStyle="bold" />
@@ -363,9 +359,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
-                                android:layout_marginRight="20dp"
-                                android:text="123 đường 1, Quận 1, Thành phố Hồ Chí Minh" />
-
+                                android:layout_marginRight="20dp"/>
                         </LinearLayout>
                     </LinearLayout>
 

@@ -28,7 +28,8 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/dondepnha" />
+                    android:src="@drawable/dondepnha"
+                    android:transitionName="icJobType"/>
             </LinearLayout>
 
             <LinearLayout
@@ -60,12 +61,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal"
-                        android:weightSum="8">
+                        android:weightSum="16">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
+                            android:layout_weight="7"
                             android:text="@string/completed" />
 
                         <TextView
@@ -79,7 +80,7 @@
                             android:id="@+id/tvTime"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
+                            android:layout_weight="7"
                             android:text="4 phút trước" />
                     </LinearLayout>
                 </LinearLayout>
@@ -96,9 +97,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:weightSum="5">
 
                 <com.hbbsolution.owner.base.IconTextView
@@ -111,28 +112,43 @@
                     android:textColor="@color/home_background_history"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/tvDate"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="10/10/2017"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorBlack" />
+                    android:weightSum="18">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"></LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="17"
+                        android:gravity="center_vertical"
+                        android:text="10/10/2017"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorBlack" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:weightSum="17">
-
+                    android:weightSum="24">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
                     <TextView
                         android:id="@+id/tvDetailTime"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="13"
+                        android:layout_weight="23"
                         android:gravity="center_vertical"
                         android:text="9h00 am - 12h00 am"
                         android:textSize="13sp" />

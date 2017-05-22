@@ -1,5 +1,7 @@
 package com.hbbsolution.owner.maid_near_by.presenter;
 
+import android.util.Log;
+
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByView;
@@ -40,6 +42,7 @@ public class MaidNearByPresenter {
             @Override
             public void onFailure(Call<MaidNearByResponse> call, Throwable t) {
                 mView.displayError(t.getMessage());
+                Log.d("ERROR", t.getMessage());
             }
         });
     }

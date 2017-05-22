@@ -44,14 +44,10 @@
     <string name="sign_up_address">Địa chỉ</string>
     <!--signup_screen end-->
 
-    <!--Page more activity start-->
-    <string name="more_job_statistic">Thống kê công việc</string>
-    <string name="more_notification">Thông báo</string>
-    <string name="more_languge">Ngôn ngữ</string>
-    <string name="more_share_app_Gv24">Chia sẻ ứng dụng Gv24</string>
-    <string name="more_follow_Gv24_on_facebook">Theo dõi Gv24 trên Facebook</string>
-    <string name="more_contact">Liên hệ</string>
-    <!--Page more activity end-->
+    <!--profile  start-->
+    <string name="pro_file_gender_male">Male</string>
+    <string name="pro_file_gender_female">Female</string>
+    <!--terms screen end-->
 
 
     <!--khác-->
@@ -65,7 +61,5 @@
     <!--history_screen start-->
     <string name="completedjob">Completed work</string>
     <string name="completedhelpler">Completed helper</string>
-    <string name="gender_men">Nam</string>
-    <string name="gender_women">Nữ</string>
     <!--history_screen end-->
 </resources>

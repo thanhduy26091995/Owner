@@ -32,25 +32,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideOverlay"
+        android:id="@+id/recycler_listmaid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/item_recy_list_recruitment"/>
-            <include layout="@layout/item_recy_list_recruitment"/>
-            <include layout="@layout/item_recy_list_recruitment"/>
-            <include layout="@layout/item_recy_list_recruitment"/>
-            <include layout="@layout/item_recy_list_recruitment"/>
-
-        </LinearLayout>
-    </ScrollView>
-
-
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="visible" />
 
 </LinearLayout>

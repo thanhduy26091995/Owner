@@ -106,6 +106,7 @@
                 android:background="@android:color/darker_gray" />
 
             <RelativeLayout
+                android:id="@+id/lo_ChosenCheckin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
