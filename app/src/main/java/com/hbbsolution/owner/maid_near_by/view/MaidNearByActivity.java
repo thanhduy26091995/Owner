@@ -27,7 +27,7 @@ import com.hbbsolution.owner.maid_near_by.model.MyMarker;
 import com.hbbsolution.owner.maid_near_by.model.OnInfoWindowElemTouchListener;
 import com.hbbsolution.owner.maid_near_by.presenter.MaidNearByPresenter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
-import com.hbbsolution.owner.model.MaidInfo;
+import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
@@ -55,11 +55,11 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
     private ImageView mImageAvatar;
 
     private GoogleMap googleMap;
-    private List<MaidInfo> maidInfoList = new ArrayList<>();
-    private HashMap<Marker, MaidInfo> myMarkerHashMap = new HashMap<>();
+    private List<Maid> maidInfoList = new ArrayList<>();
+    private HashMap<Marker, Maid> myMarkerHashMap = new HashMap<>();
     private HashMap<String, Boolean> markerLoadImage = new HashMap<>();
     private ArrayList<MyMarker> myMarkers = new ArrayList<>();
-    private ArrayList<MaidInfo> maidList = new ArrayList<>();
+    private ArrayList<Maid> maidList = new ArrayList<>();
 
     private MaidNearByPresenter presenter;
     private MapWrapperLayout mapWrapperLayout;
@@ -101,7 +101,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         infoRelaListener = new OnInfoWindowElemTouchListener(infoWindow) {
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
-                MaidInfo maidInfo = myMarkerHashMap.get(marker);
+                Maid maidInfo = myMarkerHashMap.get(marker);
                 Intent intent = new Intent(MaidNearByActivity.this, MaidProfileActivity.class);
                 intent.putExtra("maid", maidInfo);
                 startActivity(intent);
@@ -118,7 +118,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
             @Override
             public View getInfoContents(Marker marker) {
                 //  MyMarker myMarker = myMarkerHashMap.get(marker);
-                MaidInfo maidInfo = myMarkerHashMap.get(marker);
+                Maid maidInfo = myMarkerHashMap.get(marker);
                 //kiểm tra, nếu ảnh chưa load kịp thì refresh lại InfoWindow
                 boolean isLoadImage = markerLoadImage.get(marker.getId());
                 if (isLoadImage) {
@@ -155,7 +155,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     private void updateMap(GoogleMap googleMap) {
         int countLengthMaid = 0;
-        for (MaidInfo maidInfo : maidInfoList) {
+        for (Maid maidInfo : maidInfoList) {
             if (countLengthMaid == 0) {
                 double lat = maidInfo.getInfo().getAddress().getCoordinates().getLat();
                 Double lng = maidInfo.getInfo().getAddress().getCoordinates().getLng();

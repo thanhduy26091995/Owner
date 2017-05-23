@@ -75,7 +75,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
     @Override
     public void onInfoWindowClick(Marker marker) {
         MyMarker myMarker = mMarkerHashMap.get(marker);
-        Toast.makeText(mActivity, "Info window clicked",
+        Toast.makeText(mActivity, "InfoMaid window clicked",
                 Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(mActivity, MaidProfileActivity.class);
         mActivity.startActivity(intent);

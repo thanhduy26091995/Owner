@@ -1,16 +1,13 @@
-package com.hbbsolution.owner.work_management.model.maid;
+
+package com.hbbsolution.owner.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.hbbsolution.owner.work_management.model.workmanager.Address;
 
 import java.io.Serializable;
 
-/**
- * Created by tantr on 5/18/2017.
- */
+public class InfoMaid implements Serializable{
 
-public class InfoMaid implements Serializable {
     @SerializedName("username")
     @Expose
     private String username;
@@ -23,12 +20,12 @@ public class InfoMaid implements Serializable {
     @SerializedName("image")
     @Expose
     private String image;
-    @SerializedName("gender")
-    @Expose
-    private Integer gender;
     @SerializedName("address")
     @Expose
     private Address address;
+    @SerializedName("gender")
+    @Expose
+    private Integer gender;
 
     public String getUsername() {
         return username;
@@ -62,6 +59,14 @@ public class InfoMaid implements Serializable {
         this.image = image;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Integer getGender() {
         return gender;
     }
@@ -70,11 +75,4 @@ public class InfoMaid implements Serializable {
         this.gender = gender;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }

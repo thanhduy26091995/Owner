@@ -2,6 +2,7 @@ package com.hbbsolution.owner.work_management.model.workmanager;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.history.model.Address;
 
 import java.io.Serializable;
 

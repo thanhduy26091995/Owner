@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
-import com.hbbsolution.owner.work_management.model.maid.MaidInfo;
+import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 
 import java.util.List;
@@ -41,8 +41,8 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
 
     @Override
     public void onBindViewHolder(ListUserRecruitmentAdapter.ViewHolerListUserRecruitment holder, int position) {
-        final MaidInfo mMaid = maidList.get(position).getMaid();
-        holder.tvName.setText(mMaid.getInfoMaid().getUsername());
+        final Maid mMaid = maidList.get(position).getMaid();
+        holder.tvName.setText(mMaid.getInfo().getUsername());
         holder.ratingBar.setRating(4);
         if(isHis){
             holder.imgIcCheck.setVisibility(View.GONE);
