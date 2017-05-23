@@ -64,17 +64,49 @@
     <!--khác-->
     <string name="default_language">Default</string>
     <string name="more">More</string>
-    <string name="yourcomment">Your comment</string>
-    <string name="comment">Comment</string>
+
     <string name="rate">Rating</string>
     <string name="completed">Completed</string>
+    <string name="to">to</string>
+
+    <!--comment_screen start-->
+    <string name="yourcomment">Your comment</string>
+    <string name="comment">Comment</string>
+    <!--comment_screen end-->
 
 
 
     <!--history_screen start-->
     <string name="completedjob">Completed work</string>
     <string name="completedhelpler">Completed helper</string>
+    <string name="before">%s before</string>
+    <plurals name="day">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">hour</item>
+        <item quantity="other">hours</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+    <plurals name="second">
+        <item quantity="one">second</item>
+        <item quantity="other">seconds</item>
+    </plurals>
+
     <!--history_screen end-->
+
+    <!--statistic_screen start-->
+    <string name="total">Tổng chi phí</string>
+    <string name="history_work">Công việc hoàn thành</string>
+    <string name="waiting_work">Công việc đang xử lý</string>
+    <string name="post_work">Công việc đã đăng</string>
+    <string name="payment">Nạp tiền vào tài khoản</string>
+    <string name="sodutaikhoan">Số dư tài khoản</string>
+    <!--statistic_screen end-->
 
     <!--contact and about screen start-->
     <string name="contact">Contact</string>
