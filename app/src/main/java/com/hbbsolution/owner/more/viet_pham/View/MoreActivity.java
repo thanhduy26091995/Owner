@@ -8,11 +8,10 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
+import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +28,8 @@ public class MoreActivity extends AppCompatActivity {
     TextView txtMore_title_toothbar;
     @BindView(R.id.cv_sign_in)
     CardView cvSignIn;
-    @BindView(R.id.lo_terms)
-    RelativeLayout lo_terms;
+    @BindView(R.id.cardview_statistic)
+    CardView cvStatistic;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,12 +62,19 @@ public class MoreActivity extends AppCompatActivity {
             }
         });
 
-        lo_terms.setOnClickListener(new View.OnClickListener() {
+//        lo_terms.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Toast.makeText(MoreActivity.this, "AAA", Toast.LENGTH_SHORT).show();
+//                Intent itTerms = new Intent(MoreActivity.this, TermsActivity.class);
+//                startActivity(itTerms);
+//            }
+//        });
+        cvStatistic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(MoreActivity.this, "AAA", Toast.LENGTH_SHORT).show();
-                Intent itTerms = new Intent(MoreActivity.this, TermsActivity.class);
-                startActivity(itTerms);
+                Intent iStatistic = new Intent(MoreActivity.this, StatisticActivity.class);
+                startActivity(iStatistic);
             }
         });
     }

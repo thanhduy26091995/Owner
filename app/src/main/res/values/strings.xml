@@ -49,6 +49,17 @@
     <string name="pro_file_gender_female">Female</string>
     <!--terms screen end-->
 
+    <!--Page more activity start-->
+    <string name="more_job_statistic">Thống kê công việc</string>
+    <string name="more_notification">Thông báo</string>
+    <string name="more_languge">Ngôn ngữ</string>
+    <string name="more_share_app_Gv24">Chia sẻ ứng dụng Gv24</string>
+    <string name="more_follow_Gv24_on_facebook">Theo dõi Gv24 trên Facebook</string>
+    <string name="more_contact">Liên hệ</string>
+    <string name="gender_men">Nam</string>
+    <string name="gender_women">Nữ</string>
+    <!--Page more activity end-->
+
 
     <!--khác-->
     <string name="default_language">Default</string>
@@ -57,6 +68,8 @@
     <string name="comment">Comment</string>
     <string name="rate">Rating</string>
     <string name="completed">Completed</string>
+
+
 
     <!--history_screen start-->
     <string name="completedjob">Completed work</string>
