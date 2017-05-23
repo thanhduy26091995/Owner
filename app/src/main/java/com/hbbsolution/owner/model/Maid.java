@@ -4,17 +4,21 @@ package com.hbbsolution.owner.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MaidInfo {
+import java.io.Serializable;
+
+public class Maid implements Serializable{
 
     @SerializedName("_id")
     @Expose
     private String id;
+
     @SerializedName("work_info")
     @Expose
     private WorkInfo workInfo;
+
     @SerializedName("info")
     @Expose
-    private Info info;
+    private InfoMaid info;
 
     public String getId() {
         return id;
@@ -32,11 +36,11 @@ public class MaidInfo {
         this.workInfo = workInfo;
     }
 
-    public Info getInfo() {
+    public InfoMaid getInfo() {
         return info;
     }
 
-    public void setInfo(Info info) {
+    public void setInfo(InfoMaid info) {
         this.info = info;
     }
 

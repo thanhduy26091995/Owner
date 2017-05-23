@@ -2,6 +2,7 @@ package com.hbbsolution.owner.work_management.model.maid;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.model.Maid;
 
 import java.io.Serializable;
 

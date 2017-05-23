@@ -53,6 +53,15 @@
     </plurals>
     <!--history_screen end-->
 
+    <!--contact and about screen start-->
+    <string name="contact">Liên hệ</string>
+    <string name="about">Về chúng tôi</string>
+    <string name="btnCall">Gọi điện</string>
+    <string name="btnEmail">Email</string>
+    <string name="no_email_client">There are no email clients installed."</string>
+    <string name="enter_phonenumber">Enter a phone number</string>
+    <!--contact and about screen end-->
+
     <!--statistic_screen start-->
     <string name="total">Tổng chi phí</string>
     <string name="history_work">Công việc hoàn thành</string>

@@ -23,11 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".more.viet_pham.MoreActivity" />
+        <activity android:name=".more.viet_pham.View.MoreActivity"/>
         <activity android:name=".more.duy_nguyen.TermsActivity" />
-        <activity android:name=".more.viet_pham.SignInActivity" />
-        <activity android:name=".more.viet_pham.SignUp1Activity" />
-        <activity android:name=".more.viet_pham.SignUp2Activity" />
+        <activity android:name=".more.viet_pham.View.SignInActivity" />
+        <activity android:name=".more.viet_pham.View.SignUp1Activity" />
+        <activity android:name=".more.viet_pham.View.SignUp2Activity" />
         <activity android:name=".work_management.view.workmanager.WorkManagementActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPostActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPendingActivity" />
@@ -41,7 +41,9 @@
         <activity android:name=".history.view.DetailWorkHistoryActivity" />
         <activity android:name=".maid_near_by.view.MaidNearByActivity" />
         <activity android:name=".more.duy_nguyen.StatisticActivity"></activity>
-        <activity android:name=".more.phuc_tran.ContactActivity"/>
+        <activity android:name=".more.phuc_tran.ContactActivity" />
+        <activity android:name=".report.view.ReportMaidActivity" />
+        <activity android:name=".maid_near_by.view.FilterActivity" />
     </application>
 
 </manifest>
