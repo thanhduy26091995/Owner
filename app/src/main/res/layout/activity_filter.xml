@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:text="Bộ lọc"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -43,6 +44,7 @@
         android:background="@color/colorWhite"
         android:orientation="vertical"
         android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
         android:paddingTop="10dp">
 
         <RelativeLayout
@@ -64,16 +66,215 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:text="2km"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <SeekBar
-
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
             android:max="10" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="0km"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="10km"
+                android:textSize="@dimen/text_size_large" />
+        </RelativeLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:weightSum="4">
+
+            <com.hbbsolution.owner.base.IconTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="top|center"
+                android:text="@string/ic_usd"
+                android:textColor="@color/home_background_history"
+                android:textSize="@dimen/icon_size" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/txt_icon_dollar"
+                android:layout_weight="3.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtPriceInfoMaid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="Giá tiền"
+                    android:textColor="@color/colorBlack" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:weightSum="4">
+
+            <com.hbbsolution.owner.base.IconTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="top|center"
+                android:text="@string/ic_setting"
+                android:textColor="@color/home_background_history"
+                android:textSize="@dimen/icon_size" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/txt_icon_dollar"
+                android:layout_weight="3.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtGenderInfoMaid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="Loại công việc"
+                    android:textColor="@color/colorBlack" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:weightSum="4">
+
+            <com.hbbsolution.owner.base.IconTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="top|center"
+                android:text="@string/ic_gender"
+                android:textColor="@color/home_background_history"
+                android:textSize="@dimen/icon_size" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/txt_icon_dollar"
+                android:layout_weight="3.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtGenderInfoMaid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="Giới tính"
+                    android:textColor="@color/colorBlack" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:weightSum="4">
+
+            <com.hbbsolution.owner.base.IconTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="top|center"
+                android:text="@string/ic_calendar"
+                android:textColor="@color/home_background_history"
+                android:textSize="@dimen/icon_size" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtPhoneInfoMaid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="Tuổi"
+                    android:textColor="@color/colorBlack" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray" />
 </LinearLayout>

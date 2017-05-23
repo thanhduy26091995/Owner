@@ -56,9 +56,10 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     private GoogleMap googleMap;
     private List<MaidInfo> maidInfoList = new ArrayList<>();
-    private HashMap<Marker, MyMarker> myMarkerHashMap = new HashMap<>();
+    private HashMap<Marker, MaidInfo> myMarkerHashMap = new HashMap<>();
     private HashMap<String, Boolean> markerLoadImage = new HashMap<>();
     private ArrayList<MyMarker> myMarkers = new ArrayList<>();
+    private ArrayList<MaidInfo> maidList = new ArrayList<>();
 
     private MaidNearByPresenter presenter;
     private MapWrapperLayout mapWrapperLayout;
@@ -100,8 +101,9 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         infoRelaListener = new OnInfoWindowElemTouchListener(infoWindow) {
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
-                MyMarker myMarker = myMarkerHashMap.get(marker);
+                MaidInfo maidInfo = myMarkerHashMap.get(marker);
                 Intent intent = new Intent(MaidNearByActivity.this, MaidProfileActivity.class);
+                intent.putExtra("maid", maidInfo);
                 startActivity(intent);
             }
         };
@@ -115,12 +117,13 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
             @Override
             public View getInfoContents(Marker marker) {
-                MyMarker myMarker = myMarkerHashMap.get(marker);
+                //  MyMarker myMarker = myMarkerHashMap.get(marker);
+                MaidInfo maidInfo = myMarkerHashMap.get(marker);
                 //kiểm tra, nếu ảnh chưa load kịp thì refresh lại InfoWindow
                 boolean isLoadImage = markerLoadImage.get(marker.getId());
                 if (isLoadImage) {
                     Picasso.with(MaidNearByActivity.this)
-                            .load(myMarker.getImageUrl().toString())
+                            .load(maidInfo.getInfo().getImage().toString())
                             .placeholder(R.drawable.avatar)
                             .error(R.drawable.avatar)
                             .into(mImageAvatar);
@@ -128,13 +131,13 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
                     isLoadImage = true;
                     markerLoadImage.put(marker.getId(), isLoadImage);
                     Picasso.with(MaidNearByActivity.this)
-                            .load(myMarker.getImageUrl().toString())
+                            .load(maidInfo.getInfo().getImage().toString())
                             .placeholder(R.drawable.avatar)
                             .error(R.drawable.avatar)
                             .into(mImageAvatar, new InfoWindowRefresh(marker));
                 }
-                mTextName.setText(myMarker.getName());
-                mTextPrice.setText(myMarker.getPrice());
+                mTextName.setText(maidInfo.getInfo().getUsername());
+               // mTextPrice.setText(maidInfo.getWorkInfo().getPrice());
                 // Setting up the infoWindow with current's marker info
                 infoRelaListener.setMarker(marker);
 
@@ -159,25 +162,14 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15));
             }
             countLengthMaid++;
-            String name = maidInfo.getInfo().getUsername();
-            String imageUrl = "https://scontent.fsgn5-1.fna.fbcdn.net/v/t31.0-8/s960x960/16487674_1305034889554168_9144538363083515071_o.jpg?oh=a132e1e85f8b95c54673ae603d3f5b31&oe=59799F04";
-            int price = maidInfo.getWorkInfo().getPrice();
             double lat = maidInfo.getInfo().getAddress().getCoordinates().getLat();
             double lng = maidInfo.getInfo().getAddress().getCoordinates().getLng();
-            String maidId = maidInfo.getId();
-            myMarkers.add(new MyMarker(name, imageUrl, String.valueOf(price), lat, lng, maidId));
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_maid)).position(new LatLng(lat, lng));
+            Marker currentMarker = googleMap.addMarker(markerOptions);
+            myMarkerHashMap.put(currentMarker, maidInfo);
+            markerLoadImage.put(currentMarker.getId(), false);
         }
-        if (myMarkers.size() > 0) {
-            for (MyMarker myMarker : myMarkers) {
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_maid)).position(new LatLng(myMarker.getLat(), myMarker.getLng()));
-                Marker currentMarker = googleMap.addMarker(markerOptions);
-                myMarkerHashMap.put(currentMarker, myMarker);
-                markerLoadImage.put(currentMarker.getId(), false);
-            }
-        }
-
-
     }
 
     @Override
@@ -197,6 +189,9 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+        } else if (item.getItemId() == R.id.action_filter) {
+            Intent intent = new Intent(MaidNearByActivity.this, FilterActivity.class);
+            startActivityForResult(intent, 100);
         }
         return super.onOptionsItemSelected(item);
     }

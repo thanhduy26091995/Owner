@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by tantr on 5/18/2017.
  */
 
-public class Maid implements Serializable{
+public class MaidInfo implements Serializable{
     @SerializedName("_id")
     @Expose
     private String id;

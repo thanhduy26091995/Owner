@@ -41,7 +41,9 @@
         <activity android:name=".history.view.DetailWorkHistoryActivity" />
         <activity android:name=".maid_near_by.view.MaidNearByActivity" />
         <activity android:name=".more.duy_nguyen.StatisticActivity"></activity>
-        <activity android:name=".more.phuc_tran.ContactActivity"/>
+        <activity android:name=".more.phuc_tran.ContactActivity" />
+        <activity android:name=".report.view.ReportMaidActivity" />
+        <activity android:name=".maid_near_by.view.FilterActivity" />
     </application>
 
 </manifest>

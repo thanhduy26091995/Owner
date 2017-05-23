@@ -29,7 +29,8 @@
                     android:layout_height="64dp"
                     android:layout_gravity="center"
                     android:src="@drawable/dondepnha"
-                    android:transitionName="icJobType"/>
+                    android:transitionName="icJobType"
+                    android:scaleType="centerCrop"/>
             </LinearLayout>
 
             <LinearLayout

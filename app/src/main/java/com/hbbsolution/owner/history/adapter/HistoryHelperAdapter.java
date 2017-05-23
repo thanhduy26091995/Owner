@@ -1,7 +1,6 @@
 package com.hbbsolution.owner.history.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +10,8 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
-import com.hbbsolution.owner.work_management.model.maid.Maid;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 
 import java.util.List;

@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.lo_maid_around:
                 transActivity(MaidNearByActivity.class);
-                //ShowToast("Maid Around");
+                //ShowToast("MaidInfo Around");
                 break;
             case R.id.lo_your_tasks:
                 transActivity(WorkManagementActivity.class);

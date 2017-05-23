@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.maid_profile.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -21,10 +22,10 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
-import com.hbbsolution.owner.model.Comment;
+import com.hbbsolution.owner.model.MaidInfo;
+import com.hbbsolution.owner.report.view.ReportMaidActivity;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
-import com.hbbsolution.owner.work_management.model.maid.Maid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,14 +65,16 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     Toolbar toolbarHeader;
     @BindView(R.id.txtBackInfoMaid)
     IconTextView txtBackInfoMaid;
+    @BindView(R.id.linear_report_maid)
+    LinearLayout linearReportMaid;
 
     private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
 
     private MaidProfilePresenter mMaidProfilePresenter;
     private List<Doc> commentList = new ArrayList<>();
     private ListCommentAdapter listCommentAdapter;
-//    private List<Comment> commentList = new ArrayList<>();
-    private Maid mMaid;
+    //    private List<Comment> commentList = new ArrayList<>();
+    private MaidInfo mMaidInfo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,49 +95,21 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         mMaidProfilePresenter = new MaidProfilePresenter(this);
 
         appBarLayout.addOnOffsetChangedListener(this);
+        //event click
         lo_ChosenMaidInfo.setOnClickListener(this);
         txtBackInfoMaid.setOnClickListener(this);
-
-        mMaid = (Maid) getIntent().getSerializableExtra("maid");
-        if (mMaid != null) {
-            txtNameInfoMaid.setText(mMaid.getInfoMaid().getUsername());
-            txtPriceInfoMaid.setText(String.valueOf(mMaid.getWorkInfo().getPrice()));
-            txtGenderInfoMaid.setText(getGenderMaid(mMaid.getInfoMaid().getGender()));
-            txtPhoneInfoMaid.setText(mMaid.getInfoMaid().getPhone());
-            txtAddressInfoMaid.setText(mMaid.getInfoMaid().getAddress().getName());
+        linearReportMaid.setOnClickListener(this);
+        mMaidInfo = (MaidInfo) getIntent().getSerializableExtra("maid");
+        if (mMaidInfo != null) {
+            txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
+            txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
+            txtGenderInfoMaid.setText(getGenderMaid(mMaidInfo.getInfo().getGender()));
+            txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
+            txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
             ratingInfoMaid.setRating(4);
             mMaidProfilePresenter.getInfoListMaid(token, "590a909315539005c0b05fed", 1);
         }
-
-//        initDataComment();
     }
-
-
-//    private void initDataComment() {
-//        Comment comment = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment1 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment2 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment3 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment4 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment5 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        Comment comment6 = new Comment("A", 1, 4, "Lau dọn nhà", "Làm rất nhanh, công việc ổn");
-//        //add to list
-//        commentList.add(comment);
-//        commentList.add(comment1);
-//        commentList.add(comment2);
-//        commentList.add(comment3);
-//        commentList.add(comment4);
-//        commentList.add(comment5);
-//        commentList.add(comment6);
-//
-//
-//        listCommentAdapter = new ListCommentAdapter(this, commentList);
-//        mRecycler.setLayoutManager(new LinearLayoutManager(this));
-//        mRecycler.setHasFixedSize(true);
-//
-//        mRecycler.setAdapter(listCommentAdapter);
-//        listCommentAdapter.notifyDataSetChanged();
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -170,6 +145,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             case R.id.txtBackInfoMaid:
                 finish();
                 break;
+            case R.id.linear_report_maid: {
+                Intent intent = new Intent(MaidProfileActivity.this, ReportMaidActivity.class);
+                intent.putExtra("maid", mMaidInfo);
+                startActivity(intent);
+                break;
+            }
         }
     }
 

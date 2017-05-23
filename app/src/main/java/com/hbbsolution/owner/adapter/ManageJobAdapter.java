@@ -1,7 +1,6 @@
 package com.hbbsolution.owner.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.work_management.model.maid.Maid;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;

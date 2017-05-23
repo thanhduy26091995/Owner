@@ -5,7 +5,7 @@
 
     <!--home screen start-->
     <!--<string name="home_home">Home</string>-->
-    <!--<string name="home_maid_around">Maid around</string>-->
+    <!--<string name="home_maid_around">MaidInfo around</string>-->
     <!--<string name="home_your_tasks">Your tasks</string>-->
     <!--<string name="home_history">History</string>-->
     <!--<string name="home_copy_right">Copyright(c).HBB Solution. All right reserved</string>-->
@@ -62,4 +62,13 @@
     <string name="completedjob">Completed work</string>
     <string name="completedhelpler">Completed helper</string>
     <!--history_screen end-->
+
+    <!--contact and about screen start-->
+    <string name="contact">Contact</string>
+    <string name="about">About</string>
+    <string name="btnCall">Call</string>
+    <string name="btnEmail">Email</string>
+    <string name="no_email_client">There are no email clients installed."</string>
+    <string name="enter_phonenumber">Enter a phone number</string>
+    <!--contact and about screen end-->
 </resources>

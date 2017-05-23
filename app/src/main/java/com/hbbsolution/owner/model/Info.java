@@ -4,7 +4,9 @@ package com.hbbsolution.owner.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Info {
+import java.io.Serializable;
+
+public class Info implements Serializable{
 
     @SerializedName("username")
     @Expose
