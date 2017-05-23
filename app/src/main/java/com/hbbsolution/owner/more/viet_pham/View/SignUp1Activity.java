@@ -9,9 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +61,7 @@ public class SignUp1Activity extends AppCompatActivity {
                 String password = edtPassword.getText().toString();
                 String confirmPassword = edtConfirmPassword.getText().toString();
                 if (username.trim().length() == 0 || password.length() == 0 || confirmPassword.length() == 0) {
-                    Toast.makeText(SignUp1Activity.this, "Vui long nhap day du thong tin", Toast.LENGTH_SHORT).show();
+                    ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin",SignUp1Activity.this);
                 } else {
                     if (password.equals(confirmPassword)) {
                         Intent iSignUp1 = new Intent(SignUp1Activity.this, SignUp2Activity.class);
@@ -71,7 +71,8 @@ public class SignUp1Activity extends AppCompatActivity {
                         iSignUp1.putExtra("bNextPage", bNextPage);
                         startActivity(iSignUp1);
                     } else {
-                        Toast.makeText(SignUp1Activity.this,"Xác nhận mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SignUp1Activity.this,"Xác nhận mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+                        ShowAlertDialog.showAlert("Xác nhận mật khẩu không đúng",SignUp1Activity.this);
                     }
                 }
             }
