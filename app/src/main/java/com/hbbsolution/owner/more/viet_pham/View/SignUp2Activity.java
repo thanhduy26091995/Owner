@@ -16,11 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
 import com.hbbsolution.owner.more.viet_pham.ImageFilePath;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import java.io.IOException;
 
@@ -51,7 +51,9 @@ public class SignUp2Activity extends AppCompatActivity {
     CircleImageView ivAvatar;
     private int PICK_IMAGE_FROM_GALLERY_REQUEST = 1;
     private Uri mUriChooseImage;
-    private String mFilePath;
+    private String mFilePath = "";
+    private String mFileContentResolver = "";
+    private int iGender;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,11 +95,18 @@ public class SignUp2Activity extends AppCompatActivity {
                 String phoneNumber = edtNumber.getText().toString();
                 String location = edtHome.getText().toString();
                 // End get data from Edittext of Sign up 2
+                 if(gender.equals("Nam"))
+                 {
+                     iGender = 0;
+                 }else {
+                     iGender = 1;
+                 }
 
                 // Start transfer data from Sign up 2 to page terms
                 if (email.trim().length() == 0 || fullname.trim().length() == 0 || gender.length() == 0 || phoneNumber.trim().length() == 0 ||
                         location.trim().length() == 0) {
-                    Toast.makeText(SignUp2Activity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(SignUp2Activity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin",SignUp2Activity.this);
                 } else {
                     Intent iSignUp2 = new Intent(SignUp2Activity.this, TermsActivity.class);
                     Bundle bSignUp2 = new Bundle();
@@ -105,10 +114,11 @@ public class SignUp2Activity extends AppCompatActivity {
                     bSignUp2.putString("password", password);
                     bSignUp2.putString("email", email);
                     bSignUp2.putString("fullname", fullname);
-                    bSignUp2.putString("gender", gender);
+                    bSignUp2.putInt("gender", iGender);
                     bSignUp2.putString("phone", phoneNumber);
                     bSignUp2.putString("location", location);
                     bSignUp2.putString("filepath", mFilePath);
+                    bSignUp2.putString("filecontent",mFileContentResolver);
                     iSignUp2.putExtra("bSignUp2", bSignUp2);
                     startActivity(iSignUp2);
                 }
@@ -174,6 +184,7 @@ public class SignUp2Activity extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mUriChooseImage);
                 ivAvatar.setImageBitmap(bitmap);
                 mFilePath = ImageFilePath.getPath(getApplicationContext(), mUriChooseImage);
+                mFileContentResolver = getContentResolver().getType(mUriChooseImage);
             } catch (IOException e) {
                 e.printStackTrace();
             }
