@@ -43,7 +43,7 @@
         <activity android:name=".more.duy_nguyen.StatisticActivity"></activity>
         <activity android:name=".more.phuc_tran.ContactActivity" />
         <activity android:name=".report.view.ReportMaidActivity" />
-        <activity android:name=".maid_near_by.view.FilterActivity" />
+        <activity android:name=".maid_near_by.view.filter.view.FilterActivity" />
     </application>
 
 </manifest>

@@ -26,6 +26,7 @@ import com.hbbsolution.owner.maid_near_by.model.MapWrapperLayout;
 import com.hbbsolution.owner.maid_near_by.model.MyMarker;
 import com.hbbsolution.owner.maid_near_by.model.OnInfoWindowElemTouchListener;
 import com.hbbsolution.owner.maid_near_by.presenter.MaidNearByPresenter;
+import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.model.MaidNearByResponse;

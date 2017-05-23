@@ -2,6 +2,7 @@ package com.hbbsolution.owner.api;
 
 import com.hbbsolution.owner.history.model.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
+import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
@@ -31,4 +32,6 @@ public interface ApiInterface {
     @GET("maid/getComment")
     Call<CommentMaidResponse> getListCommentMaid(@Header("hbbgvauth") String token, @Query("id") String idTask, @Query("page") int page);
 
+    @GET("work/getAll")
+    Call<TypeJobResponse> getAllTypeJob();
 }

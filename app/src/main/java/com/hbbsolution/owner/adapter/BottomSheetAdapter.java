@@ -15,13 +15,13 @@ import java.util.List;
  * Created by tantr on 5/15/2017.
  */
 
-public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobViewHolder> {
+public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.BottomSheetViewHolder> {
 
     private Context context;
     private List<String> listTypeJob;
     private Callback callback;
 
-    public TypeJobAdapter(Context context, List<String> listTypeJob) {
+    public BottomSheetAdapter(Context context, List<String> listTypeJob) {
         this.context = context;
         this.listTypeJob = listTypeJob;
     }
@@ -31,13 +31,13 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobV
     }
 
     @Override
-    public TypeJobViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BottomSheetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = View.inflate(context, R.layout.item_recy_job_type, null);
-        return new TypeJobAdapter.TypeJobViewHolder(rootView);
+        return new BottomSheetViewHolder(rootView);
     }
 
     @Override
-    public void onBindViewHolder(TypeJobViewHolder holder, final int position) {
+    public void onBindViewHolder(BottomSheetViewHolder holder, final int position) {
         holder.txt_item_type_job.setText(listTypeJob.get(position));
         holder.lo_item_type_job.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +55,11 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobV
         return listTypeJob.size();
     }
 
-    public class TypeJobViewHolder extends RecyclerView.ViewHolder {
+    public class BottomSheetViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout lo_item_type_job;
         private TextView txt_item_type_job;
 
-        public TypeJobViewHolder(View itemView) {
+        public BottomSheetViewHolder(View itemView) {
             super(itemView);
             lo_item_type_job = (LinearLayout) itemView.findViewById(R.id.lo_item_type_job);
             txt_item_type_job = (TextView) itemView.findViewById(R.id.txt_item_type_job);

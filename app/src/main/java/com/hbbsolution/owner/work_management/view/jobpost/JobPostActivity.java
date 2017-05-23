@@ -19,18 +19,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.adapter.TypeJobAdapter;
+import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import org.joda.time.DateTime;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -177,7 +175,7 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
         listTypeJob.add("Khác");
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        TypeJobAdapter mTypeJobtAdapter = new TypeJobAdapter(JobPostActivity.this, listTypeJob);
+        BottomSheetAdapter mTypeJobtAdapter = new BottomSheetAdapter(JobPostActivity.this, listTypeJob);
         mRecycler.setLayoutManager(linearLayoutManager);
         mRecycler.setAdapter(mTypeJobtAdapter);
         mTypeJobtAdapter.notifyDataSetChanged();
@@ -189,7 +187,7 @@ public class JobPostActivity extends AppCompatActivity implements View.OnClickLi
         mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
         mBottomSheetDialog.show();
 
-        mTypeJobtAdapter.setCallback(new TypeJobAdapter.Callback() {
+        mTypeJobtAdapter.setCallback(new BottomSheetAdapter.Callback() {
             @Override
             public void onItemClick(int position) {
                 edtType_job.setText(listTypeJob.get(position));

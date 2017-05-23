@@ -159,6 +159,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_type_job"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
@@ -183,7 +184,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtGenderInfoMaid"
+                    android:id="@+id/txt_type_job"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -200,6 +201,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
@@ -224,7 +226,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtGenderInfoMaid"
+                    android:id="@+id/txt_filter_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
