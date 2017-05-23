@@ -93,16 +93,15 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvOwner"
+                        android:id="@+id/text_maid_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nguyễn Văn A"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/text_size_large"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvAddress"
+                        android:id="@+id/text_maid_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -135,7 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:hint="@string/comment"
+                android:hint="Nội dung báo cáo"
                 android:padding="10dp" />
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>

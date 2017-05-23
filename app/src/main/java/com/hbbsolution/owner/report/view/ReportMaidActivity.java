@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.model.Maid;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +22,12 @@ public class ReportMaidActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.text_maid_name)
+    TextView mTextMaidName;
+    @BindView(R.id.text_maid_address)
+    TextView mTextMaidAddress;
+
+    private Maid mMaidInfo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +39,17 @@ public class ReportMaidActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
+        //get intent
+        mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
+        //load data
+        loadData();
+    }
+
+    private void loadData() {
+        if (mMaidInfo != null) {
+            mTextMaidName.setText(mMaidInfo.getInfo().getUsername());
+            mTextMaidAddress.setText(mMaidInfo.getInfo().getAddress().getName());
+        }
     }
 
     @Override
@@ -38,5 +58,11 @@ public class ReportMaidActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_filter_done, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

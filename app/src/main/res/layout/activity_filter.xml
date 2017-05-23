@@ -63,15 +63,17 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/text_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="2km"
+                android:text="0 km"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <SeekBar
+            android:id="@+id/seekBar_distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
