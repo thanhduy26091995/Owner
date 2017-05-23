@@ -172,7 +172,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp">
+                android:layout_marginStart="5dp"
+                android:gravity="center_vertical">
 
                 <RatingBar
                     android:id="@+id/ratingBar"

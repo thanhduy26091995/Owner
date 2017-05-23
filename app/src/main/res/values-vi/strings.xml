@@ -26,13 +26,39 @@
     <!--khác-->
     <string name="default_language">Mặc định</string>
     <string name="more">Thêm</string>
-    <string name="yourcomment">Nhận xét của bạn</string>
-    <string name="comment">Bình luận</string>
     <string name="rate">Đánh giá</string>
     <string name="completed">Đã hoàn thành</string>
+    <string name="to">đến</string>
+
+    <!--comment_screen start-->
+    <string name="yourcomment">Nhận xét của bạn</string>
+    <string name="comment">Bình luận</string>
+    <!--comment_screen end-->
 
     <!--history_screen start-->
     <string name="completedjob">Công việc hoàn thành</string>
     <string name="completedhelpler">Người giúp việc đã làm</string>
+    <string name="before">%s trước</string>
+    <plurals name="day">
+        <item quantity="other">ngày</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="other">giờ</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="other">phút</item>
+    </plurals>
+    <plurals name="second">
+        <item quantity="other">giây</item>
+    </plurals>
     <!--history_screen end-->
+
+    <!--statistic_screen start-->
+    <string name="total">Tổng chi phí</string>
+    <string name="history_work">Công việc hoàn thành</string>
+    <string name="waiting_work">Công việc đang xử lý</string>
+    <string name="post_work">Công việc đã đăng</string>
+    <string name="payment">Nạp tiền vào tài khoản</string>
+    <string name="sodutaikhoan">Số dư tài khoản</string>
+    <!--statistic_screen end-->
 </resources>

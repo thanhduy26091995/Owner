@@ -80,13 +80,13 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
             e.printStackTrace();
         }
         if (elapsedDays != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedDays) + " ngày" + " trước");
+            holder.tvTime.setText(String.valueOf(elapsedDays) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.day,(int)elapsedDays)));
         } else if (elapsedHours != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedHours) + " giờ" + " trước");
+            holder.tvTime.setText(String.valueOf(elapsedHours) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.hour,(int)elapsedHours)));
         } else if (elapsedMinutes != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedMinutes) + " phút" + " trước");
+            holder.tvTime.setText(String.valueOf(elapsedMinutes) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.minute,(int)elapsedMinutes)));
         } else if (elapsedSeconds != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedSeconds) + " giây" + " trước");
+            holder.tvTime.setText(String.valueOf(elapsedSeconds) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.second,(int)elapsedSeconds)));
         }
         holder.tvDate.setText(date);
         holder.tvDeitalTime.setText(startTime.replace(":","h") + " - "+endTime.replace(":","h"));
