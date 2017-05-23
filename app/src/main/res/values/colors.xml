@@ -16,5 +16,7 @@
 
     <color name="collapsedappbar">#00ffffff</color>
 
+    <color name="more_background">#f0eff5</color>
+
     <color name="gray">#efeff4</color>
 </resources>
