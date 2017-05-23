@@ -24,8 +24,8 @@ public class MaidNearByPresenter {
         mApiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getMaidNearBy(String token, Double lat, Double lng) {
-        Call<MaidNearByResponse> mMaidNearByResponseCall = mApiService.getMaidNearBy(token, lat, lng);
+    public void getMaidNearBy(Double lat, Double lng) {
+        Call<MaidNearByResponse> mMaidNearByResponseCall = mApiService.getMaidNearBy(lat, lng, null, null, null, null);
         mMaidNearByResponseCall.enqueue(new Callback<MaidNearByResponse>() {
             @Override
             public void onResponse(Call<MaidNearByResponse> call, Response<MaidNearByResponse> response) {

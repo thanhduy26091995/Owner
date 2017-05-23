@@ -10,16 +10,16 @@ public class WorkInfo implements Serializable{
 
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private float price;
     @SerializedName("evaluation_point")
     @Expose
     private float evaluationPoint;
 
-    public Integer getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

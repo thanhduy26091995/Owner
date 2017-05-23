@@ -5,4 +5,9 @@ package com.hbbsolution.owner.utils;
  */
 
 public class Constants {
+    //Maid near by
+    public static final String LAT = "lat";
+    public static final String LNG = "lng";
+    public static final String MAID_LIST = "maidList";
+    public static final int FILTER_MAID_INTENT = 100;
 }

@@ -39,8 +39,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     //google map
-   // compile 'com.google.android.gms:play-services-maps:9.8.0'
-    compile 'com.google.android.gms:play-services-maps:8.1.0'
+    compile 'com.google.android.gms:play-services-maps:9.8.0'
+   // compile 'com.google.android.gms:play-services-maps:8.1.0'
     //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
 
