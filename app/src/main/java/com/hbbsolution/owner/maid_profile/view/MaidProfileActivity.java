@@ -22,7 +22,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
-import com.hbbsolution.owner.model.MaidInfo;
+import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.view.ReportMaidActivity;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
@@ -73,8 +73,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     private MaidProfilePresenter mMaidProfilePresenter;
     private List<Doc> commentList = new ArrayList<>();
     private ListCommentAdapter listCommentAdapter;
-    //    private List<Comment> commentList = new ArrayList<>();
-    private MaidInfo mMaidInfo;
+    private Maid mMaidInfo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,7 +98,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         lo_ChosenMaidInfo.setOnClickListener(this);
         txtBackInfoMaid.setOnClickListener(this);
         linearReportMaid.setOnClickListener(this);
-        mMaidInfo = (MaidInfo) getIntent().getSerializableExtra("maid");
+
+        mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
         if (mMaidInfo != null) {
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
@@ -107,7 +107,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
             ratingInfoMaid.setRating(4);
-            mMaidProfilePresenter.getInfoListMaid(token, "590a909315539005c0b05fed", 1);
+            mMaidProfilePresenter.getInfoListMaid(token, mMaidInfo.getId(), 1);
         }
     }
 
@@ -145,12 +145,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             case R.id.txtBackInfoMaid:
                 finish();
                 break;
-            case R.id.linear_report_maid: {
+            case R.id.linear_report_maid:
                 Intent intent = new Intent(MaidProfileActivity.this, ReportMaidActivity.class);
                 intent.putExtra("maid", mMaidInfo);
                 startActivity(intent);
                 break;
-            }
+
         }
     }
 

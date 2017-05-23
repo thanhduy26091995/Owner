@@ -2,6 +2,7 @@ package com.hbbsolution.owner.work_management.model.maid;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.model.Maid;
 
 import java.io.Serializable;
 
@@ -12,16 +13,16 @@ import java.io.Serializable;
 public class Request implements Serializable{
     @SerializedName("maid")
     @Expose
-    private MaidInfo maid;
+    private Maid maid;
     @SerializedName("time")
     @Expose
     private String time;
 
-    public MaidInfo getMaid() {
+    public Maid getMaid() {
         return maid;
     }
 
-    public void setMaid(MaidInfo maid) {
+    public void setMaid(Maid maid) {
         this.maid = maid;
     }
 

@@ -16,7 +16,7 @@ public class MaidNearByResponse {
     private String message;
     @SerializedName("data")
     @Expose
-    private List<MaidInfo> data = null;
+    private List<Maid> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -34,11 +34,11 @@ public class MaidNearByResponse {
         this.message = message;
     }
 
-    public List<MaidInfo> getData() {
+    public List<Maid> getData() {
         return data;
     }
 
-    public void setData(List<MaidInfo> data) {
+    public void setData(List<Maid> data) {
         this.data = data;
     }
 
