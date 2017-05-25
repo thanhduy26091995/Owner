@@ -68,7 +68,6 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     @BindView(R.id.linear_report_maid)
     LinearLayout linearReportMaid;
 
-    private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
 
     private MaidProfilePresenter mMaidProfilePresenter;
     private List<Doc> commentList = new ArrayList<>();
@@ -107,7 +106,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
             ratingInfoMaid.setRating(4);
-            mMaidProfilePresenter.getInfoListMaid(token, mMaidInfo.getId(), 1);
+            mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), 1);
         }
     }
 

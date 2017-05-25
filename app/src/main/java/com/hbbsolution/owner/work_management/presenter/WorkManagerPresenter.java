@@ -25,8 +25,8 @@ public class WorkManagerPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoWorkList(String token, String process){
-        Call<WorkManagerResponse> call = apiService.getInfo(token, process);
+    public void getInfoWorkList(String process){
+        Call<WorkManagerResponse> call = apiService.getInfo(process);
         call.enqueue(new Callback<WorkManagerResponse>() {
             @Override
             public void onResponse(Call<WorkManagerResponse> call, Response<WorkManagerResponse> response) {
@@ -46,8 +46,8 @@ public class WorkManagerPresenter {
         });
     }
 
-    public void getInfoJobPending(String token, String process){
-        Call<JobPendingResponse> call = apiService.getJobPendingResponse(token, process);
+    public void getInfoJobPending(String process){
+        Call<JobPendingResponse> call = apiService.getJobPendingResponse(process);
         call.enqueue(new Callback<JobPendingResponse>() {
             @Override
             public void onResponse(Call<JobPendingResponse> call, Response<JobPendingResponse> response) {

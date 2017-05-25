@@ -9,11 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,12 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
-import com.hbbsolution.owner.maid_near_by.view.filter.presenter.FilterPresenter;
-import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -34,8 +29,6 @@ import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -92,7 +85,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
     private JobPostPresenter mJobPostPresenter;
-    private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
 
 
     @Override
@@ -276,7 +268,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             mChosenTools = true;
         }
        txt_post_complete.setEnabled(false);
-        mJobPostPresenter.postJob(token, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+        mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                 mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
     }
 

@@ -55,7 +55,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         v = inflater.inflate(R.layout.fragment_history_job, container, false);
         //Gán adapter các thứ
         workHistoryPresenter = new WorkHistoryPresenter(this);
-        workHistoryPresenter.getInfoWorkHistory("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", "000000000000000000000005");
+        workHistoryPresenter.getInfoWorkHistory("000000000000000000000005");
         cal = Calendar.getInstance();
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_job);
         tvStartDate = (TextView) v.findViewById(R.id.tvStartDate);

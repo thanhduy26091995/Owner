@@ -13,14 +13,11 @@ import android.widget.LinearLayout;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPendingAdapter;
-import com.hbbsolution.owner.adapter.ManageJobAdapter;
-import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 import com.hbbsolution.owner.work_management.presenter.WorkManagerPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPendingActivity;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +49,7 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
             mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_pending);
             mWorkManagerPresenter = new WorkManagerPresenter(this);
-            mWorkManagerPresenter.getInfoJobPending(token, idProcess);
+            mWorkManagerPresenter.getInfoJobPending(idProcess);
 
         }else {
             ViewGroup parent = (ViewGroup) container.getParent();

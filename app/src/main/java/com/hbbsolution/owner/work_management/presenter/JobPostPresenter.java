@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterView;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
@@ -75,10 +74,10 @@ public class JobPostPresenter {
         });
     }
 
-    public void postJob(String token,String title, String typeJob, String description, String address, double lat, double lng,
+    public void postJob(String title, String typeJob, String description, String address, double lat, double lng,
                         boolean isTool, String packageId, String price, String timeStartWork, String timeEndWork) {
 
-        Call<JobPostResponse> responseCall = apiService.postJob(token, title, typeJob, description, address,
+        Call<JobPostResponse> responseCall = apiService.postJob(title, typeJob, description, address,
                 lat, lng, isTool, packageId, price, timeStartWork, timeEndWork);
         responseCall.enqueue(new Callback<JobPostResponse>() {
             @Override

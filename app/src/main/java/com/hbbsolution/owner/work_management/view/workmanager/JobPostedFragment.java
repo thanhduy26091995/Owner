@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ManageJobAdapter;
@@ -49,8 +48,8 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
 
             mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_post);
             mWorkManagerPresenter = new WorkManagerPresenter(this);
-            mWorkManagerPresenter.getInfoWorkList(token, idProcess);
-        }else {
+            mWorkManagerPresenter.getInfoWorkList(idProcess);
+        } else {
             ViewGroup parent = (ViewGroup) container.getParent();
             parent.removeView(rootView);
         }

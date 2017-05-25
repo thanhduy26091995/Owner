@@ -24,8 +24,8 @@ public class WorkHistoryPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoWorkHistory(String token, String process) {
-        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory(token, process);
+    public void getInfoWorkHistory(String process) {
+        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory(process);
         call.enqueue(new Callback<WorkHistoryResponse>() {
             @Override
             public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {
