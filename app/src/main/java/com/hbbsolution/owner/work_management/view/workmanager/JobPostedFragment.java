@@ -16,6 +16,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ManageJobAdapter;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 import com.hbbsolution.owner.work_management.presenter.WorkManagerPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 
@@ -62,7 +63,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
         mJobList = mExample.getData();
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        mJobPostAdapter = new ManageJobAdapter(getActivity(), mJobList, true);
+        mJobPostAdapter = new ManageJobAdapter(getActivity(), mJobList, 1);
         mRecycler.setLayoutManager(linearLayoutManager);
         mRecycler.setAdapter(mJobPostAdapter);
 //
@@ -74,6 +75,11 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
                 startActivity(itDetailJobPost);
             }
         });
+
+    }
+
+    @Override
+    public void getInfoJobPending(JobPendingResponse mJobPendingResponse) {
 
     }
 

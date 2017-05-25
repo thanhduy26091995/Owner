@@ -9,6 +9,7 @@ import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -30,6 +31,9 @@ import retrofit2.http.Url;
 public interface ApiInterface {
     @GET("owner/getAllTasks")
     Call<WorkManagerResponse> getInfo(@Header("hbbgvauth") String token, @Query("process") String idProcess);
+
+    @GET("owner/getAllTasks")
+    Call<JobPendingResponse> getJobPendingResponse(@Header("hbbgvauth") String token, @Query("process") String idProcess);
 
     @GET("owner/getAllTasks")
     Call<WorkHistoryResponse> getInfoWorkHistory(@Header("hbbgvauth") String token, @Query("process") String idProcess);

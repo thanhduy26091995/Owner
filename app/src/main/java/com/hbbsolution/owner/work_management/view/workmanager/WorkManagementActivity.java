@@ -97,7 +97,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.management_compose_toothbar:
-                if(mQuantityJobPost <= 10){
+                if(mQuantityJobPost < 10){
                     Intent intent = new Intent(WorkManagementActivity.this, JobPostActivity.class);
                     startActivity(intent);
                 }else {
@@ -122,6 +122,5 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     public void onEventMainThread(Integer quantityJobPost) {
         mQuantityJobPost = quantityJobPost;
-        Log.d("mQuantityJobPost", mQuantityJobPost + "");
     }
 }

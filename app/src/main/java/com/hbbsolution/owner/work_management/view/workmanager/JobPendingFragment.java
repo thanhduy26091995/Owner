@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.adapter.JobPendingAdapter;
 import com.hbbsolution.owner.adapter.ManageJobAdapter;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 import com.hbbsolution.owner.work_management.presenter.WorkManagerPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPendingActivity;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
@@ -36,8 +39,8 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
     private View rootView;
     private WorkManagerPresenter mWorkManagerPresenter;
-    private List<Datum> mJobList = new ArrayList<>();
-    private ManageJobAdapter mJobPostAdapter;
+    private List<DatumPending> mJobList = new ArrayList<>();
+    private JobPendingAdapter mJobPendingAdapter;
     private RecyclerView mRecycler;
 
     @Nullable
@@ -49,7 +52,7 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
             mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_pending);
             mWorkManagerPresenter = new WorkManagerPresenter(this);
-            mWorkManagerPresenter.getInfoWorkList(token, idProcess);
+            mWorkManagerPresenter.getInfoJobPending(token, idProcess);
 
         }else {
             ViewGroup parent = (ViewGroup) container.getParent();
@@ -60,19 +63,24 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
     @Override
     public void getInfoJob(WorkManagerResponse mExample) {
-        mJobList = mExample.getData();
+
+    }
+
+    @Override
+    public void getInfoJobPending(JobPendingResponse mJobPendingResponse) {
+        mJobList = mJobPendingResponse.getData();
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        mJobPostAdapter = new ManageJobAdapter(getActivity(), mJobList, false);
+        mJobPendingAdapter = new JobPendingAdapter(getActivity(), mJobList, 2);
         mRecycler.setLayoutManager(linearLayoutManager);
-        mRecycler.setAdapter(mJobPostAdapter);
+        mRecycler.setAdapter(mJobPendingAdapter);
 
-        mJobPostAdapter.setCallback(new ManageJobAdapter.Callback() {
+        mJobPendingAdapter.setCallback(new JobPendingAdapter.Callback() {
             @Override
-            public void onItemClick(Datum mDatum) {
-                Intent itDetailJobPost = new Intent(getActivity(), DetailJobPendingActivity.class);
-                itDetailJobPost.putExtra("mDatum", mDatum);
-                startActivity(itDetailJobPost);
+            public void onItemClick(DatumPending mDatum) {
+                Intent itDetailJobPending = new Intent(getActivity(), DetailJobPendingActivity.class);
+                itDetailJobPending.putExtra("mDatum", mDatum);
+                startActivity(itDetailJobPending);
             }
         });
     }

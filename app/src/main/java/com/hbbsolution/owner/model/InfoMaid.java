@@ -27,6 +27,18 @@ public class InfoMaid implements Serializable{
     @Expose
     private Integer gender;
 
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getUsername() {
         return username;
     }
