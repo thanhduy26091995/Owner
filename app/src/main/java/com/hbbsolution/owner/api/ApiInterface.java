@@ -2,6 +2,10 @@ package com.hbbsolution.owner.api;
 
 import com.hbbsolution.owner.history.model.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
+import com.hbbsolution.owner.model.TypeJobResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
+import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
@@ -79,9 +83,9 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("task/create")
     Call<JobPostResponse> postJob(@Field("title") String title, @Field("work") String typeJob,
-                                             @Field("description") String description, @Field("addressName") String addressName,
-                                             @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
-                                             @Field("package") String packageId, @Field("price") String price,
-                                             @Field("startAt") String startAt, @Field("endAt") String endAt);
+                                  @Field("description") String description, @Field("addressName") String addressName,
+                                  @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
+                                  @Field("package") String packageId, @Field("price") String price,
+                                  @Field("startAt") String startAt, @Field("endAt") String endAt);
 
 }

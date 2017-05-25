@@ -76,7 +76,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         currentPageTime=1;
 
         workHistoryPresenter = new WorkHistoryPresenter(this);
-        workHistoryPresenter.getInfoWorkHistory("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", currentPage);
+        workHistoryPresenter.getInfoWorkHistory(currentPage);
         tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +106,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 // presenter.getAllResort(response.getCurrentPage() + 1);
                 //get variables for load more
                 if (currentPage <= pages) {
-                    workHistoryPresenter.getMoreInfoWorkHistory("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", currentPage + 1);
+                    workHistoryPresenter.getMoreInfoWorkHistory(currentPage + 1);
                 }
             }
         };
@@ -138,7 +138,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 // presenter.getAllResort(response.getCurrentPage() + 1);
                 //get variables for load more
                 if (currentPage <= pages) {
-                    workHistoryPresenter.getMoreInfoWorkHistoryTime("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046",startAt, endAt, currentPage + 1);
+                    workHistoryPresenter.getMoreInfoWorkHistoryTime(startAt, endAt, currentPage + 1);
                 }
             }
         };
@@ -175,7 +175,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                workHistoryPresenter.getInfoWorkHistoryTime("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
@@ -202,7 +202,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                workHistoryPresenter.getInfoWorkHistoryTime("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
 
             }
         };

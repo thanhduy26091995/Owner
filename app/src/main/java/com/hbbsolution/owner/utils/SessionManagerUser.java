@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.hbbsolution.owner.more.viet_pham.Model.User;
-import com.hbbsolution.owner.more.viet_pham.View.SignInActivity;
+import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 
 import java.util.HashMap;
 
