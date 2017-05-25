@@ -9,7 +9,6 @@ import com.hbbsolution.owner.model.TypeJobResponse;
 
 public interface FilterView {
     void getAllTypeJob(TypeJobResponse typeJobResponse);
-
     void displayError(String error);
 
     void filterMaid(MaidNearByResponse maidNearByResponse);

@@ -67,9 +67,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.txtNext:
-                Intent itPayment = new Intent(CommentActivity.this, PaymentActivity.class);
-                startActivity(itPayment);
-                finish();
+//                Intent itPayment = new Intent(CommentActivity.this, PaymentActivity.class);
+//                startActivity(itPayment);
+//                finish();
                 break;
         }
     }

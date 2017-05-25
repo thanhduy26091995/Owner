@@ -24,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:text="Đã phân công"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -45,6 +46,7 @@
             >
 
             <RelativeLayout
+                android:id="@+id/lo_infoMaid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -55,7 +57,7 @@
                 android:paddingTop="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_address"
+                    android:id="@+id/img_avatarMaid"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_alignParentLeft="true"
@@ -68,10 +70,11 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_toRightOf="@+id/img_address"
+                    android:layout_toRightOf="@+id/img_avatarMaid"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtNameMaid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nguyễn Văn A"
@@ -79,6 +82,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
+                        android:id="@+id/txtAddressMaid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -193,6 +197,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/txtTitleJobPending"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Lau dọn phòng khách"
@@ -201,6 +206,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/txtTypeJobPending"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -211,6 +217,7 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/txtContentJobPending"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
@@ -253,6 +260,7 @@
                             android:textSize="@dimen/icon_size" />
 
                         <TextView
+                            android:id="@+id/txtPriceJobPending"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -286,6 +294,7 @@
                             android:textSize="@dimen/icon_size" />
 
                         <TextView
+                            android:id="@+id/txtDateJobPending"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -296,6 +305,7 @@
                             android:textColor="@color/colorBlack" />
 
                         <TextView
+                            android:id="@+id/txtTimeDoWrokJobPending"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -330,7 +340,7 @@
                             android:textSize="@dimen/icon_size" />
 
                         <TextView
-                            android:id="@+id/job_post_txtAdress"
+                            android:id="@+id/txtAddressJobPending"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"

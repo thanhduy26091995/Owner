@@ -71,7 +71,7 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
             @Override
             public void onItemClick(Datum mDatum) {
                 Intent itDetailJobPost = new Intent(getActivity(), DetailJobPendingActivity.class);
-//                itDetailJobPost.putExtra("mDatum", mDatum);
+                itDetailJobPost.putExtra("mDatum", mDatum);
                 startActivity(itDetailJobPost);
             }
         });

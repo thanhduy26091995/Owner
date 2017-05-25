@@ -22,6 +22,8 @@ import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by tantr on 5/9/2017.
  */
@@ -29,7 +31,7 @@ import java.util.List;
 public class JobPostedFragment extends Fragment implements WorkManagerView {
 
     private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
-    private String idProcess = "000000000000000000000002";
+    private String idProcess = "000000000000000000000001";
 
     private View rootView;
     private WorkManagerPresenter mWorkManagerPresenter;
@@ -56,7 +58,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
 
     @Override
     public void getInfoJob(WorkManagerResponse mExample) {
-
+        EventBus.getDefault().postSticky(mExample.getData().size());
         mJobList = mExample.getData();
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());

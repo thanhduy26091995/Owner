@@ -52,7 +52,7 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
         Doc comment = comments.get(position);
         holder.txtCommentName.setText(comment.getFromId().getInfo().getName());
         holder.txtCommentContent.setText(comment.getContent());
-        holder.txtCommentType.setText(comment.getTask().getInfoTask().getTitle());
+//        holder.txtCommentType.setText(comment.getTask().getInfoTask().getTitle());
         holder.txtCommentTime.setText(getDatePostHistory(comment.getCreateAt()));
         holder.ratingBar.setRating(comment.getEvaluationPoint());
     }

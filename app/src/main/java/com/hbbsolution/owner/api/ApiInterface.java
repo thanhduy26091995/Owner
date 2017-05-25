@@ -4,6 +4,8 @@ import com.hbbsolution.owner.history.model.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
+import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
@@ -11,12 +13,15 @@ import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerRespon
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by buivu on 04/05/2017.
@@ -58,5 +63,15 @@ public interface ApiInterface {
             @Part MultipartBody.Part image
     );
 
+    @GET
+    Call<GeoCodeMapResponse> getLocaltionAddress(@Url String url, @Query("address") String addressOfOwner);
+
+    @FormUrlEncoded
+    @POST("task/create")
+    Call<JobPostResponse> postJob(@Header("hbbgvauth") String token, @Field("title") String title, @Field("work") String typeJob,
+                                             @Field("description") String description, @Field("addressName") String addressName,
+                                             @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
+                                             @Field("package") String packageId, @Field("price") String price,
+                                             @Field("startAt") String startAt, @Field("endAt") String endAt);
 
 }

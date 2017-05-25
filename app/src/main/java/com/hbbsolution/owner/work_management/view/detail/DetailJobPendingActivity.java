@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,14 +10,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.HelperListAdapter;
 import com.hbbsolution.owner.model.Helper;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 
+import org.joda.time.DateTime;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,16 +38,31 @@ import butterknife.ButterKnife;
 public class DetailJobPendingActivity extends AppCompatActivity implements View.OnClickListener{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.manager_pending_title_toothbar)
-    TextView txtManager_pending_title_toothbar;
     @BindView(R.id.lo_clear_job_pending)
     LinearLayout lo_clear_job_pending;
+    @BindView(R.id.lo_infoMaid)
+    RelativeLayout lo_infoMaid;
+    @BindView(R.id.txtTitleJobPending)
+    TextView txtTitleJobPending;
+    @BindView(R.id.txtTypeJobPending)
+    TextView txtTypeJobPending;
+    @BindView(R.id.txtContentJobPending)
+    TextView txtContentJobPending;
+    @BindView(R.id.txtPriceJobPending)
+    TextView txtPriceJobPending;
+    @BindView(R.id.txtDateJobPending)
+    TextView txtDateJobPending;
+    @BindView(R.id.txtTimeDoWrokJobPending)
+    TextView txtTimeDoWrokJobPending;
+    @BindView(R.id.txtAddressJobPending)
+    TextView txtAddressJobPending;
+    @BindView(R.id.txtNameMaid)
+    TextView txtNameMaid;
+    @BindView(R.id.txtAddressMaid)
+    TextView txtAddressMaid;
 
-//    @BindView(R.id.eplHelperList)
-//    ExpandableListView eplHelperList;
+    private Datum mDatum;
 
-//    private HashMap<String, List<Helper>> mData;
-//    private HelperListAdapter helperListAdapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,35 +71,26 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        txtManager_pending_title_toothbar.setText("Đã phân công");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lo_clear_job_pending.setOnClickListener(this);
+        lo_infoMaid.setOnClickListener(this);
 
+        final Intent intent = getIntent();
+        mDatum = (Datum) intent.getSerializableExtra("mDatum");
 
-//        DisplayMetrics metrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//        int width = metrics.widthPixels;
-//        eplHelperList.setIndicatorBounds(width - dp2px(50), width - dp2px(10));
-//        setData();
+//        txtNameMaid.setText(mDatum.getStakeholders().);
+        txtTitleJobPending.setText(mDatum.getInfo().getTitle());
+        txtTypeJobPending.setText(mDatum.getInfo().getWork().getName());
+        txtContentJobPending.setText(mDatum.getInfo().getDescription());
+        txtPriceJobPending.setText(String.valueOf(mDatum.getInfo().getPrice()));
+        txtAddressJobPending.setText(mDatum.getInfo().getAddress().getName());
+        txtDateJobPending.setText(getDateStartWork(mDatum.getHistory().getUpdateAt()));
+        txtTimeDoWrokJobPending.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
 
     }
-//    public void setData(){
-//        final List<String> listHeader = new ArrayList<>();
-//        listHeader.add("Danh sách ứng tuyển");
-//        mData = new HashMap<>();
-//        List<Helper> listShortVowel = new ArrayList<>();
-//        listShortVowel.add(new Helper("dsad","Nguyễn Văn A","150.000 VND/ 1 giờ",3f));
-//        listShortVowel.add(new Helper("dsadasd","Nguyễn Văn A","150.000 VND/ 1 giờ",3f));
-//        listShortVowel.add(new Helper("dsadasd","Nguyễn Văn A","150.000 VND/ 1 giờ",3f));
-//        listShortVowel.add(new Helper("dsadasd","Nguyễn Văn A","150.000 VND/ 1 giờ",3f));
-//        listShortVowel.add(new Helper("dsadasd","Nguyễn Văn A","150.000 VND/ 1 giờ",3f));
-//        mData.put(listHeader.get(0), listShortVowel);
-//
-//        helperListAdapter = new HelperListAdapter(this,listHeader, mData);
-//        eplHelperList.setAdapter(helperListAdapter);
-//    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -95,25 +109,31 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-//            case R.id.lo_list_recruitment:
-//                if(!eplHelperList.isGroupExpanded(0)) {
-//                    eplHelperList.expandGroup(0);
-//                }
-//                else
-//                {
-//                    eplHelperList.collapseGroup(0);
-//                }
-//                break;
+
             case R.id.lo_clear_job_pending:
                 Toast.makeText(DetailJobPendingActivity.this, "Đã xóa", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.lo_infoMaid:
                 break;
         }
     }
 
-//    public int dp2px(float dp) {
-//        // Get the screen's density scale
-//        final float density = getResources().getDisplayMetrics().density;
-//        // Convert the dps to pixels, based on density scale
-//        return (int) (dp * density + 0.5f);
-//    }
+
+    private String getTimerDoingWork(String startAt, String endAt) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        Date dateStartAt = new DateTime(startAt).toDate();
+        Date dateEndtAt = new DateTime(endAt).toDate();
+        String mDateStartAt = simpleDateFormat.format(dateStartAt);
+        String mDateEndAt = simpleDateFormat.format(dateEndtAt);
+        String mTimeDoing = mDateStartAt + " - " + mDateEndAt;
+
+        return mTimeDoing;
+    }
+
+    private String getDateStartWork(String dateStartWork) {
+        Date date0 = new DateTime(dateStartWork).toDate();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String mDateStartWork = df.format(date0);
+        return mDateStartWork;
+    }
 }

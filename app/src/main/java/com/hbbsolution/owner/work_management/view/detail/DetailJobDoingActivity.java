@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.view.CommentActivity;
+import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +64,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.lo_ChosenCheckin:
-                Intent itComment = new Intent(DetailJobDoingActivity.this, CommentActivity.class);
+                Intent itComment = new Intent(DetailJobDoingActivity.this, PaymentActivity.class);
                 startActivity(itComment);
                 break;
         }
