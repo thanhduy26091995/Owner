@@ -75,7 +75,6 @@
     <!--comment_screen end-->
 
 
-
     <!--history_screen start-->
     <string name="completedjob">Completed work</string>
     <string name="completedhelpler">Completed helper</string>
@@ -117,4 +116,12 @@
     <string name="enter_phonenumber">Enter a phone number</string>
     <string name="okAlert">Ok</string>
     <!--contact and about screen end-->
+
+
+    <!--Maid near by-->
+    <string name="GPSTitle">GPS settings</string>
+    <string name="GPSContent">GPS is disabled. Do you want to enable GPS?</string>
+    <string name="setting">Setting</string>
+    <string name="huy">Cancel</string>
+    <!---->
 </resources>

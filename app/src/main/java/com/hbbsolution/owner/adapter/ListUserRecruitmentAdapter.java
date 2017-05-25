@@ -42,7 +42,7 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
     @Override
     public void onBindViewHolder(ListUserRecruitmentAdapter.ViewHolerListUserRecruitment holder, int position) {
         final Maid mMaid = maidList.get(position).getMaid();
-        holder.tvName.setText(mMaid.getInfo().getUsername());
+        holder.tvName.setText(mMaid.getInfo().getName());
         holder.ratingBar.setRating(4);
         if(isHis){
             holder.imgIcCheck.setVisibility(View.GONE);

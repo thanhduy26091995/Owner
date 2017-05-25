@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hbbsolution.owner.maid_near_by.model.MapWrapperLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/map_linear_layout"
     android:layout_width="match_parent"
@@ -32,9 +32,21 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.SearchView
+            android:background="@color/colorWhite"
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"></android.support.v7.widget.SearchView>
+    </LinearLayout>
+
     <fragment
         android:id="@+id/fragment_map"
-        class="com.google.android.gms.maps.MapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
@@ -44,4 +56,4 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
-</com.hbbsolution.owner.maid_near_by.model.MapWrapperLayout>
+</LinearLayout>

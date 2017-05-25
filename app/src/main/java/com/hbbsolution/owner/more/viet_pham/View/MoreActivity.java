@@ -77,6 +77,7 @@ public class MoreActivity extends AppCompatActivity {
                 startActivity(iStatistic);
             }
         });
+
     }
 
     @Override

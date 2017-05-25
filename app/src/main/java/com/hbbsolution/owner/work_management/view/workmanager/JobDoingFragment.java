@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.adapter.ManageJobAdapter;
-import com.hbbsolution.owner.work_management.model.workmanager.Datum;
+import com.hbbsolution.owner.adapter.JobPendingAdapter;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 import com.hbbsolution.owner.work_management.presenter.WorkManagerPresenter;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPendingActivity;
 
 import java.util.ArrayList;
@@ -28,13 +28,12 @@ import java.util.List;
 
 public class JobDoingFragment extends Fragment implements WorkManagerView{
 
-    private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
     private String idProcess = "000000000000000000000004";
 
     private View rootView;
     private WorkManagerPresenter mWorkManagerPresenter;
-    private List<Datum> mJobList = new ArrayList<>();
-    private ManageJobAdapter mJobPostAdapter;
+    private List<DatumPending> mJobList = new ArrayList<>();
+    private JobPendingAdapter mJobPendingAdapter;
     private RecyclerView mRecycler;
 
     private LinearLayout lo_item_doing;
@@ -45,19 +44,9 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_job_doing, container, false);
 
-//            lo_item_doing = (LinearLayout) rootView.findViewById(R.id.lo_item_doing);
-//
-//            lo_item_doing.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(getContext(), DetailJobDoingActivity.class);
-//                    startActivity(intent);
-//                }
-//            });
-
             mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_doing);
             mWorkManagerPresenter = new WorkManagerPresenter(this);
-            mWorkManagerPresenter.getInfoWorkList(token, idProcess);
+            mWorkManagerPresenter.getInfoJobPending(idProcess);
 
         }else {
             ViewGroup parent = (ViewGroup) container.getParent();
@@ -68,21 +57,27 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
 
     @Override
     public void getInfoJob(WorkManagerResponse mExample) {
-        mJobList = mExample.getData();
+
+    }
+
+    @Override
+    public void getInfoJobPending(JobPendingResponse mJobPendingResponse) {
+        mJobList = mJobPendingResponse.getData();
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        mJobPostAdapter = new ManageJobAdapter(getActivity(), mJobList, false);
+        mJobPendingAdapter = new JobPendingAdapter(getActivity(), mJobList, 3);
         mRecycler.setLayoutManager(linearLayoutManager);
-        mRecycler.setAdapter(mJobPostAdapter);
+        mRecycler.setAdapter(mJobPendingAdapter);
 
-        mJobPostAdapter.setCallback(new ManageJobAdapter.Callback() {
+        mJobPendingAdapter.setCallback(new JobPendingAdapter.Callback() {
             @Override
-            public void onItemClick(Datum mDatum) {
-                Intent itDetailJobPost = new Intent(getActivity(), DetailJobDoingActivity.class);
-                itDetailJobPost.putExtra("mDatum", mDatum);
-                startActivity(itDetailJobPost);
+            public void onItemClick(DatumPending mDatum) {
+                Intent itDetailJobPending = new Intent(getActivity(), DetailJobPendingActivity.class);
+                itDetailJobPending.putExtra("mDatum", mDatum);
+                startActivity(itDetailJobPending);
             }
         });
+
     }
 
     @Override

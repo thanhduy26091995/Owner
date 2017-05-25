@@ -47,6 +47,8 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowAnimationStyle">@style/MaterialDialogSheetAnimation</item>
+        <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
     </style>
 
     <style name="MaterialDialogSheetAnimation">
@@ -84,7 +86,21 @@
     </style>
 
     <!--<style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">-->
-        <!--<item name="android:button">@drawable/custom_btn_radio</item>-->
+    <!--<item name="android:button">@drawable/custom_btn_radio</item>-->
     <!--</style>-->
 
+    <style name="spinnerItemStyle">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--Number Picker-->
+
+    <style name="MyNumberPicker">
+        <item name="android:textSize">20dp</item>
+        <item name="android:colorControlNormal">@color/home_background_history</item>
+    </style>
 </resources>

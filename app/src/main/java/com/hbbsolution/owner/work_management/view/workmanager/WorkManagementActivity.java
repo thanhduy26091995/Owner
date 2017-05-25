@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -14,10 +15,12 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
 import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by buivu on 04/05/2017.
@@ -36,7 +39,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
-    private int tabMore;
+    private int tabMore, mQuantityJobPost;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,9 +97,30 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.management_compose_toothbar:
-                Intent intent = new Intent(WorkManagementActivity.this, JobPostActivity.class);
-                startActivity(intent);
+                if(mQuantityJobPost < 10){
+                    Intent intent = new Intent(WorkManagementActivity.this, JobPostActivity.class);
+                    startActivity(intent);
+                }else {
+                    ShowAlertDialog.showAlert("Số lượng bài đăng không được vượt quá 10 bài!", WorkManagementActivity.this);
+                }
                 break;
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().registerSticky(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    public void onEventMainThread(Integer quantityJobPost) {
+        mQuantityJobPost = quantityJobPost;
     }
 }

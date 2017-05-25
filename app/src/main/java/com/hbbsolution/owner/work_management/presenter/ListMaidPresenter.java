@@ -24,8 +24,8 @@ public class ListMaidPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoListMaid(String token, String process){
-        Call<ListMaidResponse> call = apiService.getInfoListMaid(token, process);
+    public void getInfoListMaid(String process){
+        Call<ListMaidResponse> call = apiService.getInfoListMaid(process);
         call.enqueue(new Callback<ListMaidResponse>() {
             @Override
             public void onResponse(Call<ListMaidResponse> call, Response<ListMaidResponse> response) {

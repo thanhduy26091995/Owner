@@ -1,145 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgTypeJobPost"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/dondepnha" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/imgTypeJobPost"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgTypeJobPost"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/dondepnha" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/imgTypeJobPost"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txtTitleJobPost"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:layout_marginRight="5dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="Cần giúp nấu ăn lau dọn vệ sinh nhà"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:weightSum="5">
 
-                <TextView
-                    android:id="@+id/txtNumber_request_detail_post"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/circle"
-                    android:gravity="center"
-                    android:text="2"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/icon_size_normal" />
+                    <TextView
+                        android:id="@+id/txtTitleJobPost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:layout_marginRight="5dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Cần giúp nấu ăn lau dọn vệ sinh nhà"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
 
-            </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txtExpired_request_detail_post"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="15dp"
+                            android:padding="2dp"
+                            android:background="@drawable/background_text_expired"
+                            android:text="Quá hạn"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/icon_size_normal" />
 
-                <TextView
+                        <TextView
+                            android:id="@+id/txtNumber_request_detail_post"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/circle"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:text="2"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/icon_size_normal" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Đang chờ ứng tuyển"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal">
 
-                <View
-                    android:layout_width="0.1dp"
-                    android:layout_height="12sp"
-                    android:layout_gravity="bottom"
-                    android:background="@android:color/darker_gray" />
+                    <TextView
+                        android:id="@+id/txtType"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="Đang chờ ứng tuyển"
+                        android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/txtTimePostHistory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:text="23 phút trước"
-                    android:textSize="12sp" />
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="12sp"
+                        android:layout_gravity="bottom"
+                        android:background="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/txtTimePostHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="23 phút trước"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <com.hbbsolution.owner.base.IconTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/manager_ic_clock"
+                android:textColor="@color/home_background_history"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtDatePostHistory"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:text="10/10/2017"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/txtTimeDoingPost"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:text="9h00 am - 12h00 am"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="5">
-
-        <com.hbbsolution.owner.base.IconTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/manager_ic_clock"
-            android:textColor="@color/home_background_history"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/txtDatePostHistory"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="10/10/2017"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorBlack" />
-
-        <TextView
-            android:id="@+id/txtTimeDoingPost"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="9h00 am - 12h00 am"
-            android:textSize="12sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
 
     </LinearLayout>
 
-    <View
+    <LinearLayout
+        android:id="@+id/lo_background"
         android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/more_background_lo"
+        android:visibility="gone">
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -2,13 +2,10 @@ package com.hbbsolution.owner.maid_profile.presenter;
 
 import android.util.Log;
 
-
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileView;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
-import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
-import com.hbbsolution.owner.work_management.view.listmaid.ListMaidView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,8 +24,8 @@ public class MaidProfilePresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoListMaid(String token, String process, int page){
-        Call<CommentMaidResponse> call = apiService.getListCommentMaid(token, process, page);
+    public void getInfoListMaid(String process, int page){
+        Call<CommentMaidResponse> call = apiService.getListCommentMaid(process, page);
         call.enqueue(new Callback<CommentMaidResponse>() {
             @Override
             public void onResponse(Call<CommentMaidResponse> call, Response<CommentMaidResponse> response) {
