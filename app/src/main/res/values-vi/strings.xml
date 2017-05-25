@@ -51,6 +51,7 @@
     <plurals name="second">
         <item quantity="other">giây</item>
     </plurals>
+    <string name="liabilities">Công nợ</string>
     <!--history_screen end-->
 
     <!--contact and about screen start-->
@@ -70,4 +71,11 @@
     <string name="payment">Nạp tiền vào tài khoản</string>
     <string name="sodutaikhoan">Số dư tài khoản</string>
     <!--statistic_screen end-->
+
+    <!--Maid near by-->
+    <string name="GPSTitle">Cà đặt GPS</string>
+    <string name="GPSContent">GPS đang tắt, bạn có muốn đi đến cài đặt GPS?</string>
+    <string name="setting">Cài Đặt</string>
+    <string name="huy">Hủy</string>
+    <!---->
 </resources>

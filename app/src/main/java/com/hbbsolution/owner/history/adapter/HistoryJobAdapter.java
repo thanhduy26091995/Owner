@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.model.Datum;
+import com.hbbsolution.owner.history.model.Doc;
 import com.hbbsolution.owner.history.view.DetailWorkHistoryActivity;
 import com.squareup.picasso.Picasso;
 
@@ -33,7 +33,7 @@ import java.util.Locale;
 
 public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.RecyclerViewHolder> {
     private Context context;
-    private List<Datum> listData;
+    private List<Doc> listData;
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String date;
     private String startTime, endTime;
@@ -41,7 +41,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     private int previousPosition = 0;
     private String type,title,work,description,address,avatar,name,address_;
     private int price;
-    private Datum datum;
+    private Doc doc;
     private Pair<View, String> pairJobType;
     @Override
     public HistoryJobAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -49,7 +49,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         return new RecyclerViewHolder(view);
     }
 
-    public HistoryJobAdapter(Context context, List<Datum> listData) {
+    public HistoryJobAdapter(Context context, List<Doc> listData) {
         this.context = context;
         this.listData = listData;
     }
@@ -98,7 +98,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
 
     public void getData(int position)
     {
-       datum=listData.get(position);
+       doc=listData.get(position);
     }
     @Override
     public int getItemCount() {
@@ -125,12 +125,12 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
             Intent intent = new Intent(context, DetailWorkHistoryActivity.class);
 
             intent.putExtra("app",listData.get(getAdapterPosition()));
-            intent.putExtra("work",datum);
-            ActivityOptionsCompat learningOption =
+            intent.putExtra("work",doc);
+            ActivityOptionsCompat historyOption =
                     ActivityOptionsCompat
                             .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_job_type), "icJobType");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent, learningOption.toBundle());
+            context.startActivity(intent, historyOption.toBundle());
         }
 
         @Override

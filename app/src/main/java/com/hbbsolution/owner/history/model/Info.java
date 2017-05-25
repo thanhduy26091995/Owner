@@ -23,6 +23,9 @@ public class Info implements Serializable {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("age")
+    @Expose
+    private Integer age;
     @SerializedName("gender")
     @Expose
     private Integer gender;
@@ -68,6 +71,14 @@ public class Info implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Integer getGender() {

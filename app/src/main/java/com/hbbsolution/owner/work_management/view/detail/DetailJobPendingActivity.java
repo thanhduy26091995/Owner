@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,8 +17,11 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.HelperListAdapter;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Helper;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
+import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
 
@@ -60,8 +64,12 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
     TextView txtNameMaid;
     @BindView(R.id.txtAddressMaid)
     TextView txtAddressMaid;
+    @BindView(R.id.img_avatarMaid)
+    ImageView img_avatarMaid;
+    @BindView(R.id.img_TypeJob)
+    ImageView img_TypeJob;
 
-    private Datum mDatum;
+    private DatumPending mDatum;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,9 +86,14 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
         lo_infoMaid.setOnClickListener(this);
 
         final Intent intent = getIntent();
-        mDatum = (Datum) intent.getSerializableExtra("mDatum");
+        mDatum = (DatumPending) intent.getSerializableExtra("mDatum");
 
-//        txtNameMaid.setText(mDatum.getStakeholders().);
+        txtNameMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
+        txtAddressMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
+        Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
+                .error(R.drawable.no_image)
+                .placeholder(R.drawable.no_image)
+                .into(img_avatarMaid);
         txtTitleJobPending.setText(mDatum.getInfo().getTitle());
         txtTypeJobPending.setText(mDatum.getInfo().getWork().getName());
         txtContentJobPending.setText(mDatum.getInfo().getDescription());
@@ -88,6 +101,10 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
         txtAddressJobPending.setText(mDatum.getInfo().getAddress().getName());
         txtDateJobPending.setText(getDateStartWork(mDatum.getHistory().getUpdateAt()));
         txtTimeDoWrokJobPending.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
+        Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
+                .error(R.drawable.no_image)
+                .placeholder(R.drawable.no_image)
+                .into(img_TypeJob);
 
     }
 
@@ -109,11 +126,13 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-
             case R.id.lo_clear_job_pending:
                 Toast.makeText(DetailJobPendingActivity.this, "Đã xóa", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.lo_infoMaid:
+                Intent itInfoUser = new Intent(DetailJobPendingActivity.this, MaidProfileActivity.class);
+                itInfoUser.putExtra("maid",mDatum.getStakeholders().getMadi());
+                startActivity(itInfoUser);
                 break;
         }
     }

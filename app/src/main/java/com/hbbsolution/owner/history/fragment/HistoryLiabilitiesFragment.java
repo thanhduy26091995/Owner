@@ -1,59 +1,75 @@
-package com.hbbsolution.owner.more.duy_nguyen;
+package com.hbbsolution.owner.history.fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.history.adapter.HistoryHelperAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+/**
+ * Created by Administrator on 25/05/2017.
+ */
 
-public class StatisticActivity extends AppCompatActivity implements View.OnClickListener{
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.tvStartDate)
-    TextView tvStartDate;
-    @BindView(R.id.tvEndDate)
-    TextView tvEndDate;
-    @BindView(R.id.txt_statistic_payment)
-    TextView tvPayment;
+public class HistoryLiabilitiesFragment extends Fragment {
+    private View v;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private HistoryHelperAdapter historyHelperAdapter;
+    private TextView tvStartDate, tvEndDate;
     private Calendar cal;
-    private Date startDate,endDate;
+    private Date startDate, endDate;
     private String strStartDate, strEndDate;
 
+    public static HistoryLiabilitiesFragment newInstance() {
+        HistoryLiabilitiesFragment fragment = new HistoryLiabilitiesFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistic);
-        ButterKnife.bind(this);
-        setToolbar();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        v = inflater.inflate(R.layout.fragment_history_liabilities, container, false);
+        //Gán adapter các thứ
+//        historyHelperAdapter = new HistoryHelperAdapter(getActivity());
+//        recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
+//        layoutManager = new LinearLayoutManager(getActivity());
+//        historyHelperAdapter.notifyDataSetChanged();
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(historyHelperAdapter);
+
         cal = Calendar.getInstance();
+        tvStartDate = (TextView) v.findViewById(R.id.tvStartDate);
+        tvStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog1();
+            }
+        });
+        tvEndDate = (TextView) v.findViewById(R.id.tvEndDate);
+        tvEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog2();
+            }
+        });
         getTime();
-        setEventClick();
+        return v;
     }
-    public void setToolbar()
-    {
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-    public void setEventClick()
-    {
-        tvStartDate.setOnClickListener(this);
-        tvEndDate.setOnClickListener(this);
-        tvPayment.setOnClickListener(this);
-    }
+
     public void showDatePickerDialog1() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year,
@@ -74,7 +90,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
         int nam = Integer.parseInt(strArrtmp[2]);
-        DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
+        DatePickerDialog pic = new DatePickerDialog(getActivity(), callback, nam, thang, ngay);
         pic.setTitle("Chọn ngày bắt đầu");
         pic.show();
     }
@@ -99,10 +115,11 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
         int nam = Integer.parseInt(strArrtmp[2]);
-        DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
+        DatePickerDialog pic = new DatePickerDialog(getActivity(), callback, nam, thang, ngay);
         pic.setTitle("Chọn ngày kết thúc");
         pic.show();
     }
+
     public void getTime() {
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         Date myDate = new Date();
@@ -111,30 +128,8 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         calendar.setTime(myDate);
         calendar.add(Calendar.DAY_OF_YEAR, -7);
         Date newDate = calendar.getTime();
-        strStartDate=date.format(newDate);
+        strStartDate = date.format(newDate);
         tvStartDate.setText(strStartDate);
         tvEndDate.setText(strEndDate);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.tvStartDate:
-                showDatePickerDialog1();
-                break;
-            case R.id.tvEndDate:
-                showDatePickerDialog2();
-                break;
-            case R.id.txt_statistic_payment:
-                break;
-        }
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

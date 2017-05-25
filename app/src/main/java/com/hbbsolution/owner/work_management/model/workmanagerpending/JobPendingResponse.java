@@ -1,13 +1,16 @@
-
-package com.hbbsolution.owner.history.model;
+package com.hbbsolution.owner.work_management.model.workmanagerpending;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Example implements Serializable {
+/**
+ * Created by tantr on 5/25/2017.
+ */
+
+public class JobPendingResponse {
 
     @SerializedName("status")
     @Expose
@@ -17,7 +20,7 @@ public class Example implements Serializable {
     private String message;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private List<DatumPending> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -35,12 +38,11 @@ public class Example implements Serializable {
         this.message = message;
     }
 
-    public List<Datum> getData() {
+    public List<DatumPending> getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<DatumPending> data) {
         this.data = data;
     }
-
 }

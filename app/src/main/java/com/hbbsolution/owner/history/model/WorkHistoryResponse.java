@@ -1,15 +1,11 @@
+
 package com.hbbsolution.owner.history.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-/**
- * Created by Administrator on 18/05/2017.
- */
-
 public class WorkHistoryResponse {
+
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -18,7 +14,7 @@ public class WorkHistoryResponse {
     private String message;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private Data data;
 
     public Boolean getStatus() {
         return status;
@@ -36,11 +32,12 @@ public class WorkHistoryResponse {
         this.message = message;
     }
 
-    public List<Datum> getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(Data data) {
         this.data = data;
     }
+
 }

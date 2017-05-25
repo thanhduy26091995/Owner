@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
@@ -17,28 +18,27 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by tantr on 5/10/2017.
+ * Created by tantr on 5/25/2017.
  */
 
-public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobPostViewHolder> {
+public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.JobPendingViewHolder> {
 
     private Context context;
-    private List<Datum> datumList;
+    private List<DatumPending> datumList;
     private Callback callback;
     private int tabJob;
 
-    public ManageJobAdapter(Context context, List<Datum> datumList, int  tabJob) {
+    public JobPendingAdapter(Context context, List<DatumPending> datumList, int tabJob) {
         this.context = context;
         this.datumList = datumList;
         this.tabJob = tabJob;
+     
     }
 
     public void setCallback(Callback callback) {
@@ -46,56 +46,29 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
     }
 
     @Override
-    public JobPostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public JobPendingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = View.inflate(context, R.layout.item_job_post, null);
-        return new ManageJobAdapter.JobPostViewHolder(rootView);
+        return new JobPendingAdapter.JobPendingViewHolder(rootView);
     }
 
     @Override
-    public void onBindViewHolder(JobPostViewHolder holder, int position) {
-        final Datum mDatum = datumList.get(position);
+    public void onBindViewHolder(JobPendingViewHolder holder, int position) {
+        final DatumPending mDatum = datumList.get(position);
         holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
         holder.txtDatePostHistory.setText(getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
         getTimePostHistory(holder.txtTimePostHistory, mDatum.getHistory().getUpdateAt());
         getTimeDoingPost(holder.txtTimeDoingPost, mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt());
 
-        if (CompareDays(getDatePostHistory(mDatum.getHistory().getUpdateAt()))) {
-            holder.txtExpired.setVisibility(View.VISIBLE);
-            holder.lo_background.setVisibility(View.VISIBLE);
-            holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-        } else {
-            holder.txtExpired.setVisibility(View.GONE);
-            holder.lo_background.setVisibility(View.GONE);
-            if (tabJob == 1) {
-                holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-                if (mDatum.getStakeholders().getRequest().size() == 0) {
-                    holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-                }
-                holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
-            } else {
-                holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-            }
+        if(tabJob == 2){
+            holder.txtType.setText("Đang chờ xác nhận");
         }
 
-//        if(CompareDays(getDatePostHistory(mDatum.getHistory().getUpdateAt()))){
-//            holder.txtDelay.setVisibility(View.VISIBLE);
-////            holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-//        }else {
-//            holder.txtDelay.setVisibility(View.GONE);
-////            if (isPost){
-////                if (mDatum.getStakeholders().getRequest().size() == 0){
-////                    holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-////                }else {
-////                    holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-////                }
-////                holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
-////            }else {
-////                holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-////            }
-////            holder.lo_background.setVisibility(View.VISIBLE);
-//        }
 
-//        holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+        if(tabJob == 3){
+            holder.txtType.setText("Đang làm");
+        }
+
+
         Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.no_image)
@@ -103,7 +76,7 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (callback != null) {
                     callback.onItemClick(mDatum);
                 }
@@ -116,14 +89,16 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
         return datumList.size();
     }
 
-    public class JobPostViewHolder extends RecyclerView.ViewHolder {
+    public class JobPendingViewHolder extends RecyclerView.ViewHolder {
+
         private TextView txtTimePostHistory, txtDatePostHistory, txtTimeDoingPost,
                 txtTitleJobPost, txtNumber_request_detail_post, txtExpired, txtType;
         private ImageView imgTypeJobPost;
         private LinearLayout lo_background;
 
-        public JobPostViewHolder(View itemView) {
+        public JobPendingViewHolder(View itemView) {
             super(itemView);
+
             txtTitleJobPost = (TextView) itemView.findViewById(R.id.txtTitleJobPost);
             txtTimePostHistory = (TextView) itemView.findViewById(R.id.txtTimePostHistory);
             txtDatePostHistory = (TextView) itemView.findViewById(R.id.txtDatePostHistory);
@@ -133,8 +108,11 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
             txtExpired = (TextView) itemView.findViewById(R.id.txtExpired_request_detail_post);
             lo_background = (LinearLayout) itemView.findViewById(R.id.lo_background);
             txtType = (TextView) itemView.findViewById(R.id.txtType);
-
         }
+    }
+
+    public interface Callback {
+        void onItemClick(DatumPending mDatum);
     }
 
     private void getTimeDoingPost(TextView txtTimeDoingPost, String mTimeStartWork, String mTimeEndWork) {
@@ -177,30 +155,5 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timer)));
             txtTimePostHistory.setText(ngays + " ngày trước");
         }
-    }
-
-    public interface Callback {
-        void onItemClick(Datum mDatum);
-    }
-
-    private boolean CompareDays(String dateStartWork) {
-        Date date1 = null;
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -1);
-        Date date = calendar.getTime();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date1 = sdf.parse(dateStartWork);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (date1.after(date)) {
-            return false;
-        }
-        return true;
     }
 }

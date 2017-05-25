@@ -13,7 +13,7 @@ public class Info_ implements Serializable {
     private String title;
     @SerializedName("package")
     @Expose
-    private Package _package;
+    private Object _package;
     @SerializedName("work")
     @Expose
     private Work work;
@@ -31,7 +31,7 @@ public class Info_ implements Serializable {
     private Time time;
     @SerializedName("address")
     @Expose
-    private Address_ address;
+    private Address address;
 
     public String getTitle() {
         return title;
@@ -41,11 +41,11 @@ public class Info_ implements Serializable {
         this.title = title;
     }
 
-    public Package getPackage() {
+    public Object getPackage() {
         return _package;
     }
 
-    public void setPackage(Package _package) {
+    public void setPackage(Object _package) {
         this._package = _package;
     }
 
@@ -89,11 +89,11 @@ public class Info_ implements Serializable {
         this.time = time;
     }
 
-    public Address_ getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Address_ address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
