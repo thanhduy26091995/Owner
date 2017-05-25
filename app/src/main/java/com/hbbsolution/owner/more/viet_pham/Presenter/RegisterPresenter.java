@@ -5,7 +5,8 @@ import android.util.Log;
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
 import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
-import com.hbbsolution.owner.more.viet_pham.View.SignUpView;
+import com.hbbsolution.owner.more.viet_pham.View.signup.SignUpView;
+import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 import java.io.File;
 
@@ -31,7 +32,7 @@ public class RegisterPresenter {
     private RequestBody requestBodyEmail;
     private RequestBody requestBodyPhone;
     private RequestBody requestBodyName;
-    private RequestBody requestBodyAddress;
+    private RequestBody requestBodyLocation;
     private RequestBody requestBodyGender;
     private RequestBody requestBodyLat;
     private RequestBody requestBodyLng;
@@ -41,14 +42,13 @@ public class RegisterPresenter {
         mApiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void createAccount(String username, String password, String email, String phone, String name, String filePath, String address, double lat, double lng, int gender
+    public void createAccount(String username, String password, String email, String phone, String name, String filePath, String location, double lat, double lng, int gender
             , String fileContentResolver) {
         if ((filePath.trim().length() != 0) && (fileContentResolver.trim().length() != 0)) {
             mFile = new File(filePath);
             requestBody = RequestBody.create(MediaType.parse(fileContentResolver), mFile);
             fileImage = MultipartBody.Part.createFormData("image", mFile.getName(), requestBody);
-        }else
-        {
+        } else {
             mFile = new File(filePath);
             requestBody = RequestBody.create(MediaType.parse(fileContentResolver), mFile);
             fileImage = null;
@@ -58,20 +58,54 @@ public class RegisterPresenter {
         requestBodyEmail = RequestBody.create(MediaType.parse("text"), email);
         requestBodyPhone = RequestBody.create(MediaType.parse("text"), phone);
         requestBodyName = RequestBody.create(MediaType.parse("text"), name);
-        requestBodyAddress = RequestBody.create(MediaType.parse("text"), address);
+        requestBodyLocation = RequestBody.create(MediaType.parse("text"), location);
         requestBodyGender = RequestBody.create(MediaType.parse("text"), String.valueOf(gender));
         requestBodyLat = RequestBody.create(MediaType.parse("text"), String.valueOf(lat));
         requestBodyLng = RequestBody.create(MediaType.parse("text"), String.valueOf(lng));
-        mApiService.createAccount(requestBodyUserName, requestBodyPassword, requestBodyEmail, requestBodyPhone, requestBodyName, requestBodyAddress, requestBodyLat,
+        mApiService.createAccount(requestBodyUserName, requestBodyPassword, requestBodyEmail, requestBodyPhone, requestBodyName, requestBodyLocation, requestBodyLat,
                 requestBodyLng, requestBodyGender, fileImage).enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                Log.e("Tag1", String.valueOf(response.body().getStatus()));
+                try {
+                    RegisterResponse registerResponse = response.body();
+                    mSignUpView.displaySignUp(registerResponse);
+                } catch (Exception e) {
+                    Log.e("exception", e.toString());
+                    mSignUpView.displayError();
+                }
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Log.e("Tag2", "Fail");
+                Log.e("error", t.toString());
+            }
+        });
+    }
+
+    public void getLocaltionAddress(String addressofOwner) {
+        Call<GeoCodeMapResponse> responseCall = mApiService.getLocaltionAddress("https://maps.googleapis.com/maps/api/geocode/json", addressofOwner);
+        responseCall.enqueue(new Callback<GeoCodeMapResponse>() {
+            @Override
+            public void onResponse(Call<GeoCodeMapResponse> call, Response<GeoCodeMapResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals("OK")) {
+                        GeoCodeMapResponse mGeoCodeMapResponse = response.body();
+                        double mLat = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
+                        double mLng = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+                        if (mLat != 0 || mLng != 0) {
+                            mSignUpView.getLocaltionAddress(mGeoCodeMapResponse);
+                        } else {
+                            mSignUpView.displayNotFoundLocaltion();
+                        }
+                    } else {
+                        mSignUpView.displayNotFoundLocaltion();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GeoCodeMapResponse> call, Throwable t) {
+                Log.e("Tag", t.toString());
             }
         });
     }

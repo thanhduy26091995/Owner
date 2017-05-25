@@ -63,6 +63,12 @@ public interface ApiInterface {
             @Part MultipartBody.Part image
     );
 
+    @Multipart
+    @POST("auth/login")
+    Call<RegisterResponse> signInAccount(@Part("username") RequestBody username,
+                                    @Part("password") RequestBody password
+    );
+
     @GET
     Call<GeoCodeMapResponse> getLocaltionAddress(@Url String url, @Query("address") String addressOfOwner);
 

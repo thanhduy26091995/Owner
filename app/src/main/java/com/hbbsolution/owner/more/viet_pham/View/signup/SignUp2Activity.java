@@ -1,6 +1,7 @@
-package com.hbbsolution.owner.more.viet_pham.View;
+package com.hbbsolution.owner.more.viet_pham.View.signup;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,8 +20,12 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
-import com.hbbsolution.owner.more.viet_pham.ImageFilePath;
+import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
+import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
+import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
+import com.hbbsolution.owner.utils.EmailValidate;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 import java.io.IOException;
 
@@ -32,7 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 5/10/2017.
  */
 
-public class SignUp2Activity extends AppCompatActivity {
+public class SignUp2Activity extends AppCompatActivity implements SignUpView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.button_next)
@@ -45,8 +50,8 @@ public class SignUp2Activity extends AppCompatActivity {
     EditText edtFullName;
     @BindView(R.id.edit_number)
     EditText edtNumber;
-    @BindView(R.id.edit_home)
-    EditText edtHome;
+    @BindView(R.id.edit_location)
+    EditText edtLocation;
     @BindView(R.id.image_avatar)
     CircleImageView ivAvatar;
     private int PICK_IMAGE_FROM_GALLERY_REQUEST = 1;
@@ -54,6 +59,11 @@ public class SignUp2Activity extends AppCompatActivity {
     private String mFilePath = "";
     private String mFileContentResolver = "";
     private int iGender;
+    private RegisterPresenter mRegisterPresenter;
+    private ProgressDialog mProgressDialog;
+    private double mLat;
+    private double mLng;
+    private String mUserName, mPassword, mEmail, mFullName, mPhoneName, mLocation, mGender;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +75,9 @@ public class SignUp2Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         addEvents();
+
+        mProgressDialog = new ProgressDialog(this);
+        mRegisterPresenter = new RegisterPresenter(this);
 
     }
 
@@ -84,43 +97,36 @@ public class SignUp2Activity extends AppCompatActivity {
                 // Start get data from Sign up 1
                 Intent iSignUp1 = getIntent();
                 Bundle bSignUp1 = iSignUp1.getBundleExtra("bNextPage");
-                String username = bSignUp1.getString("username");
-                String password = bSignUp1.getString("password");
+                mUserName = bSignUp1.getString("username");
+                mPassword = bSignUp1.getString("password");
                 // Start get data from Sign in 1
 
                 // Start get data from Edittext of Sign up 2
-                String email = edtEmail.getText().toString();
-                String fullname = edtFullName.getText().toString();
-                String gender = edtGender.getText().toString();
-                String phoneNumber = edtNumber.getText().toString();
-                String location = edtHome.getText().toString();
+                mEmail = edtEmail.getText().toString();
+                mFullName = edtFullName.getText().toString();
+                mGender = edtGender.getText().toString();
+                mPhoneName = edtNumber.getText().toString();
+                mLocation = edtLocation.getText().toString();
                 // End get data from Edittext of Sign up 2
-                 if(gender.equals("Nam"))
-                 {
-                     iGender = 0;
-                 }else {
-                     iGender = 1;
-                 }
+                if (mGender.equals("Nam")) {
+                    iGender = 0;
+                } else {
+                    iGender = 1;
+                }
 
                 // Start transfer data from Sign up 2 to page terms
-                if (email.trim().length() == 0 || fullname.trim().length() == 0 || gender.length() == 0 || phoneNumber.trim().length() == 0 ||
-                        location.trim().length() == 0) {
-//                    Toast.makeText(SignUp2Activity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                    ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin",SignUp2Activity.this);
+                if (mEmail.trim().length() == 0 || mFullName.trim().length() == 0 || mGender.length() == 0 || mPhoneName.trim().length() == 0 ||
+                        mLocation.trim().length() == 0) {
+                    ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin", SignUp2Activity.this);
                 } else {
-                    Intent iSignUp2 = new Intent(SignUp2Activity.this, TermsActivity.class);
-                    Bundle bSignUp2 = new Bundle();
-                    bSignUp2.putString("username", username);
-                    bSignUp2.putString("password", password);
-                    bSignUp2.putString("email", email);
-                    bSignUp2.putString("fullname", fullname);
-                    bSignUp2.putInt("gender", iGender);
-                    bSignUp2.putString("phone", phoneNumber);
-                    bSignUp2.putString("location", location);
-                    bSignUp2.putString("filepath", mFilePath);
-                    bSignUp2.putString("filecontent",mFileContentResolver);
-                    iSignUp2.putExtra("bSignUp2", bSignUp2);
-                    startActivity(iSignUp2);
+                    if (EmailValidate.IsOk(mEmail))
+                    {
+                        mProgressDialog.show();
+                        mRegisterPresenter.getLocaltionAddress(mLocation);
+                    }else {
+                        ShowAlertDialog.showAlert("Vui lòng nhập đúng email",SignUp2Activity.this);
+                    }
+
                 }
                 // End transfer data from Sign up 2 to page terms
             }
@@ -183,7 +189,7 @@ public class SignUp2Activity extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mUriChooseImage);
                 ivAvatar.setImageBitmap(bitmap);
-                mFilePath = ImageFilePath.getPath(getApplicationContext(), mUriChooseImage);
+                mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), mUriChooseImage);
                 mFileContentResolver = getContentResolver().getType(mUriChooseImage);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -195,5 +201,45 @@ public class SignUp2Activity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void displaySignUp(RegisterResponse registerResponse) {
+
+    }
+
+    @Override
+    public void displayError() {
+
+    }
+
+    @Override
+    public void displayNotFoundLocaltion() {
+        mProgressDialog.dismiss();
+        ShowAlertDialog.showAlert("Vui lòng nhập chính xác địa chỉ", SignUp2Activity.this);
+    }
+
+    @Override
+    public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
+        mLat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
+        mLng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+        if (mLat != 0 && mLng != 0) {
+            Intent iSignUp2 = new Intent(SignUp2Activity.this, TermsActivity.class);
+            Bundle bSignUp2 = new Bundle();
+            bSignUp2.putString("username", mUserName);
+            bSignUp2.putString("password", mPassword);
+            bSignUp2.putString("email", mEmail);
+            bSignUp2.putString("fullname", mFullName);
+            bSignUp2.putInt("gender", iGender);
+            bSignUp2.putString("phone", mPhoneName);
+            bSignUp2.putString("location", mLocation);
+            bSignUp2.putDouble("lat", mLat);
+            bSignUp2.putDouble("lng", mLng);
+            bSignUp2.putString("filepath", mFilePath);
+            bSignUp2.putString("filecontent", mFileContentResolver);
+            iSignUp2.putExtra("bSignUp2", bSignUp2);
+            startActivity(iSignUp2);
+            mProgressDialog.dismiss();
+        }
     }
 }
