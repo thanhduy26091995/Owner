@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.more.viet_pham.View;
+package com.hbbsolution.owner.more.viet_pham.View.signin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
+import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
+import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp1Activity;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 5/9/2017.
  */
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity implements SignInView {
     @BindView(R.id.toobar)
     Toolbar toolbar;
     @BindView(R.id.bt_work_around_here)
@@ -39,6 +43,7 @@ public class SignInActivity extends AppCompatActivity {
     ImageButton imbFacebook;
     @BindView(R.id.imb_google)
     ImageButton imbGoogle;
+    private SignInPresenter mSignInPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class SignInActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addEvents();
+
+        mSignInPresenter = new SignInPresenter(this);
 
     }
 
@@ -70,11 +77,34 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String username = editUserName.getText().toString();
+                String password = editPassword.getText().toString();
+
+                mSignInPresenter.signIn(username,password);
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void displaySignUp(RegisterResponse registerResponse) {
+        if (registerResponse.getStatus().equals("true"))
+        {
+            ShowAlertDialog.showAlert("Đăng ký thành công",SignInActivity.this);
+        }
+    }
+
+    @Override
+    public void displayError() {
+
     }
 }

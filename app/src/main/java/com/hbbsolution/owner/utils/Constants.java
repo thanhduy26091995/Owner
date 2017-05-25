@@ -10,4 +10,5 @@ public class Constants {
     public static final String LNG = "lng";
     public static final String MAID_LIST = "maidList";
     public static final int FILTER_MAID_INTENT = 100;
+
 }

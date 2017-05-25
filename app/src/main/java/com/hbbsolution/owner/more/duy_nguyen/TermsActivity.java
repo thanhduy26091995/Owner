@@ -1,6 +1,5 @@
 package com.hbbsolution.owner.more.duy_nguyen;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,9 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
-import com.hbbsolution.owner.more.viet_pham.View.SignUpView;
+import com.hbbsolution.owner.more.viet_pham.View.signup.SignUpView;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,8 +31,11 @@ public class TermsActivity extends AppCompatActivity implements SignUpView {
     TextView txtTerms_title_toothbar;
     @BindView(R.id.terms_btn_OK)
     Button btnOK;
-    private ProgressDialog mProgressDialog;
     private RegisterPresenter mRegisterPresenter;
+    private double mLat;
+    private double mLng;
+    private String mUserName,mPassword,mEmail,mFullName,mPhoneName,mFilePath,mFileContentResolver,mLocation;
+    private int mGender;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,9 +51,23 @@ public class TermsActivity extends AppCompatActivity implements SignUpView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtTerms_title_toothbar.setText(getResources().getString(R.string.terms));
 
-        mProgressDialog = new ProgressDialog(this);
+
+        Intent iTerms = getIntent();
+        Bundle bTerms = iTerms.getBundleExtra("bSignUp2");
+        mUserName = bTerms.getString("username");
+        mPassword = bTerms.getString("password");
+        mEmail = bTerms.getString("email");
+        mFullName = bTerms.getString("fullname");
+        mGender = bTerms.getInt("gender");
+        mPhoneName = bTerms.getString("phone");
+        mLocation = bTerms.getString("location");
+        mLat = bTerms.getDouble("lat");
+        mLng = bTerms.getDouble("lng");
+        mFilePath = bTerms.getString("filepath");
+        mFileContentResolver = bTerms.getString("filecontent");
 
         mRegisterPresenter = new RegisterPresenter(this);
+        mRegisterPresenter.getLocaltionAddress(mLocation);
     }
 
     @Override
@@ -60,29 +78,16 @@ public class TermsActivity extends AppCompatActivity implements SignUpView {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addEvents()
-    {
+    public void addEvents() {
         // Event register account
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iTerms = getIntent();
-                Bundle bTerms = iTerms.getBundleExtra("bSignUp2");
-                String username = bTerms.getString("username");
-                String password = bTerms.getString("password");
-                String email = bTerms.getString("email");
-                String fullname = bTerms.getString("fullname");
-                int iGender = bTerms.getInt("gender");
-                String phoneNumber = bTerms.getString("phone");
-                String location = bTerms.getString("location");
-                String filepath = bTerms.getString("filepath");
-                String fileContentResolver = bTerms.getString("filecontent");
-                mRegisterPresenter.createAccount(username,password,email,phoneNumber,fullname,filepath,location,100.0,250.6,iGender,fileContentResolver);
+                mRegisterPresenter.createAccount(mUserName, mPassword, mEmail, mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, mGender, mFileContentResolver);
 
             }
         });
     }
-
 
 
     @Override
@@ -93,11 +98,25 @@ public class TermsActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void displaySignUp(RegisterResponse registerResponse) {
+        if (registerResponse.getStatus().equals("true"))
+        {
+            ShowAlertDialog.showAlert("Đăng ký thành công",TermsActivity.this);
+        }
 
     }
 
     @Override
     public void displayError() {
+
+    }
+
+    @Override
+    public void displayNotFoundLocaltion() {
+
+    }
+
+    @Override
+    public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
 
     }
 }

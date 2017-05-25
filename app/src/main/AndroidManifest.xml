@@ -28,9 +28,9 @@
         </activity>
         <activity android:name=".more.viet_pham.View.MoreActivity"/>
         <activity android:name=".more.duy_nguyen.TermsActivity" />
-        <activity android:name=".more.viet_pham.View.SignInActivity" />
-        <activity android:name=".more.viet_pham.View.SignUp1Activity" />
-        <activity android:name=".more.viet_pham.View.SignUp2Activity" />
+        <activity android:name=".more.viet_pham.View.signin.SignInActivity" />
+        <activity android:name=".more.viet_pham.View.signup.SignUp1Activity" />
+        <activity android:name=".more.viet_pham.View.signup.SignUp2Activity" />
         <activity android:name=".work_management.view.workmanager.WorkManagementActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPostActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPendingActivity" />
@@ -47,6 +47,10 @@
         <activity android:name=".more.phuc_tran.ContactActivity" />
         <activity android:name=".report.view.ReportMaidActivity" />
         <activity android:name=".maid_near_by.view.filter.view.FilterActivity" />
+
+        <service
+            android:name=".FetchAddressIntentService"
+            android:exported="false"/>
     </application>
 
 </manifest>

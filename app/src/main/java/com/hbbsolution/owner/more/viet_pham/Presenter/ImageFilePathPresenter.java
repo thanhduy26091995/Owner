@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.more.viet_pham;
+package com.hbbsolution.owner.more.viet_pham.Presenter;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.provider.MediaStore;
  * Created by Administrator on 5/22/2017.
  */
 
-public class ImageFilePath {
+public class ImageFilePathPresenter {
     /**
      * Method for return file path of Gallery image
      *

@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.more.viet_pham.View;
+package com.hbbsolution.owner.more.viet_pham.View.signup;
 
 import android.content.Intent;
 import android.os.Bundle;
