@@ -12,11 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.model.Comment;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobPendingActivity;
 import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 
 import butterknife.BindView;
@@ -50,7 +47,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         lnCheck.setOnClickListener(this);
-        setBackgroundRatingBar();
+ //       setBackgroundRatingBar();
 
         txtNext.setOnClickListener(this);
 

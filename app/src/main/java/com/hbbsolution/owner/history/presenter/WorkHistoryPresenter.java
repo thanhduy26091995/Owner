@@ -24,15 +24,81 @@ public class WorkHistoryPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoWorkHistory(String token, String process) {
-        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory(token, process);
+    public void getInfoWorkHistory(String token,int page) {
+        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory(token, "", "", page);
         call.enqueue(new Callback<WorkHistoryResponse>() {
             @Override
             public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {
                 if (response.isSuccessful()) {
                     try {
                         WorkHistoryResponse workManagerResponse = response.body();
-                        workHistoryView.getInfoWorkHistory(workManagerResponse.getData());
+                        workHistoryView.getInfoWorkHistory(workManagerResponse.getData().getDocs(),workManagerResponse.getData().getPages());
+                    } catch (Exception e) {
+                        Log.e("exception", e.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
+                Log.e("error", t.toString());
+            }
+        });
+    }
+
+    public void getMoreInfoWorkHistory(String token, int page) {
+        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory(token, "", "", page);
+        call.enqueue(new Callback<WorkHistoryResponse>() {
+            @Override
+            public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        WorkHistoryResponse workManagerResponse = response.body();
+                        workHistoryView.getMoreInfoWorkHistory(workManagerResponse.getData().getDocs());
+                    } catch (Exception e) {
+                        Log.e("exception", e.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
+                Log.e("error", t.toString());
+            }
+        });
+    }
+
+    public void getInfoWorkHistoryTime(String token, final String startAt, final String endAt, int page) {
+        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory(token, startAt, endAt, page);
+        call.enqueue(new Callback<WorkHistoryResponse>() {
+            @Override
+            public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        WorkHistoryResponse workManagerResponse = response.body();
+                        workHistoryView.getInfoWorkHistoryTime(workManagerResponse.getData().getDocs(),startAt,endAt,workManagerResponse.getData().getPages());
+                    } catch (Exception e) {
+                        Log.e("exception", e.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
+                Log.e("error", t.toString());
+            }
+        });
+    }
+
+    public void getMoreInfoWorkHistoryTime(String token, final String startAt, final String endAt, int page) {
+        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory(token, startAt, endAt, page);
+        call.enqueue(new Callback<WorkHistoryResponse>() {
+            @Override
+            public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        WorkHistoryResponse workManagerResponse = response.body();
+                        workHistoryView.getMoreInfoWorkHistoryTime(workManagerResponse.getData().getDocs(),startAt,endAt);
                     } catch (Exception e) {
                         Log.e("exception", e.toString());
                     }

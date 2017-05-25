@@ -96,7 +96,7 @@
         <item quantity="one">second</item>
         <item quantity="other">seconds</item>
     </plurals>
-
+    <string name="liabilities">Liabilities</string>
     <!--history_screen end-->
 
     <!--statistic_screen start-->

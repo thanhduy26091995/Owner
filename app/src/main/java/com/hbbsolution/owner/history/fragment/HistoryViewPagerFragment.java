@@ -14,19 +14,23 @@ import com.hbbsolution.owner.R;
 public class HistoryViewPagerFragment extends FragmentStatePagerAdapter {
     private Context context;
     private int page_num;
-    public HistoryViewPagerFragment(FragmentManager fm,Context context,int page_num) {
+
+    public HistoryViewPagerFragment(FragmentManager fm, Context context, int page_num) {
         super(fm);
-        this.context=context;
-        this.page_num=page_num;
+        this.context = context;
+        this.page_num = page_num;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return HistoryJobFragment.newInstance();
+                return HistoryLiabilitiesFragment.newInstance();
             case 1:
+                return HistoryJobFragment.newInstance();
+            case 2:
                 return HistoryHelperFragment.newInstance();
+
             default:
                 return null;
         }
@@ -34,13 +38,19 @@ public class HistoryViewPagerFragment extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position){
-            case 0: return context.getResources().getString(R.string.completedjob);
-            case 1: return context.getResources().getString(R.string.completedhelpler);
+        switch (position) {
+            case 0:
+                return context.getResources().getString(R.string.liabilities);
+            case 1:
+                return context.getResources().getString(R.string.completedjob);
+            case 2:
+                return context.getResources().getString(R.string.completedhelpler);
+
             default:
                 return null;
         }
     }
+
     @Override
     public int getCount() {
         return page_num;

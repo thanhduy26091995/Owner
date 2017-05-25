@@ -14,10 +14,12 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.WorkHistoryView;
 import com.hbbsolution.owner.history.adapter.HistoryJobAdapter;
+import com.hbbsolution.owner.history.model.Doc;
 import com.hbbsolution.owner.history.presenter.WorkHistoryPresenter;
-import com.hbbsolution.owner.history.model.Datum;
+import com.hbbsolution.owner.utils.EndlessRecyclerViewScrollListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,15 +30,18 @@ import java.util.List;
  */
 
 public class HistoryJobFragment extends Fragment implements WorkHistoryView {
-    private View v;
+    private View v, view;
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private HistoryJobAdapter historyJobAdapter;
     private WorkHistoryPresenter workHistoryPresenter;
     private TextView tvStartDate, tvEndDate;
     private Calendar cal;
     private Date startDate, endDate;
     private String strStartDate, strEndDate;
+    private int currentPage,currentPageTime;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private List<Doc> mDocList = new ArrayList<>();
 
     public HistoryJobFragment() {
     }
@@ -53,37 +58,104 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_history_job, container, false);
-        //Gán adapter các thứ
-        workHistoryPresenter = new WorkHistoryPresenter(this);
-        workHistoryPresenter.getInfoWorkHistory("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", "000000000000000000000005");
-        cal = Calendar.getInstance();
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_job);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+
         tvStartDate = (TextView) v.findViewById(R.id.tvStartDate);
+        tvEndDate = (TextView) v.findViewById(R.id.tvEndDate);
+
+        view = v.findViewById(R.id.view);
+        view.setVisibility(View.INVISIBLE);
+        //Gán adapter các thứ
+        cal = Calendar.getInstance();
+        getTime();
+
+        currentPage = 1;
+        currentPageTime=1;
+
+        workHistoryPresenter = new WorkHistoryPresenter(this);
+        workHistoryPresenter.getInfoWorkHistory("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", currentPage);
         tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog1();
             }
         });
-        tvEndDate = (TextView) v.findViewById(R.id.tvEndDate);
         tvEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog2();
             }
         });
-        getTime();
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+
         return v;
     }
 
+
     @Override
-    public void getInfoWorkHistory(List<Datum> listWorkHistory) {
-        historyJobAdapter = new HistoryJobAdapter(getActivity(), listWorkHistory);
-        historyJobAdapter.notifyDataSetChanged();
+    public void getInfoWorkHistory(List<Doc> listWorkHistory, final int pages) {
+        mDocList.clear();
+        mDocList=listWorkHistory;
+        historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // presenter.getAllResort(response.getCurrentPage() + 1);
+                //get variables for load more
+                if (currentPage <= pages) {
+                    workHistoryPresenter.getMoreInfoWorkHistory("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", currentPage + 1);
+                }
+            }
+        };
+        recyclerView.addOnScrollListener(scrollListener);
+    }
+
+    @Override
+    public void getMoreInfoWorkHistory(List<Doc> listWorkHistory) {
+        mDocList.addAll(listWorkHistory);
+        currentPage++;
+        historyJobAdapter.notifyDataSetChanged();
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                historyJobAdapter.notifyItemRangeInserted(historyJobAdapter.getItemCount(), mDocList.size() - 1);
+            }
+        });
+    }
+
+    @Override
+    public void getInfoWorkHistoryTime(List<Doc> listWorkHistory, final String startAt, final String endAt, final int pages) {
+        mDocList.clear();
+        mDocList=listWorkHistory;
+        historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
+        recyclerView.setAdapter(historyJobAdapter);
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // presenter.getAllResort(response.getCurrentPage() + 1);
+                //get variables for load more
+                if (currentPage <= pages) {
+                    workHistoryPresenter.getMoreInfoWorkHistoryTime("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046",startAt, endAt, currentPage + 1);
+                }
+            }
+        };
+        recyclerView.addOnScrollListener(scrollListener);
+    }
+
+    @Override
+    public void getMoreInfoWorkHistoryTime(List<Doc> listWorkHistory, String startAt, String endAt) {
+        mDocList.addAll(listWorkHistory);
+        currentPage++;
+        historyJobAdapter.notifyDataSetChanged();
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                historyJobAdapter.notifyItemRangeInserted(historyJobAdapter.getItemCount(), mDocList.size() - 1);
+            }
+        });
     }
 
     @Override
@@ -102,11 +174,13 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                workHistoryPresenter.getInfoWorkHistoryTime("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s = tvStartDate.getText() + "";
+        String s = strStartDate;
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -127,11 +201,14 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                workHistoryPresenter.getInfoWorkHistoryTime("0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046", simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s = tvEndDate.getText() + "";
+        String s = strEndDate;
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -142,6 +219,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     }
 
     public void getTime() {
+        endDate = new Date();
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         Date myDate = new Date();
         strEndDate = date.format(myDate);
@@ -149,7 +227,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         calendar.setTime(myDate);
         calendar.add(Calendar.DAY_OF_YEAR, -7);
         Date newDate = calendar.getTime();
-        strStartDate=date.format(newDate);
+        strStartDate = date.format(newDate);
         tvStartDate.setText(strStartDate);
         tvEndDate.setText(strEndDate);
     }

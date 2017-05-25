@@ -51,6 +51,7 @@
     <plurals name="second">
         <item quantity="other">giây</item>
     </plurals>
+    <string name="liabilities">Công nợ</string>
     <!--history_screen end-->
 
     <!--contact and about screen start-->

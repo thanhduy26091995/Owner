@@ -1,14 +1,16 @@
 package com.hbbsolution.owner.history.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.model.Datum;
+import com.hbbsolution.owner.history.model.Doc;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormatSymbols;
@@ -20,7 +22,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailWorkHistoryActivity extends AppCompatActivity {
+public class DetailWorkHistoryActivity extends AppCompatActivity implements View.OnClickListener{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.detail_work_history_type)
@@ -47,7 +49,10 @@ public class DetailWorkHistoryActivity extends AppCompatActivity {
     @BindView(R.id.detail_work_history_helper_address)
     TextView tvAddressHelper;
 
-    private Datum datum;
+    @BindView(R.id.txt_history_comment)
+    TextView tvComment;
+
+    private Doc doc;
     private String date;
     private String startTime, endTime;
     @Override
@@ -57,8 +62,13 @@ public class DetailWorkHistoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setToolbar();
         getData();
+        setEventClick();
     }
 
+    public void setEventClick()
+    {
+        tvComment.setOnClickListener(this);
+    }
     public void setToolbar()
     {
         toolbar.setTitle("");
@@ -70,18 +80,18 @@ public class DetailWorkHistoryActivity extends AppCompatActivity {
     {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            datum = (Datum) extras.getSerializable("work");
+            doc = (Doc) extras.getSerializable("work");
         }
-        Picasso.with(this).load(datum.getInfo().getWork().getImage())
+        Picasso.with(this).load(doc.getInfo().getWork().getImage())
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.no_image)
                 .into(imgJobType);
-        tvJob.setText(datum.getInfo().getTitle());
-        tvWork.setText(datum.getInfo().getWork().getName());
-        tvContent.setText(datum.getInfo().getDescription());
-        tvSalary.setText(String.valueOf(datum.getInfo().getPrice()));
+        tvJob.setText(doc.getInfo().getTitle());
+        tvWork.setText(doc.getInfo().getWork().getName());
+        tvContent.setText(doc.getInfo().getDescription());
+        tvSalary.setText(String.valueOf(doc.getInfo().getPrice()));
 
-        tvAddress.setText(datum.getInfo().getAddress().getName());
+        tvAddress.setText(doc.getInfo().getAddress().getName());
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
@@ -91,8 +101,8 @@ public class DetailWorkHistoryActivity extends AppCompatActivity {
         symbols.setAmPmStrings(new String[] { "am", "pm" });
         time.setDateFormatSymbols(symbols);
         try {
-            Date endDate = simpleDateFormat.parse(datum.getInfo().getTime().getEndAt());
-            Date startDate = simpleDateFormat.parse(datum.getInfo().getTime().getStartAt());
+            Date endDate = simpleDateFormat.parse(doc.getInfo().getTime().getEndAt());
+            Date startDate = simpleDateFormat.parse(doc.getInfo().getTime().getStartAt());
             date = dates.format(endDate);
             startTime = time.format(startDate);
             endTime = time.format(endDate);
@@ -102,19 +112,30 @@ public class DetailWorkHistoryActivity extends AppCompatActivity {
         tvDate.setText(date);
         tvTime.setText(startTime.replace(":","h") + " - "+endTime.replace(":","h"));
 
-        Picasso.with(this).load(datum.getStakeholders().getReceived().getInfo().getImage())
+        Picasso.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
                 .placeholder(R.drawable.avatar)
                 .error(R.drawable.avatar)
                 .into(imgHelper);
-        tvNameHelper.setText(datum.getStakeholders().getReceived().getInfo().getName());
-        tvAddressHelper.setText(datum.getStakeholders().getReceived().getInfo().getAddress().getName());
+        tvNameHelper.setText(doc.getStakeholders().getReceived().getInfo().getName());
+        tvAddressHelper.setText(doc.getStakeholders().getReceived().getInfo().getAddress().getName());
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.txt_history_comment:
+                Intent intent = new Intent (this,CommentActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

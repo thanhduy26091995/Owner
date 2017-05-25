@@ -19,8 +19,8 @@ public interface ApiInterface {
     @GET("owner/getAllTasks")
     Call<WorkManagerResponse> getInfo(@Header("hbbgvauth") String token, @Query("process") String idProcess);
 
-    @GET("owner/getAllTasks")
-    Call<WorkHistoryResponse> getInfoWorkHistory(@Header("hbbgvauth") String token, @Query("process") String idProcess);
+    @GET("owner/getHistoryTasks")
+    Call<WorkHistoryResponse> getInfoWorkHistory(@Header("hbbgvauth") String token,@Query("startAt") String startAt,@Query("endAt")String endAt,@Query("page")int page);
 
     @GET("maid/getAll")
     Call<MaidNearByResponse> getMaidNearBy(@Header("hbbgvauth") String token, @Query("lat") Double lat, @Query("lng") Double lng);

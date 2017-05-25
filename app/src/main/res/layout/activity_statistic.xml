@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/home_history"
+                android:text="@string/more_job_statistic"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -170,8 +170,7 @@
             android:layout_weight="3"
             android:orientation="horizontal"
             android:weightSum="3"
-            android:background="@color/colorWhite"
-            android:paddingBottom="5dp">
+            android:background="@drawable/thongke">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -354,7 +353,7 @@
                     android:background="@color/color_line_view" />
 
                 <TextView
-                    android:id="@+id/txt_history_list_work"
+                    android:id="@+id/txt_statistic_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Datum implements Serializable{
+public class Doc implements Serializable {
 
     @SerializedName("_id")
     @Expose

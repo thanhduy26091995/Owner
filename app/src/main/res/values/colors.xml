@@ -17,4 +17,6 @@
     <color name="collapsedappbar">#00ffffff</color>
 
     <color name="gray">#efeff4</color>
+
+    <color name="ratingbarnotactived">#ffde9d</color>
 </resources>
