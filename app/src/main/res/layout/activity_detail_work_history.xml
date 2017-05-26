@@ -66,80 +66,62 @@
                 android:layout_height="0.1dp"
                 android:layout_marginTop="-5dp"
                 android:background="@color/color_line_view" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:weightSum="10"
-                >
+                android:background="@color/colorWhite">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:background="@color/colorWhite"
-                        android:orientation="horizontal"
-                        android:weightSum="5"
-                        android:padding="10dp">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/detail_work_history_type"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/no_image"
+                            android:transitionName="icJobType" />
+
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/detail_work_history_type"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/no_image"
-                                android:transitionName="icJobType" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:id="@+id/ln1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/detail_work_history_type"
+                            android:layout_alignTop="@id/detail_work_history_type"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="4"
+                            android:layout_toRightOf="@id/detail_work_history_type"
                             android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:weightSum="2">
+                            android:orientation="vertical">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/detail_work_history_tvJob"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_size_large"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:id="@+id/detail_work_history_tvJob"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/colorBlack"
-                                    android:textSize="@dimen/text_size_large"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="4"
-                                        android:id="@+id/detail_work_history_tvWork"/>
-                                </LinearLayout>
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/detail_work_history_tvWork"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp" />
                         </LinearLayout>
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/detail_work_history_tvContent"
@@ -239,7 +221,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textColor="@color/color_line_view"/>
+                                android:textColor="@color/color_line_view" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -359,7 +341,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
-                                android:layout_marginRight="20dp"/>
+                                android:layout_marginRight="20dp" />
                         </LinearLayout>
                     </LinearLayout>
 
