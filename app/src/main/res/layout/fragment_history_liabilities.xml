@@ -60,17 +60,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/list_item_job" />
+            <include layout="@layout/list_item_liabilities" />
 
-            <include layout="@layout/list_item_job" />
+            <include layout="@layout/list_item_liabilities" />
 
-            <include layout="@layout/list_item_job" />
+            <include layout="@layout/list_item_liabilities" />
 
-            <include layout="@layout/list_item_job" />
+            <include layout="@layout/list_item_liabilities" />
 
-            <include layout="@layout/list_item_job" />
+            <include layout="@layout/list_item_liabilities" />
 
-            <include layout="@layout/list_item_job" />
+            <include layout="@layout/list_item_liabilities" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

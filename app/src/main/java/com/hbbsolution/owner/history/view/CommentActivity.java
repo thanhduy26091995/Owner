@@ -1,7 +1,5 @@
 package com.hbbsolution.owner.history.view;
 
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,19 +9,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.history.CommentView;
+import com.hbbsolution.owner.history.presenter.CommentPresenter;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CommentActivity extends AppCompatActivity implements View.OnClickListener {
+public class CommentActivity extends AppCompatActivity implements View.OnClickListener, CommentView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.img_avatar)
-    ImageView imgOwner;
+    ImageView imgAvatar;
     @BindView(R.id.tvOwner)
-    TextView tvOwner;
+    TextView tvNameHelper;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
     @BindView(R.id.ratingBar)
@@ -34,43 +37,70 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     LinearLayout lnCheck;
     @BindView(R.id.txtNext)
     TextView txtNext;
+    private CommentPresenter commentPresenter;
+    private String idHelper, nameHelper, imgHelper, addressHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         ButterKnife.bind(this);
-
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            idHelper = extras.getString("idHelper");
+            imgHelper = extras.getString("imgHelper");
+            nameHelper = extras.getString("nameHelper");
+            addressHelper = extras.getString("addressHelper");
+        }
+        commentPresenter = new CommentPresenter(this);
         lnCheck.setVisibility(View.VISIBLE);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        lnCheck.setOnClickListener(this);
- //       setBackgroundRatingBar();
+
+        //       setBackgroundRatingBar();
+        tvNameHelper.setText(nameHelper);
+        tvAddress.setText(addressHelper);
+        Picasso.with(this).load(imgHelper)
+                .placeholder(R.drawable.no_image)
+                .error(R.drawable.no_image)
+                .into(imgAvatar);
 
         txtNext.setOnClickListener(this);
-
+        lnCheck.setOnClickListener(this);
     }
 
-    public void setBackgroundRatingBar() {
-        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(0).setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(1).setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-    }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.txtNext:
 //                Intent itPayment = new Intent(CommentActivity.this, PaymentActivity.class);
 //                startActivity(itPayment);
 //                finish();
                 break;
+            case R.id.lnCheck:
+                if (edtComment.getText().toString().length() > 0) {
+                    commentPresenter.postComment("5911460ae740560cb422ac35", idHelper, edtComment.getText().toString().trim(), ratingBar.getNumStars());
+                } else {
+                    Toast.makeText(this, "Vui lòng nhập bình luận", Toast.LENGTH_LONG).show();
+                }
+                break;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void commentSuccess(String message) {
+        ShowAlertDialog.showAlert(message, this);
+    }
+
+    @Override
+    public void commentFail(String message) {
+
     }
 }

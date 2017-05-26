@@ -4,9 +4,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission-sdk-23 android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission-sdk-23 android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".base.OwnerApplication"
@@ -27,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".more.viet_pham.View.MoreActivity"/>
+        <activity android:name=".more.viet_pham.View.MoreActivity" />
         <activity android:name=".more.duy_nguyen.TermsActivity" />
         <activity android:name=".more.viet_pham.View.signin.SignInActivity" />
         <activity android:name=".more.viet_pham.View.signup.SignUp1Activity" />
@@ -38,20 +39,22 @@
         <activity android:name=".work_management.view.detail.DetailJobDoingActivity" />
         <activity android:name=".work_management.view.jobpost.JobPostActivity" />
         <activity android:name=".work_management.view.listmaid.ListUserRecruitmentActivity" />
-        <activity android:name=".history.view.CommentActivity"/>
-        <activity android:name=".work_management.view.payment.PaymentActivity"/>
-        <activity android:name=".history.view.HistoryActivity"/>
+        <activity android:name=".history.view.CommentActivity" />
+        <activity android:name=".work_management.view.payment.PaymentActivity" />
+        <activity android:name=".history.view.HistoryActivity" />
         <activity android:name=".maid_profile.view.MaidProfileActivity" />
         <activity android:name=".history.view.DetailWorkHistoryActivity" />
         <activity android:name=".maid_near_by.view.MaidNearByActivity" />
-        <activity android:name=".more.duy_nguyen.StatisticActivity"></activity>
+        <activity android:name=".more.duy_nguyen.StatisticActivity" />
         <activity android:name=".more.phuc_tran.ContactActivity" />
         <activity android:name=".report.view.ReportMaidActivity" />
         <activity android:name=".maid_near_by.view.filter.view.FilterActivity" />
 
         <service
             android:name=".FetchAddressIntentService"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <activity android:name=".history.view.DetailLiabilitiesHistory"></activity>
     </application>
 
 </manifest>

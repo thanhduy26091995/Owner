@@ -96,6 +96,8 @@
         <item quantity="other">seconds</item>
     </plurals>
     <string name="liabilities">Liabilities</string>
+    <string name="unpayalbe">Chưa thanh toán</string>
+    <string name="payliabilities">Thanh toán tiền nợ</string>
     <!--history_screen end-->
 
     <!--statistic_screen start-->

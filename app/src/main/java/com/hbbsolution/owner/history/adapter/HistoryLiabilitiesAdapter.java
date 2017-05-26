@@ -1,8 +1,6 @@
 package com.hbbsolution.owner.history.adapter;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,28 +15,28 @@ import com.hbbsolution.owner.work_management.model.maid.Request;
 import java.util.List;
 
 /**
- * Created by Administrator on 16/05/2017.
+ * Created by Administrator on 26/05/2017.
  */
 
-public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdapter.RecyclerViewHolder> {
+public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabilitiesAdapter.RecyclerViewHolder> {
     private Context context;
     private List<Request> maidList;
     private boolean isHis;
 
 
     @Override
-    public HistoryHelperAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_helpler, parent, false);
+    public HistoryLiabilitiesAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_liabilities, parent, false);
         return new RecyclerViewHolder(view);
     }
 
-    public HistoryHelperAdapter(Context context) {
+    public HistoryLiabilitiesAdapter(Context context) {
         this.context = context;
 
     }
 
     @Override
-    public void onBindViewHolder(HistoryHelperAdapter.RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(HistoryLiabilitiesAdapter.RecyclerViewHolder holder, int position) {
 
     }
 
@@ -60,10 +58,6 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
             tvDate = (TextView) itemView.findViewById(R.id.txt_history_date);
             tvType = (TextView) itemView.findViewById(R.id.txt_history_list_work);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
-            LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-            stars.getDrawable(2).setColorFilter(context.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-            stars.getDrawable(0).setColorFilter(context.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-            stars.getDrawable(1).setColorFilter(context.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         }
 
         @Override
@@ -81,3 +75,4 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
 
     }
 }
+

@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.api;
 
+import com.hbbsolution.owner.history.model.CommentResponse;
 import com.hbbsolution.owner.history.model.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
@@ -88,4 +89,8 @@ public interface ApiInterface {
                                   @Field("package") String packageId, @Field("price") String price,
                                   @Field("startAt") String startAt, @Field("endAt") String endAt);
 
+    @FormUrlEncoded
+    @POST("/comment")
+    Call<CommentResponse> postComment(@Field("fromId") String fromId, @Field("toId") String toId,
+                                      @Field("content") String content, @Field("evaluation_point") int evaluation_point);
 }

@@ -30,6 +30,7 @@
     <!--history job screen start-->
     <string name="histoty_ic_clock">&#xf35a;</string>
     <string name="histoty_ic_compose">&#xf12c;</string>
+    <string name="history_ic_payment">&#xf119;</string>
     <!--history job screen end-->
 
     <!--profile maid-->
