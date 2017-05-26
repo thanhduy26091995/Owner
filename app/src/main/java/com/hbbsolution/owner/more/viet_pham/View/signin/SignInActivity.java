@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.home.HomeActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp1Activity;
-import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +99,10 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     public void displaySignUp(RegisterResponse registerResponse) {
         if (registerResponse.getStatus().equals("true"))
         {
-            ShowAlertDialog.showAlert("Đăng ký thành công",SignInActivity.this);
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         }
     }
 

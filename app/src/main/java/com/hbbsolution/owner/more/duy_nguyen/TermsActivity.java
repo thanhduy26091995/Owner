@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.home.HomeActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.signup.SignUpView;
-import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 import butterknife.BindView;
@@ -100,7 +100,10 @@ public class TermsActivity extends AppCompatActivity implements SignUpView {
     public void displaySignUp(RegisterResponse registerResponse) {
         if (registerResponse.getStatus().equals("true"))
         {
-            ShowAlertDialog.showAlert("Đăng ký thành công",TermsActivity.this);
+            Intent intent = new Intent(TermsActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         }
 
     }
