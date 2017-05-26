@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,12 +37,11 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String date;
     private String startTime, endTime;
-    private int lastPosition = -1;
-    private int previousPosition = 0;
     private String type,title,work,description,address,avatar,name,address_;
     private int price;
     private Doc doc;
     private Pair<View, String> pairJobType;
+    private final static int FADE_DURATION = 1000;
     @Override
     public HistoryJobAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_job, parent, false);
@@ -64,7 +63,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
-        DateFormatSymbols symbols = new DateFormatSymbols(Locale.getDefault());
+        DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
         // OVERRIDE SOME symbols WHILE RETAINING OTHERS
         symbols.setAmPmStrings(new String[] { "am", "pm" });
         time.setDateFormatSymbols(symbols);
@@ -90,16 +89,9 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         }
         holder.tvDate.setText(date);
         holder.tvDeitalTime.setText(startTime.replace(":","h") + " - "+endTime.replace(":","h"));
-        setAnimation(holder.itemView, position);
-        previousPosition=position;
-        getData(position);
-
+        setFadeAnimation(holder.itemView);
     }
 
-    public void getData(int position)
-    {
-       doc=listData.get(position);
-    }
     @Override
     public int getItemCount() {
         return listData.size();
@@ -123,9 +115,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, DetailWorkHistoryActivity.class);
-
-            intent.putExtra("app",listData.get(getAdapterPosition()));
-            intent.putExtra("work",doc);
+            intent.putExtra("work",listData.get(getAdapterPosition()));
             ActivityOptionsCompat historyOption =
                     ActivityOptionsCompat
                             .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_job_type), "icJobType");
@@ -163,14 +153,9 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
 
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
+    private void setFadeAnimation(View view) {
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
     }
 }

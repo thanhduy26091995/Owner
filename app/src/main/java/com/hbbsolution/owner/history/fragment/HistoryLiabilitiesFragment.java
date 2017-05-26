@@ -76,8 +76,17 @@ public class HistoryLiabilitiesFragment extends Fragment {
                                   int monthOfYear,
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
+                String day = String.valueOf(dayOfMonth),month = String.valueOf(monthOfYear);
+                if (dayOfMonth<10)
+                {
+                    day="0"+dayOfMonth;
+                }
+                if(monthOfYear+1<10)
+                {
+                    month="0"+(monthOfYear+1);
+                }
                 tvStartDate.setText(
-                        (dayOfMonth) + "/" + (monthOfYear + 1) + "/" + year);
+                        day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
@@ -85,7 +94,10 @@ public class HistoryLiabilitiesFragment extends Fragment {
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s = tvStartDate.getText() + "";
+        String s = tvStartDate.getText().toString();
+        if (tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
+            s = strStartDate;
+        }
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -101,8 +113,17 @@ public class HistoryLiabilitiesFragment extends Fragment {
                                   int monthOfYear,
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
+                String day = String.valueOf(dayOfMonth),month = String.valueOf(monthOfYear);
+                if (dayOfMonth<10)
+                {
+                    day="0"+dayOfMonth;
+                }
+                if(monthOfYear+1<10)
+                {
+                    month="0"+(monthOfYear+1);
+                }
                 tvEndDate.setText(
-                        (dayOfMonth) + "/" + (monthOfYear + 1) + "/" + year);
+                        day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
@@ -110,7 +131,10 @@ public class HistoryLiabilitiesFragment extends Fragment {
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s = tvEndDate.getText() + "";
+        String s=tvEndDate.getText().toString();
+        if(tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
+            s = strEndDate;
+        }
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -129,7 +153,7 @@ public class HistoryLiabilitiesFragment extends Fragment {
         calendar.add(Calendar.DAY_OF_YEAR, -7);
         Date newDate = calendar.getTime();
         strStartDate = date.format(newDate);
-        tvStartDate.setText(strStartDate);
+        tvStartDate.setText("- - / - - / - - - -");
         tvEndDate.setText(strEndDate);
     }
 }

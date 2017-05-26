@@ -60,8 +60,17 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                                   int monthOfYear,
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
+                String day = String.valueOf(dayOfMonth),month = String.valueOf(monthOfYear);
+                if (dayOfMonth<10)
+                {
+                    day="0"+dayOfMonth;
+                }
+                if(monthOfYear+1<10)
+                {
+                    month="0"+(monthOfYear+1);
+                }
                 tvStartDate.setText(
-                        (dayOfMonth) + "/" + (monthOfYear + 1) + "/" + year);
+                        day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
@@ -85,8 +94,17 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                                   int monthOfYear,
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
+                String day = String.valueOf(dayOfMonth),month = String.valueOf(monthOfYear);
+                if (dayOfMonth<10)
+                {
+                    day="0"+dayOfMonth;
+                }
+                if(monthOfYear+1<10)
+                {
+                    month="0"+(monthOfYear+1);
+                }
                 tvEndDate.setText(
-                        (dayOfMonth) + "/" + (monthOfYear + 1) + "/" + year);
+                        day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();

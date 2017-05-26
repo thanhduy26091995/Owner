@@ -23,6 +23,9 @@ public class Doc implements Serializable {
     @SerializedName("info")
     @Expose
     private Info_ info;
+    @SerializedName("check")
+    @Expose
+    private Check check;
 
     public String getId() {
         return id;
@@ -62,6 +65,14 @@ public class Doc implements Serializable {
 
     public void setInfo(Info_ info) {
         this.info = info;
+    }
+
+    public Check getCheck() {
+        return check;
+    }
+
+    public void setCheck(Check check) {
+        this.check = check;
     }
 
 }

@@ -17,7 +17,7 @@ public class Stakeholders implements Serializable {
     private Received received;
     @SerializedName("request")
     @Expose
-    private List<Object> request = null;
+    private List<Request> request = null;
 
     public String getOwner() {
         return owner;
@@ -35,11 +35,11 @@ public class Stakeholders implements Serializable {
         this.received = received;
     }
 
-    public List<Object> getRequest() {
+    public List<Request> getRequest() {
         return request;
     }
 
-    public void setRequest(List<Object> request) {
+    public void setRequest(List<Request> request) {
         this.request = request;
     }
 

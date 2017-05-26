@@ -39,7 +39,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private Calendar cal;
     private Date startDate, endDate;
     private String strStartDate, strEndDate;
-    private int currentPage,currentPageTime;
+    private int currentPage, currentPageTime;
     private EndlessRecyclerViewScrollListener scrollListener;
     private List<Doc> mDocList = new ArrayList<>();
 
@@ -73,7 +73,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         getTime();
 
         currentPage = 1;
-        currentPageTime=1;
+
 
         workHistoryPresenter = new WorkHistoryPresenter(this);
         workHistoryPresenter.getInfoWorkHistory(currentPage);
@@ -97,7 +97,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     @Override
     public void getInfoWorkHistory(List<Doc> listWorkHistory, final int pages) {
         mDocList.clear();
-        mDocList=listWorkHistory;
+        mDocList = listWorkHistory;
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
@@ -105,7 +105,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // presenter.getAllResort(response.getCurrentPage() + 1);
                 //get variables for load more
-                if (currentPage <= pages) {
+                if (currentPage < pages) {
                     workHistoryPresenter.getMoreInfoWorkHistory(currentPage + 1);
                 }
             }
@@ -129,7 +129,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     @Override
     public void getInfoWorkHistoryTime(List<Doc> listWorkHistory, final String startAt, final String endAt, final int pages) {
         mDocList.clear();
-        mDocList=listWorkHistory;
+        mDocList = listWorkHistory;
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
@@ -137,8 +137,8 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // presenter.getAllResort(response.getCurrentPage() + 1);
                 //get variables for load more
-                if (currentPage <= pages) {
-                    workHistoryPresenter.getMoreInfoWorkHistoryTime(startAt, endAt, currentPage + 1);
+                if (currentPageTime < pages) {
+                    workHistoryPresenter.getMoreInfoWorkHistoryTime(startAt, endAt, currentPageTime + 1);
                 }
             }
         };
@@ -148,7 +148,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     @Override
     public void getMoreInfoWorkHistoryTime(List<Doc> listWorkHistory, String startAt, String endAt) {
         mDocList.addAll(listWorkHistory);
-        currentPage++;
+        currentPageTime++;
         historyJobAdapter.notifyDataSetChanged();
         recyclerView.post(new Runnable() {
             @Override
@@ -169,18 +169,35 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                                   int monthOfYear,
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
+                String day = String.valueOf(dayOfMonth), month = String.valueOf(monthOfYear);
+                if (dayOfMonth < 10) {
+                    day = "0" + dayOfMonth;
+                }
+                if (monthOfYear + 1 < 10) {
+                    month = "0" + (monthOfYear + 1);
+                }
                 tvStartDate.setText(
-                        (dayOfMonth) + "/" + (monthOfYear + 1) + "/" + year);
+                        day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                currentPageTime = 1;
+                if(endDate!=null) {
+                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                }
+                else
+                {
+                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), "", currentPageTime);
+                }
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s = strStartDate;
+        String s = tvStartDate.getText().toString();
+        if (tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
+            s = strStartDate;
+        }
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -196,19 +213,35 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                                   int monthOfYear,
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
+                String day = String.valueOf(dayOfMonth), month = String.valueOf(monthOfYear);
+                if (dayOfMonth < 10) {
+                    day = "0" + dayOfMonth;
+                }
+                if (monthOfYear + 1 < 10) {
+                    month = "0" + (monthOfYear + 1);
+                }
                 tvEndDate.setText(
-                        (dayOfMonth) + "/" + (monthOfYear + 1) + "/" + year);
+                        day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
-
+                currentPageTime = 1;
+                if(startDate!=null) {
+                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                }
+                else
+                {
+                    workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);
+                }
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s = strEndDate;
+        String s=tvEndDate.getText().toString();
+        if(tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
+            s = strEndDate;
+        }
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -223,12 +256,12 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         Date myDate = new Date();
         strEndDate = date.format(myDate);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(myDate);
-        calendar.add(Calendar.DAY_OF_YEAR, -7);
-        Date newDate = calendar.getTime();
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(myDate);
+//        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        Date newDate = new Date();
         strStartDate = date.format(newDate);
-        tvStartDate.setText(strStartDate);
+        tvStartDate.setText("- - / - - / - - - -");
         tvEndDate.setText(strEndDate);
     }
 }
