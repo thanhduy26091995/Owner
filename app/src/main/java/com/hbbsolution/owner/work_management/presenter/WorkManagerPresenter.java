@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagerView;
@@ -70,4 +71,29 @@ public class WorkManagerPresenter {
             }
         });
     }
+
+    public void deleteJob(String idTask, String ownerId) {
+
+        Call<JobPostResponse> responseCall = apiService.delleteJob(idTask, ownerId);
+        responseCall.enqueue(new Callback<JobPostResponse>() {
+            @Override
+            public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
+                try{
+                    if (response.isSuccessful()) {
+
+                        Boolean isJbPost = response.body().getStatus();
+                        mWorkManagerView.displayNotifyJobPost(isJbPost);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JobPostResponse> call, Throwable t) {
+                Log.d("onFailure", t.toString());
+            }
+        });
+    }
+
 }

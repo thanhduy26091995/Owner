@@ -15,12 +15,17 @@ import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPending
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -88,6 +93,19 @@ public interface ApiInterface {
                                   @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
                                   @Field("package") String packageId, @Field("price") String price,
                                   @Field("startAt") String startAt, @Field("endAt") String endAt);
+
+    @FormUrlEncoded
+    @PUT("task/update")
+    Call<JobPostResponse> updatePostJob(@Field("id") String idTask ,@Field("title") String title, @Field("work") String typeJob,
+                                  @Field("description") String description, @Field("addressName") String addressName,
+                                  @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
+                                  @Field("package") String packageId, @Field("price") String price,
+                                  @Field("startAt") String startAt, @Field("endAt") String endAt);
+
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "task/delete", hasBody = true)
+    Call<JobPostResponse> delleteJob(@Field("id") String idTask, @Field("ownerId") String ownerId);
 
     @FormUrlEncoded
     @POST("/comment")

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_pending"
@@ -15,23 +14,12 @@
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!--<LinearLayout-->
-            <!--android:id="@+id/lo_item_pending"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical">-->
+    <ProgressBar
+        android:id="@+id/progressPendig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
 
-            <!--<include layout="@layout/item_job_pending"/>-->
-            <!--<include layout="@layout/item_job_pending"/>-->
-            <!--<include layout="@layout/item_job_pending"/>-->
-            <!--<include layout="@layout/item_job_pending"/>-->
-            <!--<include layout="@layout/item_job_pending"/>-->
-
-        <!--</LinearLayout>-->
-
-    <!--</ScrollView>-->
-
-</LinearLayout>
+</RelativeLayout>

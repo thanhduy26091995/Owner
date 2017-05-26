@@ -18,6 +18,7 @@ import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by tantr on 5/14/2017.
@@ -49,6 +50,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            EventBus.getDefault().postSticky(false);
             finish();
         }
 
@@ -68,5 +70,11 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
                 startActivity(itComment);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().postSticky(false);
     }
 }

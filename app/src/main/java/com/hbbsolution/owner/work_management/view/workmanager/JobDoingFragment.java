@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPendingAdapter;
@@ -35,8 +36,7 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
     private List<DatumPending> mJobList = new ArrayList<>();
     private JobPendingAdapter mJobPendingAdapter;
     private RecyclerView mRecycler;
-
-    private LinearLayout lo_item_doing;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -45,7 +45,10 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
             rootView = inflater.inflate(R.layout.fragment_job_doing, container, false);
 
             mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_doing);
+            progressBar = (ProgressBar) rootView.findViewById(R.id.progressDoing);
+
             mWorkManagerPresenter = new WorkManagerPresenter(this);
+            progressBar.setVisibility(View.VISIBLE);
             mWorkManagerPresenter.getInfoJobPending(idProcess);
 
         }else {
@@ -62,6 +65,7 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
 
     @Override
     public void getInfoJobPending(JobPendingResponse mJobPendingResponse) {
+        progressBar.setVisibility(View.GONE);
         mJobList = mJobPendingResponse.getData();
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
@@ -81,7 +85,12 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
     }
 
     @Override
-    public void getError() {
+    public void displayNotifyJobPost(boolean isJobPost) {
 
+    }
+
+    @Override
+    public void getError() {
+        progressBar.setVisibility(View.GONE);
     }
 }

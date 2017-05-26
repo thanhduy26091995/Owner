@@ -34,6 +34,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by tantr on 5/14/2017.
@@ -111,6 +112,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            EventBus.getDefault().postSticky(false);
             finish();
         }
 
@@ -121,6 +123,12 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().postSticky(false);
     }
 
     @Override

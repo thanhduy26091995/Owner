@@ -1,34 +1,51 @@
 package com.hbbsolution.owner.work_management.view.jobpost;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.Selection;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.maid_near_by.view.filter.presenter.FilterPresenter;
+import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
+import com.hbbsolution.owner.work_management.model.workmanager.Info;
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -74,23 +91,29 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     TextView txtDate_start_work;
     @BindView(R.id.chb_tools_work)
     CheckBox chb_tools_work;
+    @BindView(R.id.progressPostJob)
+    ProgressBar progressBar;
+
+    public static Activity mJobPostActivity = null;
 
     private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId, mPrice,
-            mDateStartWork, mTimeStartWork, mTimeEndWork;
+            mDateStartWork, mTimeStartWork, mTimeEndWork, mIdTask;
 
-    private boolean isTimeStart, mChosenTools = false;
+    private boolean  mChosenTools = false, isPost;
 
-    private double lat, lng;
+    private Datum infoJob;
 
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
     private JobPostPresenter mJobPostPresenter;
+    private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_post);
+        mJobPostActivity = this;
         ButterKnife.bind(this);
 
         //setup view
@@ -115,6 +138,43 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
         }
+
+        final Intent intent = getIntent();
+        infoJob = (Datum) intent.getSerializableExtra("infoJobPost");
+
+        if(infoJob != null){
+            isPost = false;
+            txt_post_complete.setText("Cập nhật");
+            mIdTask = infoJob.getId();
+
+            edtTitlePost.setText(infoJob.getInfo().getTitle());
+            int position = edtTitlePost.length();
+            Editable etext = edtTitlePost.getText();
+            Selection.setSelection(etext, position);
+
+            edtDescriptionPost.setText(infoJob.getInfo().getDescription());
+            edtAddressPost.setText(infoJob.getInfo().getAddress().getName());
+            edtType_job.setText(infoJob.getInfo().getWork().getName());
+            mTypeJob = infoJob.getInfo().getWork().getId();
+            chb_tools_work.setChecked(infoJob.getInfo().getTools());
+            mPackageId = infoJob.getInfo().getPackage().getId();
+
+            if(mPackageId.equals("000000000000000000000001")){
+                rad_type_money_work.setChecked(true);
+                edt_monney_work.setText(String.valueOf(infoJob.getInfo().getPrice()));
+            } else if(mPackageId.equals("000000000000000000000002")){
+                rad_type_money_khoan.setChecked(true);
+            }
+
+            txtDate_start_work.setText(getDatePostHistory(infoJob.getInfo().getTime().getStartAt()));
+            txtTime_start.setText(getTimeDoingPost(infoJob.getInfo().getTime().getStartAt()));
+            txtTime_end.setText(getTimeDoingPost(infoJob.getInfo().getTime().getEndAt()));
+
+        }else {
+            isPost = true;
+            txt_post_complete.setText("Đăng bài");
+        }
+
 
     }
 
@@ -190,8 +250,29 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
         txt_post_complete.setEnabled(true);
+        progressBar.setVisibility(View.GONE);
         if (isJobPost){
-            ShowAlertDialog.showAlert("Thành công", JobPostActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("Thông báo");
+            alertDialog.setMessage("Bạn đã đăng bài thành công ");
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if(mJobPostActivity != null){
+                        JobPostActivity.mJobPostActivity.finish();
+                        try{
+                            if(DetailJobPostActivity.mDetailJobPostActivity != null){
+                                DetailJobPostActivity.mDetailJobPostActivity.finish();
+                            }
+                        }catch (Exception e){
+
+                        }
+                    }
+                }
+            });
+
+            alertDialog.show();
         }else {
             ShowAlertDialog.showAlert("Thất bại", JobPostActivity.this);
         }
@@ -267,9 +348,18 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         if (chb_tools_work.isChecked()) {
             mChosenTools = true;
         }
-       txt_post_complete.setEnabled(false);
-        mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
+
+        txt_post_complete.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+
+        if(isPost ){
+            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
+        }else {
+            mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
+        }
+
     }
 
     private boolean checkDataComplete() {
@@ -318,14 +408,12 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 calendar.set(i, i1, i2);
-                DateTime dateTime = new DateTime(calendar);
-                mDateStartWork = dateTime.toString();
+//                DateTime dateTime = new DateTime(calendar);
+//                mDateStartWork = dateTime.toString();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
                 if (CompareDays(txtDate_start_work.getText().toString())) {
                     ShowAlertDialog.showAlert("Sai ngày", JobPostActivity.this);
-                } else {
-                    ShowAlertDialog.showAlert("Đúng ngày", JobPostActivity.this);
                 }
             }
         }, year, month, date);
@@ -411,5 +499,19 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         } else {
             ShowAlertDialog.showAlert("Vui lòng nhập địa chỉ đầy đủ!", JobPostActivity.this);
         }
+    }
+
+    private String getDatePostHistory(String createDatePostHistory) {
+        Date date = new DateTime(createDatePostHistory).toDate();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String mDateTimePostHistory = df.format(date);
+        return mDateTimePostHistory;
+    }
+
+    private String getTimeDoingPost(String mTimeWork) {
+
+        Date date = new DateTime(mTimeWork).toDate();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        return simpleDateFormat.format(date);
     }
 }

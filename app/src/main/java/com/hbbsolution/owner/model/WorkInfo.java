@@ -13,7 +13,7 @@ public class WorkInfo implements Serializable{
     private float price;
     @SerializedName("evaluation_point")
     @Expose
-    private float evaluationPoint;
+    private Integer evaluationPoint;
 
     public float getPrice() {
         return price;
@@ -27,7 +27,7 @@ public class WorkInfo implements Serializable{
         return evaluationPoint;
     }
 
-    public void setEvaluationPoint(float evaluationPoint) {
+    public void setEvaluationPoint(Integer evaluationPoint) {
         this.evaluationPoint = evaluationPoint;
     }
 

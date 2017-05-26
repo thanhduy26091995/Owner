@@ -1,39 +1,52 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
+import com.hbbsolution.owner.work_management.model.workmanager.Info;
+import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
+import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
+import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
+import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobPostActivity extends AppCompatActivity implements View.OnClickListener {
+public class DetailJobPostActivity extends AppCompatActivity implements DetailJobPostView,View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.manager_post_title_toothbar)
@@ -62,22 +75,31 @@ public class DetailJobPostActivity extends AppCompatActivity implements View.OnC
     LinearLayout lo_list_recruitment;
     @BindView(R.id.lo_clear_job)
     LinearLayout lo_clear_job;
+    @BindView(R.id.progressDetailJobPost)
+    ProgressBar progressBar;
+
+    public static Activity mDetailJobPostActivity = null;
     TextView txt_edit_edit_post, txt_clear_edit_post, txt_cancel_edit_post;
 
     private Datum mDatum;
     private Dialog mBottomSheetDialog;
+    private DetailJobPostPresenter mDetailJobPostPresenter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_job_post);
-
+        mDetailJobPostActivity = this;
         ButterKnife.bind(this);
+
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         txtManager_post_title_toothbar.setText("Đã đăng");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mDetailJobPostPresenter = new DetailJobPostPresenter(this);
 
         txtJob_post_edit_toothbar.setOnClickListener(this);
         lo_list_recruitment.setOnClickListener(this);
@@ -99,7 +121,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements View.OnC
         txtTitle_job_detail_post.setText(mDatum.getInfo().getTitle());
         txtType_job_detail_post.setText(mDatum.getInfo().getWork().getName());
         txtContent_job_detail_psot.setText(mDatum.getInfo().getDescription());
-        txtPrice_job_detail_post.setText(String.valueOf(mDatum.getInfo().getPrice()));
+        txtPrice_job_detail_post.setText(formatPrice(mDatum.getInfo().getPrice()));
         txtAddress_detail_post.setText(mDatum.getInfo().getAddress().getName());
         txtDate_job_detail_post.setText(getDateStartWork(mDatum.getHistory().getUpdateAt()));
         txtTime_work_doing_detail_post.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
@@ -113,6 +135,8 @@ public class DetailJobPostActivity extends AppCompatActivity implements View.OnC
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            EventBus.getDefault().postSticky(true);
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -121,16 +145,24 @@ public class DetailJobPostActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().postSticky(true);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.job_psot_edit_toothbar:
-                if (mDatum.getStakeholders().getRequest().size() > 0) {
-                    editJobPost();
-                }
+                Intent itJobPost = new Intent(DetailJobPostActivity.this, JobPostActivity.class);
+                itJobPost.putExtra("infoJobPost", mDatum);
+                startActivity(itJobPost);
+
                 break;
             case R.id.lo_list_recruitment:
                 if (mDatum.getStakeholders().getRequest().size() > 0) {
@@ -140,12 +172,17 @@ public class DetailJobPostActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
             case R.id.lo_clear_job:
-                Toast.makeText(DetailJobPostActivity.this, "Đã xóa", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.VISIBLE);
+                String id = mDatum.getId();
+                String idOwner = mDatum.getStakeholders().getOwner();
+                Log.d("idrequset", id + " - " + idOwner);
+                mDetailJobPostPresenter.deleteJob(mDatum.getId(),mDatum.getStakeholders().getOwner());
                 break;
             case R.id.txt_edit_edit_post:
                 Toast.makeText(DetailJobPostActivity.this, "Chỉnh sửa", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.txt_clear_edit_post:
+
                 Toast.makeText(DetailJobPostActivity.this, "Xóa", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.txt_cancel_edit_post:
@@ -188,5 +225,50 @@ public class DetailJobPostActivity extends AppCompatActivity implements View.OnC
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String mDateStartWork = df.format(date0);
         return mDateStartWork;
+    }
+    private String formatPrice(Integer _Price){
+        if(_Price != null){
+            DecimalFormat myFormatter = new DecimalFormat("#,###,##0");
+            String mOutputPrice = myFormatter.format(_Price);
+            return mOutputPrice;
+        }else {
+            _Price = 0;
+            DecimalFormat myFormatter = new DecimalFormat("#,###,##0");
+            String mOutputPrice = myFormatter.format(_Price);
+            return mOutputPrice;
+        }
+
+    }
+
+    @Override
+    public void displayNotifyJobPost(boolean isJobPost) {
+        progressBar.setVisibility(View.GONE);
+        if(isJobPost){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("Thông báo");
+            alertDialog.setMessage("Vui lòng xác nhận thanh toán bằng cách nhấn " + "OK");
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(DetailJobPostActivity.this, "Đã xóa", Toast.LENGTH_SHORT).show();
+                }
+            });
+            alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            alertDialog.show();
+        }else {
+            Toast.makeText(DetailJobPostActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void displayError(String error) {
+
     }
 }
