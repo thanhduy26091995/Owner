@@ -90,8 +90,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp"
                 android:text="9h00 am - 12h00 am"
                 android:textSize="12sp" />
 
