@@ -96,4 +96,33 @@ public class JobPostPresenter {
             }
         });
     }
+
+    public void updatePostJob( String idTask, String title, String typeJob, String description, String address, double lat, double lng,
+                        boolean isTool, String packageId, String price, String timeStartWork, String timeEndWork) {
+
+        Call<JobPostResponse> responseCall = apiService.updatePostJob(idTask, title, typeJob, description, address,
+                lat, lng, isTool, packageId, price, timeStartWork, timeEndWork);
+        responseCall.enqueue(new Callback<JobPostResponse>() {
+            @Override
+            public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
+                Log.d("onResponse", response.code() + "");
+                try{
+                    if (response.isSuccessful()) {
+
+                        Boolean isJbPost = response.body().getStatus();
+                        mJobPostView.displayNotifyJobPost(isJbPost);
+                    }
+                }catch (Exception e){
+                    Log.d("Exception", e.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JobPostResponse> call, Throwable t) {
+                Log.d("onFailure", t.toString());
+            }
+        });
+    }
+
 }

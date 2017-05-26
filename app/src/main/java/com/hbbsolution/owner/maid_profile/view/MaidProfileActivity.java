@@ -105,7 +105,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtGenderInfoMaid.setText(getGenderMaid(mMaidInfo.getInfo().getGender()));
             txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
-            ratingInfoMaid.setRating(4);
+            ratingInfoMaid.setRating(mMaidInfo.getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), 1);
         }
     }

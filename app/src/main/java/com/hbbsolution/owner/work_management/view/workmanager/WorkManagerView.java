@@ -10,5 +10,6 @@ import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPending
 public interface WorkManagerView {
     void getInfoJob (WorkManagerResponse mExample);
     void getInfoJobPending(JobPendingResponse mJobPendingResponse);
+    void displayNotifyJobPost(boolean isJobPost);
     void getError();
 }

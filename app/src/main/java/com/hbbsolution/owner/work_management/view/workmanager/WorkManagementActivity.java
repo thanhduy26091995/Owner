@@ -40,6 +40,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     ViewPager mViewPager;
 
     private int tabMore, mQuantityJobPost;
+    private boolean isPause = false, mTab = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,10 +98,10 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.management_compose_toothbar:
-                if(mQuantityJobPost < 10){
+                if (mQuantityJobPost < 10) {
                     Intent intent = new Intent(WorkManagementActivity.this, JobPostActivity.class);
                     startActivity(intent);
-                }else {
+                } else {
                     ShowAlertDialog.showAlert("Số lượng bài đăng không được vượt quá 10 bài!", WorkManagementActivity.this);
                 }
                 break;
@@ -119,8 +120,30 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    protected void onPause() {
+        isPause = true;
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if (isPause) {
+            if(mTab){
+                Intent refresh = new Intent(this, WorkManagementActivity.class);
+                startActivity(refresh);
+                this.finish();
+                isPause = false;
+                mTab = false;
+            }
+        }
+        super.onResume();
+    }
 
     public void onEventMainThread(Integer quantityJobPost) {
         mQuantityJobPost = quantityJobPost;
+    }
+    public void onEventMainThread(Boolean idTab) {
+        mTab = idTab;
     }
 }
