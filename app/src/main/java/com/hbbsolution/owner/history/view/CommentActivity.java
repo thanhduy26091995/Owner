@@ -1,6 +1,5 @@
 package com.hbbsolution.owner.history.view;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,5 +67,10 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 //                finish();
                 break;
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
     }
 }

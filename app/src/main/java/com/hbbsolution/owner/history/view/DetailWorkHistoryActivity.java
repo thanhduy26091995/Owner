@@ -138,4 +138,9 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
                 break;
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
+    }
 }
