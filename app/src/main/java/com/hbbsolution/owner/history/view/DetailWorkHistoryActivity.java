@@ -27,7 +27,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailWorkHistoryActivity extends AppCompatActivity implements View.OnClickListener,CommentHistoryView{
+public class DetailWorkHistoryActivity extends AppCompatActivity implements View.OnClickListener, CommentHistoryView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.detail_work_history_type)
@@ -69,31 +69,31 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     private CommentHistoryPresenter commentHistoryPresenter;
     private int idTask;
     public static Activity detailWorkHistory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_work_history);
         ButterKnife.bind(this);
-        detailWorkHistory=this;
+        detailWorkHistory = this;
         setToolbar();
         getData();
         setEventClick();
     }
 
-    public void setEventClick()
-    {
+    public void setEventClick() {
         tvComment.setOnClickListener(this);
         rlInfo.setOnClickListener(this);
     }
-    public void setToolbar()
-    {
+
+    public void setToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    public void getData()
-    {
+
+    public void getData() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             doc = (WorkHistory) extras.getSerializable("work");
@@ -118,7 +118,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
         SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
         DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
         // OVERRIDE SOME symbols WHILE RETAINING OTHERS
-        symbols.setAmPmStrings(new String[] { "am", "pm" });
+        symbols.setAmPmStrings(new String[]{"am", "pm"});
         time.setDateFormatSymbols(symbols);
         try {
             Date endDate = simpleDateFormat.parse(doc.getInfo().getTime().getEndAt());
@@ -130,7 +130,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
             e.printStackTrace();
         }
         tvDate.setText(date);
-        tvTime.setText(startTime.replace(":","h") + " - "+endTime.replace(":","h"));
+        tvTime.setText(startTime.replace(":", "h") + " - " + endTime.replace(":", "h"));
 
         Picasso.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
                 .placeholder(R.drawable.avatar)
@@ -153,20 +153,24 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     @Override
     public void onClick(View v) {
         Intent intent;
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.txt_history_comment:
-                intent = new Intent (this,CommentActivity.class);
-                intent.putExtra("work",doc);
+                intent = new Intent(this, CommentActivity.class);
+                intent.putExtra("idTask", doc.getId());
+                intent.putExtra("idHelper", doc.getStakeholders().getReceived().getId());
+                intent.putExtra("imgHelper", doc.getStakeholders().getReceived().getInfo().getImage());
+                intent.putExtra("nameHelper", doc.getStakeholders().getReceived().getInfo().getName());
+                intent.putExtra("addressHelper", doc.getStakeholders().getReceived().getInfo().getAddress());
                 startActivity(intent);
                 break;
             case R.id.rela_info:
-                intent = new Intent (this,MaidProfileActivity.class);
-                intent.putExtra("work",doc);
+                intent = new Intent(this, MaidProfileActivity.class);
+                intent.putExtra("work", doc);
                 startActivity(intent);
                 break;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
