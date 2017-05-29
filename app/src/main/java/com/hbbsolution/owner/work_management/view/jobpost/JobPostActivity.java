@@ -58,6 +58,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by tantr on 5/14/2017.
@@ -181,6 +182,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            EventBus.getDefault().postSticky(false);
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -189,6 +191,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().postSticky(false);
         ButterKnife.bind(this).unbind();
     }
 
@@ -224,6 +227,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 break;
 
             case R.id.txtPost:
+                progressBar.setVisibility(View.VISIBLE);
                 checkLocaltionOfOwner();
                 break;
 
@@ -259,6 +263,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    EventBus.getDefault().postSticky(true);
                     if(mJobPostActivity != null){
                         JobPostActivity.mJobPostActivity.finish();
                         try{
@@ -366,16 +371,19 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
                 edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
+            progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert("Chua nhap day du tiêu đề ", JobPostActivity.this);
             return false;
         }
 
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
+            progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert("Chua nhap so tien", JobPostActivity.this);
             return false;
         }
 
         if (!validateTimeWork()) {
+            progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert("Chon giờ chưa phù hợp ", JobPostActivity.this);
             return false;
         }
@@ -497,6 +505,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         if (!mAddressPost.isEmpty()) {
             mJobPostPresenter.getLocaltionAddress(mAddressPost);
         } else {
+            progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert("Vui lòng nhập địa chỉ đầy đủ!", JobPostActivity.this);
         }
     }

@@ -8,13 +8,13 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swip_refresh_job_post"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_post"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_alignParentTop="true"
             android:clipToPadding="false"
             android:scrollbars="vertical"
