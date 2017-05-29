@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.api;
 
 import com.hbbsolution.owner.history.model.commenthistory.CommentHistoryResponse;
+import com.hbbsolution.owner.history.model.helper.HistoryHelperResponse;
 import com.hbbsolution.owner.history.model.workhistory.CommentResponse;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
@@ -42,7 +43,7 @@ public interface ApiInterface {
     Call<WorkHistoryResponse> getInfoWorkHistory(@Query("startAt") String startAt,@Query("endAt")String endAt,@Query("page")int page);
 
     @GET("owner/getAllWorkedMaid")
-    Call<WorkHistoryResponse> getAllMaid(@Query("startAt") String startAt,@Query("endAt")String endAt);
+    Call<HistoryHelperResponse> getAllWorkedMaid(@Query("startAt") String startAt, @Query("endAt")String endAt);
 
     @GET("task/getComment")
     Call<CommentHistoryResponse> checkComment(@Query("task")String idTask);

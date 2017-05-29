@@ -27,9 +27,9 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
         setToolbar();
-        historyViewPagerFragment= new HistoryViewPagerFragment(getSupportFragmentManager(),this,3);
+        historyViewPagerFragment= new HistoryViewPagerFragment(getSupportFragmentManager(),this,2);
         viewPagerHistory.setAdapter(historyViewPagerFragment);
-        viewPagerHistory.setOffscreenPageLimit(3);
+        viewPagerHistory.setOffscreenPageLimit(2);
         tabLayoutHistory.setupWithViewPager(viewPagerHistory);
 
     }

@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,7 +39,6 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     private int price;
     private WorkHistory doc;
     private Pair<View, String> pairJobType;
-    private final static int FADE_DURATION = 1000;
     @Override
     public HistoryJobAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_job, parent, false);
@@ -89,7 +86,6 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         }
         holder.tvDate.setText(date);
         holder.tvDeitalTime.setText(startTime.replace(":","h") + " - "+endTime.replace(":","h"));
-        setFadeAnimation(holder.itemView);
     }
 
     @Override
@@ -151,11 +147,5 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
 
         elapsedSeconds = different / secondsInMilli;
 
-    }
-
-    private void setFadeAnimation(View view) {
-        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        anim.setDuration(FADE_DURATION);
-        view.startAnimation(anim);
     }
 }
