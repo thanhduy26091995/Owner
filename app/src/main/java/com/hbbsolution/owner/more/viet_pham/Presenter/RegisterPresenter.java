@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
-import com.hbbsolution.owner.more.viet_pham.View.signup.SignUpView;
+import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 import java.io.File;
@@ -22,7 +22,7 @@ import retrofit2.Response;
  */
 
 public class RegisterPresenter {
-    private SignUpView mSignUpView;
+    private MoreView mMoreView;
     private ApiInterface mApiService;
     private File mFile;
     private RequestBody requestBody;
@@ -37,8 +37,8 @@ public class RegisterPresenter {
     private RequestBody requestBodyLat;
     private RequestBody requestBodyLng;
 
-    public RegisterPresenter(SignUpView mSignUpView) {
-        this.mSignUpView = mSignUpView;
+    public RegisterPresenter(MoreView mMoreView) {
+        this.mMoreView = mMoreView;
         mApiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
@@ -63,21 +63,21 @@ public class RegisterPresenter {
         requestBodyLat = RequestBody.create(MediaType.parse("text"), String.valueOf(lat));
         requestBodyLng = RequestBody.create(MediaType.parse("text"), String.valueOf(lng));
         mApiService.createAccount(requestBodyUserName, requestBodyPassword, requestBodyEmail, requestBodyPhone, requestBodyName, requestBodyLocation, requestBodyLat,
-                requestBodyLng, requestBodyGender, fileImage).enqueue(new Callback<RegisterResponse>() {
+                requestBodyLng, requestBodyGender, fileImage).enqueue(new Callback<BodyResponse>() {
             @Override
-            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+            public void onResponse(Call<BodyResponse> call, Response<BodyResponse> response) {
                 try {
-                    RegisterResponse registerResponse = response.body();
-                    mSignUpView.displaySignUp(registerResponse);
+                    BodyResponse bodyResponse = response.body();
+                    mMoreView.displaySignUpAndSignIn(bodyResponse);
                 } catch (Exception e) {
                     Log.e("exception", e.toString());
-                    mSignUpView.displayError();
+                    mMoreView.displayError();
                 }
             }
 
             @Override
-            public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Log.e("error", t.toString());
+            public void onFailure(Call<BodyResponse> call, Throwable t) {
+
             }
         });
     }
@@ -93,12 +93,12 @@ public class RegisterPresenter {
                         double mLat = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
                         double mLng = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
                         if (mLat != 0 || mLng != 0) {
-                            mSignUpView.getLocaltionAddress(mGeoCodeMapResponse);
+                            mMoreView.getLocaltionAddress(mGeoCodeMapResponse);
                         } else {
-                            mSignUpView.displayNotFoundLocaltion();
+                            mMoreView.displayNotFoundLocaltion();
                         }
                     } else {
-                        mSignUpView.displayNotFoundLocaltion();
+                        mMoreView.displayNotFoundLocaltion();
                     }
                 }
             }

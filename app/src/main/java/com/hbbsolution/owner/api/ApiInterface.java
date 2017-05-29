@@ -5,7 +5,7 @@ import com.hbbsolution.owner.history.model.workhistory.CommentResponse;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
-import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
@@ -67,7 +67,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("auth/register")
-    Call<RegisterResponse> createAccount(
+    Call<BodyResponse> createAccount(
             @Part("username") RequestBody username,
             @Part("password") RequestBody password,
             @Part("email") RequestBody email,
@@ -82,8 +82,8 @@ public interface ApiInterface {
 
     @Multipart
     @POST("auth/login")
-    Call<RegisterResponse> signInAccount(@Part("username") RequestBody username,
-                                    @Part("password") RequestBody password
+    Call<BodyResponse> signInAccount(@Part("username") RequestBody username,
+                                       @Part("password") RequestBody password
     );
 
     @GET

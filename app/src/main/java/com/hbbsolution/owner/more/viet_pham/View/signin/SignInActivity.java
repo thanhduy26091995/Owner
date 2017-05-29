@@ -13,10 +13,12 @@ import android.widget.ImageButton;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.home.HomeActivity;
-import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
+import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp1Activity;
-import com.hbbsolution.owner.utils.SessionManagerUser;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +27,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 5/9/2017.
  */
 
-public class SignInActivity extends AppCompatActivity implements SignInView {
+public class SignInActivity extends AppCompatActivity implements MoreView {
     @BindView(R.id.toobar)
     Toolbar toolbar;
     @BindView(R.id.bt_work_around_here)
@@ -45,14 +47,11 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     @BindView(R.id.imb_google)
     ImageButton imbGoogle;
     private SignInPresenter mSignInPresenter;
-    private SessionManagerUser sessionManagerUser;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
-        sessionManagerUser = new SessionManagerUser(this);
         ButterKnife.bind(this);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -100,20 +99,29 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     }
 
     @Override
-    public void displaySignUp(RegisterResponse registerResponse) {
-        if (registerResponse.getStatus().equals("true")) {
-            //save session
-            sessionManagerUser.createLoginSession(registerResponse.getData().getUser());
-            //move to HomeActivity
+    public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
+        if (bodyResponse.getStatus() == true) {
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
+        } else {
+            ShowAlertDialog.showAlert(bodyResponse.getMessage().toString(),SignInActivity.this);
         }
     }
 
     @Override
     public void displayError() {
+
+    }
+
+    @Override
+    public void displayNotFoundLocaltion() {
+
+    }
+
+    @Override
+    public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
 
     }
 }
