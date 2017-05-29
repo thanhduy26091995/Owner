@@ -29,6 +29,17 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:text="Tìm kiếm"
+                android:textColor="@color/home_background_history"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </android.support.v7.widget.Toolbar>
 
         <View

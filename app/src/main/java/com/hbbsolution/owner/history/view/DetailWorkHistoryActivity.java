@@ -178,13 +178,13 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     }
 
     @Override
-    public void success(String message) {
+    public void checkCommentSuccess(String message) {
         tvContentComment.setVisibility(View.VISIBLE);
         tvContentComment.setText(message);
     }
 
     @Override
-    public void fail() {
+    public void checkCommentFail() {
         tvComment.setVisibility(View.VISIBLE);
     }
 

@@ -23,10 +23,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/colorBlack"
-                />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -114,6 +113,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="5dp"
+                        android:maxLines="2"
                         android:text="@string/home_your_tasks"
                         android:textAlignment="center"
                         android:textColor="@color/colorWhite" />
@@ -200,8 +200,8 @@
                     android:gravity="center"
                     android:text="@string/home_copy_right"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/colorBlack" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

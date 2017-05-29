@@ -97,7 +97,8 @@
                             android:isIndicator="false"
                             android:numStars="5"
                             android:rating="3.0"
-                            android:stepSize="1.0" />
+                            android:stepSize="1.0"
+                            android:theme="@style/RatingBar"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -107,7 +108,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/color_line_view" />
 
         <TextView
