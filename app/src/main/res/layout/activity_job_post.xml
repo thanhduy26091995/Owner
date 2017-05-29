@@ -167,7 +167,6 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -223,8 +222,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:enabled="false"
+
                         android:hint="Nhập số tiền công"
+                        android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:textColor="@color/colorBlack"
                         android:textColorHint="@color/colorBlack"
@@ -244,6 +244,7 @@
                         android:fontFamily="@string/font_family_regular"
                         android:gravity="center_vertical"
                         android:padding="10dp"
+                        android:inputType="number"
                         android:text="Khoán tiền công theo thời gian"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />

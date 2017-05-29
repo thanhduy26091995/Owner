@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -28,6 +29,7 @@ import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.view.ReportMaidActivity;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     LinearLayout linearReportMaid;
     @BindView(R.id.v_line)
     View vLine;
+    @BindView(R.id.img_avatarMaid)
+    ImageView img_avatarMaid;
 
 
     private MaidProfilePresenter mMaidProfilePresenter;
@@ -99,6 +103,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         mMaidProfilePresenter = new MaidProfilePresenter(this);
 
+
         appBarLayout.addOnOffsetChangedListener(this);
         //event click
         lo_ChosenMaidInfo.setOnClickListener(this);
@@ -115,6 +120,10 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
             ratingInfoMaid.setRating(mMaidInfo.getWorkInfo().getEvaluationPoint());
+            Picasso.with(this).load(mMaidInfo.getInfo().getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(img_avatarMaid);
             mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), 1);
         }
         if (workHistory != null) {

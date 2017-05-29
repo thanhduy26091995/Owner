@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPendingAdapter;
@@ -113,6 +114,28 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
+
+        progressBar.setVisibility(View.GONE);
+        if(isJobPost){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("Thông báo");
+            alertDialog.setMessage("Bạn đã xóa công việc này ");
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    getActivity().finish();
+                    getActivity().overridePendingTransition(0, 0);
+                    getActivity().startActivity(getActivity().getIntent());
+                    getActivity().overridePendingTransition(0, 0);
+                }
+            });
+
+            alertDialog.show();
+        }else {
+            Toast.makeText(getActivity(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

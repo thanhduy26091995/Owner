@@ -97,7 +97,9 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
     public static Activity mJobPostActivity = null;
 
-    private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId, mPrice,
+    private int mPrice;
+
+    private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId,
             mDateStartWork, mTimeStartWork, mTimeEndWork, mIdTask;
 
     private boolean  mChosenTools = false, isPost;
@@ -124,6 +126,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mJobPostPresenter = new JobPostPresenter(this);
+        txt_post_complete.setEnabled(false);
         mJobPostPresenter.getAllTypeJob();
 
         getDateCurrent();
@@ -173,6 +176,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         }else {
             isPost = true;
+            mPackageId = "000000000000000000000001";
             txt_post_complete.setText("Đăng bài");
         }
 
@@ -236,6 +240,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
+        txt_post_complete.setEnabled(true);
 
         for (TypeJob typeJob : typeJobResponse.getData()) {
             hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
@@ -344,11 +349,11 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         mTimeStartWork = getTimeWork(txtTime_start.getText().toString());
         mTimeEndWork = getTimeWork(txtTime_end.getText().toString());
         if (!edt_monney_work.getText().toString().isEmpty()) {
-            mPrice = edt_monney_work.getText().toString();
+            mPrice = Integer.parseInt(edt_monney_work.getText().toString());
         } else {
-            mPrice = "";
+            mPrice = 0;
         }
-        mPrice = edt_monney_work.getText().toString();
+//        mPrice = edt_monney_work.getText().toString();
 
         if (chb_tools_work.isChecked()) {
             mChosenTools = true;

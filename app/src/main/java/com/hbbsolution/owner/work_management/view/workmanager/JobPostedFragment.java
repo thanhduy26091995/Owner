@@ -136,7 +136,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
             alertDialog.setCancelable(false);
             alertDialog.setTitle("Thông báo");
-            alertDialog.setMessage("Bạn đã xóa công việc này ");
+            alertDialog.setMessage("Bạn đã xóa công việc này!");
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
