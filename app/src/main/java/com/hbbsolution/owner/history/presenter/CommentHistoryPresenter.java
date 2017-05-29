@@ -33,11 +33,11 @@ public class CommentHistoryPresenter {
                     try {
                         CommentHistoryResponse commentHistoryResponse = response.body();
                         if(commentHistoryResponse.getStatus()) {
-                            commentHistoryView.success(commentHistoryResponse.getData().getContent());
+                            commentHistoryView.checkCommentSuccess(commentHistoryResponse.getData().getContent());
                         }
                         else
                         {
-                            commentHistoryView.fail();
+                            commentHistoryView.checkCommentFail();
                         }
                     } catch (Exception e) {
                         Log.e("exception", e.toString());
@@ -47,7 +47,7 @@ public class CommentHistoryPresenter {
 
             @Override
             public void onFailure(Call<CommentHistoryResponse> call, Throwable t) {
-                commentHistoryView.fail();
+                commentHistoryView.checkCommentFail();
             }
         });
     }

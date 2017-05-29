@@ -1,7 +1,6 @@
 package com.hbbsolution.owner.maid_profile.view;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -20,9 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
@@ -39,7 +35,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.blurry.Blurry;
 
 import static android.view.View.GONE;
 
@@ -81,8 +76,6 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     View vLine;
     @BindView(R.id.img_avatarMaid)
     ImageView img_avatarMaid;
-    @BindView(R.id.img_blur_image)
-    ImageView imgBlurImage;
 
 
     private MaidProfilePresenter mMaidProfilePresenter;
@@ -118,7 +111,6 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
         workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
-
         if (mMaidInfo != null) {
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
@@ -147,7 +139,6 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                         }
                     });
         }
-
         if (workHistory != null) {
             txtNameInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getName());
             txtPriceInfoMaid.setText(String.valueOf(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice()));
@@ -156,6 +147,18 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtAddressInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
             ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(workHistory.getStakeholders().getReceived().getId(), 1);
+            lo_ChosenMaidInfo.setVisibility(View.GONE);
+            vLine.setVisibility(View.GONE);
+        }
+        if(datum!=null)
+        {
+            txtNameInfoMaid.setText(datum.getId().getInfo().getName());
+     //       txtPriceInfoMaid.setText(String.valueOf(datum.getId().getWorkInfo().getPrice()));
+            txtGenderInfoMaid.setText(getGenderMaid(datum.getId().getInfo().getGender()));
+            txtPhoneInfoMaid.setText(datum.getId().getInfo().getPhone());
+            txtAddressInfoMaid.setText(datum.getId().getInfo().getAddress().getName());
+     //       ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
+            mMaidProfilePresenter.getInfoListMaid(datum.getId().getId(), 1);
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
