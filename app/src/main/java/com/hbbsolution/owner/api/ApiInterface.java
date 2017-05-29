@@ -94,7 +94,7 @@ public interface ApiInterface {
     Call<JobPostResponse> postJob(@Field("title") String title, @Field("work") String typeJob,
                                   @Field("description") String description, @Field("addressName") String addressName,
                                   @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
-                                  @Field("package") String packageId, @Field("price") String price,
+                                  @Field("package") String packageId, @Field("price") int price,
                                   @Field("startAt") String startAt, @Field("endAt") String endAt);
 
     @FormUrlEncoded
@@ -102,7 +102,7 @@ public interface ApiInterface {
     Call<JobPostResponse> updatePostJob(@Field("id") String idTask ,@Field("title") String title, @Field("work") String typeJob,
                                   @Field("description") String description, @Field("addressName") String addressName,
                                   @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
-                                  @Field("package") String packageId, @Field("price") String price,
+                                  @Field("package") String packageId, @Field("price") int price,
                                   @Field("startAt") String startAt, @Field("endAt") String endAt);
 
 

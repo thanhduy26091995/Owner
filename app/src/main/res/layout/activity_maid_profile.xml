@@ -146,7 +146,7 @@
                         android:orientation="vertical">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/lo_chon"
+                            android:id="@+id/img_avatarMaid"
                             android:layout_width="96dp"
                             android:layout_height="96dp"
                             android:layout_gravity="center"
