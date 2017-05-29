@@ -51,10 +51,8 @@ public class FilterPresenter {
             @Override
             public void onResponse(Call<MaidNearByResponse> call, Response<MaidNearByResponse> response) {
                 if (response.isSuccessful()) {
-                    boolean status = response.body().getStatus();
-                    if (status) {
-                        view.filterMaid(response.body());
-                    }
+                    view.filterMaid(response.body());
+
                 } else {
                     view.displayError(response.message());
                 }

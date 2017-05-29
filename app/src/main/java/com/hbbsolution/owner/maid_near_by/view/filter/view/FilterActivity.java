@@ -293,7 +293,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void filterMaid(MaidNearByResponse maidNearByResponse) {
-        if (maidNearByResponse.getData().size() > 0) {
+        if (maidNearByResponse.getData().size() >= 0) {
             Intent resultIntent = new Intent();
             resultIntent.putExtra(Constants.MAID_LIST, (Serializable) maidNearByResponse.getData());
             setResult(RESULT_OK, resultIntent);

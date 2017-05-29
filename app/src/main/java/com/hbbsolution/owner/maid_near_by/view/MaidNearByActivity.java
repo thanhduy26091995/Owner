@@ -393,8 +393,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
             finish();
         } else if (item.getItemId() == R.id.action_filter) {
             Intent intent = new Intent(MaidNearByActivity.this, FilterActivity.class);
-            intent.putExtra(Constants.LAT, 10.767200);
-            intent.putExtra(Constants.LNG, 106.687738);
+            intent.putExtra(Constants.LAT, location.getLatitude());
+            intent.putExtra(Constants.LNG, location.getLongitude());
             startActivityForResult(intent, Constants.FILTER_MAID_INTENT);
         }
         return super.onOptionsItemSelected(item);
