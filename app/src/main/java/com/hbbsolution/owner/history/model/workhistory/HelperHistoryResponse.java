@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.history.model;
+package com.hbbsolution.owner.history.model.workhistory;
 
 /**
  * Created by Administrator on 29/05/2017.

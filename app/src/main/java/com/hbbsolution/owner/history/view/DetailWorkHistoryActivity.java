@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.history.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.model.Doc;
+import com.hbbsolution.owner.history.CommentHistoryView;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
+import com.hbbsolution.owner.history.presenter.CommentHistoryPresenter;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormatSymbols;
@@ -22,7 +27,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailWorkHistoryActivity extends AppCompatActivity implements View.OnClickListener{
+public class DetailWorkHistoryActivity extends AppCompatActivity implements View.OnClickListener,CommentHistoryView{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.detail_work_history_type)
@@ -51,15 +56,25 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
 
     @BindView(R.id.txt_history_comment)
     TextView tvComment;
+    @BindView(R.id.rela_info)
+    RelativeLayout rlInfo;
+    @BindView(R.id.tvContentComment)
+    TextView tvContentComment;
+    @BindView(R.id.v_line)
+    View vLine;
 
-    private Doc doc;
+    private WorkHistory doc;
     private String date;
     private String startTime, endTime;
+    private CommentHistoryPresenter commentHistoryPresenter;
+    private int idTask;
+    public static Activity detailWorkHistory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_work_history);
         ButterKnife.bind(this);
+        detailWorkHistory=this;
         setToolbar();
         getData();
         setEventClick();
@@ -68,6 +83,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     public void setEventClick()
     {
         tvComment.setOnClickListener(this);
+        rlInfo.setOnClickListener(this);
     }
     public void setToolbar()
     {
@@ -80,8 +96,12 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            doc = (Doc) extras.getSerializable("work");
+            doc = (WorkHistory) extras.getSerializable("work");
         }
+        tvContentComment.setVisibility(View.GONE);
+        tvComment.setVisibility(View.GONE);
+        commentHistoryPresenter = new CommentHistoryPresenter(this);
+        commentHistoryPresenter.checkComment(doc.getId());
         Picasso.with(this).load(doc.getInfo().getWork().getImage())
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.no_image)
@@ -118,6 +138,8 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
                 .into(imgHelper);
         tvNameHelper.setText(doc.getStakeholders().getReceived().getInfo().getName());
         tvAddressHelper.setText(doc.getStakeholders().getReceived().getInfo().getAddress().getName());
+
+
     }
 
     @Override
@@ -130,15 +152,17 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId())
         {
             case R.id.txt_history_comment:
-                Intent intent = new Intent (this,CommentActivity.class);
-                intent.putExtra("idTask",doc.getId());
-                intent.putExtra("idHelper",doc.getStakeholders().getReceived().getId());
-                intent.putExtra("imgHelper",doc.getStakeholders().getReceived().getInfo().getImage());
-                intent.putExtra("nameHelper",doc.getStakeholders().getReceived().getInfo().getName());
-                intent.putExtra("addressHelper",doc.getStakeholders().getReceived().getInfo().getAddress());
+                intent = new Intent (this,CommentActivity.class);
+                intent.putExtra("work",doc);
+                startActivity(intent);
+                break;
+            case R.id.rela_info:
+                intent = new Intent (this,MaidProfileActivity.class);
+                intent.putExtra("work",doc);
                 startActivity(intent);
                 break;
         }
@@ -147,5 +171,22 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void success(String message) {
+        tvContentComment.setVisibility(View.VISIBLE);
+        tvContentComment.setText(message);
+    }
+
+    @Override
+    public void fail() {
+        tvComment.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        commentHistoryPresenter.checkComment(doc.getId());
     }
 }

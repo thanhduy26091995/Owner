@@ -1,5 +1,5 @@
 
-package com.hbbsolution.owner.history.model;
+package com.hbbsolution.owner.history.model.workhistory;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +11,7 @@ public class Data implements Serializable {
 
     @SerializedName("docs")
     @Expose
-    private List<Doc> docs = null;
+    private List<WorkHistory> docs = null;
     @SerializedName("total")
     @Expose
     private Integer total;
@@ -25,11 +25,11 @@ public class Data implements Serializable {
     @Expose
     private Integer pages;
 
-    public List<Doc> getDocs() {
+    public List<WorkHistory> getDocs() {
         return docs;
     }
 
-    public void setDocs(List<Doc> docs) {
+    public void setDocs(List<WorkHistory> docs) {
         this.docs = docs;
     }
 

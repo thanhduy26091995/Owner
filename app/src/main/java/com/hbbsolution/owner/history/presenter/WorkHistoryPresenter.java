@@ -5,7 +5,7 @@ import android.util.Log;
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
 import com.hbbsolution.owner.history.WorkHistoryView;
-import com.hbbsolution.owner.history.model.WorkHistoryResponse;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

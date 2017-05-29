@@ -6,6 +6,90 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NHẬN XÉT" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@android:color/darker_gray" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="always"
+                tools:listitem="@layout/item_comment">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/lo_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:theme="@style/toolbar_theme">
+
+        <com.hbbsolution.owner.base.IconTextView
+            android:id="@+id/txtBackInfoMaid"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/ic_back"
+            android:textColor="@color/home_background_history"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/manager_doing_title_toothbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Đánh giá"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        />
+
+    </LinearLayout>
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/info_user_appbar"
         android:layout_width="match_parent"
@@ -312,6 +396,7 @@
 
                 <View
 
+                    android:id="@+id/v_line"
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:background="@android:color/darker_gray" />
@@ -321,90 +406,6 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@android:color/darker_gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
-                android:paddingBottom="15dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NHẬN XÉT" />
-            </LinearLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@android:color/darker_gray" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="always"
-                tools:listitem="@layout/item_comment">
-
-            </android.support.v7.widget.RecyclerView>
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
-    <LinearLayout
-        android:id="@+id/lo_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:background="@color/colorWhite"
-        android:orientation="horizontal"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:theme="@style/toolbar_theme">
-
-        <com.hbbsolution.owner.base.IconTextView
-            android:id="@+id/txtBackInfoMaid"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="@string/ic_back"
-            android:textColor="@color/home_background_history"
-            android:textSize="30dp" />
-
-        <TextView
-            android:id="@+id/manager_doing_title_toothbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Đánh giá"
-            android:textColor="@color/colorBlack"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-        />
-
-    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

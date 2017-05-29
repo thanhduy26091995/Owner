@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.model.Maid;
 
 import butterknife.BindView;
@@ -28,7 +29,7 @@ public class ReportMaidActivity extends AppCompatActivity {
     TextView mTextMaidAddress;
 
     private Maid mMaidInfo;
-
+    private WorkHistory workHistory;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ public class ReportMaidActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         //get intent
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
+        workHistory = (WorkHistory)getIntent().getSerializableExtra("work");
         //load data
         loadData();
     }
@@ -49,6 +51,11 @@ public class ReportMaidActivity extends AppCompatActivity {
         if (mMaidInfo != null) {
             mTextMaidName.setText(mMaidInfo.getInfo().getUsername());
             mTextMaidAddress.setText(mMaidInfo.getInfo().getAddress().getName());
+        }
+        if(workHistory!=null)
+        {
+            mTextMaidName.setText(workHistory.getStakeholders().getReceived().getInfo().getUsername());
+            mTextMaidAddress.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
         }
     }
 

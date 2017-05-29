@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.view.ReportMaidActivity;
@@ -32,6 +33,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.view.View.GONE;
 
 /**
  * Created by buivu on 15/05/2017.
@@ -67,12 +70,15 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     IconTextView txtBackInfoMaid;
     @BindView(R.id.linear_report_maid)
     LinearLayout linearReportMaid;
+    @BindView(R.id.v_line)
+    View vLine;
 
 
     private MaidProfilePresenter mMaidProfilePresenter;
     private List<Doc> commentList = new ArrayList<>();
     private ListCommentAdapter listCommentAdapter;
     private Maid mMaidInfo;
+    private WorkHistory workHistory;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +105,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         linearReportMaid.setOnClickListener(this);
 
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
+        workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
         if (mMaidInfo != null) {
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
@@ -107,6 +114,17 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
             ratingInfoMaid.setRating(mMaidInfo.getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), 1);
+        }
+        if (workHistory != null) {
+            txtNameInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getName());
+            txtPriceInfoMaid.setText(String.valueOf(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice()));
+            txtGenderInfoMaid.setText(getGenderMaid(workHistory.getStakeholders().getReceived().getInfo().getGender()));
+            txtPhoneInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getPhone());
+            txtAddressInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
+            ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
+            mMaidProfilePresenter.getInfoListMaid(workHistory.getStakeholders().getReceived().getId(), 1);
+            lo_ChosenMaidInfo.setVisibility(View.GONE);
+            vLine.setVisibility(View.GONE);
         }
     }
 
@@ -130,7 +148,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             toolbar.setVisibility(View.VISIBLE);
             toolbar.animate().alpha(1).setDuration(200);
         } else {
-            toolbar.setVisibility(View.GONE);
+            toolbar.setVisibility(GONE);
             toolbar.animate().alpha(0).setDuration(200);
         }
     }
@@ -147,6 +165,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             case R.id.linear_report_maid:
                 Intent intent = new Intent(MaidProfileActivity.this, ReportMaidActivity.class);
                 intent.putExtra("maid", mMaidInfo);
+                intent.putExtra("work", workHistory);
                 startActivity(intent);
                 break;
 

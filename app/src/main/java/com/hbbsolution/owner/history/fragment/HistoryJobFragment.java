@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.WorkHistoryView;
 import com.hbbsolution.owner.history.adapter.HistoryJobAdapter;
-import com.hbbsolution.owner.history.model.Doc;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.presenter.WorkHistoryPresenter;
 import com.hbbsolution.owner.utils.EndlessRecyclerViewScrollListener;
 
@@ -42,7 +42,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private String strStartDate, strEndDate;
     private int currentPage, currentPageTime;
     private EndlessRecyclerViewScrollListener scrollListener;
-    private List<Doc> mDocList = new ArrayList<>();
+    private List<WorkHistory> mDocList = new ArrayList<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     public HistoryJobFragment() {
@@ -128,7 +128,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         mSwipeRefreshLayout.setRefreshing(false);
     }
     @Override
-    public void getInfoWorkHistory(List<Doc> listWorkHistory, final int pages) {
+    public void getInfoWorkHistory(List<WorkHistory> listWorkHistory, final int pages) {
         mDocList.clear();
         mDocList = listWorkHistory;
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
@@ -148,7 +148,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     }
 
     @Override
-    public void getMoreInfoWorkHistory(List<Doc> listWorkHistory) {
+    public void getMoreInfoWorkHistory(List<WorkHistory> listWorkHistory) {
         mDocList.addAll(listWorkHistory);
         currentPage++;
         historyJobAdapter.notifyDataSetChanged();
@@ -161,7 +161,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     }
 
     @Override
-    public void getInfoWorkHistoryTime(List<Doc> listWorkHistory, final String startAt, final String endAt, final int pages) {
+    public void getInfoWorkHistoryTime(List<WorkHistory> listWorkHistory, final String startAt, final String endAt, final int pages) {
         mDocList.clear();
         mDocList = listWorkHistory;
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
@@ -181,7 +181,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     }
 
     @Override
-    public void getMoreInfoWorkHistoryTime(List<Doc> listWorkHistory, String startAt, String endAt) {
+    public void getMoreInfoWorkHistoryTime(List<WorkHistory> listWorkHistory, String startAt, String endAt) {
         mDocList.addAll(listWorkHistory);
         currentPageTime++;
         historyJobAdapter.notifyDataSetChanged();

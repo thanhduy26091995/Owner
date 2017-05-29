@@ -1,12 +1,12 @@
 
-package com.hbbsolution.owner.history.model;
+package com.hbbsolution.owner.history.model.workhistory;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Doc implements Serializable {
+public class WorkHistory implements Serializable {
 
     @SerializedName("_id")
     @Expose

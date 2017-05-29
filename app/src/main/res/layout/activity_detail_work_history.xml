@@ -389,16 +389,25 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="@string/yourcomment"
                     android:textColor="@color/home_background_history"
                     android:textSize="@dimen/text_size_large" />
-
-                <View
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvContentComment"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/color_line_view" />
+                    android:layout_marginBottom="10dp"/>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:id="@+id/v_line"
+                android:background="@color/color_line_view" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

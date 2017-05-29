@@ -1,7 +1,8 @@
 package com.hbbsolution.owner.api;
 
-import com.hbbsolution.owner.history.model.CommentResponse;
-import com.hbbsolution.owner.history.model.WorkHistoryResponse;
+import com.hbbsolution.owner.history.model.commenthistory.CommentHistoryResponse;
+import com.hbbsolution.owner.history.model.workhistory.CommentResponse;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
@@ -42,6 +43,10 @@ public interface ApiInterface {
 
     @GET("owner/getAllWorkedMaid")
     Call<WorkHistoryResponse> getAllMaid(@Query("startAt") String startAt,@Query("endAt")String endAt);
+
+    @GET("task/getComment")
+    Call<CommentHistoryResponse> checkComment(@Query("task")String idTask);
+
 
     @GET("more/getAllMaids")
     Call<MaidNearByResponse> getMaidNearBy(@Query("lat") Double lat, @Query("lng") Double lng, @Query("ageMin") Integer ageMin, @Query("ageMax") Integer ageMax,
@@ -106,7 +111,7 @@ public interface ApiInterface {
     Call<JobPostResponse> delleteJob(@Field("id") String idTask, @Field("ownerId") String ownerId);
 
     @FormUrlEncoded
-    @POST("/comment")
+    @POST("owner/comment")
     Call<CommentResponse> postComment(@Field("task") String taskID, @Field("toId") String toId,
                                       @Field("content") String content, @Field("evaluation_point") int evaluation_point);
 

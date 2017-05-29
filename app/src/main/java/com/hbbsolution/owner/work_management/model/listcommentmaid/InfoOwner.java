@@ -2,7 +2,7 @@ package com.hbbsolution.owner.work_management.model.listcommentmaid;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.hbbsolution.owner.history.model.Address;
+import com.hbbsolution.owner.history.model.workhistory.Address;
 
 /**
  * Created by tantr on 5/22/2017.

@@ -1,10 +1,10 @@
 
-package com.hbbsolution.owner.history.model;
+package com.hbbsolution.owner.history.model.commenthistory;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WorkHistoryResponse {
+public class CommentHistoryResponse {
 
     @SerializedName("status")
     @Expose
@@ -14,7 +14,7 @@ public class WorkHistoryResponse {
     private String message;
     @SerializedName("data")
     @Expose
-    private Data data;
+    private DataComment data;
 
     public Boolean getStatus() {
         return status;
@@ -32,11 +32,11 @@ public class WorkHistoryResponse {
         this.message = message;
     }
 
-    public Data getData() {
+    public DataComment getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(DataComment data) {
         this.data = data;
     }
 

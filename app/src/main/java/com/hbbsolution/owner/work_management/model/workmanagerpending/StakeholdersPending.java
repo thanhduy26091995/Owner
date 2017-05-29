@@ -2,12 +2,9 @@ package com.hbbsolution.owner.work_management.model.workmanagerpending;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.hbbsolution.owner.history.model.Received;
 import com.hbbsolution.owner.model.Maid;
-import com.hbbsolution.owner.work_management.model.maid.Request;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by tantr on 5/25/2017.

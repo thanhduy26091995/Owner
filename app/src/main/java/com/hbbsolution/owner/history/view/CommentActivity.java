@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.CommentView;
 import com.hbbsolution.owner.history.presenter.CommentPresenter;
-import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -73,7 +72,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
         txtNext.setOnClickListener(this);
         lnCheck.setOnClickListener(this);
-        rlComment.setOnClickListener(this);
+        edtComment.setOnClickListener(this);
     }
 
 
@@ -86,14 +85,14 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 //                finish();
                 break;
             case R.id.lnCheck:
+                lnCheck.setVisibility(View.INVISIBLE);
                 if (edtComment.getText().toString().length() > 0) {
                     commentPresenter.postComment(idTask,idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
                 } else {
                     Toast.makeText(this, "Vui lòng nhập bình luận", Toast.LENGTH_LONG).show();
                 }
                 break;
-            case R.id.rlComment:
-                edtComment.requestFocus();
+            case R.id.edtComment:
                 tvComment.setVisibility(View.INVISIBLE);
                 break;
         }
@@ -107,11 +106,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void commentSuccess(String message) {
-        ShowAlertDialog.showAlert(message, this);
+        finish();
     }
 
     @Override
     public void commentFail(String message) {
-
+        lnCheck.setVisibility(View.VISIBLE);
     }
 }

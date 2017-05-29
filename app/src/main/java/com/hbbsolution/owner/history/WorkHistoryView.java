@@ -1,6 +1,6 @@
 package com.hbbsolution.owner.history;
 
-import com.hbbsolution.owner.history.model.Doc;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
  */
 
 public interface WorkHistoryView {
-    void getInfoWorkHistory (List<Doc> listWorkHistory,int pages);
-    void getMoreInfoWorkHistory (List<Doc> listWorkHistory);
-    void getInfoWorkHistoryTime (List<Doc> listWorkHistory,String startAt,String endAt,int pages);
-    void getMoreInfoWorkHistoryTime (List<Doc> listWorkHistory,String startAt,String endAt);
+    void getInfoWorkHistory (List<WorkHistory> listWorkHistory, int pages);
+    void getMoreInfoWorkHistory (List<WorkHistory> listWorkHistory);
+    void getInfoWorkHistoryTime (List<WorkHistory> listWorkHistory, String startAt, String endAt, int pages);
+    void getMoreInfoWorkHistoryTime (List<WorkHistory> listWorkHistory, String startAt, String endAt);
     void getError();
 }

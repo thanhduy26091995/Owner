@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.model.Doc;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.view.DetailWorkHistoryActivity;
 import com.squareup.picasso.Picasso;
 
@@ -33,13 +33,13 @@ import java.util.Locale;
 
 public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.RecyclerViewHolder> {
     private Context context;
-    private List<Doc> listData;
+    private List<WorkHistory> listData;
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String date;
     private String startTime, endTime;
     private String type,title,work,description,address,avatar,name,address_;
     private int price;
-    private Doc doc;
+    private WorkHistory doc;
     private Pair<View, String> pairJobType;
     private final static int FADE_DURATION = 1000;
     @Override
@@ -48,7 +48,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         return new RecyclerViewHolder(view);
     }
 
-    public HistoryJobAdapter(Context context, List<Doc> listData) {
+    public HistoryJobAdapter(Context context, List<WorkHistory> listData) {
         this.context = context;
         this.listData = listData;
     }

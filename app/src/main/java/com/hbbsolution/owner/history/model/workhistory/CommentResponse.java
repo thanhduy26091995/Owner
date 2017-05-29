@@ -1,5 +1,5 @@
 
-package com.hbbsolution.owner.history.model;
+package com.hbbsolution.owner.history.model.workhistory;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
