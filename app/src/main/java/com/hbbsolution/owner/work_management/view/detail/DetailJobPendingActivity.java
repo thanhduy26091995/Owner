@@ -1,16 +1,20 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +25,7 @@ import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Helper;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
+import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
@@ -40,7 +45,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobPendingActivity extends AppCompatActivity implements View.OnClickListener{
+public class DetailJobPendingActivity extends AppCompatActivity implements DetailJobPostView,View.OnClickListener{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.lo_clear_job_pending)
@@ -69,8 +74,11 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
     ImageView img_avatarMaid;
     @BindView(R.id.img_TypeJob)
     ImageView img_TypeJob;
+    @BindView(R.id.progressDetailJobPending)
+    ProgressBar progressBar;
 
     private DatumPending mDatum;
+    private DetailJobPostPresenter mDetailJobPostPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +91,8 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mDetailJobPostPresenter = new DetailJobPostPresenter(this);
+
         lo_clear_job_pending.setOnClickListener(this);
         lo_infoMaid.setOnClickListener(this);
 
@@ -91,10 +101,12 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
 
         txtNameMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
         txtAddressMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
-        Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
-                .error(R.drawable.no_image)
-                .placeholder(R.drawable.no_image)
+
+        Picasso.with(this).load(mDatum.getStakeholders().getMadi().getInfo().getImage())
+                .error(R.drawable.avatar)
+                .placeholder(R.drawable.avatar)
                 .into(img_avatarMaid);
+
         txtTitleJobPending.setText(mDatum.getInfo().getTitle());
         txtTypeJobPending.setText(mDatum.getInfo().getWork().getName());
         txtContentJobPending.setText(mDatum.getInfo().getDescription());
@@ -135,7 +147,27 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.lo_clear_job_pending:
-                Toast.makeText(DetailJobPendingActivity.this, "Đã xóa", Toast.LENGTH_SHORT).show();
+                String id = mDatum.getId();
+                String idOwner = mDatum.getStakeholders().getOwner();
+                Log.d("idrequset", id + " - " + idOwner);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setCancelable(false);
+                alertDialog.setTitle("Thông báo");
+                alertDialog.setMessage("Bạn có chắc muốn xóa bài đăng này !");
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        mDetailJobPostPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
+                    }
+                });
+                alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.show();
                 break;
             case R.id.lo_infoMaid:
                 Intent itInfoUser = new Intent(DetailJobPendingActivity.this, MaidProfileActivity.class);
@@ -162,5 +194,15 @@ public class DetailJobPendingActivity extends AppCompatActivity implements View.
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String mDateStartWork = df.format(date0);
         return mDateStartWork;
+    }
+
+    @Override
+    public void displayNotifyJobPost(boolean isJobPost) {
+
+    }
+
+    @Override
+    public void displayError(String error) {
+
     }
 }

@@ -140,20 +140,14 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-//                    Intent refresh = new Intent(getActivity(), WorkManagementActivity.class);
-//                    startActivity(refresh);
+
                     getActivity().finish();
                     getActivity().overridePendingTransition(0, 0);
                     getActivity().startActivity(getActivity().getIntent());
                     getActivity().overridePendingTransition(0, 0);
                 }
             });
-            alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
 
-                }
-            });
             alertDialog.show();
         }else {
             Toast.makeText(getActivity(), "Xóa thất bại", Toast.LENGTH_SHORT).show();

@@ -400,4 +400,12 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+    <ProgressBar
+        android:id="@+id/progressDetailJobPending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
 </LinearLayout>

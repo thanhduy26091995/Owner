@@ -18,6 +18,7 @@ import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerRespon
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 import com.hbbsolution.owner.work_management.presenter.WorkManagerPresenter;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPendingActivity;
 
 import java.util.ArrayList;
@@ -76,9 +77,14 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
         mJobPendingAdapter.setCallback(new JobPendingAdapter.Callback() {
             @Override
             public void onItemClick(DatumPending mDatum) {
-                Intent itDetailJobPending = new Intent(getActivity(), DetailJobPendingActivity.class);
+                Intent itDetailJobPending = new Intent(getActivity(), DetailJobDoingActivity.class);
                 itDetailJobPending.putExtra("mDatum", mDatum);
                 startActivity(itDetailJobPending);
+            }
+
+            @Override
+            public void onItemLongClick(DatumPending mDatum) {
+
             }
         });
 

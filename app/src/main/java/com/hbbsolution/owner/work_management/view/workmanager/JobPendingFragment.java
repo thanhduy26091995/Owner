@@ -1,9 +1,11 @@
 package com.hbbsolution.owner.work_management.view.workmanager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -83,6 +85,28 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
                 Intent itDetailJobPending = new Intent(getActivity(), DetailJobPendingActivity.class);
                 itDetailJobPending.putExtra("mDatum", mDatum);
                 startActivity(itDetailJobPending);
+            }
+
+            @Override
+            public void onItemLongClick(final DatumPending mDatum) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setCancelable(false);
+                alertDialog.setTitle("Thông báo");
+                alertDialog.setMessage("Bạn có muốn xóa công việc nay ? ");
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        progressBar.setVisibility(View.GONE);
+                        mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
+                    }
+                });
+                alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.show();
             }
         });
     }

@@ -18,7 +18,9 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -61,12 +63,23 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
 
         if(tabJob == 2){
             holder.txtType.setText("Đang chờ xác nhận");
+
+            if (CompareDays(getDatePostHistory(mDatum.getInfo().getTime().getEndAt()))) {
+                holder.txtExpired.setVisibility(View.VISIBLE);
+                holder.lo_background.setVisibility(View.VISIBLE);
+                holder.txtNumber_request_detail_post.setVisibility(View.GONE);
+            } else {
+                holder.txtExpired.setVisibility(View.GONE);
+                holder.lo_background.setVisibility(View.GONE);
+
+            }
         }
 
 
         if(tabJob == 3){
             holder.txtType.setText("Đang làm");
         }
+
 
 
         Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
@@ -80,6 +93,16 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
                 if (callback != null) {
                     callback.onItemClick(mDatum);
                 }
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (callback != null) {
+                    callback.onItemLongClick(mDatum);
+                }
+                return true;
             }
         });
     }
@@ -113,6 +136,7 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
 
     public interface Callback {
         void onItemClick(DatumPending mDatum);
+        void onItemLongClick(DatumPending mDatum);
     }
 
     private void getTimeDoingPost(TextView txtTimeDoingPost, String mTimeStartWork, String mTimeEndWork) {
@@ -155,5 +179,26 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timer)));
             txtTimePostHistory.setText(ngays + " ngày trước");
         }
+    }
+
+    private boolean CompareDays(String dateStartWork) {
+        Date date1 = null;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        Date date = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date1 = sdf.parse(dateStartWork);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (date1.after(date)) {
+            return false;
+        }
+        return true;
     }
 }
