@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.maid_near_by.view.filter.view;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,6 +64,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     LinearLayout linearOld;
     @BindView(R.id.txt_filter_old)
     TextView txtOld;
+    @BindView(R.id.txt_filter)
+    TextView txtFilter;
 
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
@@ -72,6 +75,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private Integer gender = null, maxDistance = null;
     private String workId = null;
     private boolean isChooseOld = false;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +117,20 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         linearTypeJob.setOnClickListener(this);
         linearPrice.setOnClickListener(this);
         linearOld.setOnClickListener(this);
+        txtFilter.setOnClickListener(this);
+    }
+
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang tải...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
     @Override
@@ -120,27 +138,27 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         if (item.getItemId() == android.R.id.home) {
             finish();
         } else if (item.getItemId() == R.id.action_done) {
-            Integer ageMin = null, ageMax = null;
-            //filter project
-            workId = hashMapTypeJob.get(txtTypeJob.getText().toString());
-            if (txtGender.getText().toString().equals("Nam") || txtGender.getText().toString().equals("Male")) {
-                gender = 0;
-            } else if (txtGender.getText().toString().equals("Nữ") || txtGender.getText().toString().equals("Female")) {
-                gender = 1;
-            }
-            if (isChooseOld) {
-                ageMin = fromOld;
-                ageMax = toOld;
-            }
-            //save
-            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance);
+//            Integer ageMin = null, ageMax = null;
+//            //filter project
+//            workId = hashMapTypeJob.get(txtTypeJob.getText().toString());
+//            if (txtGender.getText().toString().equals("Nam") || txtGender.getText().toString().equals("Male")) {
+//                gender = 0;
+//            } else if (txtGender.getText().toString().equals("Nữ") || txtGender.getText().toString().equals("Female")) {
+//                gender = 1;
+//            }
+//            if (isChooseOld) {
+//                ageMin = fromOld;
+//                ageMax = toOld;
+//            }
+//            //save
+//            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance);
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_filter_done, menu);
+        //getMenuInflater().inflate(R.menu.menu_filter_done, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -165,7 +183,24 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             showBottomSheetGender(listPrice, txtPrice);
         } else if (v == linearOld) {
             showDialogFilterOld();
-
+        } else if (v == txtFilter) {
+            showProgressDialog();
+            //disable button
+            txtFilter.setEnabled(false);
+            Integer ageMin = null, ageMax = null;
+            //filter project
+            workId = hashMapTypeJob.get(txtTypeJob.getText().toString());
+            if (txtGender.getText().toString().equals("Nam") || txtGender.getText().toString().equals("Male")) {
+                gender = 0;
+            } else if (txtGender.getText().toString().equals("Nữ") || txtGender.getText().toString().equals("Female")) {
+                gender = 1;
+            }
+            if (isChooseOld) {
+                ageMin = fromOld;
+                ageMax = toOld;
+            }
+            //save
+            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance);
         }
     }
 
@@ -293,6 +328,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void filterMaid(MaidNearByResponse maidNearByResponse) {
+        txtFilter.setEnabled(true);
+        hideProgressDialog();
         if (maidNearByResponse.getData().size() >= 0) {
             Intent resultIntent = new Intent();
             resultIntent.putExtra(Constants.MAID_LIST, (Serializable) maidNearByResponse.getData());

@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.maid_profile.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -19,6 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
@@ -35,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.blurry.Blurry;
 
 import static android.view.View.GONE;
 
@@ -76,6 +81,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     View vLine;
     @BindView(R.id.img_avatarMaid)
     ImageView img_avatarMaid;
+    @BindView(R.id.img_blur_image)
+    ImageView imgBlurImage;
 
 
     private MaidProfilePresenter mMaidProfilePresenter;
@@ -111,6 +118,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
         workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
+
         if (mMaidInfo != null) {
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
@@ -123,7 +131,23 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                     .error(R.drawable.avatar)
                     .into(img_avatarMaid);
             mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), 1);
+
+            // from Bitmap
+            Glide.with(MaidProfileActivity.this)
+                    .load(mMaidInfo.getInfo().getImage())
+                    .asBitmap()
+                    .error(R.drawable.avatar)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            Blurry.with(MaidProfileActivity.this)
+                                    .radius(15)
+                                    .from(resource)
+                                    .into(imgBlurImage);
+                        }
+                    });
         }
+
         if (workHistory != null) {
             txtNameInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getName());
             txtPriceInfoMaid.setText(String.valueOf(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice()));

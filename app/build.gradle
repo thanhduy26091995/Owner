@@ -51,4 +51,6 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //blur image
+    compile 'jp.wasabeef:blurry:2.1.1'
 }
