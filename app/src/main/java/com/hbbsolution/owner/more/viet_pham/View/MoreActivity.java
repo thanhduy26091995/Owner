@@ -8,11 +8,17 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
+import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
+import com.hbbsolution.owner.utils.SessionManagerUser;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,12 +37,23 @@ public class MoreActivity extends AppCompatActivity {
     CardView cvSignIn;
     @BindView(R.id.cardview_statistic)
     CardView cvStatistic;
+    @BindView(R.id.txt_name)
+    TextView txtName;
+    @BindView(R.id.txt_address)
+    TextView txtAddress;
+    @BindView(R.id.img_avatar)
+    ImageView imgAvatar;
+
+    private SessionManagerUser sessionManagerUser;
+    private HashMap<String, String> hashDataUser = new HashMap<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
         ButterKnife.bind(this);
+        sessionManagerUser = new SessionManagerUser(this);
+        initData();
         //config toolbar
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -44,6 +61,15 @@ public class MoreActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtMore_title_toothbar.setText(getResources().getString(R.string.more));
         addEvents();
+    }
+
+    private void initData() {
+        hashDataUser = sessionManagerUser.getUserDetails();
+        //showing data
+        txtName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
+        txtAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
+        ImageLoader.getInstance().loadImageAvatar(MoreActivity.this, hashDataUser.get(SessionManagerUser.KEY_AVATAR),
+                imgAvatar);
     }
 
     @Override
@@ -58,8 +84,13 @@ public class MoreActivity extends AppCompatActivity {
         cvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
-                startActivity(intent);
+                if (sessionManagerUser.isLoggedIn()) {
+                    Intent intent = new Intent(MoreActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

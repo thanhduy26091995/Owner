@@ -50,6 +50,8 @@
         <activity android:name=".report.view.ReportMaidActivity" />
         <activity android:name=".maid_near_by.view.filter.view.FilterActivity" />
 
+        <activity android:name=".more.viet_pham.View.profile.ProfileActivity"/>
+
         <activity android:name=".history.view.DetailLiabilitiesHistory"></activity>
     </application>
 
