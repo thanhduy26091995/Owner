@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.home.HomeActivity;
-import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
-import com.hbbsolution.owner.more.viet_pham.View.signup.SignUpView;
+import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 import butterknife.BindView;
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 04/05/2017.
  */
 
-public class TermsActivity extends AppCompatActivity implements SignUpView {
+public class TermsActivity extends AppCompatActivity implements MoreView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.terms_title_toothbar)
@@ -96,16 +96,16 @@ public class TermsActivity extends AppCompatActivity implements SignUpView {
         ButterKnife.bind(this).unbind();
     }
 
+
     @Override
-    public void displaySignUp(RegisterResponse registerResponse) {
-        if (registerResponse.getStatus().equals("true"))
+    public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
+        if (bodyResponse.getStatus() == true)
         {
             Intent intent = new Intent(TermsActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         }
-
     }
 
     @Override
