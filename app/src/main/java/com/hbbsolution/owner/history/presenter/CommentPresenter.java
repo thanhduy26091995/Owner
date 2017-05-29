@@ -24,8 +24,8 @@ public class CommentPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void postComment(String fromId,String toId,String content,int rate) {
-        Call<CommentResponse> call = apiService.postComment(fromId,toId,content,rate);
+    public void postComment(String idTask,String toId,String content,int rate) {
+        Call<CommentResponse> call = apiService.postComment(idTask,toId,content,rate);
         call.enqueue(new Callback<CommentResponse>() {
             @Override
             public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {

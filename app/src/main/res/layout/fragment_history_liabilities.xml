@@ -50,7 +50,18 @@
         android:layout_height="0.1dp"
         android:layout_marginTop="15dp"
         android:background="@color/color_line_view" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview_history_liabilities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

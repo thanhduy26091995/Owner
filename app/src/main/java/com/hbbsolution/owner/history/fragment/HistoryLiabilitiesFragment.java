@@ -3,6 +3,7 @@ package com.hbbsolution.owner.history.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.adapter.HistoryHelperAdapter;
+import com.hbbsolution.owner.history.adapter.HistoryLiabilitiesAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,7 +26,7 @@ public class HistoryLiabilitiesFragment extends Fragment {
     private View v;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private HistoryHelperAdapter historyHelperAdapter;
+    private HistoryLiabilitiesAdapter historyLiabilitiesAdapter;
     private TextView tvStartDate, tvEndDate;
     private Calendar cal;
     private Date startDate, endDate;
@@ -43,13 +44,13 @@ public class HistoryLiabilitiesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_history_liabilities, container, false);
-        //Gán adapter các thứ
-//        historyHelperAdapter = new HistoryHelperAdapter(getActivity());
-//        recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
-//        layoutManager = new LinearLayoutManager(getActivity());
-//        historyHelperAdapter.notifyDataSetChanged();
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(historyHelperAdapter);
+//        Gán adapter các thứ
+        historyLiabilitiesAdapter = new HistoryLiabilitiesAdapter(getActivity());
+        recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_liabilities);
+        layoutManager = new LinearLayoutManager(getActivity());
+        historyLiabilitiesAdapter.notifyDataSetChanged();
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(historyLiabilitiesAdapter);
 
         cal = Calendar.getInstance();
         tvStartDate = (TextView) v.findViewById(R.id.tvStartDate);

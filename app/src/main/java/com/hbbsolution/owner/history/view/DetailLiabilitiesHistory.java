@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,8 +16,6 @@ import butterknife.ButterKnife;
 public class DetailLiabilitiesHistory extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.lo_clear_job_pending)
-    LinearLayout lo_clear_job_pending;
     @BindView(R.id.lo_infoMaid)
     RelativeLayout lo_infoMaid;
     @BindView(R.id.txtTitleHistory)

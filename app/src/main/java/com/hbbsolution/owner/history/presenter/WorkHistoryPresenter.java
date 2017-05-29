@@ -24,8 +24,8 @@ public class WorkHistoryPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoWorkHistory(int page) {
-        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory("", "", page);
+    public void getInfoWorkHistory(int page,String endTime) {
+        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory("", endTime, page);
         call.enqueue(new Callback<WorkHistoryResponse>() {
             @Override
             public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {
@@ -46,8 +46,8 @@ public class WorkHistoryPresenter {
         });
     }
 
-    public void getMoreInfoWorkHistory(int page) {
-        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory("", "", page);
+    public void getMoreInfoWorkHistory(int page,String endDate) {
+        Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory("", endDate, page);
         call.enqueue(new Callback<WorkHistoryResponse>() {
             @Override
             public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {

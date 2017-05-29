@@ -15,8 +15,6 @@ import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPending
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,7 +23,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -39,11 +36,12 @@ public interface ApiInterface {
 
     @GET("owner/getAllTasks")
     Call<JobPendingResponse> getJobPendingResponse(@Query("process") String idProcess);
+
     @GET("owner/getHistoryTasks")
     Call<WorkHistoryResponse> getInfoWorkHistory(@Query("startAt") String startAt,@Query("endAt")String endAt,@Query("page")int page);
 
-    @GET("owner/getAllTasks")
-    Call<WorkHistoryResponse> getInfoWorkHistory(@Query("process") String idProcess);
+    @GET("owner/getAllWorkedMaid")
+    Call<WorkHistoryResponse> getAllMaid(@Query("startAt") String startAt,@Query("endAt")String endAt);
 
     @GET("more/getAllMaids")
     Call<MaidNearByResponse> getMaidNearBy(@Query("lat") Double lat, @Query("lng") Double lng, @Query("ageMin") Integer ageMin, @Query("ageMax") Integer ageMax,
@@ -109,6 +107,8 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("/comment")
-    Call<CommentResponse> postComment(@Field("fromId") String fromId, @Field("toId") String toId,
+    Call<CommentResponse> postComment(@Field("task") String taskID, @Field("toId") String toId,
                                       @Field("content") String content, @Field("evaluation_point") int evaluation_point);
+
+
 }

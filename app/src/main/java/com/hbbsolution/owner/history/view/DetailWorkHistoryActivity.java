@@ -134,6 +134,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
         {
             case R.id.txt_history_comment:
                 Intent intent = new Intent (this,CommentActivity.class);
+                intent.putExtra("idTask",doc.getId());
                 intent.putExtra("idHelper",doc.getStakeholders().getReceived().getId());
                 intent.putExtra("imgHelper",doc.getStakeholders().getReceived().getInfo().getImage());
                 intent.putExtra("nameHelper",doc.getStakeholders().getReceived().getInfo().getName());

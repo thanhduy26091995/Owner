@@ -3,6 +3,7 @@ package com.hbbsolution.owner.history.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,7 +43,8 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private int currentPage, currentPageTime;
     private EndlessRecyclerViewScrollListener scrollListener;
     private List<Doc> mDocList = new ArrayList<>();
-
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     public HistoryJobFragment() {
     }
 
@@ -58,6 +60,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_history_job, container, false);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_job);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -76,7 +79,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
 
 
         workHistoryPresenter = new WorkHistoryPresenter(this);
-        workHistoryPresenter.getInfoWorkHistory(currentPage);
+        workHistoryPresenter.getInfoWorkHistory(currentPage,simpleDateFormat.format(endDate));
         tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,10 +93,40 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
             }
         });
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshItems();
+            }
+        });
+
         return v;
     }
 
+    void refreshItems() {
+        // Load items
+        // ...
+        if(tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
+            currentPage=1;
+            workHistoryPresenter.getInfoWorkHistory(currentPage,simpleDateFormat.format(endDate));
+        }
+        else
+        {
+            currentPageTime=1;
+            workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate),simpleDateFormat.format(endDate),currentPage);
+        }
+        // Load complete
+        onItemsLoadComplete();
+    }
 
+    void onItemsLoadComplete() {
+        // Update the adapter and notify data set changed
+        // ...
+
+        // Stop refresh animation
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
     @Override
     public void getInfoWorkHistory(List<Doc> listWorkHistory, final int pages) {
         mDocList.clear();
@@ -107,7 +140,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 // presenter.getAllResort(response.getCurrentPage() + 1);
                 //get variables for load more
                 if (currentPage < pages) {
-                    workHistoryPresenter.getMoreInfoWorkHistory(currentPage + 1);
+                    workHistoryPresenter.getMoreInfoWorkHistory(currentPage + 1,simpleDateFormat.format(endDate));
                 }
             }
         };
@@ -184,7 +217,6 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
                 view.setVisibility(View.INVISIBLE);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 currentPageTime = 1;
                 if(endDate!=null) {
                     workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
@@ -229,7 +261,6 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
                 view.setVisibility(View.INVISIBLE);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 currentPageTime = 1;
                 if(startDate!=null) {
                     workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);

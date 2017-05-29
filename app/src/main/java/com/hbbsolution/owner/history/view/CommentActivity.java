@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +38,12 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     LinearLayout lnCheck;
     @BindView(R.id.txtNext)
     TextView txtNext;
+    @BindView(R.id.tvComment)
+    TextView tvComment;
+    @BindView(R.id.rlComment)
+    RelativeLayout rlComment;
     private CommentPresenter commentPresenter;
-    private String idHelper, nameHelper, imgHelper, addressHelper;
+    private String idHelper, nameHelper, imgHelper, addressHelper,idTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            idTask=extras.getString("idTask");
             idHelper = extras.getString("idHelper");
             imgHelper = extras.getString("imgHelper");
             nameHelper = extras.getString("nameHelper");
@@ -61,12 +67,13 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         tvNameHelper.setText(nameHelper);
         tvAddress.setText(addressHelper);
         Picasso.with(this).load(imgHelper)
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
                 .into(imgAvatar);
 
         txtNext.setOnClickListener(this);
         lnCheck.setOnClickListener(this);
+        rlComment.setOnClickListener(this);
     }
 
 
@@ -80,10 +87,14 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.lnCheck:
                 if (edtComment.getText().toString().length() > 0) {
-                    commentPresenter.postComment("5911460ae740560cb422ac35", idHelper, edtComment.getText().toString().trim(), ratingBar.getNumStars());
+                    commentPresenter.postComment(idTask,idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
                 } else {
                     Toast.makeText(this, "Vui lòng nhập bình luận", Toast.LENGTH_LONG).show();
                 }
+                break;
+            case R.id.rlComment:
+                edtComment.requestFocus();
+                tvComment.setVisibility(View.INVISIBLE);
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.history.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.history.view.DetailLiabilitiesHistory;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 
 import java.util.List;
@@ -42,7 +44,7 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
 
     @Override
     public int getItemCount() {
-        return maidList.size();
+        return 1;
     }
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder implements
@@ -58,11 +60,13 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
             tvDate = (TextView) itemView.findViewById(R.id.txt_history_date);
             tvType = (TextView) itemView.findViewById(R.id.txt_history_list_work);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-
+            Intent intent = new Intent(context, DetailLiabilitiesHistory.class);
+            context.startActivity(intent);
         }
 
         @Override
@@ -71,8 +75,5 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         }
     }
 
-    public void setBackgroundRatingBar() {
-
-    }
 }
 
