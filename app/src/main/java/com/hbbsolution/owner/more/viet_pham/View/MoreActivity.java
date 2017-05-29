@@ -1,8 +1,6 @@
 package com.hbbsolution.owner.more.viet_pham.View;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
+import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
+import com.hbbsolution.owner.utils.SessionManagerUser;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,18 +37,23 @@ public class MoreActivity extends AppCompatActivity {
     CardView cvSignIn;
     @BindView(R.id.cardview_statistic)
     CardView cvStatistic;
-    @BindView(R.id.text_username)
-    TextView txtUsername;
-    @BindView(R.id.text_useraddress)
-    TextView txtUseraddress;
+    @BindView(R.id.txt_name)
+    TextView txtName;
+    @BindView(R.id.txt_address)
+    TextView txtAddress;
     @BindView(R.id.img_avatar)
-    ImageView img_avatar;
+    ImageView imgAvatar;
+
+    private SessionManagerUser sessionManagerUser;
+    private HashMap<String, String> hashDataUser = new HashMap<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
         ButterKnife.bind(this);
+        sessionManagerUser = new SessionManagerUser(this);
+        initData();
         //config toolbar
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -54,7 +61,15 @@ public class MoreActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtMore_title_toothbar.setText(getResources().getString(R.string.more));
         addEvents();
-        restoringPreferences();
+    }
+
+    private void initData() {
+        hashDataUser = sessionManagerUser.getUserDetails();
+        //showing data
+        txtName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
+        txtAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
+        ImageLoader.getInstance().loadImageAvatar(MoreActivity.this, hashDataUser.get(SessionManagerUser.KEY_AVATAR),
+                imgAvatar);
     }
 
     @Override
@@ -69,8 +84,13 @@ public class MoreActivity extends AppCompatActivity {
         cvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
-                startActivity(intent);
+                if (sessionManagerUser.isLoggedIn()) {
+                    Intent intent = new Intent(MoreActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -96,27 +116,5 @@ public class MoreActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
-    }
-
-
-    public void restoringPreferences() {
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-        //lấy user, pwd, nếu không thấy giá trị mặc định là rỗng
-        String name = sharedPreferences.getString("name", "");
-        String address = sharedPreferences.getString("address", "");
-        String imageUrl = sharedPreferences.getString("avatar", "");
-
-        txtUsername.setText(name);
-        txtUseraddress.setText(address);
-
-        Glide.with(this)
-                .load(imageUrl)
-                .into(img_avatar);
-
-
     }
 }

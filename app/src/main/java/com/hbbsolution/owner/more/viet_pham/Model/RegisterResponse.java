@@ -15,8 +15,7 @@ public class RegisterResponse {
     @Expose
     private Data data;
 
-    public RegisterResponse()
-    {
+    public RegisterResponse() {
 
     }
 

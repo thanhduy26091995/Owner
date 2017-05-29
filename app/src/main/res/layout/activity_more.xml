@@ -3,9 +3,8 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/more_background"
-    >
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -83,19 +82,17 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/text_username"
+                                android:id="@+id/txt_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Nguyễn Văn A"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="@dimen/text_size_large" />
 
                             <TextView
-                                android:id="@+id/text_useraddress"
+                                android:id="@+id/txt_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="123 đường số 1, quận 1, Tp hcm" />
+                                android:layout_marginTop="10dp" />
                         </LinearLayout>
 
                         <com.hbbsolution.owner.base.IconTextView
