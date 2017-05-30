@@ -17,6 +17,7 @@ import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp1Activity;
+import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
@@ -47,12 +48,14 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
     @BindView(R.id.imb_google)
     ImageButton imbGoogle;
     private SignInPresenter mSignInPresenter;
+    private SessionManagerUser sessionManagerUser;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
+        sessionManagerUser = new SessionManagerUser(this);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -101,6 +104,9 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
     @Override
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
         if (bodyResponse.getStatus() == true) {
+            //save session
+            sessionManagerUser.createLoginSession(bodyResponse.getData().getUser());
+
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

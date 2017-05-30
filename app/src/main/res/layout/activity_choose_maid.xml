@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/toolbar_theme">
+
+            <TextView
+                android:id="@+id/job_post_title_toothbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/colorBlack"
+                android:text="Yêu cầu công việc"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="Đăng bài"
+                android:id="@+id/txtPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/home_background_history"
+                android:textSize="16sp" />
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorWhite">
+
+                <EditText
+                    android:id="@+id/edtTitlePost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Tiêu đề"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <EditText
+                    android:id="@+id/job_post_txtType_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:focusable="false"
+                    android:hint="Loại công việc"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <EditText
+                    android:id="@+id/edtDescriptionPost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Mô tả công việc"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <EditText
+                    android:id="@+id/edtAddressPost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Địa chỉ"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/chb_tools_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:buttonTint="@color/home_background_history"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@string/font_family_regular"
+                        android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:text="Mang theo dụng cụ làm việc"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite">
+
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <RadioButton
+                        android:id="@+id/rad_type_money_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/home_background_history"
+                        android:checked="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/colorBlack" />
+
+                    <RadioButton
+                        android:id="@+id/rad_type_money_khoan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/home_background_history"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edt_monney_work"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:hint="Nhập số tiền công"
+                        android:inputType="numberDecimal"
+                        android:padding="10dp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@string/font_family_regular"
+                        android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:text="Khoán tiền công theo thời gian"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="Ngày làm việc"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtDate_start_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:text="10/05/2017"
+                        android:textColor="@color/home_background_history" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Thời gian làm việc"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtTime_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp"
+                        android:text="00:00 AM"
+                        android:textColor="@color/home_background_history" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="đến" />
+
+                    <TextView
+                        android:id="@+id/txtTime_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="right"
+                        android:paddingBottom="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="00:00 AM"
+                        android:textColor="@color/home_background_history" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressPostJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+</RelativeLayout>
