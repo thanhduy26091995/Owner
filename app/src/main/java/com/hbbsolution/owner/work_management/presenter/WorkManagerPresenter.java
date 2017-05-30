@@ -27,7 +27,7 @@ public class WorkManagerPresenter {
     }
 
     public void getInfoWorkList(String process){
-        Call<WorkManagerResponse> call = apiService.getInfo(process);
+        Call<WorkManagerResponse> call = apiService.getInfo(process, true);
         call.enqueue(new Callback<WorkManagerResponse>() {
             @Override
             public void onResponse(Call<WorkManagerResponse> call, Response<WorkManagerResponse> response) {
@@ -55,7 +55,6 @@ public class WorkManagerPresenter {
                 Log.e("onResponses", "isonResponse");
                 if(response.isSuccessful()){
                     try{
-                        Log.e("onResponse", "isonResponse");
                         JobPendingResponse jobPendingResponse = response.body();
                         mWorkManagerView.getInfoJobPending(jobPendingResponse);
                     }catch (Exception e){

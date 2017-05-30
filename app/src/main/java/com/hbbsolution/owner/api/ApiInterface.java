@@ -32,8 +32,11 @@ import retrofit2.http.Url;
  */
 
 public interface ApiInterface {
+//    @GET("owner/getAllTasks")
+//    Call<WorkManagerResponse> getInfo(@Query("process") String idProcess);
+
     @GET("owner/getAllTasks")
-    Call<WorkManagerResponse> getInfo(@Query("process") String idProcess);
+    Call<WorkManagerResponse> getInfo(@Query("process") String idProcess, @Query("sortByTaskTime") boolean isSortByTaskTime);
 
     @GET("owner/getAllTasks")
     Call<JobPendingResponse> getJobPendingResponse(@Query("process") String idProcess);
