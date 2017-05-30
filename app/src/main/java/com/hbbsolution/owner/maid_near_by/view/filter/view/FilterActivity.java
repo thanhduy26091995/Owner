@@ -72,9 +72,9 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private FilterPresenter presenter;
     private int fromOld = 18, toOld = 18;
     private Double lat, lng;
-    private Integer gender = null, maxDistance = null;
+    private Integer gender = null, maxDistance = null, priceMin = null, priceMax = null;
     private String workId = null;
-    private boolean isChooseOld = false;
+    private boolean isChooseOld = false, isChoosePrice = false;
     private ProgressDialog progressDialog;
 
     @Override
@@ -175,6 +175,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             }
         } else if (v == linearPrice) {
             List<String> listPrice = new ArrayList<>();
+            listPrice.add("< 50.000d");
             listPrice.add("50.000d - 150.000d");
             listPrice.add("150.000d - 250.000d");
             listPrice.add("250.000d - 350.000d");
@@ -199,8 +200,28 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 ageMin = fromOld;
                 ageMax = toOld;
             }
+
+            if (isChoosePrice) {
+                if (txtPrice.getText().equals("< 50.000d")) {
+                    priceMax = 50000;
+                } else if (txtPrice.getText().equals("50.000d - 150.000d")) {
+                    priceMin = 50000;
+                    priceMax = 150000;
+                } else if (txtPrice.getText().equals("150.000d - 250.000d")) {
+                    priceMin = 150000;
+                    priceMax = 250000;
+                } else if (txtPrice.getText().equals("250.000d - 350.000d")) {
+                    priceMin = 250000;
+                    priceMax = 350000;
+                } else if (txtPrice.getText().equals("350.000d - 450.000d")) {
+                    priceMin = 350000;
+                    priceMax = 450000;
+                } else {
+                    priceMin = 450000;
+                }
+            }
             //save
-            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance);
+            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax);
         }
     }
 
@@ -299,6 +320,9 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         mTypeJobtAdapter.setCallback(new BottomSheetAdapter.Callback() {
             @Override
             public void onItemClick(int position) {
+                if (txtShow.getId() == R.id.txt_price) {
+                    isChoosePrice = true;
+                }
                 txtShow.setText(listData.get(position));
                 mBottomSheetDialog.dismiss();
             }
