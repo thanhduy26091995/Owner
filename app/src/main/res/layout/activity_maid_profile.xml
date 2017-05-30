@@ -125,7 +125,7 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-                    />
+
 
                 </android.support.v7.widget.Toolbar>
 
@@ -134,6 +134,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/img_blur_image"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"

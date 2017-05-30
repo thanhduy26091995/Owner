@@ -11,6 +11,7 @@ public class Data {
     @SerializedName("token")
     @Expose
     private String token;
+
     @SerializedName("user")
     @Expose
     private User user;

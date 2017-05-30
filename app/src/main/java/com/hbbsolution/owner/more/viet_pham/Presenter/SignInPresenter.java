@@ -1,11 +1,9 @@
 package com.hbbsolution.owner.more.viet_pham.Presenter;
 
-import android.util.Log;
-
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
-import com.hbbsolution.owner.more.viet_pham.View.signin.SignInView;
+import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -18,37 +16,32 @@ import retrofit2.Response;
  */
 
 public class SignInPresenter {
-    private SignInView mSignInView;
+    private MoreView mMoreView;
     private ApiInterface mApiService;
 
-    public SignInPresenter(SignInView mSignInView) {
-        this.mSignInView = mSignInView;
+    public SignInPresenter(MoreView mMoreView) {
+        this.mMoreView = mMoreView;
         mApiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
     public void signIn(String username, String password) {
         RequestBody requestBodyUserName = RequestBody.create(MediaType.parse("text"), username);
         RequestBody requestBodyPassword = RequestBody.create(MediaType.parse("text"), password);
-        mApiService.signInAccount(requestBodyUserName,requestBodyPassword).enqueue(new Callback<RegisterResponse>() {
+        mApiService.signInAccount(requestBodyUserName, requestBodyPassword).enqueue(new Callback<BodyResponse>() {
             @Override
-            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                if (response.isSuccessful())
-                {
-                    try {
-                        RegisterResponse registerResponse = response.body();
-                        mSignInView.displaySignUp(registerResponse);
-                        Log.e("Tag1",response.body().getStatus());
-                    }catch (Exception e)
-                    {
-                        Log.e("exception", e.toString());
-                        mSignInView.displayError();
-                    }
+            public void onResponse(Call<BodyResponse> call, Response<BodyResponse> response) {
+                try {
+                    BodyResponse bodyResponse = response.body();
+                    mMoreView.displaySignUpAndSignIn(bodyResponse);
+
+                } catch (Exception e) {
+                    mMoreView.displayError();
                 }
             }
 
             @Override
-            public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Log.e("Tag",t.toString());
+            public void onFailure(Call<BodyResponse> call, Throwable t) {
+
             }
         });
     }

@@ -20,9 +20,10 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
-import com.hbbsolution.owner.more.viet_pham.Model.RegisterResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
+import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.utils.EmailValidate;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -37,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 5/10/2017.
  */
 
-public class SignUp2Activity extends AppCompatActivity implements SignUpView {
+public class SignUp2Activity extends AppCompatActivity implements MoreView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.button_next)
@@ -203,8 +204,9 @@ public class SignUp2Activity extends AppCompatActivity implements SignUpView {
         ButterKnife.bind(this).unbind();
     }
 
+
     @Override
-    public void displaySignUp(RegisterResponse registerResponse) {
+    public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
 
     }
 

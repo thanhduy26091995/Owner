@@ -5,6 +5,6 @@ package com.hbbsolution.owner.history;
  */
 
 public interface CommentHistoryView {
-    void success (String message);
-    void fail ();
+    void checkCommentSuccess (String message);
+    void checkCommentFail ();
 }
