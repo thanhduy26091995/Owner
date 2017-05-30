@@ -80,4 +80,7 @@
     <string name="setting">Cài Đặt</string>
     <string name="huy">Hủy</string>
     <!---->
+
+    <string name="english">Tiếng Anh</string>
+    <string name="vietnamese">Tiếng Việt</string>
 </resources>
