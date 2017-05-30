@@ -407,7 +407,6 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
             } catch (Exception e) {
 
             }
-
         } else {
             ShowAlertDialog.showAlert("Có lỗi, vui lòng thử lại", ChooseMaidActivity.this);
         }
