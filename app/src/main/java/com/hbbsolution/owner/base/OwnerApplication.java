@@ -32,6 +32,7 @@ public class OwnerApplication extends Application {
         super.onCreate();
         Iconify.with(new FontAwesomeModule());
         instance = this;
+        setLocale();
         // register to be informed of activities starting up
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override

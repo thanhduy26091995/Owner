@@ -245,6 +245,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 Intent intent = new Intent(MaidProfileActivity.this, ReportMaidActivity.class);
                 intent.putExtra("maid", mMaidInfo);
                 intent.putExtra("work", workHistory);
+                intent.putExtra("helper", datum);
                 startActivity(intent);
                 break;
 

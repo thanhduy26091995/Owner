@@ -24,13 +24,16 @@ public class WorkHistoryPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoWorkHistory(int page,String endTime) {
+    public void getInfoWorkHistory(int page, String endTime) {
         Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory("", endTime, page);
         call.enqueue(new Callback<WorkHistoryResponse>() {
             @Override
             public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {
+                Log.e("onResponse",  "isResponse");
                 if (response.isSuccessful()) {
                     try {
+                        int codeResponse = response.code();
+                        Log.e("codeResponse", codeResponse + "");
                         WorkHistoryResponse workManagerResponse = response.body();
                         workHistoryView.getInfoWorkHistory(workManagerResponse.getData().getDocs(), workManagerResponse.getData().getPages());
                     } catch (Exception e) {
@@ -41,12 +44,12 @@ public class WorkHistoryPresenter {
 
             @Override
             public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
-                Log.e("error", t.toString());
+                Log.e("dsaerror", t.toString());
             }
         });
     }
 
-    public void getMoreInfoWorkHistory(int page,String endDate) {
+    public void getMoreInfoWorkHistory(int page, String endDate) {
         Call<WorkHistoryResponse> call = apiService.getInfoWorkHistory("", endDate, page);
         call.enqueue(new Callback<WorkHistoryResponse>() {
             @Override

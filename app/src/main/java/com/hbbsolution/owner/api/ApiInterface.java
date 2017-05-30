@@ -7,6 +7,7 @@ import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
+import com.hbbsolution.owner.report.model.ReportResponse;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
@@ -117,5 +118,7 @@ public interface ApiInterface {
     Call<CommentResponse> postComment(@Field("task") String taskID, @Field("toId") String toId,
                                       @Field("content") String content, @Field("evaluation_point") int evaluation_point);
 
-
+    @FormUrlEncoded
+    @POST("owner/report")
+    Call<ReportResponse> reportMaid(@Field("toId") String toId, @Field("content") String content);
 }
