@@ -105,7 +105,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
         if (bodyResponse.getStatus() == true) {
             //save session
-            sessionManagerUser.createLoginSession(bodyResponse.getData().getUser());
+            sessionManagerUser.createLoginSession(bodyResponse.getData());
 
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
