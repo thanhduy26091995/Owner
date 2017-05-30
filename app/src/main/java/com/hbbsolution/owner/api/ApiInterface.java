@@ -43,18 +43,19 @@ public interface ApiInterface {
     Call<JobPendingResponse> getJobPendingResponse(@Query("process") String idProcess);
 
     @GET("owner/getHistoryTasks")
-    Call<WorkHistoryResponse> getInfoWorkHistory(@Query("startAt") String startAt,@Query("endAt")String endAt,@Query("page")int page);
+    Call<WorkHistoryResponse> getInfoWorkHistory(@Query("startAt") String startAt, @Query("endAt") String endAt, @Query("page") int page);
 
     @GET("owner/getAllWorkedMaid")
-    Call<HistoryHelperResponse> getAllWorkedMaid(@Query("startAt") String startAt, @Query("endAt")String endAt);
+    Call<HistoryHelperResponse> getAllWorkedMaid(@Query("startAt") String startAt, @Query("endAt") String endAt);
 
     @GET("task/getComment")
-    Call<CommentHistoryResponse> checkComment(@Query("task")String idTask);
+    Call<CommentHistoryResponse> checkComment(@Query("task") String idTask);
 
 
     @GET("more/getAllMaids")
     Call<MaidNearByResponse> getMaidNearBy(@Query("lat") Double lat, @Query("lng") Double lng, @Query("ageMin") Integer ageMin, @Query("ageMax") Integer ageMax,
-                                           @Query("gender") Integer gender, @Query("maxDistance") Integer maxDistance);
+                                           @Query("gender") Integer gender, @Query("maxDistance") Integer maxDistance, @Query("priceMin") Integer priceMin,
+                                           @Query("priceMax") Integer priceMax);
 
     @GET("more/getAllMaids")
     Call<MaidNearByResponse> searchMaidByAddress(@Query("lat") Double lat, @Query("lng") Double lng);
@@ -87,7 +88,7 @@ public interface ApiInterface {
     @Multipart
     @POST("auth/login")
     Call<BodyResponse> signInAccount(@Part("username") RequestBody username,
-                                       @Part("password") RequestBody password
+                                     @Part("password") RequestBody password
     );
 
     @GET
@@ -103,11 +104,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @PUT("task/update")
-    Call<JobPostResponse> updatePostJob(@Field("id") String idTask ,@Field("title") String title, @Field("work") String typeJob,
-                                  @Field("description") String description, @Field("addressName") String addressName,
-                                  @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
-                                  @Field("package") String packageId, @Field("price") int price,
-                                  @Field("startAt") String startAt, @Field("endAt") String endAt);
+    Call<JobPostResponse> updatePostJob(@Field("id") String idTask, @Field("title") String title, @Field("work") String typeJob,
+                                        @Field("description") String description, @Field("addressName") String addressName,
+                                        @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
+                                        @Field("package") String packageId, @Field("price") int price,
+                                        @Field("startAt") String startAt, @Field("endAt") String endAt);
 
 
     @FormUrlEncoded

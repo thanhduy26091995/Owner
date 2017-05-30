@@ -68,7 +68,7 @@ public class MoreActivity extends AppCompatActivity {
         //showing data
         txtName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
         txtAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
-        ImageLoader.getInstance().loadImageAvatar(MoreActivity.this, hashDataUser.get(SessionManagerUser.KEY_AVATAR),
+        ImageLoader.getInstance().loadImageAvatar(MoreActivity.this, hashDataUser.get(SessionManagerUser.KEY_IMAGE),
                 imgAvatar);
     }
 

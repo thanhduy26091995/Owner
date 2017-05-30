@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -408,6 +409,10 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
             myMarkerHashMap.clear();
             markerLoadImage.clear();
             maidInfoList = (List<Maid>) data.getSerializableExtra(String.valueOf(Constants.MAID_LIST));
+            if (maidInfoList.size() == 0) {
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.activity), "Không tìm thấy kết quả", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
             updateMap(googleMap);
         }
         super.onActivityResult(requestCode, resultCode, data);

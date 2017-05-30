@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -28,6 +27,7 @@ import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.history.model.helper.Datum;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
+import com.hbbsolution.owner.maid_profile.choose_maid.view.ChooseMaidActivity;
 import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.view.ReportMaidActivity;
@@ -118,7 +118,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         linearReportMaid.setOnClickListener(this);
 
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
-        datum = (Datum)getIntent().getSerializableExtra("helper");
+        datum = (Datum) getIntent().getSerializableExtra("helper");
         workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
         if (mMaidInfo != null) {
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
@@ -156,6 +156,23 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtAddressInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
             ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(workHistory.getStakeholders().getReceived().getId(), 1);
+            Picasso.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(img_avatarMaid);
+            Glide.with(MaidProfileActivity.this)
+                    .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                    .asBitmap()
+                    .error(R.drawable.avatar)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            Blurry.with(MaidProfileActivity.this)
+                                    .radius(15)
+                                    .from(resource)
+                                    .into(imgBlurImage);
+                        }
+                    });
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
@@ -167,6 +184,23 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtAddressInfoMaid.setText(datum.getId().getInfo().getAddress().getName());
             //       ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(datum.getId().getId(), 1);
+            Picasso.with(this).load(datum.getId().getInfo().getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(img_avatarMaid);
+            Glide.with(MaidProfileActivity.this)
+                    .load(datum.getId().getInfo().getImage())
+                    .asBitmap()
+                    .error(R.drawable.avatar)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            Blurry.with(MaidProfileActivity.this)
+                                    .radius(15)
+                                    .from(resource)
+                                    .into(imgBlurImage);
+                        }
+                    });
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
@@ -201,7 +235,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lo_ChosenMaidInfo:
-                Toast.makeText(MaidProfileActivity.this, "Đã Chọn", Toast.LENGTH_SHORT).show();
+                Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
+                startActivity(intentChooseMaid);
                 break;
             case R.id.txtBackInfoMaid:
                 finish();

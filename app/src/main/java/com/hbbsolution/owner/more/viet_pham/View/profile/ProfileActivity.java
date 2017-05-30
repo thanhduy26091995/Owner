@@ -62,12 +62,12 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             txtProfileGender.setText("Nữ");
         }
         txtProfilePhone.setText(hashDataUser.get(SessionManagerUser.KEY_PHONE));
-        ImageLoader.getInstance().loadImageAvatar(ProfileActivity.this, hashDataUser.get(SessionManagerUser.KEY_AVATAR),
+        ImageLoader.getInstance().loadImageAvatar(ProfileActivity.this, hashDataUser.get(SessionManagerUser.KEY_IMAGE),
                 imgAvatar);
 
         // from Bitmap
         Glide.with(ProfileActivity.this)
-                .load(hashDataUser.get(SessionManagerUser.KEY_AVATAR))
+                .load(hashDataUser.get(SessionManagerUser.KEY_IMAGE))
                 .asBitmap()
                 .error(R.drawable.avatar)
                 .into(new SimpleTarget<Bitmap>() {
