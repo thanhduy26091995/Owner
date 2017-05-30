@@ -236,6 +236,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         switch (view.getId()) {
             case R.id.lo_ChosenMaidInfo:
                 Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
+                intentChooseMaid.putExtra("maid", mMaidInfo);
                 startActivity(intentChooseMaid);
                 break;
             case R.id.txtBackInfoMaid:
