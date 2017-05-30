@@ -156,6 +156,23 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtAddressInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
             ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(workHistory.getStakeholders().getReceived().getId(), 1);
+            Picasso.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(img_avatarMaid);
+            Glide.with(MaidProfileActivity.this)
+                    .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                    .asBitmap()
+                    .error(R.drawable.avatar)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            Blurry.with(MaidProfileActivity.this)
+                                    .radius(15)
+                                    .from(resource)
+                                    .into(imgBlurImage);
+                        }
+                    });
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
@@ -167,6 +184,23 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtAddressInfoMaid.setText(datum.getId().getInfo().getAddress().getName());
             //       ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(datum.getId().getId(), 1);
+            Picasso.with(this).load(datum.getId().getInfo().getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(img_avatarMaid);
+            Glide.with(MaidProfileActivity.this)
+                    .load(datum.getId().getInfo().getImage())
+                    .asBitmap()
+                    .error(R.drawable.avatar)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            Blurry.with(MaidProfileActivity.this)
+                                    .radius(15)
+                                    .from(resource)
+                                    .into(imgBlurImage);
+                        }
+                    });
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }

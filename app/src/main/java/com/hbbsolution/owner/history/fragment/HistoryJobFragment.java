@@ -2,6 +2,7 @@ package com.hbbsolution.owner.history.fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
@@ -45,6 +47,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private List<WorkHistory> mDocList = new ArrayList<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private ProgressBar progressBar;
     public HistoryJobFragment() {
     }
 
@@ -60,6 +63,8 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_history_job, container, false);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressPost);
+        progressBar.setVisibility(View.VISIBLE);
         mSwipeRefreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_job);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -96,43 +101,33 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
-                refreshItems();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
+                            currentPage=1;
+                            workHistoryPresenter.getInfoWorkHistory(currentPage,simpleDateFormat.format(endDate));
+                        }
+                        else
+                        {
+                            currentPageTime=1;
+                            workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate),simpleDateFormat.format(endDate),currentPage);
+                        }
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1500);
             }
         });
-
         return v;
     }
 
-    void refreshItems() {
-        // Load items
-        // ...
-        if(tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
-            currentPage=1;
-            workHistoryPresenter.getInfoWorkHistory(currentPage,simpleDateFormat.format(endDate));
-        }
-        else
-        {
-            currentPageTime=1;
-            workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate),simpleDateFormat.format(endDate),currentPage);
-        }
-        // Load complete
-        onItemsLoadComplete();
-    }
-
-    void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
-
-        // Stop refresh animation
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
     @Override
     public void getInfoWorkHistory(List<WorkHistory> listWorkHistory, final int pages) {
         mDocList.clear();
         mDocList = listWorkHistory;
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
+        progressBar.setVisibility(View.GONE);
         view.setVisibility(View.VISIBLE);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
@@ -166,6 +161,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         mDocList = listWorkHistory;
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
+        progressBar.setVisibility(View.GONE);
         view.setVisibility(View.VISIBLE);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
@@ -218,6 +214,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 startDate = cal.getTime();
                 view.setVisibility(View.INVISIBLE);
                 currentPageTime = 1;
+                progressBar.setVisibility(View.VISIBLE);
                 if(endDate!=null) {
                     workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                 }
@@ -262,6 +259,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 endDate = cal.getTime();
                 view.setVisibility(View.INVISIBLE);
                 currentPageTime = 1;
+                progressBar.setVisibility(View.VISIBLE);
                 if(startDate!=null) {
                     workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                 }
