@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.api.ApiClient;
+import com.hbbsolution.owner.base.OwnerApplication;
 import com.hbbsolution.owner.home.HomeActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
@@ -20,6 +22,8 @@ import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp1Activity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,13 +53,15 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
     ImageButton imbGoogle;
     private SignInPresenter mSignInPresenter;
     private SessionManagerUser sessionManagerUser;
-
+    private OwnerApplication ownerApplication;
+    private HashMap<String, String> hashDataUser = new HashMap<>();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
         sessionManagerUser = new SessionManagerUser(this);
+        ownerApplication = new OwnerApplication();
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -106,7 +112,8 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
         if (bodyResponse.getStatus() == true) {
             //save session
             sessionManagerUser.createLoginSession(bodyResponse.getData());
-
+            hashDataUser = sessionManagerUser.getUserDetails();
+            ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

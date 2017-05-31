@@ -1,8 +1,10 @@
 package com.hbbsolution.owner.more.viet_pham.View;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +49,8 @@ public class MoreActivity extends AppCompatActivity {
     ImageView imgAvatar;
     @BindView(R.id.lnLanguage)
     LinearLayout lnLanguage;
+    @BindView(R.id.lnLogOut)
+    LinearLayout lnLogOut;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
 
@@ -117,6 +121,25 @@ public class MoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MoreActivity.this, LanguageActivity.class);
                 startActivity(intent);
+            }
+        });
+        lnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MoreActivity.this);
+                builder.setTitle(getResources().getString(R.string.signout))
+                        .setMessage(getResources().getString(R.string.signoutContent)).setCancelable(true)
+                        .setNegativeButton(getResources().getString(R.string.cancel), null)
+                        .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                sessionManagerUser.logoutUser();
+                                Intent intent= new Intent(MoreActivity.this, SignInActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }).show();
             }
         });
     }
