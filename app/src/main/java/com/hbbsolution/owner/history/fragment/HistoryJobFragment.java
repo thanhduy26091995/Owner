@@ -20,6 +20,7 @@ import com.hbbsolution.owner.history.adapter.HistoryJobAdapter;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.presenter.WorkHistoryPresenter;
 import com.hbbsolution.owner.utils.EndlessRecyclerViewScrollListener;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
+
     public HistoryJobFragment() {
     }
 
@@ -65,7 +67,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         v = inflater.inflate(R.layout.fragment_history_job, container, false);
         progressBar = (ProgressBar) v.findViewById(R.id.progressPost);
         progressBar.setVisibility(View.VISIBLE);
-        mSwipeRefreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_job);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -84,7 +86,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
 
 
         workHistoryPresenter = new WorkHistoryPresenter(this);
-        workHistoryPresenter.getInfoWorkHistory(currentPage,simpleDateFormat.format(endDate));
+        workHistoryPresenter.getInfoWorkHistory(currentPage, simpleDateFormat.format(endDate));
         tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,14 +106,12 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
-                            currentPage=1;
-                            workHistoryPresenter.getInfoWorkHistory(currentPage,simpleDateFormat.format(endDate));
-                        }
-                        else
-                        {
-                            currentPageTime=1;
-                            workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate),simpleDateFormat.format(endDate),currentPage);
+                        if (tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
+                            currentPage = 1;
+                            workHistoryPresenter.getInfoWorkHistory(currentPage, simpleDateFormat.format(endDate));
+                        } else {
+                            currentPageTime = 1;
+                            workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPage);
                         }
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
@@ -135,7 +135,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 // presenter.getAllResort(response.getCurrentPage() + 1);
                 //get variables for load more
                 if (currentPage < pages) {
-                    workHistoryPresenter.getMoreInfoWorkHistory(currentPage + 1,simpleDateFormat.format(endDate));
+                    workHistoryPresenter.getMoreInfoWorkHistory(currentPage + 1, simpleDateFormat.format(endDate));
                 }
             }
         };
@@ -212,15 +212,17 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
-                view.setVisibility(View.INVISIBLE);
-                currentPageTime = 1;
-                progressBar.setVisibility(View.VISIBLE);
-                if(endDate!=null) {
-                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
-                }
-                else
-                {
-                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), "", currentPageTime);
+                if (endDate.getTime() - startDate.getTime() >= 0) {
+                    view.setVisibility(View.INVISIBLE);
+                    currentPageTime = 1;
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (endDate != null) {
+                        workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                    } else {
+                        workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), "", currentPageTime);
+                    }
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                 }
             }
         };
@@ -257,22 +259,24 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
-                view.setVisibility(View.INVISIBLE);
-                currentPageTime = 1;
-                progressBar.setVisibility(View.VISIBLE);
-                if(startDate!=null) {
-                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
-                }
-                else
-                {
-                    workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);
+                if (endDate.getTime() - startDate.getTime() >= 0) {
+                    view.setVisibility(View.INVISIBLE);
+                    currentPageTime = 1;
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (startDate != null) {
+                        workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                    } else {
+                        workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);
+                    }
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                 }
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s=tvEndDate.getText().toString();
-        if(tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
+        String s = tvEndDate.getText().toString();
+        if (tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
             s = strEndDate;
         }
         String strArrtmp[] = s.split("/");

@@ -55,6 +55,7 @@
     <string name="liabilities">Công nợ</string>
     <string name="notpayment">Chưa thanh toán</string>
     <string name="payliabilities">Thanh toán tiền nợ</string>
+    <string name="rangetime">Vui lòng xem lại khoản thời gian</string>
     <!--history_screen end-->
 
     <!--contact and about screen start-->

@@ -19,6 +19,7 @@ import com.hbbsolution.owner.history.HelperHistoryView;
 import com.hbbsolution.owner.history.adapter.HistoryHelperAdapter;
 import com.hbbsolution.owner.history.model.helper.Datum;
 import com.hbbsolution.owner.history.presenter.HelperHistoryPresenter;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,12 +37,13 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
     private HistoryHelperAdapter historyHelperAdapter;
     private TextView tvStartDate, tvEndDate;
     private Calendar cal;
-    private Date startDate,endDate;
+    private Date startDate, endDate;
     private String strStartDate, strEndDate;
     private HelperHistoryPresenter helperHistoryPresenter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
+
     public static HistoryHelperFragment newInstance() {
         HistoryHelperFragment fragment = new HistoryHelperFragment();
         Bundle args = new Bundle();
@@ -57,7 +59,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         //Gán adapter các thứ
         progressBar = (ProgressBar) v.findViewById(R.id.progressPost);
         progressBar.setVisibility(View.VISIBLE);
-        mSwipeRefreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
         layoutManager = new LinearLayoutManager(getActivity());
         helperHistoryPresenter = new HelperHistoryPresenter(this);
@@ -101,6 +103,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         });
         return v;
     }
+
     public void showDatePickerDialog1() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year,
@@ -119,14 +122,17 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
-                view.setVisibility(View.INVISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
-                if(endDate!=null) {
-                    helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
-                }
-                else
-                {
-                    helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), "");
+                if (endDate.getTime() - startDate.getTime() >= 0) {
+                    view.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    if (endDate != null) {
+                        helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
+                    } else {
+                        helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), "");
+                    }
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime),getActivity());
                 }
             }
         };
@@ -163,23 +169,32 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
-                view.setVisibility(View.INVISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
-                if(startDate!=null) {
-                    helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
-                }
-                else
-                {
-                    helperHistoryPresenter.getInfoHelperHistoryTime("", simpleDateFormat.format(endDate));
+                if (endDate.getTime() - startDate.getTime() >= 0) {
+                    view.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (startDate != null) {
+                        helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
+                    } else {
+                        helperHistoryPresenter.getInfoHelperHistoryTime("", simpleDateFormat.format(endDate));
+                    }
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime),getActivity());
                 }
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s=tvEndDate.getText().toString();
-        if(tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
+        String s = tvEndDate.getText().toString();
+        if (tvEndDate.getText().
+
+                toString().
+
+                equals("- - / - - / - - - -"))
+
+        {
             s = strEndDate;
         }
+
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -205,7 +220,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
 
     @Override
     public void getInfoHelperHistory(List<Datum> datumList) {
-        historyHelperAdapter = new HistoryHelperAdapter(getActivity(),datumList);
+        historyHelperAdapter = new HistoryHelperAdapter(getActivity(), datumList);
         historyHelperAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(historyHelperAdapter);
         view.setVisibility(View.VISIBLE);
