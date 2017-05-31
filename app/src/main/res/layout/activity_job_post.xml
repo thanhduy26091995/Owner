@@ -216,19 +216,35 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/edt_monney_work"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
 
-                        android:hint="Nhập số tiền công"
-                        android:inputType="numberDecimal"
-                        android:padding="10dp"
-                        android:textColor="@color/colorBlack"
-                        android:textColorHint="@color/colorBlack"
-                        android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/edt_monney_work"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:background="@android:color/transparent"
+                            android:hint="Nhập số tiền công"
+                            android:inputType="numberDecimal"
+                            android:padding="10dp"
+                            android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/colorBlack"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="VND"
+                            android:textColor="@color/colorBlack" />
+
+                    </LinearLayout>
+
 
                     <View
                         android:layout_width="match_parent"
@@ -236,18 +252,39 @@
                         android:layout_marginRight="20dp"
                         android:background="@color/colorBlack" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:fontFamily="@string/font_family_regular"
-                        android:gravity="center_vertical"
-                        android:padding="10dp"
-                        android:inputType="number"
-                        android:text="Khoán tiền công theo thời gian"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="16sp" />
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edt_monney_work_hour"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@string/font_family_regular"
+                            android:gravity="center_vertical"
+                            android:padding="10dp"
+                            android:inputType="number"
+                            android:hint="Tính tiền theo thời gian"
+                            android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/colorBlack"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="/ giờ"
+                            android:textColor="@color/colorBlack" />
+
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
             </LinearLayout>

@@ -23,6 +23,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -68,9 +69,9 @@ public interface ApiInterface {
     @GET("maid/getComment")
     Call<CommentMaidResponse> getListCommentMaid(@Query("id") String idTask, @Query("page") int page);
 
-
     @GET("work/getAll")
     Call<TypeJobResponse> getAllTypeJob();
+
 
     @Multipart
     @POST("auth/register")
@@ -101,16 +102,16 @@ public interface ApiInterface {
     Call<JobPostResponse> postJob(@Field("title") String title, @Field("work") String typeJob,
                                   @Field("description") String description, @Field("addressName") String addressName,
                                   @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
-                                  @Field("package") String packageId, @Field("price") int price,
-                                  @Field("startAt") String startAt, @Field("endAt") String endAt);
+                                  @Field("package") String packageId, @Field("price") String price,
+                                  @Field("startAt") String startAt, @Field("endAt") String endAt, @Field("hour") String hour);
 
     @FormUrlEncoded
     @PUT("task/update")
     Call<JobPostResponse> updatePostJob(@Field("id") String idTask, @Field("title") String title, @Field("work") String typeJob,
                                         @Field("description") String description, @Field("addressName") String addressName,
                                         @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
-                                        @Field("package") String packageId, @Field("price") int price,
-                                        @Field("startAt") String startAt, @Field("endAt") String endAt);
+                                        @Field("package") String packageId, @Field("price") String price,
+                                        @Field("startAt") String startAt, @Field("endAt") String endAt, String hour);
 
 
     @FormUrlEncoded
