@@ -108,6 +108,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void reportSuccess(String message) {
         ShowAlertDialog.showAlert(message,this);
+        edtReport.getText().clear();
     }
 
     @Override

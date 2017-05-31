@@ -169,16 +169,18 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
-                if (endDate.getTime() - startDate.getTime() >= 0) {
-                    view.setVisibility(View.INVISIBLE);
-                    progressBar.setVisibility(View.VISIBLE);
-                    if (startDate != null) {
+                if(startDate!=null) {
+                    if (endDate.getTime() - startDate.getTime() >= 0) {
+                        view.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
                         helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                     } else {
-                        helperHistoryPresenter.getInfoHelperHistoryTime("", simpleDateFormat.format(endDate));
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                     }
-                } else {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime),getActivity());
+                }
+                else
+                {
+                    helperHistoryPresenter.getInfoHelperHistoryTime("", simpleDateFormat.format(endDate));
                 }
             }
         };

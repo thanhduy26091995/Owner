@@ -212,9 +212,9 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
+                currentPageTime = 1;
                 if (endDate.getTime() - startDate.getTime() >= 0) {
                     view.setVisibility(View.INVISIBLE);
-                    currentPageTime = 1;
                     progressBar.setVisibility(View.VISIBLE);
                     if (endDate != null) {
                         workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
@@ -259,17 +259,18 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
-                if (endDate.getTime() - startDate.getTime() >= 0) {
-                    view.setVisibility(View.INVISIBLE);
-                    currentPageTime = 1;
-                    progressBar.setVisibility(View.VISIBLE);
-                    if (startDate != null) {
+                currentPageTime = 1;
+                if (startDate != null) {
+                    if (endDate.getTime() - startDate.getTime() >= 0) {
+                        view.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
                         workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                     } else {
-                        workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                     }
-                } else {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
+                }
+                else {
+                    workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);
                 }
             }
         };

@@ -101,7 +101,7 @@
     <string name="liabilities">Liabilities</string>
     <string name="unpayalbe">Chưa thanh toán</string>
     <string name="payliabilities">Thanh toán tiền nợ</string>
-    <string name="rangetime">Vui lòng xem lại khoản thời gian</string>
+    <string name="rangetime">Vui lòng xem lại khoảng thời gian</string>
     <!--history_screen end-->
 
     <!--statistic_screen start-->
