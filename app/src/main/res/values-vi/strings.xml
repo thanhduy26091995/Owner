@@ -29,6 +29,7 @@
     <string name="rate">Đánh giá</string>
     <string name="completed">Đã hoàn thành</string>
     <string name="to">đến</string>
+    <string name="send">Gửi</string>
 
     <!--comment_screen start-->
     <string name="yourcomment">Nhận xét của bạn</string>
@@ -54,6 +55,7 @@
     <string name="liabilities">Công nợ</string>
     <string name="notpayment">Chưa thanh toán</string>
     <string name="payliabilities">Thanh toán tiền nợ</string>
+    <string name="rangetime">Vui lòng xem lại khoản thời gian</string>
     <!--history_screen end-->
 
     <!--contact and about screen start-->

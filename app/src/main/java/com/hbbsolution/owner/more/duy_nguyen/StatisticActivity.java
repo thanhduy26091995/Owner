@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +19,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StatisticActivity extends AppCompatActivity implements View.OnClickListener{
+public class StatisticActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tvStartDate)
@@ -28,7 +29,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     @BindView(R.id.txt_statistic_payment)
     TextView tvPayment;
     private Calendar cal;
-    private Date startDate,endDate;
+    private Date startDate, endDate;
     private String strStartDate, strEndDate;
 
     @Override
@@ -41,52 +42,55 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         getTime();
         setEventClick();
     }
-    public void setToolbar()
-    {
+
+    public void setToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    public void setEventClick()
-    {
+
+    public void setEventClick() {
         tvStartDate.setOnClickListener(this);
         tvEndDate.setOnClickListener(this);
         tvPayment.setOnClickListener(this);
     }
+
     public void showDatePickerDialog1() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year,
                                   int monthOfYear,
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
-                String day = String.valueOf(dayOfMonth),month = String.valueOf(monthOfYear);
-                if (dayOfMonth<10)
-                {
-                    day="0"+dayOfMonth;
+                String day = String.valueOf(dayOfMonth), month = String.valueOf(monthOfYear);
+                if (dayOfMonth < 10) {
+                    day = "0" + dayOfMonth;
                 }
-                if(monthOfYear+1<10)
-                {
-                    month="0"+(monthOfYear+1);
+                if (monthOfYear + 1 < 10) {
+                    month = "0" + (monthOfYear + 1);
                 }
                 tvStartDate.setText(
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
+                if (endDate.getTime() - startDate.getTime() >= 0) {
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), StatisticActivity.this);
+                }
             }
-        };
-        //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
-        //sẽ giống với trên TextView khi mở nó lên
-        String s = tvStartDate.getText() + "";
-        String strArrtmp[] = s.split("/");
-        int ngay = Integer.parseInt(strArrtmp[0]);
-        int thang = Integer.parseInt(strArrtmp[1]) - 1;
-        int nam = Integer.parseInt(strArrtmp[2]);
-        DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
+    };
+    //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
+    //sẽ giống với trên TextView khi mở nó lên
+    String s = tvStartDate.getText() + "";
+    String strArrtmp[] = s.split("/");
+    int ngay = Integer.parseInt(strArrtmp[0]);
+    int thang = Integer.parseInt(strArrtmp[1]) - 1;
+    int nam = Integer.parseInt(strArrtmp[2]);
+    DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
         pic.setTitle("Chọn ngày bắt đầu");
         pic.show();
-    }
+}
 
     public void showDatePickerDialog2() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
@@ -94,20 +98,22 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                                   int monthOfYear,
                                   int dayOfMonth) {
                 //Mỗi lần thay đổi ngày tháng năm thì cập nhật lại TextView Date
-                String day = String.valueOf(dayOfMonth),month = String.valueOf(monthOfYear);
-                if (dayOfMonth<10)
-                {
-                    day="0"+dayOfMonth;
+                String day = String.valueOf(dayOfMonth), month = String.valueOf(monthOfYear);
+                if (dayOfMonth < 10) {
+                    day = "0" + dayOfMonth;
                 }
-                if(monthOfYear+1<10)
-                {
-                    month="0"+(monthOfYear+1);
+                if (monthOfYear + 1 < 10) {
+                    month = "0" + (monthOfYear + 1);
                 }
                 tvEndDate.setText(
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
+                if (endDate.getTime() - startDate.getTime() >= 0) {
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), StatisticActivity.this);
+                }
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
@@ -121,6 +127,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         pic.setTitle("Chọn ngày kết thúc");
         pic.show();
     }
+
     public void getTime() {
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         Date myDate = new Date();
@@ -129,15 +136,14 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         calendar.setTime(myDate);
         calendar.add(Calendar.DAY_OF_YEAR, -7);
         Date newDate = calendar.getTime();
-        strStartDate=date.format(newDate);
+        strStartDate = date.format(newDate);
         tvStartDate.setText(strStartDate);
         tvEndDate.setText(strEndDate);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.tvStartDate:
                 showDatePickerDialog1();
                 break;
@@ -148,6 +154,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                 break;
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
