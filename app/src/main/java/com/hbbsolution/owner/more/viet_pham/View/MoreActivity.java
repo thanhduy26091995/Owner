@@ -9,10 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
+import com.hbbsolution.owner.more.duy_nguyen.LanguageActivity;
 import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
@@ -43,7 +45,8 @@ public class MoreActivity extends AppCompatActivity {
     TextView txtAddress;
     @BindView(R.id.img_avatar)
     ImageView imgAvatar;
-
+    @BindView(R.id.lnLanguage)
+    LinearLayout lnLanguage;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
 
@@ -109,7 +112,13 @@ public class MoreActivity extends AppCompatActivity {
                 startActivity(iStatistic);
             }
         });
-
+        lnLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MoreActivity.this, LanguageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

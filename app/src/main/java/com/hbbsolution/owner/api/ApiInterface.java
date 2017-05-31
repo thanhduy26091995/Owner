@@ -4,6 +4,7 @@ import com.hbbsolution.owner.history.model.commenthistory.CommentHistoryResponse
 import com.hbbsolution.owner.history.model.helper.HistoryHelperResponse;
 import com.hbbsolution.owner.history.model.workhistory.CommentResponse;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
+import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
@@ -119,6 +120,15 @@ public interface ApiInterface {
     @POST("owner/comment")
     Call<CommentResponse> postComment(@Field("task") String taskID, @Field("toId") String toId,
                                       @Field("content") String content, @Field("evaluation_point") int evaluation_point);
+
+
+    @FormUrlEncoded
+    @POST("task/sendRequest")
+    Call<SendRequestResponse> sendRequest(@Field("maidId") String maidId, @Field("title") String title, @Field("package") String packageId,
+                                          @Field("work") String work, @Field("description") String description, @Field("price") Double price,
+                                          @Field("addressName") String addressName, @Field("lat") Double lat, @Field("lng") Double lng,
+                                          @Field("startAt") String startAt, @Field("endAt") String endAt, @Field("hour") Double hour,
+                                          @Field("tools") Boolean tools);
 
 
 }

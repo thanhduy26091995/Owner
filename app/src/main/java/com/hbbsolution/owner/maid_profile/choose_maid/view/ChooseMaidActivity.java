@@ -1,14 +1,18 @@
 package com.hbbsolution.owner.maid_profile.choose_maid.view;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,11 +27,17 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.maid_profile.choose_maid.presenter.ChooseMaidPresenter;
+import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
+import org.joda.time.DateTime;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,18 +83,23 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     CheckBox chb_tools_work;
     @BindView(R.id.progressPostJob)
     ProgressBar progressBar;
+    @BindView(R.id.edt_hour_work)
+    EditText edtHourWork;
 
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
     private String mTypeJob = null, mPackageId;
     private ChooseMaidPresenter presenter;
-
+    private Maid mMaidInfo;
+    private boolean mChosenTools = false;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_maid);
         ButterKnife.bind(this);
+        mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
         presenter = new ChooseMaidPresenter(this);
         //config toolbar
         setSupportActionBar(toolbar);
@@ -100,6 +115,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         txtDate_start_work.setOnClickListener(this);
         rad_type_money_work.setOnClickListener(this);
         rad_type_money_khoan.setOnClickListener(this);
+        mPackageId = "000000000000000000000001";
         //get data
         presenter.getAllTypeJob();
     }
@@ -176,6 +192,19 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         return super.onOptionsItemSelected(item);
     }
 
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(ChooseMaidActivity.this);
+        progressDialog.setMessage("Đang tải...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (progressDialog.isShowing() && progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if (v == edtType_job) {
@@ -186,17 +215,76 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
             getTimePicker(txtTime_start);
         } else if (v == txtTime_end) {
             getTimePicker(txtTime_end);
-        }
-        else if (v == rad_type_money_work){
+        } else if (v == rad_type_money_work) {
             mPackageId = "000000000000000000000001";
             edt_monney_work.setEnabled(true);
-        }
-        else if (v == rad_type_money_khoan){
+            edtHourWork.setEnabled(false);
+            edtHourWork.setText("");
+        } else if (v == rad_type_money_khoan) {
             mPackageId = "000000000000000000000002";
             edt_monney_work.setEnabled(false);
+            edtHourWork.setEnabled(true);
             edt_monney_work.setText("");
-            edt_monney_work.setHint("Nhập số tiền công");
+        } else if (v == txt_post_complete) {
+            if (checkDataComplete()) {
+                showProgressDialog();
+                presenter.getLocationAddress(edtAddressPost.getText().toString());
+            }
         }
+    }
+
+    private boolean checkDataComplete() {
+
+        if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
+                edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
+            progressBar.setVisibility(View.GONE);
+            ShowAlertDialog.showAlert("Hãy nhập đầy đủ thông tin", ChooseMaidActivity.this);
+            return false;
+        }
+
+        if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
+            progressBar.setVisibility(View.GONE);
+            ShowAlertDialog.showAlert("Chưa nhập số tiền", ChooseMaidActivity.this);
+            return false;
+        }
+
+        if (!validateTimeWork()) {
+            progressBar.setVisibility(View.GONE);
+            ShowAlertDialog.showAlert("Chọn giờ chưa phù hợp", ChooseMaidActivity.this);
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validateTimeWork() {
+        if (compareTime(txtTime_start.getText().toString(), txtTime_end.getText().toString())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean compareTime(String start, String end) {
+
+        String startTime = start;
+        String endTime = end;
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        Date d1 = null, d2 = null;
+
+        try {
+            d1 = sdf.parse(startTime);
+            d2 = sdf.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long elapsed = d2.getTime() - d1.getTime();
+        if (elapsed > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     private void eventClickTypeWork(final List<String> listData, final EditText txtShow) {
@@ -250,6 +338,77 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void displayError(String error) {
+        Log.d("ERROR", error);
+    }
 
+    @Override
+    public void getLocationAddress(GeoCodeMapResponse geoCodeMapResponse) {
+        Double price = null, hour = null;
+        double lat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
+        double lng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+        String title = edtTitlePost.getText().toString();
+        String description = edtDescriptionPost.getText().toString();
+        String address = edtAddressPost.getText().toString();
+        if (chb_tools_work.isChecked()) {
+            mChosenTools = true;
+        }
+        if (rad_type_money_work.isChecked()) {
+            price = Double.parseDouble(edt_monney_work.getText().toString());
+        } else {
+            hour = Double.parseDouble(edtHourWork.getText().toString());
+        }
+        String dateStartWork = getTimeWork(txtTime_start.getText().toString());
+        String dateEndWork = getTimeWork(txtTime_end.getText().toString());
+        //send request
+        presenter.sendRequest(mMaidInfo.getId(), title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
+
+    }
+
+    private String getTimeWork(String mTimeWork) {
+
+        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
+        String _TimeWork = txtDate_start_work.getText().toString() + " " + mTimeWork;
+        Date mTimeAt = null;
+        try {
+            mTimeAt = mCreateTime.parse(_TimeWork);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new DateTime(mTimeAt).toString();
+    }
+
+    @Override
+    public void displayNotFoundLocation(String error) {
+        hideProgressDialog();
+        ShowAlertDialog.showAlert(error, ChooseMaidActivity.this);
+    }
+
+    @Override
+    public void sendRequestJob(SendRequestResponse sendRequestResponse) {
+        hideProgressDialog();
+        boolean status = sendRequestResponse.isStatus();
+        if (status) {
+            try {
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChooseMaidActivity.this);
+                alertDialogBuilder.setMessage("Gửi yêu cầu thành công");
+                alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                finish();
+                                alertDialogBuilder.create().dismiss();
+                            }
+
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            } catch (Exception e) {
+
+            }
+        } else {
+            ShowAlertDialog.showAlert("Có lỗi, vui lòng thử lại", ChooseMaidActivity.this);
+        }
     }
 }

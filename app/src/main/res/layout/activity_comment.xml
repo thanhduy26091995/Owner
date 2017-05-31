@@ -221,7 +221,7 @@
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="100"/>
+            android:maxLength="500"/>
     </RelativeLayout>
 
     <View
