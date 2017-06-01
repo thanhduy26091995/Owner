@@ -22,7 +22,7 @@ public class ContactActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.contact_title_toothbar)
-    TextView txtTerms_title_toothbar;
+    TextView txtContact_title_toothbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,13 +33,11 @@ public class ContactActivity extends AppCompatActivity {
 
         //config toolbar
 
-        //a
-
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        txtTerms_title_toothbar.setText(getResources().getString(R.string.contact));
+        txtContact_title_toothbar.setText(getResources().getString(R.string.contact));
 
         addEvents();
     }

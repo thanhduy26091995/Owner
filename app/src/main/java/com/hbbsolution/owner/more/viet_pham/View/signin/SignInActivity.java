@@ -15,6 +15,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.base.OwnerApplication;
 import com.hbbsolution.owner.home.HomeActivity;
+import com.hbbsolution.owner.more.phuc_tran.ForgotPassActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
@@ -97,6 +98,13 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
                 String password = editPassword.getText().toString();
 
                 mSignInPresenter.signIn(username, password);
+            }
+        });
+        btnForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent itForgot = new Intent(SignInActivity.this, ForgotPassActivity.class);
+                startActivity(itForgot);
             }
         });
     }
