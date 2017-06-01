@@ -7,6 +7,7 @@ import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
+import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.report.model.ReportResponse;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -23,7 +24,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -136,4 +136,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("owner/report")
     Call<ReportResponse> reportMaid(@Field("toId") String toId, @Field("content") String content);
+
+    @GET("owner/statistical")
+    Call<StatisticResponse> getStatistic(@Query("startAt") String startAt, @Query("endAt") String endAt);
 }

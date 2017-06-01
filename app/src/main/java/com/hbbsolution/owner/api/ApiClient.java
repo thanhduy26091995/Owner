@@ -20,8 +20,9 @@ public class ApiClient {
 
     public static final String BASE_URL = "https://yukotest123.herokuapp.com/";
     public static String language = "en";
-    public static String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
+    public static String token = "970f9900d1e3d529edf4ce3ae801bd1ed44fb717a0a2f17f31b204afb37fca7fc6d9b2e3d7af81bcdb8dd287ec5c4563c13e8f2545e997b33b5fe75368db397c";
     private static Retrofit retrofit = null;
+
     public static Retrofit getClient() {
 
         Gson gson = new GsonBuilder()

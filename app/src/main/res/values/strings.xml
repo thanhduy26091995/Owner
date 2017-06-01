@@ -54,7 +54,7 @@
     <string name="more_notification">Thông báo</string>
     <string name="more_languge">Ngôn ngữ</string>
     <string name="english">English</string>
-    <string name="vietnamese">Vietnamese</string>
+    <string name="vietnamese">Tiếng Việt</string>
     <string name="more_share_app_Gv24">Chia sẻ ứng dụng Gv24</string>
     <string name="more_follow_Gv24_on_facebook">Theo dõi Gv24 trên Facebook</string>
     <string name="more_contact">Liên hệ</string>
@@ -115,6 +115,7 @@
     <string name="post_work">Công việc đã đăng</string>
     <string name="payment">Nạp tiền vào tài khoản</string>
     <string name="sodutaikhoan">Số dư tài khoản</string>
+    <string name="million">million</string>
     <!--statistic_screen end-->
 
     <!--contact and about screen start-->

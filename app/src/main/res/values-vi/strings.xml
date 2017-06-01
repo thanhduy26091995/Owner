@@ -74,6 +74,7 @@
     <string name="post_work">Công việc đã đăng</string>
     <string name="payment">Nạp tiền vào tài khoản</string>
     <string name="sodutaikhoan">Số dư tài khoản</string>
+    <string name="million">triệu</string>
     <!--statistic_screen end-->
 
     <!--Maid near by-->
@@ -83,6 +84,6 @@
     <string name="huy">Hủy</string>
     <!---->
 
-    <string name="english">Tiếng Anh</string>
+    <string name="english">English</string>
     <string name="vietnamese">Tiếng Việt</string>
 </resources>

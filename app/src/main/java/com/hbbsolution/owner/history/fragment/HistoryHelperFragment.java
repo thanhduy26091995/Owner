@@ -125,14 +125,9 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 if (endDate.getTime() - startDate.getTime() >= 0) {
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-
-                    if (endDate != null) {
-                        helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
-                    } else {
-                        helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), "");
-                    }
+                    helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                 } else {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime),getActivity());
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                 }
             }
         };
@@ -169,7 +164,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
-                if(startDate!=null) {
+                if (startDate != null) {
                     if (endDate.getTime() - startDate.getTime() >= 0) {
                         view.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
@@ -177,9 +172,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                     }
-                }
-                else
-                {
+                } else {
                     helperHistoryPresenter.getInfoHelperHistoryTime("", simpleDateFormat.format(endDate));
                 }
             }
@@ -187,16 +180,6 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
         String s = tvEndDate.getText().toString();
-        if (tvEndDate.getText().
-
-                toString().
-
-                equals("- - / - - / - - - -"))
-
-        {
-            s = strEndDate;
-        }
-
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;

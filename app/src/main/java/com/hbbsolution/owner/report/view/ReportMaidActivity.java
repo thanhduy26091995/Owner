@@ -16,7 +16,6 @@ import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.ReportView;
 import com.hbbsolution.owner.report.presenter.ReportPresenter;
-import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,8 +106,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void reportSuccess(String message) {
-        ShowAlertDialog.showAlert(message,this);
-        edtReport.getText().clear();
+       finish();
     }
 
     @Override

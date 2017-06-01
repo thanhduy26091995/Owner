@@ -216,11 +216,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 if (endDate.getTime() - startDate.getTime() >= 0) {
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    if (endDate != null) {
-                        workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
-                    } else {
-                        workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), "", currentPageTime);
-                    }
+                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                 }
@@ -268,8 +264,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                     }
-                }
-                else {
+                } else {
                     workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);
                 }
             }
@@ -277,9 +272,6 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
         String s = tvEndDate.getText().toString();
-        if (tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
-            s = strEndDate;
-        }
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
