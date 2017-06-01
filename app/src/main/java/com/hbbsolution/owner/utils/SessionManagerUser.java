@@ -141,7 +141,4 @@ public class SessionManagerUser {
         return pref.getBoolean(IS_LOGIN, false);
     }
 
-    public String getToken() {
-        return pref.getString(KEY_TOKEN, "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046");
-    }
 }
