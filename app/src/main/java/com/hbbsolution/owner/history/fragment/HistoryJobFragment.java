@@ -2,6 +2,7 @@ package com.hbbsolution.owner.history.fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
@@ -18,6 +20,7 @@ import com.hbbsolution.owner.history.adapter.HistoryJobAdapter;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.presenter.WorkHistoryPresenter;
 import com.hbbsolution.owner.utils.EndlessRecyclerViewScrollListener;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +48,8 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private List<WorkHistory> mDocList = new ArrayList<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private ProgressBar progressBar;
+
     public HistoryJobFragment() {
     }
 
@@ -60,7 +65,9 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_history_job, container, false);
-        mSwipeRefreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressPost);
+        progressBar.setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_job);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -79,7 +86,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
 
 
         workHistoryPresenter = new WorkHistoryPresenter(this);
-        workHistoryPresenter.getInfoWorkHistory(currentPage,simpleDateFormat.format(endDate));
+        workHistoryPresenter.getInfoWorkHistory(currentPage, simpleDateFormat.format(endDate));
         tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,43 +103,31 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
-                refreshItems();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
+                            currentPage = 1;
+                            workHistoryPresenter.getInfoWorkHistory(currentPage, simpleDateFormat.format(endDate));
+                        } else {
+                            currentPageTime = 1;
+                            workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPage);
+                        }
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1500);
             }
         });
-
         return v;
     }
 
-    void refreshItems() {
-        // Load items
-        // ...
-        if(tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
-            currentPage=1;
-            workHistoryPresenter.getInfoWorkHistory(currentPage,simpleDateFormat.format(endDate));
-        }
-        else
-        {
-            currentPageTime=1;
-            workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate),simpleDateFormat.format(endDate),currentPage);
-        }
-        // Load complete
-        onItemsLoadComplete();
-    }
-
-    void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
-
-        // Stop refresh animation
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
     @Override
     public void getInfoWorkHistory(List<WorkHistory> listWorkHistory, final int pages) {
         mDocList.clear();
         mDocList = listWorkHistory;
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
+        progressBar.setVisibility(View.GONE);
         view.setVisibility(View.VISIBLE);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
@@ -140,7 +135,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 // presenter.getAllResort(response.getCurrentPage() + 1);
                 //get variables for load more
                 if (currentPage < pages) {
-                    workHistoryPresenter.getMoreInfoWorkHistory(currentPage + 1,simpleDateFormat.format(endDate));
+                    workHistoryPresenter.getMoreInfoWorkHistory(currentPage + 1, simpleDateFormat.format(endDate));
                 }
             }
         };
@@ -166,6 +161,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         mDocList = listWorkHistory;
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
+        progressBar.setVisibility(View.GONE);
         view.setVisibility(View.VISIBLE);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
@@ -216,14 +212,17 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
-                view.setVisibility(View.INVISIBLE);
                 currentPageTime = 1;
-                if(endDate!=null) {
-                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
-                }
-                else
-                {
-                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), "", currentPageTime);
+                if (endDate.getTime() - startDate.getTime() >= 0) {
+                    view.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (endDate != null) {
+                        workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                    } else {
+                        workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), "", currentPageTime);
+                    }
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                 }
             }
         };
@@ -260,21 +259,25 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
-                view.setVisibility(View.INVISIBLE);
                 currentPageTime = 1;
-                if(startDate!=null) {
-                    workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                if (startDate != null) {
+                    if (endDate.getTime() - startDate.getTime() >= 0) {
+                        view.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
+                    } else {
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
+                    }
                 }
-                else
-                {
+                else {
                     workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);
                 }
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s=tvEndDate.getText().toString();
-        if(tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
+        String s = tvEndDate.getText().toString();
+        if (tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
             s = strEndDate;
         }
         String strArrtmp[] = s.split("/");

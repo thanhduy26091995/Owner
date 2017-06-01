@@ -94,13 +94,15 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     CheckBox chb_tools_work;
     @BindView(R.id.progressPostJob)
     ProgressBar progressBar;
+    @BindView(R.id.edt_monney_work_hour)
+    EditText edt_monney_work_hour;
 
     public static Activity mJobPostActivity = null;
 
-    private int mPrice;
+//    private int mPrice;
 
     private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId,
-            mDateStartWork, mTimeStartWork, mTimeEndWork, mIdTask;
+            mDateStartWork, mTimeStartWork, mTimeEndWork, mIdTask, mPrice, mHours;
 
     private boolean  mChosenTools = false, isPost;
 
@@ -139,8 +141,15 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         rad_type_money_work.setOnClickListener(this);
         rad_type_money_khoan.setOnClickListener(this);
 
+
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
+            edt_monney_work_hour.setEnabled(false);
+            mPackageId = "000000000000000000000001";
+        } else if (rad_type_money_khoan.isChecked()){
+            edt_monney_work.setEnabled(false);
+            edt_monney_work_hour.setEnabled(true);
+            mPackageId = "000000000000000000000002";
         }
 
         final Intent intent = getIntent();
@@ -162,11 +171,17 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             mTypeJob = infoJob.getInfo().getWork().getId();
             chb_tools_work.setChecked(infoJob.getInfo().getTools());
             mPackageId = infoJob.getInfo().getPackage().getId();
+            mHours = String.valueOf(infoJob.getInfo().getTime().getHour());
+            edt_monney_work_hour.setText(mHours);
 
             if(mPackageId.equals("000000000000000000000001")){
+                edt_monney_work.setEnabled(true);
+                edt_monney_work_hour.setEnabled(false);
                 rad_type_money_work.setChecked(true);
                 edt_monney_work.setText(String.valueOf(infoJob.getInfo().getPrice()));
             } else if(mPackageId.equals("000000000000000000000002")){
+                edt_monney_work.setEnabled(false);
+                edt_monney_work_hour.setEnabled(true);
                 rad_type_money_khoan.setChecked(true);
             }
 
@@ -176,7 +191,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         }else {
             isPost = true;
-            mPackageId = "000000000000000000000001";
             txt_post_complete.setText("Đăng bài");
         }
 
@@ -205,11 +219,15 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             case R.id.rad_type_money_work:
                 mPackageId = "000000000000000000000001";
                 edt_monney_work.setEnabled(true);
+                edt_monney_work_hour.setEnabled(false);
+                edt_monney_work_hour.setText("");
+                edt_monney_work_hour.setHint("Tính tiền theo thời gian");
                 break;
 
             case R.id.rad_type_money_khoan:
                 mPackageId = "000000000000000000000002";
                 edt_monney_work.setEnabled(false);
+                edt_monney_work_hour.setEnabled(true);
                 edt_monney_work.setText("");
                 edt_monney_work.setHint("Nhập số tiền công");
                 break;
@@ -349,9 +367,15 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         mTimeStartWork = getTimeWork(txtTime_start.getText().toString());
         mTimeEndWork = getTimeWork(txtTime_end.getText().toString());
         if (!edt_monney_work.getText().toString().isEmpty()) {
-            mPrice = Integer.parseInt(edt_monney_work.getText().toString());
+            mPrice = edt_monney_work.getText().toString();
         } else {
-            mPrice = 0;
+            mPrice = "0";
+        }
+
+        if (!edt_monney_work_hour.getText().toString().isEmpty()) {
+            mHours = edt_monney_work_hour.getText().toString();
+        } else {
+            mHours = "0";
         }
 //        mPrice = edt_monney_work.getText().toString();
 
@@ -364,10 +388,10 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if(isPost ){
             mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork, mHours );
         }else {
             mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork, mHours );
         }
 
     }
@@ -375,9 +399,15 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     private boolean checkDataComplete() {
 
         if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
-                edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
+                edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty() ||
+                edt_monney_work_hour.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert("Chua nhap day du tiêu đề ", JobPostActivity.this);
+            return false;
+        }
+
+        if (Integer.parseInt(edt_monney_work_hour.getText().toString()) >= 24){
+            ShowAlertDialog.showAlert("Bạn chọn giờ quá 1 ngày ", JobPostActivity.this);
             return false;
         }
 
@@ -511,6 +541,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             mJobPostPresenter.getLocaltionAddress(mAddressPost);
         } else {
             progressBar.setVisibility(View.GONE);
+
             ShowAlertDialog.showAlert("Vui lòng nhập địa chỉ đầy đủ!", JobPostActivity.this);
         }
     }

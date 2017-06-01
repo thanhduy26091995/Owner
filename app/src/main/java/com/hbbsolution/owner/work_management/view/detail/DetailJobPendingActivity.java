@@ -1,29 +1,30 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
+import android.Manifest;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.adapter.HelperListAdapter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
-import com.hbbsolution.owner.model.Helper;
-import com.hbbsolution.owner.work_management.model.workmanager.Datum;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.squareup.picasso.Picasso;
@@ -32,10 +33,7 @@ import org.joda.time.DateTime;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +43,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobPendingActivity extends AppCompatActivity implements DetailJobPostView,View.OnClickListener{
+public class DetailJobPendingActivity extends AppCompatActivity implements DetailJobPostView, View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.lo_clear_job_pending)
@@ -76,9 +74,17 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     ImageView img_TypeJob;
     @BindView(R.id.progressDetailJobPending)
     ProgressBar progressBar;
+    @BindView(R.id.rela_confirm_maid)
+    RelativeLayout relaConfirmMaid;
 
     private DatumPending mDatum;
     private DetailJobPostPresenter mDetailJobPostPresenter;
+    private static final int REQUEST_CODE_CAMERA = 1002;
+    private static final String[] PERMISSIONS_CAMERA = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private Uri mUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,8 +99,10 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
         mDetailJobPostPresenter = new DetailJobPostPresenter(this);
 
+        //event click
         lo_clear_job_pending.setOnClickListener(this);
         lo_infoMaid.setOnClickListener(this);
+        relaConfirmMaid.setOnClickListener(this);
 
         final Intent intent = getIntent();
         mDatum = (DatumPending) intent.getSerializableExtra("mDatum");
@@ -145,7 +153,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.lo_clear_job_pending:
                 String id = mDatum.getId();
                 String idOwner = mDatum.getStakeholders().getOwner();
@@ -171,12 +179,60 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
                 break;
             case R.id.lo_infoMaid:
                 Intent itInfoUser = new Intent(DetailJobPendingActivity.this, MaidProfileActivity.class);
-                itInfoUser.putExtra("maid",mDatum.getStakeholders().getMadi());
+                itInfoUser.putExtra("maid", mDatum.getStakeholders().getMadi());
                 startActivity(itInfoUser);
                 break;
+            case R.id.rela_confirm_maid: {
+                Log.d("DSA", "DAS");
+                if (verifyOpenCamera()) {
+                    openCamera();
+                }
+                break;
+            }
         }
     }
 
+    private void openCamera() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.TITLE, "Image File Name");
+        mUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+        startActivityForResult(cameraIntent, Constants.CAMERA_INTENT);
+    }
+
+    private boolean verifyOpenCamera() {
+        int camera = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (camera != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_CAMERA, REQUEST_CODE_CAMERA
+            );
+
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults) {
+        switch (permsRequestCode) {
+            case REQUEST_CODE_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.CAMERA_INTENT && resultCode == RESULT_OK) {
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     private String getTimerDoingWork(String startAt, String endAt) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");

@@ -36,7 +36,9 @@ import org.joda.time.DateTime;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -78,6 +80,8 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
     LinearLayout lo_clear_job;
     @BindView(R.id.progressDetailJobPost)
     ProgressBar progressBar;
+    @BindView(R.id.txtIsTools)
+    TextView txtIsTools;
 
     public static Activity mDetailJobPostActivity = null;
     TextView txt_edit_edit_post, txt_clear_edit_post, txt_cancel_edit_post;
@@ -108,15 +112,32 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
         final Intent intent = getIntent();
         mDatum = (Datum) intent.getSerializableExtra("mDatum");
-
-        if (mDatum.getStakeholders().getRequest().size() > 0) {
-            txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+        if(CompareDays(getDatePostHistory(mDatum.getInfo().getTime().getEndAt()))){
             txtJob_post_edit_toothbar.setVisibility(View.GONE);
+            if (mDatum.getStakeholders().getRequest().size() > 0 ) {
+                txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+            } else {
+                txtNumber_request_detail_post.setVisibility(View.GONE);
 
-        } else {
-            txtNumber_request_detail_post.setVisibility(View.GONE);
-            txtJob_post_edit_toothbar.setVisibility(View.VISIBLE);
+            }
+        }else {
+//            txtJob_post_edit_toothbar.setVisibility(View.VISIBLE);
+            if (mDatum.getStakeholders().getRequest().size() > 0 ) {
+                txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                txtJob_post_edit_toothbar.setVisibility(View.GONE);
+            } else {
+                txtNumber_request_detail_post.setVisibility(View.GONE);
+                txtJob_post_edit_toothbar.setVisibility(View.VISIBLE);
 
+            }
+        }
+
+
+        if(mDatum.getInfo().getTools()){
+            txtIsTools.setVisibility(View.VISIBLE);
+        }else {
+            txtIsTools.setVisibility(View.GONE);
         }
 
         txtTitle_job_detail_post.setText(mDatum.getInfo().getTitle());
@@ -286,5 +307,32 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
     @Override
     public void displayError(String error) {
 
+    }
+
+    private boolean CompareDays(String dateStartWork) {
+
+        Date date1 = null;
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        Date date = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            date1 = sdf.parse(dateStartWork);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (date1.after(date)) {
+            return false;
+        }
+        return true;
+    }
+
+    private String getDatePostHistory(String createDatePostHistory) {
+        Date date = new DateTime(createDatePostHistory).toDate();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String mDateTimePostHistory = df.format(date);
+        return mDateTimePostHistory;
     }
 }

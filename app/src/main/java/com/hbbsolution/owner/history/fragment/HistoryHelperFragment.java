@@ -2,6 +2,7 @@ package com.hbbsolution.owner.history.fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
@@ -17,6 +19,7 @@ import com.hbbsolution.owner.history.HelperHistoryView;
 import com.hbbsolution.owner.history.adapter.HistoryHelperAdapter;
 import com.hbbsolution.owner.history.model.helper.Datum;
 import com.hbbsolution.owner.history.presenter.HelperHistoryPresenter;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,17 +31,19 @@ import java.util.List;
  */
 
 public class HistoryHelperFragment extends Fragment implements HelperHistoryView {
-    private View v;
+    private View v, view;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private HistoryHelperAdapter historyHelperAdapter;
     private TextView tvStartDate, tvEndDate;
     private Calendar cal;
-    private Date startDate,endDate;
+    private Date startDate, endDate;
     private String strStartDate, strEndDate;
     private HelperHistoryPresenter helperHistoryPresenter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private ProgressBar progressBar;
+
     public static HistoryHelperFragment newInstance() {
         HistoryHelperFragment fragment = new HistoryHelperFragment();
         Bundle args = new Bundle();
@@ -52,11 +57,16 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_history_helper, container, false);
         //Gán adapter các thứ
-        mSwipeRefreshLayout = (SwipeRefreshLayout)v.findViewById(R.id.swipeRefreshLayout);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressPost);
+        progressBar.setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
         layoutManager = new LinearLayoutManager(getActivity());
         helperHistoryPresenter = new HelperHistoryPresenter(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        view = v.findViewById(R.id.view);
+        view.setVisibility(View.INVISIBLE);
 
         cal = Calendar.getInstance();
 
@@ -82,33 +92,18 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
-                refreshItems();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        helperHistoryPresenter.getInfoHelperHistory(simpleDateFormat.format(endDate));
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1500);
             }
         });
         return v;
     }
-    void refreshItems() {
-        // Load items
-        // ...
-        if(tvStartDate.getText().toString().equals("- - / - - / - - - -")) {
-            helperHistoryPresenter.getInfoHelperHistory(simpleDateFormat.format(endDate));
-        }
-        else
-        {
-            helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
-        }
-        // Load complete
-        onItemsLoadComplete();
-    }
 
-    void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
-
-        // Stop refresh animation
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
     public void showDatePickerDialog1() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year,
@@ -127,13 +122,17 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
-                view.setVisibility(View.INVISIBLE);
-                if(endDate!=null) {
-                    helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
-                }
-                else
-                {
-                    helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), "");
+                if (endDate.getTime() - startDate.getTime() >= 0) {
+                    view.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    if (endDate != null) {
+                        helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
+                    } else {
+                        helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), "");
+                    }
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime),getActivity());
                 }
             }
         };
@@ -170,9 +169,14 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
-                view.setVisibility(View.INVISIBLE);
                 if(startDate!=null) {
-                    helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
+                    if (endDate.getTime() - startDate.getTime() >= 0) {
+                        view.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
+                    } else {
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
+                    }
                 }
                 else
                 {
@@ -182,10 +186,17 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
         //sẽ giống với trên TextView khi mở nó lên
-        String s=tvEndDate.getText().toString();
-        if(tvEndDate.getText().toString().equals("- - / - - / - - - -")) {
+        String s = tvEndDate.getText().toString();
+        if (tvEndDate.getText().
+
+                toString().
+
+                equals("- - / - - / - - - -"))
+
+        {
             s = strEndDate;
         }
+
         String strArrtmp[] = s.split("/");
         int ngay = Integer.parseInt(strArrtmp[0]);
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -211,9 +222,11 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
 
     @Override
     public void getInfoHelperHistory(List<Datum> datumList) {
-        historyHelperAdapter = new HistoryHelperAdapter(getActivity(),datumList);
+        historyHelperAdapter = new HistoryHelperAdapter(getActivity(), datumList);
         historyHelperAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(historyHelperAdapter);
+        view.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

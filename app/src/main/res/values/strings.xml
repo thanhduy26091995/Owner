@@ -10,7 +10,7 @@
     <!--<string name="home_history">History</string>-->
     <!--<string name="home_copy_right">Copyright(c).HBB Solution. All right reserved</string>-->
     <string name="home_home">Trang chủ</string>
-    <string name="home_maid_around">Công việc quanh đây</string>
+    <string name="home_maid_around">Giúp việc quanh đây</string>
     <string name="home_your_tasks">Quản lý công việc</string>
     <string name="home_history">Lịch sử công việc</string>
     <string name="home_copy_right">Niềm tin - Chất lượng</string>
@@ -53,11 +53,17 @@
     <string name="more_job_statistic">Thống kê công việc</string>
     <string name="more_notification">Thông báo</string>
     <string name="more_languge">Ngôn ngữ</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Vietnamese</string>
     <string name="more_share_app_Gv24">Chia sẻ ứng dụng Gv24</string>
     <string name="more_follow_Gv24_on_facebook">Theo dõi Gv24 trên Facebook</string>
     <string name="more_contact">Liên hệ</string>
     <string name="gender_men">Nam</string>
     <string name="gender_women">Nữ</string>
+    <string name="signout">Sign Out</string>
+    <string name="signoutContent">Do you really want to log out?</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
     <!--Page more activity end-->
 
 
@@ -68,6 +74,7 @@
     <string name="rate">Rating</string>
     <string name="completed">Completed</string>
     <string name="to">to</string>
+    <string name="send">Send</string>
 
     <!--comment_screen start-->
     <string name="yourcomment">Your comment</string>
@@ -98,6 +105,7 @@
     <string name="liabilities">Liabilities</string>
     <string name="unpayalbe">Chưa thanh toán</string>
     <string name="payliabilities">Thanh toán tiền nợ</string>
+    <string name="rangetime">Vui lòng xem lại khoảng thời gian</string>
     <!--history_screen end-->
 
     <!--statistic_screen start-->

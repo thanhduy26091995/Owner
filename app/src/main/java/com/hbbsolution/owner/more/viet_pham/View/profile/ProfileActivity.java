@@ -27,6 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.blurry.Blurry;
 
+import static android.view.View.GONE;
+
 /**
  * Created by buivu on 29/05/2017.
  */
@@ -62,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+
         appBarLayout.addOnOffsetChangedListener(this);
         //set up toolbar
         setSupportActionBar(toolbarHeader);
@@ -83,12 +86,12 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             txtProfileGender.setText("Nữ");
         }
         txtProfilePhone.setText(hashDataUser.get(SessionManagerUser.KEY_PHONE));
-        ImageLoader.getInstance().loadImageAvatar(ProfileActivity.this, hashDataUser.get(SessionManagerUser.KEY_AVATAR),
+        ImageLoader.getInstance().loadImageAvatar(ProfileActivity.this, hashDataUser.get(SessionManagerUser.KEY_IMAGE),
                 imgAvatar);
 
         // from Bitmap
         Glide.with(ProfileActivity.this)
-                .load(hashDataUser.get(SessionManagerUser.KEY_AVATAR))
+                .load(hashDataUser.get(SessionManagerUser.KEY_IMAGE))
                 .asBitmap()
                 .error(R.drawable.avatar)
                 .into(new SimpleTarget<Bitmap>() {
@@ -109,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             toolbar.setVisibility(View.VISIBLE);
             toolbar.animate().alpha(1).setDuration(200);
         } else {
-            toolbar.setVisibility(View.GONE);
+            toolbar.setVisibility(GONE);
             toolbar.animate().alpha(0).setDuration(200);
         }
     }
@@ -121,4 +124,5 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -25,10 +25,11 @@ public class HistoryViewPagerFragment extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return HistoryJobFragment.newInstance();
+                return HistoryLiabilitiesFragment.newInstance();
             case 1:
+                return HistoryJobFragment.newInstance();
+            case 2:
                 return HistoryHelperFragment.newInstance();
-
             default:
                 return null;
         }
@@ -38,8 +39,10 @@ public class HistoryViewPagerFragment extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return context.getResources().getString(R.string.completedjob);
+                return context.getResources().getString(R.string.liabilities);
             case 1:
+                return context.getResources().getString(R.string.completedjob);
+            case 2:
                 return context.getResources().getString(R.string.completedhelpler);
             default:
                 return null;

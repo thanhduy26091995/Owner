@@ -23,17 +23,15 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @BindView(R.id.lo_Gv24)
     RelativeLayout lo_Gv24;
-    @BindView(R.id.lo_online)
-    RelativeLayout lo_online;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_payment_impossible);
         ButterKnife.bind(this);
 
         lo_Gv24.setOnClickListener(this);
-        lo_online.setOnClickListener(this);
     }
 
     @Override
@@ -46,9 +44,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.lo_Gv24:
-                confirm();
-                break;
-            case R.id.lo_online:
                 confirm();
                 break;
         }

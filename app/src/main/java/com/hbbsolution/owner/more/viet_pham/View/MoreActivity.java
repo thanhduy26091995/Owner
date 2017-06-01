@@ -1,18 +1,22 @@
 package com.hbbsolution.owner.more.viet_pham.View;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
+import com.hbbsolution.owner.more.duy_nguyen.LanguageActivity;
 import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
@@ -43,7 +47,10 @@ public class MoreActivity extends AppCompatActivity {
     TextView txtAddress;
     @BindView(R.id.img_avatar)
     ImageView imgAvatar;
-
+    @BindView(R.id.lnLanguage)
+    LinearLayout lnLanguage;
+    @BindView(R.id.lnLogOut)
+    LinearLayout lnLogOut;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
 
@@ -68,7 +75,7 @@ public class MoreActivity extends AppCompatActivity {
         //showing data
         txtName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
         txtAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
-        ImageLoader.getInstance().loadImageAvatar(MoreActivity.this, hashDataUser.get(SessionManagerUser.KEY_AVATAR),
+        ImageLoader.getInstance().loadImageAvatar(MoreActivity.this, hashDataUser.get(SessionManagerUser.KEY_IMAGE),
                 imgAvatar);
     }
 
@@ -109,7 +116,32 @@ public class MoreActivity extends AppCompatActivity {
                 startActivity(iStatistic);
             }
         });
-
+        lnLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MoreActivity.this, LanguageActivity.class);
+                startActivity(intent);
+            }
+        });
+        lnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MoreActivity.this);
+                builder.setTitle(getResources().getString(R.string.signout))
+                        .setMessage(getResources().getString(R.string.signoutContent)).setCancelable(true)
+                        .setNegativeButton(getResources().getString(R.string.cancel), null)
+                        .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                sessionManagerUser.logoutUser();
+                                Intent intent= new Intent(MoreActivity.this, SignInActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }).show();
+            }
+        });
     }
 
     @Override

@@ -5,7 +5,7 @@
 
     <!--home screen start-->
     <string name="home_home">Trang chủ</string>
-    <string name="home_maid_around">Công việc quanh đây</string>
+    <string name="home_maid_around">Giúp việc quanh đây</string>
     <string name="home_your_tasks">Quản lý công việc</string>
     <string name="home_history">Lịch sử công việc</string>
     <string name="home_copy_right">Niềm tin - Chất lượng</string>
@@ -29,6 +29,7 @@
     <string name="rate">Đánh giá</string>
     <string name="completed">Đã hoàn thành</string>
     <string name="to">đến</string>
+    <string name="send">Gửi</string>
 
     <!--comment_screen start-->
     <string name="yourcomment">Nhận xét của bạn</string>
@@ -54,6 +55,7 @@
     <string name="liabilities">Công nợ</string>
     <string name="notpayment">Chưa thanh toán</string>
     <string name="payliabilities">Thanh toán tiền nợ</string>
+    <string name="rangetime">Vui lòng xem lại khoản thời gian</string>
     <!--history_screen end-->
 
     <!--contact and about screen start-->
@@ -80,4 +82,7 @@
     <string name="setting">Cài Đặt</string>
     <string name="huy">Hủy</string>
     <!---->
+
+    <string name="english">Tiếng Anh</string>
+    <string name="vietnamese">Tiếng Việt</string>
 </resources>
