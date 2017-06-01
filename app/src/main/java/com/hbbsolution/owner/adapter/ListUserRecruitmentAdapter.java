@@ -15,6 +15,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.work_management.model.maid.Request;
+import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 
 import java.util.List;
 
@@ -27,10 +28,21 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
     private List<Request> maidList;
     private boolean isHis;
 
+    private Callback callback;
+    private CallbackChosenMaid callbackChosenMaid;
+
     public ListUserRecruitmentAdapter(Context context, List<Request> maidList, boolean isHis) {
         this.context = context;
         this.maidList = maidList;
         this.isHis = isHis;
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
+    public void setCallbackChosenMaid(CallbackChosenMaid callbackChosenMaid) {
+        this.callbackChosenMaid = callbackChosenMaid;
     }
 
     @Override
@@ -58,16 +70,18 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
         holder.lo_info_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent itInfoUser = new Intent(context, MaidProfileActivity.class);
-                itInfoUser.putExtra("maid",mMaid);
-                context.startActivity(itInfoUser);
+                if (callback != null) {
+                    callback.onItemClick(mMaid);
+                }
             }
         });
 
         holder.lo_ChosenMaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Đã Chọn", Toast.LENGTH_SHORT).show();
+                if (callbackChosenMaid != null) {
+                    callbackChosenMaid.onItemClickChosenMaid(mMaid);
+                }
             }
         });
     }
@@ -94,5 +108,13 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
             lo_info_user = (RelativeLayout) itemView.findViewById(R.id.lo_info_user);
             lo_ChosenMaid = (RelativeLayout) itemView.findViewById(R.id.lo_ChosenMaid);
         }
+    }
+
+    public interface Callback {
+        void onItemClick(Maid mMaid);
+    }
+
+    public interface CallbackChosenMaid {
+        void onItemClickChosenMaid(Maid mMaid);
     }
 }

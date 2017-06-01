@@ -82,6 +82,8 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
     ProgressBar progressBar;
     @BindView(R.id.txtIsTools)
     TextView txtIsTools;
+    @BindView(R.id.txtExpired_request_detail_post)
+    TextView txtExpired_request_detail_post;
 
     public static Activity mDetailJobPostActivity = null;
     TextView txt_edit_edit_post, txt_clear_edit_post, txt_cancel_edit_post;
@@ -114,6 +116,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
         mDatum = (Datum) intent.getSerializableExtra("mDatum");
         if(CompareDays(getDatePostHistory(mDatum.getInfo().getTime().getEndAt()))){
             txtJob_post_edit_toothbar.setVisibility(View.GONE);
+            txtExpired_request_detail_post.setVisibility(View.VISIBLE);
             if (mDatum.getStakeholders().getRequest().size() > 0 ) {
                 txtNumber_request_detail_post.setVisibility(View.VISIBLE);
                 txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
@@ -122,7 +125,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
             }
         }else {
-//            txtJob_post_edit_toothbar.setVisibility(View.VISIBLE);
+            txtExpired_request_detail_post.setVisibility(View.GONE);
             if (mDatum.getStakeholders().getRequest().size() > 0 ) {
                 txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
                 txtJob_post_edit_toothbar.setVisibility(View.GONE);

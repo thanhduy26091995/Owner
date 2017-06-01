@@ -24,7 +24,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.lo_Gv24)
     RelativeLayout lo_Gv24;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

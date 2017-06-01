@@ -23,13 +23,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value=" AIzaSyAzSFwRry4u2KYJYq3IT_oc-w9sww5yVpY" />
 
-        <activity android:name=".home.HomeActivity">
+        <activity android:name=".splashscreenactivity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".home.view.HomeActivity"/>
         <activity android:name=".more.viet_pham.View.MoreActivity" />
         <activity android:name=".more.duy_nguyen.TermsActivity" />
         <activity android:name=".more.viet_pham.View.signin.SignInActivity" />

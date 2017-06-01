@@ -1,7 +1,9 @@
-package com.hbbsolution.owner.home;
+package com.hbbsolution.owner.home.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,14 +15,22 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.view.HistoryActivity;
+import com.hbbsolution.owner.home.prsenter.HomePresenter;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
 import com.hbbsolution.owner.more.viet_pham.View.MoreActivity;
+import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
+import com.hbbsolution.owner.utils.SessionManagerUser;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
+import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
+import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements HomeView, View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -32,6 +42,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout mLayout_YourTasks;
     @BindView(R.id.lo_history)
     RelativeLayout mLayout_History;
+
+    private HomePresenter mHomePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +60,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mLayout_MaidAround.setOnClickListener(this);
         mLayout_YourTasks.setOnClickListener(this);
         mLayout_History.setOnClickListener(this);
+
+        mHomePresenter = new HomePresenter(this);
+        mHomePresenter.requestCheckToken();
+
     }
 
     @Override
@@ -97,4 +113,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(HomeActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void responseCheckToken() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setCancelable(false);
+        alertDialog.setTitle("Thông báo");
+        alertDialog.setMessage("Tài khoản của bạn đã được đăng nhập từ một thiết bị khác! ");
+        alertDialog.setCancelable(false);
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                SessionManagerUser sessionManagerUser = new SessionManagerUser(HomeActivity.this);
+                sessionManagerUser.logoutUser();
+                Intent itBackSignIn = new Intent(HomeActivity.this, SignInActivity.class);
+                startActivity(itBackSignIn);
+                finish();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    @Override
+    public void errorConnectService() {
+        ShowAlertDialog.showAlert("Thất bại", HomeActivity.this);
+    }
 }

@@ -1,25 +1,35 @@
 package com.hbbsolution.owner.work_management.view.listmaid;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListUserRecruitmentAdapter;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
+import com.hbbsolution.owner.model.Maid;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 import com.hbbsolution.owner.work_management.presenter.ListMaidPresenter;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
+import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by tantr on 5/15/2017.
@@ -37,6 +47,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     private RecyclerView.LayoutManager layoutManager;
     private ListUserRecruitmentAdapter listUserRecruitmentAdapter;
     private RecyclerView mRecycler;
+    private  String idTaskProcess;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +62,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mListMaidPresenter = new ListMaidPresenter(this);
-        String idTaskProcess = getIntent().getStringExtra("idTaskProcess");
+        idTaskProcess = getIntent().getStringExtra("idTaskProcess");
 
         if(!idTaskProcess.isEmpty()) {
             mListMaidPresenter.getInfoListMaid(idTaskProcess);
@@ -86,6 +97,31 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
         listUserRecruitmentAdapter.notifyDataSetChanged();
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setAdapter(listUserRecruitmentAdapter);
+        listUserRecruitmentAdapter.setCallback(new ListUserRecruitmentAdapter.Callback() {
+            @Override
+            public void onItemClick(Maid mMaid) {
+                Intent itInfoUser = new Intent(ListUserRecruitmentActivity.this, MaidProfileActivity.class);
+                itInfoUser.putExtra("maid",mMaid);
+                startActivity(itInfoUser);
+            }
+        });
+
+        listUserRecruitmentAdapter.setCallbackChosenMaid(new ListUserRecruitmentAdapter.CallbackChosenMaid() {
+            @Override
+            public void onItemClickChosenMaid(Maid mMaid) {
+                Toast.makeText(ListUserRecruitmentActivity.this, "Đã Chọn", Toast.LENGTH_SHORT).show();
+                mListMaidPresenter.sentRequestChosenMaid(idTaskProcess, mMaid.getId());
+            }
+        });
+    }
+
+    @Override
+    public void responseChosenMaid(boolean isResponseChosenMaid) {
+        if (isResponseChosenMaid){
+            ShowAlertDialog.showAlert("Thành công", ListUserRecruitmentActivity.this);
+        }else {
+            ShowAlertDialog.showAlert("Thất bại", ListUserRecruitmentActivity.this);
+        }
     }
 
     @Override

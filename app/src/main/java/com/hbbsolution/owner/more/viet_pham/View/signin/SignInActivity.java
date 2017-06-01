@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.base.OwnerApplication;
-import com.hbbsolution.owner.home.HomeActivity;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.more.phuc_tran.ForgotPassActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
@@ -56,6 +56,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
     private SessionManagerUser sessionManagerUser;
     private OwnerApplication ownerApplication;
     private HashMap<String, String> hashDataUser = new HashMap<>();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

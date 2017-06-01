@@ -102,14 +102,41 @@
                         android:layout_toRightOf="@+id/imgType_job_detail_post"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/txtTitle_job_detail_post"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lau dọn phòng khách"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/colorBlack"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txtTitle_job_detail_post"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:text="Lau dọn phòng khách"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtExpired_request_detail_post"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_alignParentRight="true"
+                                android:visibility="gone"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:padding="2dp"
+                                android:background="@drawable/background_text_expired"
+                                android:text="Quá hạn"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/icon_size_normal" />
+
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/txtType_job_detail_post"
