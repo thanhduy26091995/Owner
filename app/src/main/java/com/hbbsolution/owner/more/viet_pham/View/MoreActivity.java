@@ -142,6 +142,7 @@ public class MoreActivity extends AppCompatActivity {
                         }).show();
             }
         });
+
     }
 
     @Override

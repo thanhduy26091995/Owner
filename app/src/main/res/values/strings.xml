@@ -135,4 +135,10 @@
     <string name="setting">Setting</string>
     <string name="huy">Cancel</string>
     <!---->
+
+
+    <!--forgot password screen start-->
+    <string name="send_require">Gửi yêu cầu</string>
+    <string name="forgot_your_password">Quên mật khẩu</string>
+    <!--forgot password screen end-->
 </resources>
