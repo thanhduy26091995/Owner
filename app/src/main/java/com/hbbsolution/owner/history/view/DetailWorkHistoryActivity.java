@@ -134,10 +134,12 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
         tvDate.setText(date);
         tvTime.setText(startTime.replace(":", "h") + " - " + endTime.replace(":", "h"));
 
-        Picasso.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
-                .placeholder(R.drawable.avatar)
-                .error(R.drawable.avatar)
-                .into(imgHelper);
+        if(!doc.getStakeholders().getReceived().getInfo().getImage().equals("")) {
+            Picasso.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(imgHelper);
+        }
         tvNameHelper.setText(doc.getStakeholders().getReceived().getInfo().getName());
         tvAddressHelper.setText(doc.getStakeholders().getReceived().getInfo().getAddress().getName());
 

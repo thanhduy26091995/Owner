@@ -16,6 +16,7 @@ import com.hbbsolution.owner.more.duy_nguyen.model.Task;
 import com.hbbsolution.owner.more.duy_nguyen.presenter.StatisticPresenter;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StatisticActivity extends AppCompatActivity implements View.OnClickListener, StatisticView {
     @BindView(R.id.toolbar)
@@ -49,6 +51,8 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
 
     @BindView(R.id.lnStatistic)
     LinearLayout lnStatistic;
+    @BindView(R.id.img_history_avatar)
+    CircleImageView imgAvatar;
 
     private Calendar cal;
     private Date startDate, endDate;
@@ -58,7 +62,8 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     private StatisticPresenter statisticPresenter;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
-    private int onCreate,pending,reserved,onDoing,done;
+    private int onCreate, pending, reserved, onDoing, done;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,16 +97,23 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         tvEndDate.setOnClickListener(this);
         tvPayment.setOnClickListener(this);
     }
-    public void setNumber()
-    {
-        onCreate=0;
-        pending=0;
-        reserved=0;
-        onDoing=0;
-        done=0;
-    }
-    public void getData() {
 
+    public void setNumber() {
+        onCreate = 0;
+        pending = 0;
+        reserved = 0;
+        onDoing = 0;
+        done = 0;
+    }
+
+    public void getData() {
+        if(!hashDataUser.get(SessionManagerUser.KEY_IMAGE).equals("")) {
+            Picasso.with(this).load(hashDataUser.get(SessionManagerUser.KEY_IMAGE))
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(imgAvatar);
+        }
+        tvOwnerName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
         statisticPresenter.getStatistic("", simpleDateFormat.format(endDate));
     }
 
@@ -224,8 +236,8 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void getStatisticSuccess(List<Task> listTask, int total) {
-        int i=0;
-        while (i<listTask.size()){
+        int i = 0;
+        while (i < listTask.size()) {
             if (listTask.get(i).getId().equals("000000000000000000000001")) {
                 onCreate = listTask.get(i).getTask().size();
             }
@@ -243,8 +255,8 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
             }
             i++;
         }
-        numberPostedTask.setText(String.valueOf(onCreate+pending));
-        numberDoingTask.setText(String.valueOf(reserved+onDoing));
+        numberPostedTask.setText(String.valueOf(onCreate + pending));
+        numberDoingTask.setText(String.valueOf(reserved + onDoing));
         numberDoneTask.setText(String.valueOf(done));
         totalPrice.setText(String.valueOf(total) + " " + getResources().getString(R.string.million));
         progressBar.setVisibility(View.GONE);

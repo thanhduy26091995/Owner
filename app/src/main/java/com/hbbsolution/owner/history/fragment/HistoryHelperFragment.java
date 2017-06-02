@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
-
+    private LinearLayout lnNoData;
     public static HistoryHelperFragment newInstance() {
         HistoryHelperFragment fragment = new HistoryHelperFragment();
         Bundle args = new Bundle();
@@ -60,6 +61,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         progressBar = (ProgressBar) v.findViewById(R.id.progressPost);
         progressBar.setVisibility(View.VISIBLE);
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        lnNoData = (LinearLayout) v.findViewById(R.id.lnNoData);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_helper);
         layoutManager = new LinearLayoutManager(getActivity());
         helperHistoryPresenter = new HelperHistoryPresenter(this);
@@ -210,13 +212,19 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         historyHelperAdapter = new HistoryHelperAdapter(getActivity(), datumList);
         historyHelperAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(historyHelperAdapter);
-        view.setVisibility(View.VISIBLE);
+        if(datumList.size()>0) {
+            view.setVisibility(View.VISIBLE);
+            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            lnNoData.setVisibility(View.VISIBLE);
+        }
         progressBar.setVisibility(View.GONE);
-        mSwipeRefreshLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void getInfoHelperHistoryFail() {
-
+        lnNoData.setVisibility(View.VISIBLE);
     }
 }

@@ -22,9 +22,11 @@ import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.ReportView;
 import com.hbbsolution.owner.report.presenter.ReportPresenter;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by buivu on 22/05/2017.
@@ -44,6 +46,9 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
     TextView tvSkip;
     @BindView(R.id.edtReport)
     EditText edtReport;
+    @BindView(R.id.img_avatar)
+    CircleImageView imgAvatar;
+
     private Maid mMaidInfo;
     private WorkHistory workHistory;
     private Datum datum;
@@ -73,17 +78,38 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
             mTextMaidName.setText(mMaidInfo.getInfo().getUsername());
             mTextMaidAddress.setText(mMaidInfo.getInfo().getAddress().getName());
             idHelper=mMaidInfo.getId();
+            if(!mMaidInfo.getInfo().getImage().equals(""))
+            {
+                Picasso.with(this).load(mMaidInfo.getInfo().getImage())
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .into(imgAvatar);
+            }
         }
         if(workHistory!=null)
         {
             mTextMaidName.setText(workHistory.getStakeholders().getReceived().getInfo().getUsername());
             mTextMaidAddress.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
             idHelper = workHistory.getStakeholders().getReceived().getId();
+            if(!workHistory.getStakeholders().getReceived().getInfo().getImage().equals(""))
+            {
+                Picasso.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .into(imgAvatar);
+            }
         }
         if (datum != null) {
             mTextMaidName.setText(datum.getId().getInfo().getUsername());
             mTextMaidAddress.setText(datum.getId().getInfo().getAddress().getName());
             idHelper = datum.getId().getId();
+            if(!datum.getId().getInfo().getImage().equals(""))
+            {
+                Picasso.with(this).load(datum.getId().getInfo().getImage())
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .into(imgAvatar);
+            }
         }
     }
     @Override

@@ -71,10 +71,12 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         //       setBackgroundRatingBar();
         tvNameHelper.setText(nameHelper);
         tvAddress.setText(addressHelper);
-        Picasso.with(this).load(imgHelper)
-                .placeholder(R.drawable.avatar)
-                .error(R.drawable.avatar)
-                .into(imgAvatar);
+        if(!imgHelper.equals("")) {
+            Picasso.with(this).load(imgHelper)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(imgAvatar);
+        }
 
         txtNext.setOnClickListener(this);
         lnCheck.setOnClickListener(this);

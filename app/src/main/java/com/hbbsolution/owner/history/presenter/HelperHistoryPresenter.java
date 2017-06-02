@@ -35,12 +35,14 @@ public class HelperHistoryPresenter {
                         helperHistoryView.getInfoHelperHistory(historyHelperResponse.getData());
                     } catch (Exception e) {
                         Log.e("exception", e.toString());
+                        helperHistoryView.getInfoHelperHistoryFail();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<HistoryHelperResponse> call, Throwable t) {
+                helperHistoryView.getInfoHelperHistoryFail();
                 Log.e("error", t.toString());
             }
         });
@@ -56,6 +58,7 @@ public class HelperHistoryPresenter {
                         helperHistoryView.getInfoHelperHistory(historyHelperResponse.getData());
                     } catch (Exception e) {
                         Log.e("exception", e.toString());
+                        helperHistoryView.getInfoHelperHistoryFail();
                     }
                 }
             }
@@ -63,6 +66,7 @@ public class HelperHistoryPresenter {
             @Override
             public void onFailure(Call<HistoryHelperResponse> call, Throwable t) {
                 Log.e("error", t.toString());
+                helperHistoryView.getInfoHelperHistoryFail();
             }
         });
     }

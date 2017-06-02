@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,7 +50,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
-
+    private LinearLayout lnNoData;
     public HistoryJobFragment() {
     }
 
@@ -69,6 +70,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         progressBar.setVisibility(View.VISIBLE);
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycleview_history_job);
+        lnNoData = (LinearLayout) v.findViewById(R.id.lnNoData);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -128,7 +130,15 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
         progressBar.setVisibility(View.GONE);
-        view.setVisibility(View.VISIBLE);
+        if(listWorkHistory.size()>0) {
+            view.setVisibility(View.VISIBLE);
+            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+            lnNoData.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            lnNoData.setVisibility(View.VISIBLE);
+        }
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
@@ -162,8 +172,15 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
         progressBar.setVisibility(View.GONE);
-        view.setVisibility(View.VISIBLE);
-        mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+        if(listWorkHistory.size()>0) {
+            view.setVisibility(View.VISIBLE);
+            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+            lnNoData.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            lnNoData.setVisibility(View.VISIBLE);
+        }
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
@@ -192,7 +209,8 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
 
     @Override
     public void getError() {
-
+        lnNoData.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     public void showDatePickerDialog1() {

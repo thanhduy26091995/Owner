@@ -56,10 +56,12 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
         }
         holder.tvName.setText(datumList.get(position).getId().getInfo().getName());
         holder.tvDate.setText(time);
-        Picasso.with(context).load(datumList.get(position).getId().getInfo().getImage())
-                .placeholder(R.drawable.avatar)
-                .error(R.drawable.avatar)
-                .into(holder.imgMaid);
+        if(!datumList.get(position).getId().getInfo().getImage().equals("")) {
+            Picasso.with(context).load(datumList.get(position).getId().getInfo().getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(holder.imgMaid);
+        }
     }
 
     @Override

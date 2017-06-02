@@ -38,6 +38,7 @@ public class WorkHistoryPresenter {
                         workHistoryView.getInfoWorkHistory(workManagerResponse.getData().getDocs(), workManagerResponse.getData().getPages());
                     } catch (Exception e) {
                         Log.e("exception", e.toString());
+                        workHistoryView.getError();
                     }
                 }
             }
@@ -45,6 +46,7 @@ public class WorkHistoryPresenter {
             @Override
             public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
                 Log.e("dsaerror", t.toString());
+                workHistoryView.getError();
             }
         });
     }
@@ -82,6 +84,7 @@ public class WorkHistoryPresenter {
                         workHistoryView.getInfoWorkHistoryTime(workManagerResponse.getData().getDocs(), startAt, endAt, workManagerResponse.getData().getPages());
                     } catch (Exception e) {
                         Log.e("exception", e.toString());
+                        workHistoryView.getError();
                     }
                 }
             }
@@ -89,6 +92,7 @@ public class WorkHistoryPresenter {
             @Override
             public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
                 Log.e("error", t.toString());
+                workHistoryView.getError();
             }
         });
     }

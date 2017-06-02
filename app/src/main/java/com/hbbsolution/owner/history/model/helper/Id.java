@@ -11,6 +11,9 @@ public class Id implements Serializable {
     @SerializedName("_id")
     @Expose
     private String id;
+    @SerializedName("work_info")
+    @Expose
+    private WorkInfo workInfo;
     @SerializedName("info")
     @Expose
     private Info info;
@@ -21,6 +24,14 @@ public class Id implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public WorkInfo getWorkInfo() {
+        return workInfo;
+    }
+
+    public void setWorkInfo(WorkInfo workInfo) {
+        this.workInfo = workInfo;
     }
 
     public Info getInfo() {
