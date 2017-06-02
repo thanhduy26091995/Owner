@@ -1,6 +1,8 @@
 package com.hbbsolution.owner.history.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -84,7 +86,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtNext:
-                finish();
+                if(DetailWorkHistoryActivity.detailWorkHistory!=null) {
+                    finish();
+                }
                 break;
             case R.id.lnCheck:
                 lnCheck.setVisibility(View.INVISIBLE);
@@ -108,7 +112,12 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void commentSuccess(String message) {
-        finish();
+        if(DetailWorkHistoryActivity.detailWorkHistory!=null) {
+            Intent intent = new Intent();
+            intent.putExtra("message", message);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        }
     }
 
     @Override

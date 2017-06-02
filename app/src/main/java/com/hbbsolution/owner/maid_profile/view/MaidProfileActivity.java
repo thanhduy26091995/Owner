@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.maid_profile.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.hbbsolution.owner.maid_profile.choose_maid.view.ChooseMaidActivity;
 import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.view.ReportMaidActivity;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
 import com.squareup.picasso.Picasso;
@@ -91,7 +93,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     private Maid mMaidInfo;
     private WorkHistory workHistory;
     private Datum datum;
-
+    private static final int REPORT = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -247,7 +249,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 intent.putExtra("maid", mMaidInfo);
                 intent.putExtra("work", workHistory);
                 intent.putExtra("helper", datum);
-                startActivity(intent);
+                startActivityForResult(intent,REPORT);
                 break;
 
         }
@@ -274,5 +276,16 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     @Override
     public void getMessager() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==REPORT)
+        {
+            if(resultCode== Activity.RESULT_OK)
+            {
+                ShowAlertDialog.showAlert(data.getStringExtra("message"),this);
+            }
+        }
     }
 }

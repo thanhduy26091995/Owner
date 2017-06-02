@@ -163,6 +163,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         recyclerView.setAdapter(historyJobAdapter);
         progressBar.setVisibility(View.GONE);
         view.setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout.setVisibility(View.VISIBLE);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
@@ -216,6 +217,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 if (endDate.getTime() - startDate.getTime() >= 0) {
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
+                    mSwipeRefreshLayout.setVisibility(View.INVISIBLE);
                     workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
@@ -260,6 +262,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                     if (endDate.getTime() - startDate.getTime() >= 0) {
                         view.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
+                        mSwipeRefreshLayout.setVisibility(View.INVISIBLE);
                         workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());

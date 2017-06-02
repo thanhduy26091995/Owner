@@ -35,23 +35,45 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout_history"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        app:tabIndicatorColor="@color/home_background_history"
-        app:tabSelectedTextColor="@color/home_background_history"
-        app:tabTextAppearance="@style/MyCustomTextAppearance"
-        app:tabTextColor="@color/home_background_history">
+        android:layout_height="wrap_content">
 
-    </android.support.design.widget.TabLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/color_line_view" />
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager_history"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            app:tabIndicatorColor="@color/home_background_history"
+            app:tabSelectedTextColor="@color/home_background_history"
+            app:tabTextAppearance="@style/MyCustomTextAppearance"
+            app:tabTextColor="@color/home_background_history"></android.support.design.widget.TabLayout>
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@id/tab_layout_history"
+            android:background="@color/color_line_view" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/view" />
+
+        <TextView
+            android:id="@+id/txtNumber_Liabilities"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="10sp" />
+    </RelativeLayout>
 </LinearLayout>

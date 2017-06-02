@@ -16,6 +16,7 @@ import com.hbbsolution.owner.history.CommentHistoryView;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.presenter.CommentHistoryPresenter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormatSymbols;
@@ -69,6 +70,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     private CommentHistoryPresenter commentHistoryPresenter;
     private int idTask;
     public static Activity detailWorkHistory;
+    private static final int COMMENT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +163,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
                 intent.putExtra("imgHelper", doc.getStakeholders().getReceived().getInfo().getImage());
                 intent.putExtra("nameHelper", doc.getStakeholders().getReceived().getInfo().getName());
                 intent.putExtra("addressHelper", doc.getStakeholders().getReceived().getInfo().getAddress());
-                startActivity(intent);
+                startActivityForResult(intent,COMMENT);
                 break;
             case R.id.rela_info:
                 intent = new Intent(this, MaidProfileActivity.class);
@@ -191,6 +193,17 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     @Override
     protected void onResume() {
         super.onResume();
-        commentHistoryPresenter.checkComment(doc.getId());
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==COMMENT)
+        {
+            if(resultCode== Activity.RESULT_OK)
+            {
+                ShowAlertDialog.showAlert(data.getStringExtra("message"),this);
+                commentHistoryPresenter.checkComment(doc.getId());
+            }
+        }
     }
 }
