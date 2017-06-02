@@ -58,6 +58,7 @@
         <activity android:name=".maid_profile.choose_maid.view.ChooseMaidActivity" />
         <activity android:name=".history.view.DetailLiabilitiesHistory" />
         <activity android:name=".more.duy_nguyen.LanguageActivity" />
+        <activity android:name=".more.phuc_tran.TermActivity"/>
         <activity android:name=".history.view.RechargeActivity"></activity>
     </application>
 

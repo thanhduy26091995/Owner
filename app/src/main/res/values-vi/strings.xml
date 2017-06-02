@@ -63,8 +63,9 @@
     <string name="about">Về chúng tôi</string>
     <string name="btnCall">Gọi điện</string>
     <string name="btnEmail">Email</string>
-    <string name="no_email_client">There are no email clients installed."</string>
-    <string name="enter_phonenumber">Enter a phone number</string>
+    <string name="no_email_client">Chưa thiết lập Email người dùng."</string>
+    <string name="enter_phonenumber">Nhập số điện thoại</string>
+    <string name="address_title">Địa chỉ:</string>
     <!--contact and about screen end-->
 
     <!--statistic_screen start-->
@@ -86,4 +87,11 @@
 
     <string name="english">English</string>
     <string name="vietnamese">Tiếng Việt</string>
+
+    <!--forgot password screen start-->
+    <string name="send_require">Gửi yêu cầu</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="term_title">Điều khoản sử dụng</string>
+    <!--forgot password screen end-->
+
 </resources>

@@ -47,9 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logo"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
         android:text="Công ty TNHH GV24"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="20dp"
@@ -59,20 +59,32 @@
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:layout_below="@id/tvName"
-        android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tv_dc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/address_title"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/tvAddr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvName"
-        android:layout_marginRight="40dp"
+        android:layout_below="@id/tv_dc"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
-        android:text="Địa chỉ:\n123 đường 1, Phường Phạm Ngủ Lão,Quận 1, Thành phố Hồ Chí Minh"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:text="123 đường 1, Phường Phạm Ngủ Lão,Quận 1, Thành phố Hồ Chí Minh"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="18dp" />
 
@@ -80,8 +92,8 @@
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:layout_below="@id/tvAddr"
-        android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray" />
 
@@ -89,10 +101,10 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@id/tvAddr"
-        android:gravity="center"
-        android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -101,8 +113,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:background="@color/home_background_history"
             android:text="@string/btnCall"
@@ -116,8 +128,8 @@
             android:layout_alignBaseline="@id/btn_call"
             android:layout_alignParentRight="true"
             android:layout_below="@id/tvAddr"
-            android:layout_weight="1"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:background="@color/home_background_maid_aound"
             android:text="@string/btnEmail"
             android:textAllCaps="false"
