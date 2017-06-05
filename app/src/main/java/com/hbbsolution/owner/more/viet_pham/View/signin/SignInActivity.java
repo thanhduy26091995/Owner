@@ -15,6 +15,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.base.OwnerApplication;
 import com.hbbsolution.owner.home.view.HomeActivity;
+import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
 import com.hbbsolution.owner.more.phuc_tran.ForgotPassActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
@@ -106,6 +107,13 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
             public void onClick(View v) {
                 Intent itForgot = new Intent(SignInActivity.this, ForgotPassActivity.class);
                 startActivity(itForgot);
+            }
+        });
+        btnWorkAroundHere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMaidNearBy = new Intent(SignInActivity.this, MaidNearByActivity.class);
+                startActivity(intentMaidNearBy);
             }
         });
     }

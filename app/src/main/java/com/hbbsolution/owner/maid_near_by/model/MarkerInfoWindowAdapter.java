@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
+import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
     private HashMap<String, Boolean> mMarkerLoadImage = new HashMap<>();
     private OnInfoWindowElemTouchListener chooseMaidListener;
     private GoogleMap googleMap;
+    private SessionManagerUser sessionManagerUser;
 
     public MarkerInfoWindowAdapter(Activity mActivity, HashMap<Marker, Maid> mMarkerHashMap, HashMap<String, Boolean> mMarkerLoadImage) {
         this.mActivity = mActivity;
@@ -39,6 +41,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
         this.mMarkerLoadImage = mMarkerLoadImage;
         this.googleMap = googleMap;
         googleMap.setOnInfoWindowClickListener(this);
+        sessionManagerUser = new SessionManagerUser(mActivity);
     }
 
     @Override
@@ -86,9 +89,11 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Maid maidInfo = mMarkerHashMap.get(marker);
-        Intent intent = new Intent(mActivity, MaidProfileActivity.class);
-        intent.putExtra("maid", maidInfo);
-        mActivity.startActivity(intent);
+        if (sessionManagerUser.isLoggedIn()) {
+            Maid maidInfo = mMarkerHashMap.get(marker);
+            Intent intent = new Intent(mActivity, MaidProfileActivity.class);
+            intent.putExtra("maid", maidInfo);
+            mActivity.startActivity(intent);
+        }
     }
 }

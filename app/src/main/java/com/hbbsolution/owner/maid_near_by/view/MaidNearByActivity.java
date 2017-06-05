@@ -91,6 +91,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
     private Location location; // location
     private Double latitude; // latitude
     private Double longitude; // longitude
+    private ProgressDialog mProgressDialog;
 
 
     @Override
@@ -126,11 +127,13 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //call apk to search
-                presenter.getLocationAddress(query);
                 //hide keyboard
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+                showProgress();
+                //call apk to search
+                presenter.getLocationAddress(query);
+
                 return true;
             }
 
@@ -140,6 +143,25 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
             }
         });
     }
+
+    private void showProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Đang tải...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (mProgressDialog.isShowing() && mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+    }
+
 
     private BroadcastReceiver mGpsSwitchStateReceiver = new BroadcastReceiver() {
         @Override
@@ -308,6 +330,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
                 }
                 if (location != null) {
                     Log.d("LATLNG", "" + location.getLatitude() + "/" + location.getLongitude());
+                    showProgress();
                     presenter.getMaidNearBy(location.getLatitude(), location.getLongitude());
                 } else {
                     Toast.makeText(MaidNearByActivity.this, "Location not found!", Toast.LENGTH_LONG).show();
@@ -432,6 +455,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     @Override
     public void displayMaidNearBy(MaidNearByResponse maidNearByResponse) {
+        hideProgress();
+        hideKeyboard();
         maidInfoList = maidNearByResponse.getData();
         updateMap(googleMap);
     }
@@ -443,6 +468,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     @Override
     public void displaySearchResult(MaidNearByResponse maidNearByResponse) {
+        hideKeyboard();
+        hideProgress();
         googleMap.clear();
         maidInfoList.clear();
         myMarkerHashMap.clear();
@@ -453,6 +480,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     @Override
     public void getLocationAddress(GeoCodeMapResponse geoCodeMapResponse) {
+        hideProgress();
+        hideKeyboard();
         Double lat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
         Double lng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
 
@@ -464,6 +493,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     @Override
     public void displayNotFoundLocation(String error) {
+        hideProgress();
         ShowAlertDialog.showAlert(error, MaidNearByActivity.this);
     }
 
