@@ -133,7 +133,6 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
                 if (endDate.getTime() - startDate.getTime() >= 0) {
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    mSwipeRefreshLayout.setVisibility(View.INVISIBLE);
                     liabilitiesPresenter.getInfoLiabilitiesTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
@@ -177,12 +176,13 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
                     if (endDate.getTime() - startDate.getTime() >= 0) {
                         view.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
-                        mSwipeRefreshLayout.setVisibility(View.INVISIBLE);
                         liabilitiesPresenter.getInfoLiabilitiesTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                     }
                 } else {
+                    view.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     liabilitiesPresenter.getInfoLiabilitiesTime("", simpleDateFormat.format(endDate));
                 }
             }
@@ -220,7 +220,6 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
         recyclerView.setAdapter(historyLiabilitiesAdapter);
         if (workHistories.size() > 0) {
             view.setVisibility(View.VISIBLE);
-            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
         } else {
             lnNoData.setVisibility(View.VISIBLE);
         }

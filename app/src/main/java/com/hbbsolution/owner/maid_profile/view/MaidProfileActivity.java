@@ -178,11 +178,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                         }
                     });
 
-            TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,list);
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-            recy_listTypeJob.setLayoutManager(layoutManager);
-            recy_listTypeJob.setAdapter(typeJobAdapter);
-            typeJobAdapter.notifyDataSetChanged();
+
         }
 
         if (workHistory != null) {
@@ -243,6 +239,11 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
+        TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,list);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+        recy_listTypeJob.setLayoutManager(layoutManager);
+        recy_listTypeJob.setAdapter(typeJobAdapter);
+        typeJobAdapter.notifyDataSetChanged();
     }
 
     @Override

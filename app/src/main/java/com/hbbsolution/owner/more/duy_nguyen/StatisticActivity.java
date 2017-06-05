@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.model.Task;
 import com.hbbsolution.owner.more.duy_nguyen.presenter.StatisticPresenter;
+import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.squareup.picasso.Picasso;
@@ -52,6 +54,8 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
 
     @BindView(R.id.lnStatistic)
     LinearLayout lnStatistic;
+    @BindView(R.id.rela_info)
+    RelativeLayout rela_info;
     @BindView(R.id.img_history_avatar)
     CircleImageView imgAvatar;
 
@@ -97,6 +101,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         tvStartDate.setOnClickListener(this);
         tvEndDate.setOnClickListener(this);
         tvPayment.setOnClickListener(this);
+        rela_info.setOnClickListener(this);
     }
 
     public void setNumber() {
@@ -215,6 +220,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.tvStartDate:
                 showDatePickerDialog1();
@@ -222,8 +228,12 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
             case R.id.tvEndDate:
                 showDatePickerDialog2();
                 break;
+            case R.id.rela_info:
+                intent = new Intent(StatisticActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                break;
             case R.id.txt_statistic_payment:
-                Intent intent = new Intent(StatisticActivity.this,RechargeActivity.class);
+                intent = new Intent(StatisticActivity.this,RechargeActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -51,6 +51,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
     private LinearLayout lnNoData;
+
     public HistoryJobFragment() {
     }
 
@@ -132,13 +133,10 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
         progressBar.setVisibility(View.GONE);
-        if(listWorkHistory.size()>0) {
+        if (listWorkHistory.size() > 0) {
             view.setVisibility(View.VISIBLE);
-            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
             lnNoData.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
+        } else {
             lnNoData.setVisibility(View.VISIBLE);
         }
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
@@ -174,13 +172,10 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         historyJobAdapter = new HistoryJobAdapter(getActivity(), mDocList);
         recyclerView.setAdapter(historyJobAdapter);
         progressBar.setVisibility(View.GONE);
-        if(listWorkHistory.size()>0) {
+        if (listWorkHistory.size() > 0) {
             view.setVisibility(View.VISIBLE);
-            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
             lnNoData.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
+        } else {
             lnNoData.setVisibility(View.VISIBLE);
         }
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
@@ -237,7 +232,6 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 if (endDate.getTime() - startDate.getTime() >= 0) {
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    mSwipeRefreshLayout.setVisibility(View.INVISIBLE);
                     workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
@@ -282,12 +276,13 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                     if (endDate.getTime() - startDate.getTime() >= 0) {
                         view.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
-                        mSwipeRefreshLayout.setVisibility(View.INVISIBLE);
                         workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                     }
                 } else {
+                    view.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);
                 }
             }

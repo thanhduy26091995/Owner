@@ -133,7 +133,6 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 if (endDate.getTime() - startDate.getTime() >= 0) {
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    mSwipeRefreshLayout.setVisibility(View.INVISIBLE);
                     helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
@@ -177,12 +176,13 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                     if (endDate.getTime() - startDate.getTime() >= 0) {
                         view.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
-                        mSwipeRefreshLayout.setVisibility(View.INVISIBLE);
                         helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
                     }
                 } else {
+                    view.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     helperHistoryPresenter.getInfoHelperHistoryTime("", simpleDateFormat.format(endDate));
                 }
             }
@@ -220,7 +220,6 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         recyclerView.setAdapter(historyHelperAdapter);
         if(datumList.size()>0) {
             view.setVisibility(View.VISIBLE);
-            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
         }
         else
         {

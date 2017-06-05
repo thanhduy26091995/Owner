@@ -19,8 +19,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.hbbsolution.owner"
@@ -30,7 +28,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
         </provider>
-
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -71,8 +68,9 @@
         <activity android:name=".maid_profile.choose_maid.view.ChooseMaidActivity" />
         <activity android:name=".history.view.DetailLiabilitiesHistory" />
         <activity android:name=".more.duy_nguyen.LanguageActivity" />
-        <activity android:name=".more.phuc_tran.TermActivity"/>
-        <activity android:name=".more.duy_nguyen.RechargeActivity"></activity>
+        <activity android:name=".more.phuc_tran.TermActivity" />
+        <activity android:name=".more.duy_nguyen.RechargeActivity" />
+        <activity android:name=".more.duy_nguyen.InfoBankActivity"></activity>
     </application>
 
 </manifest>
