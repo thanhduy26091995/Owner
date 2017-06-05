@@ -29,6 +29,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.maid_profile.choose_maid.presenter.ChooseMaidPresenter;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
@@ -83,8 +84,6 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     CheckBox chb_tools_work;
     @BindView(R.id.progressPostJob)
     ProgressBar progressBar;
-    @BindView(R.id.edt_hour_work)
-    EditText edtHourWork;
 
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
@@ -218,13 +217,9 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         } else if (v == rad_type_money_work) {
             mPackageId = "000000000000000000000001";
             edt_monney_work.setEnabled(true);
-            edtHourWork.setEnabled(false);
-            edtHourWork.setText("");
         } else if (v == rad_type_money_khoan) {
             mPackageId = "000000000000000000000002";
             edt_monney_work.setEnabled(false);
-            edtHourWork.setEnabled(true);
-            edt_monney_work.setText("");
         } else if (v == txt_post_complete) {
             if (checkDataComplete()) {
                 showProgressDialog();
@@ -355,7 +350,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         if (rad_type_money_work.isChecked()) {
             price = Double.parseDouble(edt_monney_work.getText().toString());
         } else {
-            hour = Double.parseDouble(edtHourWork.getText().toString());
+            // hour = Double.parseDouble(edtHourWork.getText().toString());
         }
         String dateStartWork = getTimeWork(txtTime_start.getText().toString());
         String dateEndWork = getTimeWork(txtTime_end.getText().toString());
@@ -396,6 +391,9 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
 
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
+                                if (MaidProfileActivity.maidProfileActivity != null) {
+                                    MaidProfileActivity.maidProfileActivity.finish();
+                                }
                                 finish();
                                 alertDialogBuilder.create().dismiss();
                             }

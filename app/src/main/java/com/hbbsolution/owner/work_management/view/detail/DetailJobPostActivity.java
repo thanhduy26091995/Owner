@@ -17,19 +17,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.IconTextView;
-import com.hbbsolution.owner.history.view.CommentActivity;
+import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
-import com.hbbsolution.owner.work_management.model.workmanager.Info;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
-import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
-import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
@@ -308,6 +304,16 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
     @Override
     public void displayError(String error) {
+
+    }
+
+    @Override
+    public void checkIn(CheckInResponse checkInResponse) {
+
+    }
+
+    @Override
+    public void checkInFail(String error) {
 
     }
 

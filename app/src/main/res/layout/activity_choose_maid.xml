@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Yêu cầu công việc"
+                android:text="Gửi yêu cầu"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -130,7 +130,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
-                    android:hint="Địa chỉ"
+                    android:hint="Địa chỉ làm việc"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="16sp" />
@@ -235,14 +235,14 @@
                         android:layout_marginRight="20dp"
                         android:background="@color/colorBlack" />
 
-                    <EditText
+                    <TextView
                         android:enabled="false"
                         android:id="@+id/edt_hour_work"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:hint="Nhập số giờ"
+                        android:hint="Khoán tiền công theo thời gian"
                         android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:textColor="@color/colorBlack"

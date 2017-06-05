@@ -4,10 +4,15 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
+import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostView;
-import com.hbbsolution.owner.work_management.view.jobpost.JobPostView;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,13 +38,13 @@ public class DetailJobPostPresenter {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
                 Log.d("onResponse", response.code() + "");
-                try{
+                try {
                     if (response.isSuccessful()) {
 
                         Boolean isJbPost = response.body().getStatus();
                         mDetailJobPostView.displayNotifyJobPost(isJbPost);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.d("Exception", e.toString());
                 }
 
@@ -48,6 +53,38 @@ public class DetailJobPostPresenter {
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
                 Log.d("onFailure", t.toString());
+            }
+        });
+    }
+
+    public void checkIn(String filePath, String ownerId, String taskId) {
+        MultipartBody.Part fileToUpload;
+        if (filePath.equals("")) {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            fileToUpload = MultipartBody.Part.create(requestBody);
+        } else {
+            File file = new File(filePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            fileToUpload = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+        }
+
+        RequestBody requestOwnerId = RequestBody.create(MediaType.parse("multipart/form-data"), ownerId);
+        RequestBody requestTaskId = RequestBody.create(MediaType.parse("multipart/form-data"), taskId);
+
+        Call<CheckInResponse> checkInResponseCall = apiService.checkIn(fileToUpload, requestOwnerId, requestTaskId);
+        checkInResponseCall.enqueue(new Callback<CheckInResponse>() {
+            @Override
+            public void onResponse(Call<CheckInResponse> call, Response<CheckInResponse> response) {
+                if (response.isSuccessful()) {
+                    mDetailJobPostView.checkIn(response.body());
+                } else {
+                    mDetailJobPostView.checkInFail(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CheckInResponse> call, Throwable t) {
+                mDetailJobPostView.checkInFail(t.getMessage());
             }
         });
     }

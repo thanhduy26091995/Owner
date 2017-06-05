@@ -1,15 +1,19 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
 import android.Manifest;
-import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,16 +28,21 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
+import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.EncodeImage;
+import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +94,9 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private Uri mUri;
+    private SessionManagerUser sessionManagerUser;
+    private HashMap<String, String> hashDataUser = new HashMap<>();
+    private long timeStart, timeEnd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +104,8 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         setContentView(R.layout.activity_detail_job_pending);
         ButterKnife.bind(this);
 
+        sessionManagerUser = new SessionManagerUser(this);
+        hashDataUser = sessionManagerUser.getUserDetails();
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -106,6 +120,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
         final Intent intent = getIntent();
         mDatum = (DatumPending) intent.getSerializableExtra("mDatum");
+
 
         txtNameMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
         txtAddressMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
@@ -192,12 +207,61 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     }
 
     private void openCamera() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(MediaStore.Images.Media.TITLE, "Image File Name");
-        mUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
-        startActivityForResult(cameraIntent, Constants.CAMERA_INTENT);
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(MediaStore.Images.Media.TITLE, "Title");
+//        mUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+//        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+//        startActivityForResult(cameraIntent, Constants.CAMERA_INTENT);
+
+        // create Intent to take a picture and return control to the calling application
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri("photo.jpg")); // set the image file name
+//
+//        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+//        // So as long as the result is not null, it's safe to use the intent.
+//        if (intent.resolveActivity(getPackageManager()) != null) {
+//            // Start the image capture intent to take photo
+//            startActivityForResult(intent, Constants.CAMERA_INTENT);
+//        }
+
+
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePhotoIntent, Constants.CAMERA_INTENT);
+        }
+    }
+
+    // Returns the Uri for a photo stored on disk given the fileName
+    public Uri getPhotoFileUri(String fileName) {
+        // Only continue if the SD Card is mounted
+        if (isExternalStorageAvailable()) {
+            // Get safe storage directory for photos
+            // Use `getExternalFilesDir` on Context to access package-specific directories.
+            // This way, we don't need to request external read/write runtime permissions.
+            File mediaStorageDir = new File(
+                    getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Owner");
+
+            // Create the storage directory if it does not exist
+            if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+                // Log.d(APP_TAG, "failed to create directory");
+            }
+
+            // Return the file target for the photo based on filename
+            File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
+
+            // wrap File object into a content provider
+            // required for API >= 24
+            // See https://guides.codepath.com/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
+            return FileProvider.getUriForFile(DetailJobPendingActivity.this, "com.hbbsolution.owner", file);
+        }
+        return null;
+    }
+
+    // Returns true if external storage for photos is available
+    private boolean isExternalStorageAvailable() {
+        String state = Environment.getExternalStorageState();
+        return state.equals(Environment.MEDIA_MOUNTED);
     }
 
     private boolean verifyOpenCamera() {
@@ -228,10 +292,63 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.CAMERA_INTENT && resultCode == RESULT_OK) {
+            timeStart = new Date().getTime();
+//            Uri takenPhotoUri = getPhotoFileUri("photo.jpg");
+//            try {
+//                Log.d("PATH", getFilePath(DetailJobPendingActivity.this, takenPhotoUri));
+//            } catch (URISyntaxException e) {
+//                e.printStackTrace();
+//            }
 
+            // Bundle extras = data.getExtras();
+            //Bitmap imageBitmap = (Bitmap) extras.get("data");
+            String photoPath = "";
+            if (getRealPathFromURI(data.getData()) != "") {
+                Bitmap imageBitmap = EncodeImage.encodeImage(getRealPathFromURI(data.getData()));
+                photoPath = getRealPathFromURI(getImageUri(DetailJobPendingActivity.this, imageBitmap));
+            } else {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                // Bitmap des = EncodeImage.rotateBitmap(photo, orientation);
+                Uri tempUri = getImageUri(getApplicationContext(), photo);
+                photoPath = getRealPathFromURI(tempUri);
+            }
+
+            // String photoPath = GetRealPath.getPath(DetailJobPendingActivity.this, imageBitmap);
+            //  String photoPath = GetRealPath.getPath(DetailJobPendingActivity.this, data.getData());
+            // Log.d("PATH", photoPath);
+
+//            Bitmap bitmap = EncodeImage.encodeImage(getRealPathFromURI(takenPhotoUri));
+//            String photoPath = "";
+//            photoPath = getRealPathFromURI(getImageUri(DetailJobPendingActivity.this, bitmap));
+            //   Log.d("PATH", photoPath);
+            mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", mDatum.getId());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private Uri getImageUri(Context inContext, Bitmap inImage) {
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result = "";
+        try {
+            Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+            if (cursor == null) { // Source is Dropbox or other similar local file path
+                result = contentURI.getPath();
+            } else {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                result = cursor.getString(idx);
+                cursor.close();
+            }
+        } catch (Exception e) {
+
+        }
+        return result;
+    }
+
 
     private String getTimerDoingWork(String startAt, String endAt) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
@@ -258,6 +375,21 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
     @Override
     public void displayError(String error) {
+
+    }
+
+    @Override
+    public void checkIn(CheckInResponse checkInResponse) {
+        timeEnd = new Date().getTime();
+        Log.d("TIME", "" + (timeEnd - timeStart) / 1000);
+        boolean status = checkInResponse.isStatus();
+        if (status) {
+
+        }
+    }
+
+    @Override
+    public void checkInFail(String error) {
 
     }
 }

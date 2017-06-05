@@ -7,6 +7,7 @@ import com.hbbsolution.owner.history.model.workhistory.CommentResponse;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.home.model.ResponseRequest;
 import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
+import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
@@ -151,4 +152,9 @@ public interface ApiInterface {
 
     @GET("owner/checkToken")
     Call<ResponseRequest> checkToken();
+
+    @Multipart
+    @POST("task/checkin")
+    Call<CheckInResponse> checkIn(@Part MultipartBody.Part fileImage, @Part("ownerId") RequestBody ownerId, @Part("id") RequestBody taskId);
+
 }
