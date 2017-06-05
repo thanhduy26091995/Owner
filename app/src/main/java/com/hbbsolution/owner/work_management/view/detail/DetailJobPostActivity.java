@@ -196,7 +196,6 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 }
                 break;
             case R.id.lo_clear_job:
-
                 String id = mDatum.getId();
                 String idOwner = mDatum.getStakeholders().getOwner();
                 Log.d("idrequset", id + " - " + idOwner);

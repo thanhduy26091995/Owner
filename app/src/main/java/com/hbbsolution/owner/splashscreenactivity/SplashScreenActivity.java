@@ -32,14 +32,14 @@ public class SplashScreenActivity extends AppCompatActivity {
                     e.printStackTrace();
                 } finally {
                     SessionManagerUser sessionManagerUser = new SessionManagerUser(SplashScreenActivity.this);
-                    if(sessionManagerUser.checkLogin()){
+                    if(sessionManagerUser.isLoggedIn()){
                         Intent i = new Intent(SplashScreenActivity.this,
                                 HomeActivity.class);
                         startActivity(i);
                         finish();
                     }else {
                         Intent i = new Intent(SplashScreenActivity.this,
-                                SignInActivity.class);
+                                HomeActivity.class);
                         startActivity(i);
                         finish();
                     }

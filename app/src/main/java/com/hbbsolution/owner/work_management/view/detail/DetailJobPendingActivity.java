@@ -183,7 +183,6 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
                 startActivity(itInfoUser);
                 break;
             case R.id.rela_confirm_maid: {
-                Log.d("DSA", "DAS");
                 if (verifyOpenCamera()) {
                     openCamera();
                 }

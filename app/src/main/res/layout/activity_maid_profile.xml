@@ -37,7 +37,6 @@
                     android:text="NHẬN XÉT" />
             </LinearLayout>
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
@@ -62,6 +61,7 @@
         android:layout_marginBottom="?attr/actionBarSize"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:theme="@style/toolbar_theme">
@@ -86,7 +86,6 @@
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="bold" />
-        />
 
     </LinearLayout>
 
@@ -107,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_collapseMode="parallax">
+                app:layout_collapseMode="none">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar_header"
@@ -136,7 +135,7 @@
                     <ImageView
                         android:id="@+id/img_blur_image"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="190dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/bg" />
 
@@ -151,14 +150,14 @@
                             android:layout_width="96dp"
                             android:layout_height="96dp"
                             android:layout_gravity="center"
-                            android:layout_marginTop="30dp"
+                            android:layout_marginTop="20dp"
                             android:src="@drawable/avatar" />
 
                         <TextView
                             android:id="@+id/txtNameInfoMaid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:text="Nguyển Văn A"
                             android:textColor="@android:color/white"
@@ -186,47 +185,6 @@
                     android:layout_marginTop="5dp"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:weightSum="4">
-
-                    <com.hbbsolution.owner.base.IconTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:text="@string/ic_usd"
-                        android:textColor="@color/home_background_history"
-                        android:textSize="@dimen/icon_size" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_toRightOf="@+id/txt_icon_dollar"
-                        android:layout_weight="3.5"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txtPriceInfoMaid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:text="100k"
-                            android:textColor="@color/colorBlack" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@android:color/darker_gray" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="5dp"
                     android:weightSum="4">
 
                     <com.hbbsolution.owner.base.IconTextView
@@ -330,7 +288,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:text="u can read it bit by bit and compare between it :) if it is the same. like u know every file build from 0 and 1 so u can open it like binary file and compare it."
+                            android:text="u can read it bit by bit and compare between it :)"
                             android:textColor="@color/colorBlack" />
 
 
@@ -343,14 +301,80 @@
                     android:layout_marginTop="5dp"
                     android:background="@android:color/darker_gray" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="Năng lực làm việc"
+                    android:background="@android:color/darker_gray"
+                    android:textColor="@color/colorBlack"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:weightSum="4">
+
+                    <com.hbbsolution.owner.base.IconTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="@string/ic_usd"
+                        android:textColor="@color/home_background_history"
+                        android:textSize="@dimen/icon_size" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_toRightOf="@+id/txt_icon_dollar"
+                        android:layout_weight="3.5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtPriceInfoMaid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="100k"
+                            android:textColor="@color/colorBlack" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recy_listTypeJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+                </android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@android:color/darker_gray" />
+
                 <LinearLayout
                     android:id="@+id/linear_report_maid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="10dp">
+                    android:paddingRight="15dp">
 
                     <TextView
                         android:layout_width="match_parent"

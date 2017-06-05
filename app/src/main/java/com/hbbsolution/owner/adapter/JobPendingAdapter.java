@@ -63,7 +63,6 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
 
         if(tabJob == 2){
             holder.txtType.setText("Đang chờ xác nhận");
-
             if (CompareDays(getDatePostHistory(mDatum.getInfo().getTime().getEndAt()))) {
                 holder.txtExpired.setVisibility(View.VISIBLE);
                 holder.lo_background.setVisibility(View.VISIBLE);
@@ -71,16 +70,12 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
             } else {
                 holder.txtExpired.setVisibility(View.GONE);
                 holder.lo_background.setVisibility(View.GONE);
-
             }
         }
-
 
         if(tabJob == 3){
             holder.txtType.setText("Đang làm");
         }
-
-
 
         Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
                 .placeholder(R.drawable.no_image)

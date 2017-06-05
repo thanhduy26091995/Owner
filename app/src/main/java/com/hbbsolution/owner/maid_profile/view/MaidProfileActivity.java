@@ -1,6 +1,5 @@
 package com.hbbsolution.owner.maid_profile.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -8,10 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,13 +30,15 @@ import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.history.model.helper.Datum;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
+import com.hbbsolution.owner.maid_profile.adapter.TypeJobAdapter;
 import com.hbbsolution.owner.maid_profile.choose_maid.view.ChooseMaidActivity;
 import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.view.ReportMaidActivity;
-import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.utils.EndlessRecyclerViewScrollListener;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
+import com.hbbsolution.owner.work_management.presenter.ListMaidPresenter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -86,14 +90,24 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     ImageView img_avatarMaid;
     @BindView(R.id.img_blur_image)
     ImageView imgBlurImage;
+    @BindView(R.id.recy_listTypeJob)
+    RecyclerView recy_listTypeJob;
+    @BindView(R.id.nestedScrollView)
+    NestedScrollView nestedScrollView;
 
     private MaidProfilePresenter mMaidProfilePresenter;
+    private ListMaidPresenter mListMaidPresenter;
     private List<Doc> commentList = new ArrayList<>();
     private ListCommentAdapter listCommentAdapter;
     private Maid mMaidInfo;
     private WorkHistory workHistory;
     private Datum datum;
-    private static final int REPORT = 0;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private int currentPage = 1;
+    private String idTaskProcess;
+    private boolean isChosenMaidFromRecruitment = false;
+
+    private List<String> list;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,17 +126,30 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         mMaidProfilePresenter = new MaidProfilePresenter(this);
 
-
         appBarLayout.addOnOffsetChangedListener(this);
         //event click
         lo_ChosenMaidInfo.setOnClickListener(this);
         txtBackInfoMaid.setOnClickListener(this);
         linearReportMaid.setOnClickListener(this);
 
+        list = new ArrayList<>();
+        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
+        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
+        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
+
+
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
         datum = (Datum) getIntent().getSerializableExtra("helper");
         workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
+        isChosenMaidFromRecruitment = getIntent().getBooleanExtra("chosenMaidFromListRecruitment", false);
+
         if (mMaidInfo != null) {
+            idTaskProcess = getIntent().getStringExtra("idTaskProcess");
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
             txtGenderInfoMaid.setText(getGenderMaid(mMaidInfo.getInfo().getGender()));
@@ -133,7 +160,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                     .placeholder(R.drawable.avatar)
                     .error(R.drawable.avatar)
                     .into(img_avatarMaid);
-            mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), 1);
+            mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), currentPage);
 
             // from Bitmap
             Glide.with(MaidProfileActivity.this)
@@ -149,7 +176,14 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                                     .into(imgBlurImage);
                         }
                     });
+
+            TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,list);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+            recy_listTypeJob.setLayoutManager(layoutManager);
+            recy_listTypeJob.setAdapter(typeJobAdapter);
+            typeJobAdapter.notifyDataSetChanged();
         }
+
         if (workHistory != null) {
             txtNameInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getName());
             txtPriceInfoMaid.setText(String.valueOf(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice()));
@@ -178,6 +212,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
+
         if (datum != null) {
             txtNameInfoMaid.setText(datum.getId().getInfo().getName());
             //       txtPriceInfoMaid.setText(String.valueOf(datum.getId().getWorkInfo().getPrice()));
@@ -203,6 +238,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                                     .into(imgBlurImage);
                         }
                     });
+
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
@@ -224,10 +260,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        if (collapsingToolbarLayout.getHeight() + verticalOffset <= 1 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)) {
+        if (collapsingToolbarLayout.getHeight() + verticalOffset <= 1.5 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)) {
             toolbar.setVisibility(View.VISIBLE);
+
             toolbar.animate().alpha(1).setDuration(200);
         } else {
+
             toolbar.setVisibility(GONE);
             toolbar.animate().alpha(0).setDuration(200);
         }
@@ -237,9 +275,15 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lo_ChosenMaidInfo:
-                Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
-                intentChooseMaid.putExtra("maid", mMaidInfo);
-                startActivity(intentChooseMaid);
+                if (isChosenMaidFromRecruitment) {
+//                    Log.d("mMaidInfo", idTaskProcess);
+                    mListMaidPresenter.sentRequestChosenMaid(idTaskProcess, mMaidInfo.getId());
+                }else {
+//                    Log.d("mMaidInfo", "ChosenListMap");
+                    Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
+                    intentChooseMaid.putExtra("maid", mMaidInfo);
+                    startActivity(intentChooseMaid);
+                }
                 break;
             case R.id.txtBackInfoMaid:
                 finish();
@@ -249,7 +293,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 intent.putExtra("maid", mMaidInfo);
                 intent.putExtra("work", workHistory);
                 intent.putExtra("helper", datum);
-                startActivityForResult(intent,REPORT);
+                startActivity(intent);
                 break;
 
         }
@@ -264,28 +308,39 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     @Override
     public void getListCommentMaid(CommentMaidResponse mCommentMaidResponse) {
-
+        final int pages = mCommentMaidResponse.getData().getPages();
         commentList = mCommentMaidResponse.getData().getDocs();
         listCommentAdapter = new ListCommentAdapter(this, commentList);
-        mRecycler.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecycler.setLayoutManager(layoutManager);
         mRecycler.setHasFixedSize(true);
         mRecycler.setAdapter(listCommentAdapter);
         listCommentAdapter.notifyDataSetChanged();
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                if (currentPage < pages) {
+                    mMaidProfilePresenter.getMoreInfoListMaid(mMaidInfo.getId(), currentPage);
+                }
+            }
+        };
+    }
+
+    @Override
+    public void getMoreListCommentMaid(CommentMaidResponse mCommentMaidResponse) {
+        commentList.addAll( mCommentMaidResponse.getData().getDocs());
+        currentPage++;
+        listCommentAdapter.notifyDataSetChanged();
+        mRecycler.post(new Runnable() {
+            @Override
+            public void run() {
+                listCommentAdapter.notifyItemRangeInserted(listCommentAdapter.getItemCount(), commentList.size() - 1);
+            }
+        });
     }
 
     @Override
     public void getMessager() {
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==REPORT)
-        {
-            if(resultCode== Activity.RESULT_OK)
-            {
-                ShowAlertDialog.showAlert(data.getStringExtra("message"),this);
-            }
-        }
     }
 }

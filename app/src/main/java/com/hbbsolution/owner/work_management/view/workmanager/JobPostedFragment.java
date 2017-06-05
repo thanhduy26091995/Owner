@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +111,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         progressBar.setVisibility(View.GONE);
+                        Log.d("datadel", mDatum.getId() + "\n" + mDatum.getStakeholders().getOwner());
                         mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
                     }
                 });

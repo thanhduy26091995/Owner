@@ -9,5 +9,6 @@ import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidRe
 public interface  MaidProfileView {
 
     void getListCommentMaid(CommentMaidResponse mCommentMaidResponse);
+    void getMoreListCommentMaid(CommentMaidResponse mCommentMaidResponse);
     void getMessager();
 }

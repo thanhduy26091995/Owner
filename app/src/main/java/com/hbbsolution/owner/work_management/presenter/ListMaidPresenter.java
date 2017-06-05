@@ -53,8 +53,9 @@ public class ListMaidPresenter {
         call.enqueue(new Callback<JobPostResponse>() {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
+                Log.e("successfulyss", response.code() + "");
                 if(response.isSuccessful()){
-                    Log.e("successfuly", "successful");
+                    Log.e("successfulyss", response.code() + "");
                     try{
                         Boolean isJbPost = response.body().getStatus();
                         mListMaidView.responseChosenMaid(isJbPost);

@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.work_management.view.listmaid;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,11 +49,13 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     private ListUserRecruitmentAdapter listUserRecruitmentAdapter;
     private RecyclerView mRecycler;
     private  String idTaskProcess;
+    public static Activity mListUserRecruitmentActivity = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_user_recruitment);
+        mListUserRecruitmentActivity = this;
         ButterKnife.bind(this);
 
         toolbar.setTitle("");
@@ -102,6 +105,8 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
             public void onItemClick(Maid mMaid) {
                 Intent itInfoUser = new Intent(ListUserRecruitmentActivity.this, MaidProfileActivity.class);
                 itInfoUser.putExtra("maid",mMaid);
+                itInfoUser.putExtra("idTaskProcess",idTaskProcess);
+                itInfoUser.putExtra("chosenMaidFromListRecruitment", true);
                 startActivity(itInfoUser);
             }
         });
@@ -118,7 +123,32 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     @Override
     public void responseChosenMaid(boolean isResponseChosenMaid) {
         if (isResponseChosenMaid){
-            ShowAlertDialog.showAlert("Thành công", ListUserRecruitmentActivity.this);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("Thông báo");
+            alertDialog.setMessage("Bạn đã chọn người giúp việc thành công !");
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+//                    EventBus.getDefault().postSticky(true);
+//                    finish();
+
+                    EventBus.getDefault().postSticky(true);
+                    if(mListUserRecruitmentActivity != null){
+                        ListUserRecruitmentActivity.mListUserRecruitmentActivity.finish();
+                        try{
+                            if(DetailJobPostActivity.mDetailJobPostActivity != null){
+                                DetailJobPostActivity.mDetailJobPostActivity.finish();
+                            }
+                        }catch (Exception e){
+
+                        }
+                    }
+
+                }
+            });
+
+            alertDialog.show();
         }else {
             ShowAlertDialog.showAlert("Thất bại", ListUserRecruitmentActivity.this);
         }
