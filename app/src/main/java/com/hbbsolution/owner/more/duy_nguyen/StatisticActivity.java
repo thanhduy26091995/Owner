@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.more.duy_nguyen;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -222,6 +223,8 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                 showDatePickerDialog2();
                 break;
             case R.id.txt_statistic_payment:
+                Intent intent = new Intent(StatisticActivity.this,RechargeActivity.class);
+                startActivity(intent);
                 break;
         }
     }

@@ -49,4 +49,8 @@
     <!--More activity-->
     <string name="ic_share">&#xf3ac;</string>
     <!--More activity-->
+
+    <!--Recharge activity-->
+    <string name="ic_telephone">&#xf4b9;</string>
+    <!--Recharge activity-->
 </resources>

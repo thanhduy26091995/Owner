@@ -97,7 +97,13 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        helperHistoryPresenter.getInfoHelperHistory(simpleDateFormat.format(endDate));
+                        if(startDate!=null)
+                        {
+                            helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate),simpleDateFormat.format(endDate));
+                        }
+                        else {
+                            helperHistoryPresenter.getInfoHelperHistory(simpleDateFormat.format(endDate));
+                        }
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
                 }, 1500);
@@ -226,5 +232,6 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
     @Override
     public void getInfoHelperHistoryFail() {
         lnNoData.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 }

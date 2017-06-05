@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,10 +34,6 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String date;
     private String startTime, endTime;
-    private String type,title,work,description,address,avatar,name,address_;
-    private int price;
-    private WorkHistory doc;
-    private Pair<View, String> pairJobType;
     @Override
     public HistoryJobAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_job, parent, false);

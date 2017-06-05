@@ -59,7 +59,7 @@
         <activity android:name=".history.view.DetailLiabilitiesHistory" />
         <activity android:name=".more.duy_nguyen.LanguageActivity" />
         <activity android:name=".more.phuc_tran.TermActivity"/>
-        <activity android:name=".history.view.RechargeActivity"></activity>
+        <activity android:name=".more.duy_nguyen.RechargeActivity"></activity>
     </application>
 
 </manifest>

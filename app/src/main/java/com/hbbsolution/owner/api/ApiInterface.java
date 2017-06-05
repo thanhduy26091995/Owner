@@ -2,6 +2,7 @@ package com.hbbsolution.owner.api;
 
 import com.hbbsolution.owner.history.model.commenthistory.CommentHistoryResponse;
 import com.hbbsolution.owner.history.model.helper.HistoryHelperResponse;
+import com.hbbsolution.owner.history.model.liabilities.LiabilitiesResponse;
 import com.hbbsolution.owner.history.model.workhistory.CommentResponse;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.home.model.ResponseRequest;
@@ -25,7 +26,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -52,6 +52,9 @@ public interface ApiInterface {
 
     @GET("owner/getAllWorkedMaid")
     Call<HistoryHelperResponse> getAllWorkedMaid(@Query("startAt") String startAt, @Query("endAt") String endAt);
+
+    @GET("owner/getDebt")
+    Call<LiabilitiesResponse> getLiabilities(@Query("startAt") String startAt, @Query("endAt") String endAt);
 
     @GET("task/getComment")
     Call<CommentHistoryResponse> checkComment(@Query("task") String idTask);
