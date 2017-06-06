@@ -41,6 +41,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     private int tabMore, mQuantityJobPost;
     private boolean isPause = false, mTab = false;
+    static int mPositionTab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,7 +133,9 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
             if(mTab){
                 Intent refresh = new Intent(this, WorkManagementActivity.class);
                 startActivity(refresh);
+                mViewPager.setCurrentItem(mPositionTab);
                 this.finish();
+                mPositionTab = 0;
                 isPause = false;
                 mTab = false;
             }
@@ -143,7 +146,12 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     public void onEventMainThread(Integer quantityJobPost) {
         mQuantityJobPost = quantityJobPost;
     }
-    public void onEventMainThread(Boolean idTab) {
-        mTab = idTab;
+    public void onEventMainThread(Boolean isTab) {
+        mTab = isTab;
+    }
+    public void onEvent(Integer positionTab) {
+
+        mPositionTab = positionTab;
+        Log.d("mPosition", mPositionTab + "");
     }
 }

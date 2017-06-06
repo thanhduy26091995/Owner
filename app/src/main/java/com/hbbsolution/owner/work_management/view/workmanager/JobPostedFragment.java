@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ManageJobAdapter;
+import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
@@ -41,6 +42,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
     private String idProcess = "000000000000000000000001";
 
     private View rootView;
+    private LinearLayout lnNoData;
     private WorkManagerPresenter mWorkManagerPresenter;
     private List<Datum> mJobList = new ArrayList<>();
     private ManageJobAdapter mJobPostAdapter;
@@ -56,10 +58,13 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
 
             mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_post);
             progressBar = (ProgressBar) rootView.findViewById(R.id.progressPost);
+            lnNoData = (LinearLayout) rootView.findViewById(R.id.lnNoData);
+
             mSwipeRefreshLayoutSale = (SwipeRefreshLayout) rootView.findViewById(R.id.swip_refresh_job_post);
 
             mWorkManagerPresenter = new WorkManagerPresenter(this);
             progressBar.setVisibility(View.VISIBLE);
+
             mWorkManagerPresenter.getInfoWorkList(idProcess);
 
             mSwipeRefreshLayoutSale.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -84,46 +89,55 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
 
     @Override
     public void getInfoJob(WorkManagerResponse mExample) {
+//        txtManagement_compose_toothbar.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
         EventBus.getDefault().postSticky(mExample.getData().size());
         mJobList = mExample.getData();
-        mRecycler.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        mJobPostAdapter = new ManageJobAdapter(getActivity(), mJobList, 1);
-        mRecycler.setLayoutManager(linearLayoutManager);
-        mRecycler.setAdapter(mJobPostAdapter);
+        if (mJobList.size() > 0){
+            lnNoData.setVisibility(View.GONE);
+            mRecycler.setVisibility(View.VISIBLE);
+            mRecycler.setHasFixedSize(true);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+            mJobPostAdapter = new ManageJobAdapter(getActivity(), mJobList, 1);
+            mRecycler.setLayoutManager(linearLayoutManager);
+            mRecycler.setAdapter(mJobPostAdapter);
 
-        mJobPostAdapter.setCallback(new ManageJobAdapter.Callback() {
-            @Override
-            public void onItemClick(Datum mDatum) {
-                Intent itDetailJobPost = new Intent(getActivity(), DetailJobPostActivity.class);
-                itDetailJobPost.putExtra("mDatum", mDatum);
-                startActivity(itDetailJobPost);
-            }
+            mJobPostAdapter.setCallback(new ManageJobAdapter.Callback() {
+                @Override
+                public void onItemClick(Datum mDatum) {
+                    Intent itDetailJobPost = new Intent(getActivity(), DetailJobPostActivity.class);
+                    itDetailJobPost.putExtra("mDatum", mDatum);
+                    startActivity(itDetailJobPost);
+                }
 
-            @Override
-            public void onItemLongClick(final Datum mDatum) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setCancelable(false);
-                alertDialog.setTitle("Thông báo");
-                alertDialog.setMessage("Bạn có muốn xóa công việc nay ? ");
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        progressBar.setVisibility(View.GONE);
-                        Log.d("datadel", mDatum.getId() + "\n" + mDatum.getStakeholders().getOwner());
-                        mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
-                    }
-                });
-                alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                @Override
+                public void onItemLongClick(final Datum mDatum) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setCancelable(false);
+                    alertDialog.setTitle("Thông báo");
+                    alertDialog.setMessage("Bạn có muốn xóa công việc nay ? ");
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            progressBar.setVisibility(View.GONE);
+                            Log.d("datadel", mDatum.getId() + "\n" + mDatum.getStakeholders().getOwner());
+                            mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
+                        }
+                    });
+                    alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
-                alertDialog.show();
-            }
-        });
+                        }
+                    });
+                    alertDialog.show();
+                }
+            });
+        }else {
+            lnNoData.setVisibility(View.VISIBLE);
+            mRecycler.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -142,7 +156,6 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
                     getActivity().finish();
                     getActivity().overridePendingTransition(0, 0);
                     getActivity().startActivity(getActivity().getIntent());

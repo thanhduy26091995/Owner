@@ -123,6 +123,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
         }else {
             txtExpired_request_detail_post.setVisibility(View.GONE);
             if (mDatum.getStakeholders().getRequest().size() > 0 ) {
+                txtNumber_request_detail_post.setVisibility(View.VISIBLE);
                 txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
                 txtJob_post_edit_toothbar.setVisibility(View.GONE);
             } else {

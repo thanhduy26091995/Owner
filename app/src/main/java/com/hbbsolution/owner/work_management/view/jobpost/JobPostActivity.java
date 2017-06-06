@@ -372,12 +372,11 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             mPrice = "0";
         }
 
-        if (!edt_monney_work_hour.getText().toString().isEmpty()) {
-            mHours = edt_monney_work_hour.getText().toString();
-        } else {
-            mHours = "0";
-        }
-//        mPrice = edt_monney_work.getText().toString();
+//        if (!edt_monney_work_hour.getText().toString().isEmpty()) {
+//            mHours = edt_monney_work_hour.getText().toString();
+//        } else {
+//            mHours = "0";
+//        }
 
         if (chb_tools_work.isChecked()) {
             mChosenTools = true;
@@ -388,10 +387,10 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if(isPost ){
             mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork, mHours );
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
         }else {
             mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork, mHours );
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
         }
 
     }
@@ -399,15 +398,15 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     private boolean checkDataComplete() {
 
         if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
-                edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty() ||
-                edt_monney_work_hour.getText().toString().isEmpty()) {
+                edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert("Chua nhap day du tiêu đề ", JobPostActivity.this);
             return false;
         }
 
-        if (Integer.parseInt(edt_monney_work_hour.getText().toString()) >= 24){
-            ShowAlertDialog.showAlert("Bạn chọn giờ quá 1 ngày ", JobPostActivity.this);
+        if ( edtDescriptionPost.getText().toString().length() <= 20  || edtDescriptionPost.getText().toString().length() >= 200){
+            progressBar.setVisibility(View.GONE);
+            ShowAlertDialog.showAlert("Mô tả phải lớn hơn 20 kí tự và ít hơn 200 kí tự ", JobPostActivity.this);
             return false;
         }
 
@@ -559,4 +558,5 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         return simpleDateFormat.format(date);
     }
+
 }

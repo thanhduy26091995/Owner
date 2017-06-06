@@ -1,5 +1,7 @@
 package com.hbbsolution.owner.maid_profile.view;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,9 +38,12 @@ import com.hbbsolution.owner.maid_profile.presenter.MaidProfilePresenter;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.view.ReportMaidActivity;
 import com.hbbsolution.owner.utils.EndlessRecyclerViewScrollListener;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
 import com.hbbsolution.owner.work_management.presenter.ListMaidPresenter;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
+import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -45,6 +51,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import jp.wasabeef.blurry.Blurry;
 
 import static android.view.View.GONE;
@@ -95,7 +102,6 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     NestedScrollView nestedScrollView;
 
     private MaidProfilePresenter mMaidProfilePresenter;
-    private ListMaidPresenter mListMaidPresenter;
     private List<Doc> commentList = new ArrayList<>();
     private ListCommentAdapter listCommentAdapter;
     private Maid mMaidInfo;
@@ -109,10 +115,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public static MaidProfileActivity maidProfileActivity;
 
     private List<String> list;
+    public static Activity mMaidProfileActivity = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maid_profile);
+        mMaidProfileActivity = this;
         ButterKnife.bind(this);
         //init
         maidProfileActivity = this;
@@ -279,7 +287,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             case R.id.lo_ChosenMaidInfo:
                 if (isChosenMaidFromRecruitment) {
 //                    Log.d("mMaidInfo", idTaskProcess);
-                    mListMaidPresenter.sentRequestChosenMaid(idTaskProcess, mMaidInfo.getId());
+                    mMaidProfilePresenter.sentRequestChosenMaid(idTaskProcess, mMaidInfo.getId());
                 }else {
 //                    Log.d("mMaidInfo", "ChosenListMap");
                     Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
@@ -339,6 +347,40 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 listCommentAdapter.notifyItemRangeInserted(listCommentAdapter.getItemCount(), commentList.size() - 1);
             }
         });
+    }
+
+    @Override
+    public void responseChosenMaid(boolean isResponseChosenMaid) {
+        if (isResponseChosenMaid){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("Thông báo");
+            alertDialog.setMessage("Bạn đã chọn người giúp việc thành công !");
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    EventBus.getDefault().postSticky(true);
+                    if(mMaidProfileActivity != null){
+                        MaidProfileActivity.mMaidProfileActivity.finish();
+                        try{
+                            if(DetailJobPostActivity.mDetailJobPostActivity != null){
+                                DetailJobPostActivity.mDetailJobPostActivity.finish();
+                            }
+                            if(ListUserRecruitmentActivity.mListUserRecruitmentActivity != null){
+                                ListUserRecruitmentActivity.mListUserRecruitmentActivity.finish();
+                            }
+                        }catch (Exception e){
+
+                        }
+                    }
+
+                }
+            });
+
+            alertDialog.show();
+        }else {
+            ShowAlertDialog.showAlert("Thất bại", MaidProfileActivity.this);
+        }
     }
 
     @Override

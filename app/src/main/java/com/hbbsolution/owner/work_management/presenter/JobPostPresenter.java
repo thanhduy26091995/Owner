@@ -75,10 +75,10 @@ public class JobPostPresenter {
     }
 
     public void postJob(String title, String typeJob, String description, String address, double lat, double lng,
-                        boolean isTool, String packageId, String price, String timeStartWork, String timeEndWork, String hour) {
+                        boolean isTool, String packageId, String price, String timeStartWork, String timeEndWork) {
 
         Call<JobPostResponse> responseCall = apiService.postJob(title, typeJob, description, address,
-                lat, lng, isTool, packageId, price, timeStartWork, timeEndWork, hour);
+                lat, lng, isTool, packageId, price, timeStartWork, timeEndWork);
         responseCall.enqueue(new Callback<JobPostResponse>() {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
@@ -100,10 +100,10 @@ public class JobPostPresenter {
     }
 
     public void updatePostJob( String idTask, String title, String typeJob, String description, String address, double lat, double lng,
-                        boolean isTool, String packageId, String price, String timeStartWork, String timeEndWork, String hour) {
+                        boolean isTool, String packageId, String price, String timeStartWork, String timeEndWork) {
 
         Call<JobPostResponse> responseCall = apiService.updatePostJob(idTask, title, typeJob, description, address,
-                lat, lng, isTool, packageId, price, timeStartWork, timeEndWork, hour);
+                lat, lng, isTool, packageId, price, timeStartWork, timeEndWork);
         responseCall.enqueue(new Callback<JobPostResponse>() {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {

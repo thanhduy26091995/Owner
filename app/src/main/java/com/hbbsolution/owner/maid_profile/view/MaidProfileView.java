@@ -10,5 +10,6 @@ public interface  MaidProfileView {
 
     void getListCommentMaid(CommentMaidResponse mCommentMaidResponse);
     void getMoreListCommentMaid(CommentMaidResponse mCommentMaidResponse);
+    void responseChosenMaid(boolean isResponseChosenMaid);
     void getMessager();
 }

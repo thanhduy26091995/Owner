@@ -32,6 +32,7 @@ import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.EncodeImage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.squareup.picasso.Picasso;
@@ -370,7 +371,25 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
+        progressBar.setVisibility(View.GONE);
+        if (isJobPost) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("Thông báo");
+            alertDialog.setMessage("Bài đăng đã được xóa !");
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    EventBus.getDefault().postSticky(true);
+                    EventBus.getDefault().postSticky(1);
+                    finish();
+                }
+            });
 
+            alertDialog.show();
+        } else {
+            ShowAlertDialog.showAlert("Thất bại", DetailJobPendingActivity.this);
+        }
     }
 
     @Override

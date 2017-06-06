@@ -130,9 +130,6 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-//                    EventBus.getDefault().postSticky(true);
-//                    finish();
-
                     EventBus.getDefault().postSticky(true);
                     if(mListUserRecruitmentActivity != null){
                         ListUserRecruitmentActivity.mListUserRecruitmentActivity.finish();
