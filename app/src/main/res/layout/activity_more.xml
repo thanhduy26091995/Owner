@@ -238,6 +238,7 @@
                         android:background="@android:color/darker_gray" />
 
                     <RelativeLayout
+                        android:id="@+id/lo_about"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
