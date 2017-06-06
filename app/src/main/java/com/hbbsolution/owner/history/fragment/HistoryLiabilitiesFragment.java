@@ -220,6 +220,7 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
         recyclerView.setAdapter(historyLiabilitiesAdapter);
         if (workHistories.size() > 0) {
             view.setVisibility(View.VISIBLE);
+            lnNoData.setVisibility(View.GONE);
         } else {
             lnNoData.setVisibility(View.VISIBLE);
         }

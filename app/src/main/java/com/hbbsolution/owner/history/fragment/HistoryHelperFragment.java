@@ -220,6 +220,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         recyclerView.setAdapter(historyHelperAdapter);
         if(datumList.size()>0) {
             view.setVisibility(View.VISIBLE);
+            lnNoData.setVisibility(View.GONE);
         }
         else
         {

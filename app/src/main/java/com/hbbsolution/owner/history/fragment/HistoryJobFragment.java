@@ -135,7 +135,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         progressBar.setVisibility(View.GONE);
         if (listWorkHistory.size() > 0) {
             view.setVisibility(View.VISIBLE);
-            lnNoData.setVisibility(View.INVISIBLE);
+            lnNoData.setVisibility(View.GONE);
         } else {
             lnNoData.setVisibility(View.VISIBLE);
         }
@@ -174,7 +174,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         progressBar.setVisibility(View.GONE);
         if (listWorkHistory.size() > 0) {
             view.setVisibility(View.VISIBLE);
-            lnNoData.setVisibility(View.INVISIBLE);
+            lnNoData.setVisibility(View.GONE);
         } else {
             lnNoData.setVisibility(View.VISIBLE);
         }

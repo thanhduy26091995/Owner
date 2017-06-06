@@ -62,19 +62,20 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"
+        android:id="@+id/view2" />
 
     <TextView
         android:id="@+id/tv_dc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvName"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:text="@string/address_title"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:layout_below="@+id/view2"
+        android:layout_alignLeft="@+id/tvAddr"
+        android:layout_alignStart="@+id/tvAddr" />
 
     <TextView
         android:id="@+id/tvAddr"

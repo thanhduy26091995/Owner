@@ -12,12 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.more.duy_nguyen.LanguageActivity;
 import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
+import com.hbbsolution.owner.more.phuc_tran.AboutActivity;
+import com.hbbsolution.owner.more.phuc_tran.ContactActivity;
+import com.hbbsolution.owner.more.phuc_tran.TermActivity;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
@@ -51,6 +55,12 @@ public class MoreActivity extends AppCompatActivity {
     LinearLayout lnLanguage;
     @BindView(R.id.lnLogOut)
     LinearLayout lnLogOut;
+    @BindView(R.id.lo_about)
+    RelativeLayout lo_about;
+    @BindView(R.id.lo_terms1)
+    RelativeLayout lo_terms1;
+    @BindView(R.id.lo_terms)
+    RelativeLayout lo_terms;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
 
@@ -142,7 +152,27 @@ public class MoreActivity extends AppCompatActivity {
                         }).show();
             }
         });
-
+        lo_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iStatistic = new Intent(MoreActivity.this, AboutActivity.class);
+                startActivity(iStatistic);
+            }
+        });
+        lo_terms1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iStatistic = new Intent(MoreActivity.this, TermActivity.class);
+                startActivity(iStatistic);
+            }
+        });
+        lo_terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iStatistic = new Intent(MoreActivity.this, ContactActivity.class);
+                startActivity(iStatistic);
+            }
+        });
 
     }
 
