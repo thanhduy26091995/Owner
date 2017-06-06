@@ -4,16 +4,14 @@ package com.hbbsolution.owner.more.duy_nguyen.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class Task {
 
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("task")
+    @SerializedName("count")
     @Expose
-    private List<String> task = null;
+    private Integer count;
 
     public String getId() {
         return id;
@@ -23,12 +21,12 @@ public class Task {
         this.id = id;
     }
 
-    public List<String> getTask() {
-        return task;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setTask(List<String> task) {
-        this.task = task;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
 }
