@@ -12,4 +12,6 @@ public class Constants {
     public static final int FILTER_MAID_INTENT = 100;
     public static final int CAMERA_INTENT = 3;
 
+    public static boolean isLoadTabDoing = false;
+
 }

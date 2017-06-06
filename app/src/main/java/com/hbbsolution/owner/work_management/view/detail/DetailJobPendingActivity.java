@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -98,6 +99,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private long timeStart, timeEnd;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -322,7 +324,9 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 //            String photoPath = "";
 //            photoPath = getRealPathFromURI(getImageUri(DetailJobPendingActivity.this, bitmap));
             //   Log.d("PATH", photoPath);
-            mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", mDatum.getId());
+            //show progress
+            showProgress();
+            mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", "59114b6cbd3b3f2de964950c");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -350,6 +354,18 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         return result;
     }
 
+    private void showProgress() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang xác thực...Việc này có thể mất khá nhiều thời gian");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
 
     private String getTimerDoingWork(String startAt, String endAt) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
@@ -399,11 +415,37 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
     @Override
     public void checkIn(CheckInResponse checkInResponse) {
+        hideProgress();
         timeEnd = new Date().getTime();
         Log.d("TIME", "" + (timeEnd - timeStart) / 1000);
         boolean status = checkInResponse.isStatus();
         if (status) {
+            boolean isIdentical = checkInResponse.getData().isIdentical();
+            if (isIdentical) {
+                try {
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailJobPendingActivity.this);
+                    alertDialogBuilder.setMessage("Xác thực thành công");
+                    alertDialogBuilder.setCancelable(false);
+                    alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
+                            new DialogInterface.OnClickListener() {
 
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    finish();
+                                    Constants.isLoadTabDoing = true;
+                                    alertDialogBuilder.create().dismiss();
+                                }
+
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                } catch (Exception e) {
+
+                }
+            } else {
+                ShowAlertDialog.showAlert("Xác thực không thành công, vui lòng thử lại", DetailJobPendingActivity.this);
+            }
         }
     }
 

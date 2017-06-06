@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
 import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
@@ -133,7 +134,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     @Override
     protected void onResume() {
         if (isPause) {
-            if(mTab){
+            if (mTab) {
                 Intent refresh = new Intent(this, WorkManagementActivity.class);
                 startActivity(refresh);
                 mViewPager.setCurrentItem(mPositionTab);
@@ -143,15 +144,22 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
                 mTab = false;
             }
         }
+
+        if (Constants.isLoadTabDoing) {
+            mViewPager.setCurrentItem(2);
+            Constants.isLoadTabDoing = false;
+        }
         super.onResume();
     }
 
     public void onEventMainThread(Integer quantityJobPost) {
         mQuantityJobPost = quantityJobPost;
     }
+
     public void onEventMainThread(Boolean isTab) {
         mTab = isTab;
     }
+
     public void onEvent(Integer positionTab) {
 
         mPositionTab = positionTab;

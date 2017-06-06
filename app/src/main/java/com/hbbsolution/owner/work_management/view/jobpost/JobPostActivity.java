@@ -15,11 +15,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Selection;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -28,24 +26,18 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
-import com.hbbsolution.owner.maid_near_by.view.filter.presenter.FilterPresenter;
-import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
-import com.hbbsolution.owner.work_management.model.workmanager.Info;
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -104,7 +96,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId,
             mDateStartWork, mTimeStartWork, mTimeEndWork, mIdTask, mPrice, mHours;
 
-    private boolean  mChosenTools = false, isPost;
+    private boolean mChosenTools = false, isPost;
 
     private Datum infoJob;
 
@@ -146,7 +138,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             edt_monney_work.setEnabled(true);
             edt_monney_work_hour.setEnabled(false);
             mPackageId = "000000000000000000000001";
-        } else if (rad_type_money_khoan.isChecked()){
+        } else if (rad_type_money_khoan.isChecked()) {
             edt_monney_work.setEnabled(false);
             edt_monney_work_hour.setEnabled(true);
             mPackageId = "000000000000000000000002";
@@ -155,7 +147,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         final Intent intent = getIntent();
         infoJob = (Datum) intent.getSerializableExtra("infoJobPost");
 
-        if(infoJob != null){
+        if (infoJob != null) {
             isPost = false;
             txt_post_complete.setText("Cập nhật");
             mIdTask = infoJob.getId();
@@ -174,12 +166,12 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             mHours = String.valueOf(infoJob.getInfo().getTime().getHour());
             edt_monney_work_hour.setText(mHours);
 
-            if(mPackageId.equals("000000000000000000000001")){
+            if (mPackageId.equals("000000000000000000000001")) {
                 edt_monney_work.setEnabled(true);
                 edt_monney_work_hour.setEnabled(false);
                 rad_type_money_work.setChecked(true);
                 edt_monney_work.setText(String.valueOf(infoJob.getInfo().getPrice()));
-            } else if(mPackageId.equals("000000000000000000000002")){
+            } else if (mPackageId.equals("000000000000000000000002")) {
                 edt_monney_work.setEnabled(false);
                 edt_monney_work_hour.setEnabled(true);
                 rad_type_money_khoan.setChecked(true);
@@ -189,7 +181,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             txtTime_start.setText(getTimeDoingPost(infoJob.getInfo().getTime().getStartAt()));
             txtTime_end.setText(getTimeDoingPost(infoJob.getInfo().getTime().getEndAt()));
 
-        }else {
+        } else {
             isPost = true;
             txt_post_complete.setText("Đăng bài");
         }
@@ -278,7 +270,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     public void displayNotifyJobPost(boolean isJobPost) {
         txt_post_complete.setEnabled(true);
         progressBar.setVisibility(View.GONE);
-        if (isJobPost){
+        if (isJobPost) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle("Thông báo");
@@ -287,13 +279,13 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);
-                    if(mJobPostActivity != null){
+                    if (mJobPostActivity != null) {
                         JobPostActivity.mJobPostActivity.finish();
-                        try{
-                            if(DetailJobPostActivity.mDetailJobPostActivity != null){
+                        try {
+                            if (DetailJobPostActivity.mDetailJobPostActivity != null) {
                                 DetailJobPostActivity.mDetailJobPostActivity.finish();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                     }
@@ -301,7 +293,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             });
 
             alertDialog.show();
-        }else {
+        } else {
             ShowAlertDialog.showAlert("Thất bại", JobPostActivity.this);
         }
     }
@@ -372,11 +364,12 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             mPrice = "0";
         }
 
-//        if (!edt_monney_work_hour.getText().toString().isEmpty()) {
-//            mHours = edt_monney_work_hour.getText().toString();
-//        } else {
-//            mHours = "0";
-//        }
+        if (!edt_monney_work_hour.getText().toString().isEmpty()) {
+            mHours = edt_monney_work_hour.getText().toString();
+        } else {
+            mHours = "0";
+        }
+//        mPrice = edt_monney_work.getText().toString();
 
         if (chb_tools_work.isChecked()) {
             mChosenTools = true;
@@ -385,12 +378,12 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         txt_post_complete.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
 
-        if(isPost ){
+        if (isPost) {
             mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
-        }else {
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        } else {
             mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork );
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
         }
 
     }
@@ -404,11 +397,10 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             return false;
         }
 
-        if ( edtDescriptionPost.getText().toString().length() <= 20  || edtDescriptionPost.getText().toString().length() >= 200){
-            progressBar.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert("Mô tả phải lớn hơn 20 kí tự và ít hơn 200 kí tự ", JobPostActivity.this);
-            return false;
-        }
+//        if (Integer.parseInt(edt_monney_work_hour.getText().toString()) >= 24){
+//            ShowAlertDialog.showAlert("Bạn chọn giờ quá 1 ngày ", JobPostActivity.this);
+//            return false;
+//        }
 
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
@@ -558,5 +550,4 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         return simpleDateFormat.format(date);
     }
-
 }

@@ -12,18 +12,18 @@ public class CheckInResponse {
     @SerializedName("message")
     private String message;
     @SerializedName("data")
-    private String data;
+    private DataCheckIn data;
 
     public CheckInResponse(boolean status, String message) {
         this.status = status;
         this.message = message;
     }
 
-    public String getData() {
+    public DataCheckIn getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(DataCheckIn data) {
         this.data = data;
     }
 
