@@ -109,7 +109,7 @@ public interface ApiInterface {
                                   @Field("description") String description, @Field("addressName") String addressName,
                                   @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
                                   @Field("package") String packageId, @Field("price") String price,
-                                  @Field("startAt") String startAt, @Field("endAt") String endAt, @Field("hour") String hour);
+                                  @Field("startAt") String startAt, @Field("endAt") String endAt);
 
     @FormUrlEncoded
     @PUT("task/update")
@@ -117,7 +117,7 @@ public interface ApiInterface {
                                         @Field("description") String description, @Field("addressName") String addressName,
                                         @Field("lat") double lat, @Field("lng") double lng, @Field("tools") boolean isTool,
                                         @Field("package") String packageId, @Field("price") String price,
-                                        @Field("startAt") String startAt, @Field("endAt") String endAt, String hour);
+                                        @Field("startAt") String startAt, @Field("endAt") String endAt);
 
 
     @FormUrlEncoded

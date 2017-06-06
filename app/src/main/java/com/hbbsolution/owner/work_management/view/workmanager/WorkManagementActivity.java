@@ -15,8 +15,11 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
 import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +44,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     private int tabMore, mQuantityJobPost;
     private boolean isPause = false, mTab = false;
+    static int mPositionTab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtManagement_compose_toothbar.setOnClickListener(this);
+
 
         createFragment();
         Bundle extras = getIntent().getExtras();
@@ -129,13 +134,20 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     @Override
     protected void onResume() {
         if (isPause) {
-            if(mTab){
+            if (mTab) {
                 Intent refresh = new Intent(this, WorkManagementActivity.class);
                 startActivity(refresh);
+                mViewPager.setCurrentItem(mPositionTab);
                 this.finish();
+                mPositionTab = 0;
                 isPause = false;
                 mTab = false;
             }
+        }
+
+        if (Constants.isLoadTabDoing) {
+            mViewPager.setCurrentItem(2);
+            Constants.isLoadTabDoing = false;
         }
         super.onResume();
     }
@@ -143,7 +155,14 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     public void onEventMainThread(Integer quantityJobPost) {
         mQuantityJobPost = quantityJobPost;
     }
-    public void onEventMainThread(Boolean idTab) {
-        mTab = idTab;
+
+    public void onEventMainThread(Boolean isTab) {
+        mTab = isTab;
+    }
+
+    public void onEvent(Integer positionTab) {
+
+        mPositionTab = positionTab;
+        Log.d("mPosition", mPositionTab + "");
     }
 }

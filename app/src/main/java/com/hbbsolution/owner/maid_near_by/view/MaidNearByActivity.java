@@ -475,6 +475,10 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         myMarkerHashMap.clear();
         markerLoadImage.clear();
         maidInfoList = maidNearByResponse.getData();
+        if (maidInfoList.size() == 0) {
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.activity), "Không tìm thấy kết quả", Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
         updateMap(googleMap);
     }
 

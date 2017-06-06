@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.EncodeImage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.squareup.picasso.Picasso;
@@ -97,6 +99,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private long timeStart, timeEnd;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -321,7 +324,9 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 //            String photoPath = "";
 //            photoPath = getRealPathFromURI(getImageUri(DetailJobPendingActivity.this, bitmap));
             //   Log.d("PATH", photoPath);
-            mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", mDatum.getId());
+            //show progress
+            showProgress();
+            mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", "59114b6cbd3b3f2de964950c");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -349,6 +354,18 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         return result;
     }
 
+    private void showProgress() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang xác thực...Việc này có thể mất khá nhiều thời gian");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
 
     private String getTimerDoingWork(String startAt, String endAt) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
@@ -370,7 +387,25 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
+        progressBar.setVisibility(View.GONE);
+        if (isJobPost) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("Thông báo");
+            alertDialog.setMessage("Bài đăng đã được xóa !");
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    EventBus.getDefault().postSticky(true);
+                    EventBus.getDefault().postSticky(1);
+                    finish();
+                }
+            });
 
+            alertDialog.show();
+        } else {
+            ShowAlertDialog.showAlert("Thất bại", DetailJobPendingActivity.this);
+        }
     }
 
     @Override
@@ -380,11 +415,37 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
     @Override
     public void checkIn(CheckInResponse checkInResponse) {
+        hideProgress();
         timeEnd = new Date().getTime();
         Log.d("TIME", "" + (timeEnd - timeStart) / 1000);
         boolean status = checkInResponse.isStatus();
         if (status) {
+            boolean isIdentical = checkInResponse.getData().isIdentical();
+            if (isIdentical) {
+                try {
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailJobPendingActivity.this);
+                    alertDialogBuilder.setMessage("Xác thực thành công");
+                    alertDialogBuilder.setCancelable(false);
+                    alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
+                            new DialogInterface.OnClickListener() {
 
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    finish();
+                                    Constants.isLoadTabDoing = true;
+                                    alertDialogBuilder.create().dismiss();
+                                }
+
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                } catch (Exception e) {
+
+                }
+            } else {
+                ShowAlertDialog.showAlert("Xác thực không thành công, vui lòng thử lại", DetailJobPendingActivity.this);
+            }
         }
     }
 

@@ -17,6 +17,10 @@ import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +28,7 @@ import java.util.List;
  */
 
 public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRecruitmentAdapter.ViewHolerListUserRecruitment>{
+
     private Context context;
     private List<Request> maidList;
     private boolean isHis;
@@ -56,6 +61,7 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
         final Maid mMaid = maidList.get(position).getMaid();
         holder.tvName.setText(mMaid.getInfo().getName());
         holder.ratingBar.setRating(mMaid.getWorkInfo().getEvaluationPoint());
+
         if(isHis){
             holder.imgIcCheck.setVisibility(View.GONE);
             holder.tvDate.setText("12/03/2016");
