@@ -18,6 +18,8 @@ import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
@@ -56,6 +58,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtManagement_compose_toothbar.setOnClickListener(this);
+
 
         createFragment();
         Bundle extras = getIntent().getExtras();

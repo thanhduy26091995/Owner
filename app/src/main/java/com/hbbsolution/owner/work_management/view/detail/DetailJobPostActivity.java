@@ -29,6 +29,8 @@ import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentAc
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -110,7 +112,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
         final Intent intent = getIntent();
         mDatum = (Datum) intent.getSerializableExtra("mDatum");
-        if(CompareDays(getDatePostHistory(mDatum.getInfo().getTime().getEndAt()))){
+        if(!compareDays(mDatum.getInfo().getTime().getEndAt())){
             txtJob_post_edit_toothbar.setVisibility(View.GONE);
             txtExpired_request_detail_post.setVisibility(View.VISIBLE);
             if (mDatum.getStakeholders().getRequest().size() > 0 ) {
@@ -187,9 +189,13 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 break;
             case R.id.lo_list_recruitment:
                 if (mDatum.getStakeholders().getRequest().size() > 0) {
-                    Intent itListRecruitment = new Intent(DetailJobPostActivity.this, ListUserRecruitmentActivity.class);
-                    itListRecruitment.putExtra("idTaskProcess", mDatum.getId());
-                    startActivity(itListRecruitment);
+                    if(compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                        Intent itListRecruitment = new Intent(DetailJobPostActivity.this, ListUserRecruitmentActivity.class);
+                        itListRecruitment.putExtra("idTaskProcess", mDatum.getId());
+                        startActivity(itListRecruitment);
+                    }else {
+                        ShowAlertDialog.showAlert("Công việc này đã hết hạn, bạn không thể xem chi tiết được!", DetailJobPostActivity.this);
+                    }
                 }
                 break;
             case R.id.lo_clear_job:
@@ -318,30 +324,15 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
     }
 
-    private boolean CompareDays(String dateStartWork) {
-
-        Date date1 = null;
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -1);
-        Date date = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        try {
-            date1 = sdf.parse(dateStartWork);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (date1.after(date)) {
+    private boolean compareDays(String timeEndWork) {
+        long time = System.currentTimeMillis();
+        DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
+        Date date = parser.parseDateTime(timeEndWork).toDate();
+        long millisecond = date.getTime();
+        long timer = (millisecond - time);
+        if(timer < 0) {
             return false;
         }
         return true;
-    }
-
-    private String getDatePostHistory(String createDatePostHistory) {
-        Date date = new DateTime(createDatePostHistory).toDate();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String mDateTimePostHistory = df.format(date);
-        return mDateTimePostHistory;
     }
 }

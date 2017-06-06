@@ -59,7 +59,7 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
         getTimePostHistory(holder.txtTimePostHistory, mDatum.getHistory().getUpdateAt());
         getTimeDoingPost(holder.txtTimeDoingPost, mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt());
 
-        if (CompareDays(getDatePostHistory(mDatum.getInfo().getTime().getEndAt()))) {
+        if (!compareDays(mDatum.getInfo().getTime().getEndAt())) {
             holder.txtExpired.setVisibility(View.VISIBLE);
             holder.lo_background.setVisibility(View.VISIBLE);
             holder.txtNumber_request_detail_post.setVisibility(View.GONE);
@@ -189,11 +189,6 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
         }
     }
 
-    public interface Callback {
-        void onItemClick(Datum mDatum);
-        void onItemLongClick(Datum mDatum);
-    }
-
     private boolean CompareDays(String dateStartWork) {
         Date date1 = null;
 
@@ -213,5 +208,22 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
             return false;
         }
         return true;
+    }
+
+    private boolean compareDays(String timeEndWork) {
+        long time = System.currentTimeMillis();
+        DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
+        Date date = parser.parseDateTime(timeEndWork).toDate();
+        long millisecond = date.getTime();
+        long timer = (millisecond - time);
+        if(timer < 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public interface Callback {
+        void onItemClick(Datum mDatum);
+        void onItemLongClick(Datum mDatum);
     }
 }
