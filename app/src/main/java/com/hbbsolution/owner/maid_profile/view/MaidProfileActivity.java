@@ -286,10 +286,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         switch (view.getId()) {
             case R.id.lo_ChosenMaidInfo:
                 if (isChosenMaidFromRecruitment) {
-//                    Log.d("mMaidInfo", idTaskProcess);
                     mMaidProfilePresenter.sentRequestChosenMaid(idTaskProcess, mMaidInfo.getId());
                 }else {
-//                    Log.d("mMaidInfo", "ChosenListMap");
                     Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
                     intentChooseMaid.putExtra("maid", mMaidInfo);
                     startActivity(intentChooseMaid);

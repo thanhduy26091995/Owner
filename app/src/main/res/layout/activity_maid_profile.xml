@@ -125,7 +125,6 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-
                 </android.support.v7.widget.Toolbar>
 
                 <FrameLayout

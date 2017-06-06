@@ -3,8 +3,10 @@ package com.hbbsolution.owner.work_management.view.workmanager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,11 +43,13 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
     private String idProcess = "000000000000000000000003";
 
     private View rootView;
+    private LinearLayout lnNoData;
     private WorkManagerPresenter mWorkManagerPresenter;
     private List<DatumPending> mJobList = new ArrayList<>();
     private JobPendingAdapter mJobPendingAdapter;
     private RecyclerView mRecycler;
     private ProgressBar progressBar;
+    private SwipeRefreshLayout mSwipeRefreshLayoutSale;
 
     @Nullable
     @Override
@@ -56,9 +60,27 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
             mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_pending);
             progressBar = (ProgressBar) rootView.findViewById(R.id.progressPendig);
+            lnNoData = (LinearLayout) rootView.findViewById(R.id.lnNoData);
+            mSwipeRefreshLayoutSale = (SwipeRefreshLayout) rootView.findViewById(R.id.swip_refresh_job_pending);
+
+
             mWorkManagerPresenter = new WorkManagerPresenter(this);
             progressBar.setVisibility(View.VISIBLE);
             mWorkManagerPresenter.getInfoJobPending(idProcess);
+
+            mSwipeRefreshLayoutSale.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            mWorkManagerPresenter.getInfoJobPending(idProcess);
+                            mSwipeRefreshLayoutSale.setRefreshing(false);
+                        }
+                    }, 1500);
+                }
+            });
 
         }else {
             ViewGroup parent = (ViewGroup) container.getParent();
@@ -76,42 +98,49 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
     public void getInfoJobPending(JobPendingResponse mJobPendingResponse) {
         progressBar.setVisibility(View.GONE);
         mJobList = mJobPendingResponse.getData();
-        mRecycler.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        mJobPendingAdapter = new JobPendingAdapter(getActivity(), mJobList, 2);
-        mRecycler.setLayoutManager(linearLayoutManager);
-        mRecycler.setAdapter(mJobPendingAdapter);
+        if(mJobList.size() > 0){
+            lnNoData.setVisibility(View.GONE);
+            mRecycler.setVisibility(View.VISIBLE);
+            mRecycler.setHasFixedSize(true);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+            mJobPendingAdapter = new JobPendingAdapter(getActivity(), mJobList, 2);
+            mRecycler.setLayoutManager(linearLayoutManager);
+            mRecycler.setAdapter(mJobPendingAdapter);
 
-        mJobPendingAdapter.setCallback(new JobPendingAdapter.Callback() {
-            @Override
-            public void onItemClick(DatumPending mDatum) {
-                Intent itDetailJobPending = new Intent(getActivity(), DetailJobPendingActivity.class);
-                itDetailJobPending.putExtra("mDatum", mDatum);
-                startActivity(itDetailJobPending);
-            }
+            mJobPendingAdapter.setCallback(new JobPendingAdapter.Callback() {
+                @Override
+                public void onItemClick(DatumPending mDatum) {
+                    Intent itDetailJobPending = new Intent(getActivity(), DetailJobPendingActivity.class);
+                    itDetailJobPending.putExtra("mDatum", mDatum);
+                    startActivity(itDetailJobPending);
+                }
 
-            @Override
-            public void onItemLongClick(final DatumPending mDatum) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setCancelable(false);
-                alertDialog.setTitle("Thông báo");
-                alertDialog.setMessage("Bạn có muốn xóa công việc nay ? ");
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        progressBar.setVisibility(View.GONE);
-                        mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
-                    }
-                });
-                alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                @Override
+                public void onItemLongClick(final DatumPending mDatum) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setCancelable(false);
+                    alertDialog.setTitle("Thông báo");
+                    alertDialog.setMessage("Bạn có muốn xóa công việc nay ? ");
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            progressBar.setVisibility(View.GONE);
+                            mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
+                        }
+                    });
+                    alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
-                alertDialog.show();
-            }
-        });
+                        }
+                    });
+                    alertDialog.show();
+                }
+            });
+        }else {
+            lnNoData.setVisibility(View.VISIBLE);
+            mRecycler.setVisibility(View.GONE);
+        }
     }
 
     @Override

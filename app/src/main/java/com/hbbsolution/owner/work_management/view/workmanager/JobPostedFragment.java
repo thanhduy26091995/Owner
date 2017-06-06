@@ -59,7 +59,6 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             mRecycler = (RecyclerView) rootView.findViewById(R.id.recycler_post);
             progressBar = (ProgressBar) rootView.findViewById(R.id.progressPost);
             lnNoData = (LinearLayout) rootView.findViewById(R.id.lnNoData);
-
             mSwipeRefreshLayoutSale = (SwipeRefreshLayout) rootView.findViewById(R.id.swip_refresh_job_post);
 
             mWorkManagerPresenter = new WorkManagerPresenter(this);
@@ -89,7 +88,6 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
 
     @Override
     public void getInfoJob(WorkManagerResponse mExample) {
-//        txtManagement_compose_toothbar.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
         EventBus.getDefault().postSticky(mExample.getData().size());
         mJobList = mExample.getData();
