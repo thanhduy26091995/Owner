@@ -32,7 +32,7 @@ import java.util.List;
  */
 
 public class HistoryHelperFragment extends Fragment implements HelperHistoryView {
-    private View v, view;
+    private View v;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private HistoryHelperAdapter historyHelperAdapter;
@@ -66,9 +66,6 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         layoutManager = new LinearLayoutManager(getActivity());
         helperHistoryPresenter = new HelperHistoryPresenter(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        view = v.findViewById(R.id.view);
-        view.setVisibility(View.INVISIBLE);
 
         cal = Calendar.getInstance();
 
@@ -131,7 +128,6 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
                 if (endDate.getTime() - startDate.getTime() >= 0) {
-                    view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                 } else {
@@ -174,7 +170,6 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 endDate = cal.getTime();
                 if (startDate != null) {
                     if (endDate.getTime() - startDate.getTime() >= 0) {
-                        view.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
                         helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                     } else {
@@ -219,7 +214,6 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
         historyHelperAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(historyHelperAdapter);
         if(datumList.size()>0) {
-            view.setVisibility(View.VISIBLE);
             lnNoData.setVisibility(View.GONE);
         }
         else

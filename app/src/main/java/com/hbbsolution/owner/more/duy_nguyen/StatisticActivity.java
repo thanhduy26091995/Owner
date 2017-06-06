@@ -67,7 +67,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     private StatisticPresenter statisticPresenter;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
-    private int onCreate, pending, reserved, onDoing, done;
+    private int onCreate, pending, reserved, onDoing, done,immediate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +110,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         reserved = 0;
         onDoing = 0;
         done = 0;
+        immediate=0;
     }
 
     public void getData() {
@@ -252,24 +253,27 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         int i = 0;
         while (i < listTask.size()) {
             if (listTask.get(i).getId().equals("000000000000000000000001")) {
-                onCreate = listTask.get(i).getTask().size();
+                onCreate = listTask.get(i).getCount();
             }
             if (listTask.get(i).getId().equals("000000000000000000000002")) {
-                pending = listTask.get(i).getTask().size();
+                pending = listTask.get(i).getCount();
             }
             if (listTask.get(i).getId().equals("000000000000000000000003")) {
-                reserved = listTask.get(i).getTask().size();
+                reserved = listTask.get(i).getCount();
             }
             if (listTask.get(i).getId().equals("000000000000000000000004")) {
-                onDoing = listTask.get(i).getTask().size();
+                onDoing = listTask.get(i).getCount();
             }
             if (listTask.get(i).getId().equals("000000000000000000000005")) {
-                done = listTask.get(i).getTask().size();
+                done = listTask.get(i).getCount();
+            }
+            if (listTask.get(i).getId().equals("000000000000000000000006")) {
+                immediate = listTask.get(i).getCount();
             }
             i++;
         }
         numberPostedTask.setText(String.valueOf(onCreate + pending));
-        numberDoingTask.setText(String.valueOf(reserved + onDoing));
+        numberDoingTask.setText(String.valueOf(reserved + onDoing + immediate));
         numberDoneTask.setText(String.valueOf(done));
         totalPrice.setText(String.valueOf(total) + " " + getResources().getString(R.string.million));
         progressBar.setVisibility(View.GONE);
