@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,10 @@ public class ContactActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.contact_title_toothbar)
     TextView txtContact_title_toothbar;
+    @BindView(R.id.btn_call)
+    Button btn_call;
+    @BindView(R.id.btn_email)
+    Button btn_email;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +59,7 @@ public class ContactActivity extends AppCompatActivity {
 
     private void addEvents() {
 
-        findViewById(R.id.btn_call).setOnClickListener(new View.OnClickListener() {
+        btn_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phoneNo = "0900000000";  //set tạm
@@ -62,7 +67,7 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btn_email).setOnClickListener(new View.OnClickListener() {
+        btn_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String mail = "mailmail@gmail.com"; //set tạm
