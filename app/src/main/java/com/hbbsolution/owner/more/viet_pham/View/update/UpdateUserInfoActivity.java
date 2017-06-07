@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,7 +90,19 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         mSessionManagerUser = new SessionManagerUser(this);
         mDataHashUser = mSessionManagerUser.getUserDetails();
 
+//        ImageLoader.getInstance().loadImageAvatar(UpdateUserInfoActivity.this
+//                , mDataHashUser.get(SessionManagerUser.KEY_IMAGE)
+//                ,ivAvatar);
+
         edtEmail.setText(mDataHashUser.get(SessionManagerUser.KEY_EMAIL));
+        edtFullName.setText(mDataHashUser.get(SessionManagerUser.KEY_NAME));
+        if (mDataHashUser.get(SessionManagerUser.KEY_GENDER).equals(0)){
+            edtGender.setText("Nam");
+        }else {
+            edtGender.setText("Nữ");
+        }
+        edtNumber.setText(mDataHashUser.get(SessionManagerUser.KEY_PHONE));
+        edtLocation.setText(mDataHashUser.get(SessionManagerUser.KEY_ADDRESS));
 
         addEvents();
 
@@ -97,6 +110,14 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         mUpdateUserPresenter = new UpdateUserPresenter(this);
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void addEvents() {
