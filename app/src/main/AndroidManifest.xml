@@ -46,6 +46,7 @@
         <activity android:name=".more.viet_pham.View.signin.SignInActivity" />
         <activity android:name=".more.viet_pham.View.signup.SignUp1Activity" />
         <activity android:name=".more.viet_pham.View.signup.SignUp2Activity" />
+        <activity android:name=".more.viet_pham.View.update.UpdateUserInfoActivity"/>
         <activity android:name=".work_management.view.workmanager.WorkManagementActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPostActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPendingActivity" />

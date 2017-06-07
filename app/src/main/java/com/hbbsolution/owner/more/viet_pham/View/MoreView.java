@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.more.viet_pham.View;
 
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 /**
@@ -9,6 +10,7 @@ import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse
 
 public interface MoreView {
     void displaySignUpAndSignIn(BodyResponse bodyResponse);
+    void displayUpdate(UpdateResponse updateResponse);
     void displayError();
     void displayNotFoundLocaltion();
     void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse);

@@ -18,6 +18,7 @@ import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
 import com.hbbsolution.owner.more.phuc_tran.ForgotPassActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp1Activity;
@@ -138,6 +139,11 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
         } else {
             ShowAlertDialog.showAlert(bodyResponse.getMessage().toString(),SignInActivity.this);
         }
+    }
+
+    @Override
+    public void displayUpdate(UpdateResponse updateResponse) {
+
     }
 
     @Override
