@@ -18,7 +18,9 @@ import com.squareup.picasso.Picasso;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -60,6 +62,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat formatHour = new SimpleDateFormat("H");
     private Date date, time;
+    private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
+    private String h, m, s, timework="";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,8 +105,40 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        payment_timework.setText(getResources().getString(R.string.timework) + " " + formatHour.format(time));
-        payment_total.setText(getResources().getString(R.string.totalprice)+" "+NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice())+" VND");
+
+
+        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+        calendar.setTime(time);
+
+        elapsedHours = calendar.get(Calendar.HOUR);
+
+        elapsedMinutes = calendar.get(Calendar.MINUTE);
+
+        elapsedSeconds = calendar.get(Calendar.SECOND);
+
+        h = String.valueOf(elapsedHours);
+        m = String.valueOf(elapsedMinutes);
+        s = String.valueOf(elapsedSeconds);
+        if (elapsedHours == 0) {
+            h = "";
+        }
+        else {
+            timework+=h +" "+getResources().getQuantityString(R.plurals.hour,(int)elapsedHours)+" ";
+        }
+        if (elapsedMinutes == 0) {
+            m = "";
+        }
+        else {
+            timework+=m +" "+ getResources().getQuantityString(R.plurals.minute,(int)elapsedMinutes)+" ";
+        }
+        if (elapsedSeconds == 0) {
+            s = "";
+        }
+        else {
+            timework+=s +" "+ getResources().getQuantityString(R.plurals.second,(int)elapsedSeconds);
+        }
+        payment_timework.setText(getResources().getString(R.string.timework) + " " + timework);
+        payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
         if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
             Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
                     .placeholder(R.drawable.no_image)

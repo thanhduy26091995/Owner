@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.home.view.HomeActivity;
+import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 
 import static java.lang.Thread.sleep;
