@@ -235,7 +235,8 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
 
     @Override
     public void displayNotFoundLocaltion() {
-
+        mProgressDialog.dismiss();
+        ShowAlertDialog.showAlert("Địa chỉ không tìm thấy",UpdateUserInfoActivity.this);
     }
 
     @Override

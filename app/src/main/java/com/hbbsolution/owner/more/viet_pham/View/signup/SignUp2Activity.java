@@ -44,7 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 5/10/2017.
  */
 
-public class SignUp2Activity extends AppCompatActivity implements MoreView {
+public abstract class SignUp2Activity extends AppCompatActivity implements MoreView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.button_next)
