@@ -67,6 +67,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView {
         sessionManagerUser = new SessionManagerUser(this);
         ownerApplication = new OwnerApplication();
         toolbar.setTitle("");
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
