@@ -113,6 +113,7 @@ public interface ApiInterface {
             @Part MultipartBody.Part image
     );
 
+
     @GET
     Call<GeoCodeMapResponse> getLocaltionAddress(@Url String url, @Query("address") String addressOfOwner);
 

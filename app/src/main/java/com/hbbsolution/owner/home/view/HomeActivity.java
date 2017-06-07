@@ -21,14 +21,10 @@ import com.hbbsolution.owner.more.viet_pham.View.MoreActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
-import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
-import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 public class HomeActivity extends AppCompatActivity implements HomeView, View.OnClickListener {
 

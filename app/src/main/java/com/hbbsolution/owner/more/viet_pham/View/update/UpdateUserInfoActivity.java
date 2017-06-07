@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
@@ -90,13 +91,13 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         mSessionManagerUser = new SessionManagerUser(this);
         mDataHashUser = mSessionManagerUser.getUserDetails();
 
-//        ImageLoader.getInstance().loadImageAvatar(UpdateUserInfoActivity.this
-//                , mDataHashUser.get(SessionManagerUser.KEY_IMAGE)
-//                ,ivAvatar);
+        // from Bitmap
+        ImageLoader.getInstance().loadImageAvatar(UpdateUserInfoActivity.this, mDataHashUser.get(SessionManagerUser.KEY_IMAGE),
+                ivAvatar);
 
         edtEmail.setText(mDataHashUser.get(SessionManagerUser.KEY_EMAIL));
         edtFullName.setText(mDataHashUser.get(SessionManagerUser.KEY_NAME));
-        if (mDataHashUser.get(SessionManagerUser.KEY_GENDER).equals(0)){
+        if (mDataHashUser.get(SessionManagerUser.KEY_GENDER).equals("0")){
             edtGender.setText("Nam");
         }else {
             edtGender.setText("Nữ");
@@ -223,6 +224,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
 
     @Override
     public void displayUpdate(UpdateResponse updateResponse) {
+        mProgressDialog.dismiss();
         ShowAlertDialog.showAlert(updateResponse.getMessage(),UpdateUserInfoActivity.this);
     }
 
@@ -242,7 +244,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         mLng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
 //        token = mDataHashUser.get(SessionManagerUser.KEY_TOKEN);
         if (mLat != 0 && mLng != 0) {
-            mProgressDialog.dismiss();
+
             mUpdateUserPresenter.updateUserInfo(mPhoneName,mFullName,mFilePath,mLocation,mLat,mLng,iGender,mFileContentResolver);
 
         }
