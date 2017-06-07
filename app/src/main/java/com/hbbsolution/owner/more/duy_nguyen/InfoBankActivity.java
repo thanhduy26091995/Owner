@@ -18,7 +18,7 @@ public class InfoBankActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_bank);
         ButterKnife.bind(this);
-        setToolbar();
+//        setToolbar();
     }
     public void setToolbar() {
         toolbar.setTitle("");

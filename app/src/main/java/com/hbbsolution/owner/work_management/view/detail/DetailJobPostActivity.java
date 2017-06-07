@@ -272,18 +272,16 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
     }
 
     private String formatPrice(Integer _Price) {
+        String mOutputPrice = null;
         if (_Price != null) {
             DecimalFormat myFormatter = new DecimalFormat("#,###,##0");
-            String mOutputPrice = myFormatter.format(_Price);
-            return mOutputPrice;
-        } else {
-            _Price = 0;
-            DecimalFormat myFormatter = new DecimalFormat("#,###,##0");
-            String mOutputPrice = myFormatter.format(_Price);
-            return mOutputPrice;
+            mOutputPrice  = myFormatter.format(_Price);
+        } else if(_Price == 0){
+            mOutputPrice = "Tính tiền theo thời gian";
         }
-
+        return mOutputPrice;
     }
+
 
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
