@@ -3,7 +3,6 @@ package com.hbbsolution.owner.history.model.liabilities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class LiabilitiesResponse {
     private String message;
     @SerializedName("data")
     @Expose
-    private List<WorkHistory> data = null;
+    private List<LiabilitiesHistory> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -35,11 +34,11 @@ public class LiabilitiesResponse {
         this.message = message;
     }
 
-    public List<WorkHistory> getData() {
+    public List<LiabilitiesHistory> getData() {
         return data;
     }
 
-    public void setData(List<WorkHistory> data) {
+    public void setData(List<LiabilitiesHistory> data) {
         this.data = data;
     }
 

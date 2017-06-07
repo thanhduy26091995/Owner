@@ -10,8 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
-import com.hbbsolution.owner.history.view.DetailLiabilitiesHistory;
+import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
+import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -26,19 +27,19 @@ import java.util.Locale;
 
 public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabilitiesAdapter.RecyclerViewHolder> {
     private Context context;
-    private List<WorkHistory> listData;
+    private List<LiabilitiesHistory> listData;
     private boolean isHis;
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String date;
     private String startTime, endTime;
-
+    private int p;
     @Override
     public HistoryLiabilitiesAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_liabilities, parent, false);
         return new RecyclerViewHolder(view);
     }
 
-    public HistoryLiabilitiesAdapter(Context context, List<WorkHistory> listData) {
+    public HistoryLiabilitiesAdapter(Context context, List<LiabilitiesHistory> listData) {
         this.context = context;
         this.listData=listData;
 
@@ -46,11 +47,14 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
 
     @Override
     public void onBindViewHolder(HistoryLiabilitiesAdapter.RecyclerViewHolder holder, int position) {
-        holder.tvJob.setText(listData.get(position).getInfo().getTitle());
-//        Picasso.with(context).load(listData.get(position).getInfo().getWork().getImage())
-//                .placeholder(R.drawable.no_image)
-//                .error(R.drawable.no_image)
-//                .into(holder.imgType);
+        p=position;
+        holder.tvJob.setText(listData.get(p).getTask().getInfo().getTitle());
+        if(!listData.get(p).getTask().getInfo().getWork().getImage().equals("")) {
+            Picasso.with(context).load(listData.get(p).getTask().getInfo().getWork().getImage())
+                    .placeholder(R.drawable.no_image)
+                    .error(R.drawable.no_image)
+                    .into(holder.imgType);
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
@@ -59,9 +63,9 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         symbols.setAmPmStrings(new String[]{"am", "pm"});
         time.setDateFormatSymbols(symbols);
         try {
-            Date endDate = simpleDateFormat.parse(listData.get(position).getInfo().getTime().getEndAt());
+            Date endDate = simpleDateFormat.parse(listData.get(p).getTask().getInfo().getTime().getEndAt());
             Date nowDate = new Date();
-            Date startDate = simpleDateFormat.parse(listData.get(position).getInfo().getTime().getStartAt());
+            Date startDate = simpleDateFormat.parse(listData.get(p).getTask().getInfo().getTime().getStartAt());
             date = dates.format(endDate);
             startTime = time.format(startDate);
             endTime = time.format(endDate);
@@ -105,7 +109,8 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, DetailLiabilitiesHistory.class);
+            Intent intent = new Intent(context, PaymentActivity.class);
+            intent.putExtra("liability", listData.get(getAdapterPosition()));
             context.startActivity(intent);
         }
 

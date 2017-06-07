@@ -129,7 +129,7 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
-                    android:text="@string/payliabilities"
+                    android:text="@string/recharge"
                     android:textColor="@color/home_background_history" />
 
                 <com.hbbsolution.owner.base.IconTextView

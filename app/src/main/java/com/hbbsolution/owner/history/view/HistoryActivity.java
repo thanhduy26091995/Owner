@@ -29,7 +29,7 @@ public class HistoryActivity extends AppCompatActivity {
         setToolbar();
         historyViewPagerFragment= new HistoryViewPagerFragment(getSupportFragmentManager(),this,3);
         viewPagerHistory.setAdapter(historyViewPagerFragment);
-        viewPagerHistory.setOffscreenPageLimit(1);
+        viewPagerHistory.setOffscreenPageLimit(3);
         tabLayoutHistory.setupWithViewPager(viewPagerHistory);
 
     }

@@ -1,6 +1,6 @@
 package com.hbbsolution.owner.history;
 
-import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
+import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface LiabilitiesView {
-    void getLiabilitiesSuccess(List<WorkHistory> dataLiabilities);
+    void getLiabilitiesSuccess(List<LiabilitiesHistory> dataLiabilities);
     void getLiabilitiesError();
 }

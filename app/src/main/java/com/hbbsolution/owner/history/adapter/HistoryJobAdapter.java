@@ -48,10 +48,12 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     @Override
     public void onBindViewHolder(HistoryJobAdapter.RecyclerViewHolder holder, int position) {
         holder.tvJob.setText(listData.get(position).getInfo().getTitle());
-        Picasso.with(context).load(listData.get(position).getInfo().getWork().getImage())
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
-                .into(holder.imgType);
+        if(!listData.get(position).getInfo().getWork().getImage().equals("")) {
+            Picasso.with(context).load(listData.get(position).getInfo().getWork().getImage())
+                    .placeholder(R.drawable.no_image)
+                    .error(R.drawable.no_image)
+                    .into(holder.imgType);
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);

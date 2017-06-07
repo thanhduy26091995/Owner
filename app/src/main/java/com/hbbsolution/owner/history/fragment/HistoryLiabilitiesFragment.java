@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.LiabilitiesView;
 import com.hbbsolution.owner.history.adapter.HistoryLiabilitiesAdapter;
-import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
+import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
 import com.hbbsolution.owner.history.presenter.LiabilitiesPresenter;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 
@@ -214,11 +214,11 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
     }
 
     @Override
-    public void getLiabilitiesSuccess(List<WorkHistory> workHistories) {
-        historyLiabilitiesAdapter = new HistoryLiabilitiesAdapter(getActivity(), workHistories);
+    public void getLiabilitiesSuccess(List<LiabilitiesHistory> liabilitiesHistories) {
+        historyLiabilitiesAdapter = new HistoryLiabilitiesAdapter(getActivity(), liabilitiesHistories);
         historyLiabilitiesAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(historyLiabilitiesAdapter);
-        if (workHistories.size() > 0) {
+        if (liabilitiesHistories.size() > 0) {
             view.setVisibility(View.VISIBLE);
             lnNoData.setVisibility(View.GONE);
         } else {

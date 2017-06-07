@@ -104,7 +104,7 @@
     </plurals>
     <string name="liabilities">Liabilities</string>
     <string name="unpayalbe">Chưa thanh toán</string>
-    <string name="payliabilities">Thanh toán tiền nợ</string>
+    <string name="payment">Thanh toán</string>
     <string name="rangetime">Vui lòng xem lại khoảng thời gian</string>
     <!--history_screen end-->
 
@@ -113,7 +113,7 @@
     <string name="history_work">Công việc hoàn thành</string>
     <string name="waiting_work">Công việc đang xử lý</string>
     <string name="post_work">Công việc đã đăng</string>
-    <string name="payment">Nạp tiền vào tài khoản</string>
+    <string name="recharge">Nạp tiền vào tài khoản</string>
     <string name="sodutaikhoan">Số dư tài khoản</string>
     <string name="million">million</string>
     <!--statistic_screen end-->
@@ -144,4 +144,9 @@
     <string name="term_title">Terms of use</string>
     <!--forgot password screen end-->
 
+    <!--payment screen start-->
+    <string name="payment_date">Ngày thanh toán:</string>
+    <string name="timework">Thời gian làm việc:</string>
+    <string name="totalprice">Thành tiền:</string>
+    <!--payment screen end-->
 </resources>

@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/payliabilities"
+                android:text="@string/payment"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -59,72 +59,69 @@
                     android:layout_weight="3"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/colorWhite">
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="0.1dp"
-                                android:background="@color/color_line_view" />
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/img_job_type"
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/dondepnha"
-                                android:transitionName="icJobType" />
-
-
-                            <LinearLayout
-                                android:id="@+id/ln1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignBottom="@id/img_job_type"
-                                android:layout_alignTop="@id/img_job_type"
-                                android:layout_marginLeft="10dp"
-                                android:layout_toRightOf="@id/img_job_type"
-                                android:gravity="center_vertical"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/tvJob"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Lau dọn nhà"
-                                    android:textColor="@color/colorBlack"
-                                    android:textSize="@dimen/text_size_large"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:text="Dọn dẹp nhà cửa"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                        </RelativeLayout>
+                        android:background="@color/colorWhite">
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.1dp"
                             android:background="@color/color_line_view" />
-                    </LinearLayout>
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_job_type"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/dondepnha"
+                            android:transitionName="icJobType" />
+
+
+                        <LinearLayout
+                            android:id="@+id/ln1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/img_job_type"
+                            android:layout_alignTop="@id/img_job_type"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/img_job_type"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvJob"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lau dọn nhà"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_size_large"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvTypeJob"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Dọn dẹp nhà cửa"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.1dp"
+                            android:background="@color/color_line_view"
+                            android:layout_alignParentBottom="true"/>
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <View
@@ -149,7 +146,7 @@
                         android:layout_weight="1">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/detail_helper_history_avatar"
+                            android:id="@+id/payment_avatar"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_alignParentLeft="true"
@@ -162,7 +159,7 @@
                             android:layout_centerInParent="true"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="10dp"
-                            android:layout_toRightOf="@+id/detail_helper_history_avatar"
+                            android:layout_toRightOf="@+id/payment_avatar"
                             android:orientation="vertical">
 
                             <RelativeLayout
@@ -170,7 +167,7 @@
                                 android:layout_height="wrap_content">
 
                                 <TextView
-                                    android:id="@+id/detail_helper_history_helper_name"
+                                    android:id="@+id/payment_helper_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
@@ -188,7 +185,7 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/detail_work_history_helper_address"
+                                    android:id="@+id/payment_helper_address"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="20dp"
@@ -241,6 +238,7 @@
                                 android:textSize="24sp" />
 
                             <TextView
+                                android:id="@+id/payment_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
@@ -265,6 +263,7 @@
                             android:layout_weight="1">
 
                             <TextView
+                                android:id="@+id/payment_timework"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
@@ -304,6 +303,7 @@
                         android:background="@color/color_line_view" />
 
                     <TextView
+                        android:id="@+id/payment_date"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginLeft="10dp"
@@ -314,6 +314,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/payment_money_account"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginLeft="10dp"
@@ -329,6 +330,7 @@
                         android:background="@color/color_line_view" />
 
                     <TextView
+                        android:id="@+id/payment_total"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginLeft="10dp"
@@ -378,8 +380,8 @@
                 android:layout_weight="4"
                 android:background="@color/colorWhite"
                 android:orientation="horizontal"
-                android:weightSum="3"
-                android:paddingTop="5dp">
+                android:paddingTop="5dp"
+                android:weightSum="3">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -393,16 +395,16 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="48dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:src="@drawable/avatar" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="Tài khoản Gv24"
                         android:textColor="@color/home_background_maid_aound"
@@ -420,18 +422,18 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="48dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:src="@drawable/avatar" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Thanh toán Online"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
                         android:textColor="@color/home_background_your_tasks"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -447,18 +449,18 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="48dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:src="@drawable/avatar" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Thanh toán tiền mặt"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
                         android:textColor="@color/home_background_history"
                         android:textSize="18sp" />
                 </LinearLayout>
