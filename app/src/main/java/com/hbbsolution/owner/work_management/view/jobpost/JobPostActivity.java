@@ -86,8 +86,8 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     CheckBox chb_tools_work;
     @BindView(R.id.progressPostJob)
     ProgressBar progressBar;
-    @BindView(R.id.edt_monney_work_hour)
-    EditText edt_monney_work_hour;
+//    @BindView(R.id.edt_monney_work_hour)
+//    TextView edt_monney_work_hour;
 
     public static Activity mJobPostActivity = null;
 
@@ -136,11 +136,9 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
-            edt_monney_work_hour.setEnabled(false);
             mPackageId = "000000000000000000000001";
         } else if (rad_type_money_khoan.isChecked()) {
             edt_monney_work.setEnabled(false);
-            edt_monney_work_hour.setEnabled(true);
             mPackageId = "000000000000000000000002";
         }
 
@@ -164,16 +162,16 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             chb_tools_work.setChecked(infoJob.getInfo().getTools());
             mPackageId = infoJob.getInfo().getPackage().getId();
             mHours = String.valueOf(infoJob.getInfo().getTime().getHour());
-            edt_monney_work_hour.setText(mHours);
+//            edt_monney_work_hour.setText(mHours);
 
             if (mPackageId.equals("000000000000000000000001")) {
                 edt_monney_work.setEnabled(true);
-                edt_monney_work_hour.setEnabled(false);
+//                edt_monney_work_hour.setEnabled(false);
                 rad_type_money_work.setChecked(true);
                 edt_monney_work.setText(String.valueOf(infoJob.getInfo().getPrice()));
             } else if (mPackageId.equals("000000000000000000000002")) {
                 edt_monney_work.setEnabled(false);
-                edt_monney_work_hour.setEnabled(true);
+//                edt_monney_work_hour.setEnabled(true);
                 rad_type_money_khoan.setChecked(true);
             }
 
@@ -211,15 +209,15 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             case R.id.rad_type_money_work:
                 mPackageId = "000000000000000000000001";
                 edt_monney_work.setEnabled(true);
-                edt_monney_work_hour.setEnabled(false);
-                edt_monney_work_hour.setText("");
-                edt_monney_work_hour.setHint("Tính tiền theo thời gian");
+//                edt_monney_work_hour.setEnabled(false);
+//                edt_monney_work_hour.setText("");
+//                edt_monney_work_hour.setHint("Tính tiền theo thời gian");
                 break;
 
             case R.id.rad_type_money_khoan:
                 mPackageId = "000000000000000000000002";
                 edt_monney_work.setEnabled(false);
-                edt_monney_work_hour.setEnabled(true);
+//                edt_monney_work_hour.setEnabled(true);
                 edt_monney_work.setText("");
                 edt_monney_work.setHint("Nhập số tiền công");
                 break;
@@ -364,11 +362,11 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             mPrice = "0";
         }
 
-        if (!edt_monney_work_hour.getText().toString().isEmpty()) {
-            mHours = edt_monney_work_hour.getText().toString();
-        } else {
-            mHours = "0";
-        }
+//        if (!edt_monney_work_hour.getText().toString().isEmpty()) {
+//            mHours = edt_monney_work_hour.getText().toString();
+//        } else {
+//            mHours = "0";
+//        }
 //        mPrice = edt_monney_work.getText().toString();
 
         if (chb_tools_work.isChecked()) {

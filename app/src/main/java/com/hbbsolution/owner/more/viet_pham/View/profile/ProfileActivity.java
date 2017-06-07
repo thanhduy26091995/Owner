@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.more.viet_pham.View.profile;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
+import com.hbbsolution.owner.more.viet_pham.View.update.UpdateUserInfoActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 
 import java.util.HashMap;
@@ -55,6 +57,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     ImageView imgAvatar;
     @BindView(R.id.img_blur_image)
     ImageView imgBlurImage;
+    @BindView(R.id.textview_update)
+    TextView txtUpdate;
 
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
@@ -75,6 +79,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         sessionManagerUser = new SessionManagerUser(this);
         hashDataUser = sessionManagerUser.getUserDetails();
         loadData();
+        addEvent();
     }
 
     private void loadData() {
@@ -104,6 +109,17 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                     }
                 });
 
+    }
+
+    private void addEvent()
+    {
+        txtUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iUpdate = new Intent(ProfileActivity.this, UpdateUserInfoActivity.class);
+                startActivity(iUpdate);
+            }
+        });
     }
 
     @Override

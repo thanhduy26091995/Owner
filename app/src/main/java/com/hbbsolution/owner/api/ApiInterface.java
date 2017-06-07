@@ -12,6 +12,7 @@ import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
 import com.hbbsolution.owner.report.model.ReportResponse;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
@@ -87,7 +88,7 @@ public interface ApiInterface {
             @Part("email") RequestBody email,
             @Part("phone") RequestBody phone,
             @Part("name") RequestBody name,
-            @Part("adressName") RequestBody address,
+            @Part("addressName") RequestBody address,
             @Part("lat") RequestBody lat,
             @Part("lng") RequestBody lng,
             @Part("gender") RequestBody gender,
@@ -98,6 +99,18 @@ public interface ApiInterface {
     @POST("auth/login")
     Call<BodyResponse> signInAccount(@Part("username") RequestBody username,
                                      @Part("password") RequestBody password
+    );
+
+    @Multipart
+    @PUT("owner/update")
+    Call<UpdateResponse> updateOwner(
+            @Part("phone") RequestBody phone,
+            @Part("name") RequestBody name,
+            @Part("addressName") RequestBody address,
+            @Part("lat") RequestBody lat,
+            @Part("lng") RequestBody lng,
+            @Part("gender") RequestBody gender,
+            @Part MultipartBody.Part image
     );
 
     @GET
