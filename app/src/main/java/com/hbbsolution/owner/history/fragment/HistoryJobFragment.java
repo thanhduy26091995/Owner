@@ -51,6 +51,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
     private LinearLayout lnNoData;
+    private String tempStartDate, tempEndDate;
 
     public HistoryJobFragment() {
     }
@@ -223,9 +224,11 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 if (monthOfYear + 1 < 10) {
                     month = "0" + (monthOfYear + 1);
                 }
+                tempStartDate = tvStartDate.getText().toString();
                 tvStartDate.setText(
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
+
                 cal.set(year, monthOfYear, dayOfMonth);
                 startDate = cal.getTime();
                 currentPageTime = 1;
@@ -235,6 +238,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                     workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
+                    tvStartDate.setText(tempStartDate);
                 }
             }
         };
@@ -266,8 +270,10 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 if (monthOfYear + 1 < 10) {
                     month = "0" + (monthOfYear + 1);
                 }
+                tempEndDate = tvEndDate.getText().toString();
                 tvEndDate.setText(
                         day + "/" + month + "/" + year);
+
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
@@ -279,6 +285,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                         workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
+                        tvEndDate.setText(tempEndDate);
                     }
                 } else {
                     view.setVisibility(View.INVISIBLE);

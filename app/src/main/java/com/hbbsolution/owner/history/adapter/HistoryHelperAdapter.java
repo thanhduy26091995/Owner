@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.helper.Datum;
+import com.hbbsolution.owner.history.view.ListWorkActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.squareup.picasso.Picasso;
 
@@ -32,6 +33,7 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
     private boolean isHis;
     private String time;
     private Date date;
+    private int p;
     @Override
     public HistoryHelperAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_helpler, parent, false);
@@ -45,19 +47,20 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
 
     @Override
     public void onBindViewHolder(HistoryHelperAdapter.RecyclerViewHolder holder, int position) {
+        p=position;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
-            date = simpleDateFormat.parse(datumList.get(position).getTimes().get(0));
+            date = simpleDateFormat.parse(datumList.get(p).getTimes().get(0));
             time = dates.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.tvName.setText(datumList.get(position).getId().getInfo().getName());
+        holder.tvName.setText(datumList.get(p).getId().getInfo().getName());
         holder.tvDate.setText(time);
-        if(!datumList.get(position).getId().getInfo().getImage().equals("")) {
-            Picasso.with(context).load(datumList.get(position).getId().getInfo().getImage())
+        if(!datumList.get(p).getId().getInfo().getImage().equals("")) {
+            Picasso.with(context).load(datumList.get(p).getId().getInfo().getImage())
                     .placeholder(R.drawable.avatar)
                     .error(R.drawable.avatar)
                     .into(holder.imgMaid);
@@ -85,14 +88,21 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
             imgMaid = (CircleImageView) itemView.findViewById(R.id.img_history_avatar);
             lo_info_user.setOnClickListener(this);
+            tvListWork.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            Intent intent;
             switch (v.getId()){
                 case R.id.rela_info:
-                    Intent intent = new Intent(context, MaidProfileActivity.class);
+                    intent = new Intent(context, MaidProfileActivity.class);
                     intent.putExtra("helper",datumList.get(getAdapterPosition()));
+                    context.startActivity(intent);
+                    break;
+                case R.id.txt_history_list_work:
+                    intent = new Intent(context, ListWorkActivity.class);
+                    intent.putExtra("idMaid",datumList.get(getAdapterPosition()).getId().getId());
                     context.startActivity(intent);
                     break;
             }

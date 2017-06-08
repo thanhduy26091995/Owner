@@ -45,6 +45,7 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
     private LinearLayout lnNoData;
+    private String tempStartDate, tempEndDate;
 
     public static HistoryLiabilitiesFragment newInstance() {
         HistoryLiabilitiesFragment fragment = new HistoryLiabilitiesFragment();
@@ -125,6 +126,7 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
                 if (monthOfYear + 1 < 10) {
                     month = "0" + (monthOfYear + 1);
                 }
+                tempStartDate = tvStartDate.getText().toString();
                 tvStartDate.setText(
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
@@ -136,6 +138,7 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
                     liabilitiesPresenter.getInfoLiabilitiesTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
+                    tvStartDate.setText(tempStartDate);
                 }
             }
         };
@@ -167,8 +170,10 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
                 if (monthOfYear + 1 < 10) {
                     month = "0" + (monthOfYear + 1);
                 }
+                tempEndDate = tvEndDate.getText().toString();
                 tvEndDate.setText(
                         day + "/" + month + "/" + year);
+
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 endDate = cal.getTime();
@@ -179,6 +184,7 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
                         liabilitiesPresenter.getInfoLiabilitiesTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), getActivity());
+                        tvEndDate.setText(tempEndDate);
                     }
                 } else {
                     view.setVisibility(View.INVISIBLE);

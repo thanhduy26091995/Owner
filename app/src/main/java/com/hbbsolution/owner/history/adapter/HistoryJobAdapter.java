@@ -34,6 +34,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String date;
     private String startTime, endTime;
+    private int p;
     @Override
     public HistoryJobAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_job, parent, false);
@@ -47,9 +48,10 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
 
     @Override
     public void onBindViewHolder(HistoryJobAdapter.RecyclerViewHolder holder, int position) {
-        holder.tvJob.setText(listData.get(position).getInfo().getTitle());
-        if(!listData.get(position).getInfo().getWork().getImage().equals("")) {
-            Picasso.with(context).load(listData.get(position).getInfo().getWork().getImage())
+        p=position;
+        holder.tvJob.setText(listData.get(p).getInfo().getTitle());
+        if(!listData.get(p).getInfo().getWork().getImage().equals("")) {
+            Picasso.with(context).load(listData.get(p).getInfo().getWork().getImage())
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)
                     .into(holder.imgType);
@@ -62,9 +64,9 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         symbols.setAmPmStrings(new String[] { "am", "pm" });
         time.setDateFormatSymbols(symbols);
         try {
-            Date endDate = simpleDateFormat.parse(listData.get(position).getInfo().getTime().getEndAt());
+            Date endDate = simpleDateFormat.parse(listData.get(p).getInfo().getTime().getEndAt());
             Date nowDate = new Date();
-            Date startDate = simpleDateFormat.parse(listData.get(position).getInfo().getTime().getStartAt());
+            Date startDate = simpleDateFormat.parse(listData.get(p).getInfo().getTime().getStartAt());
             date = dates.format(endDate);
             startTime = time.format(startDate);
             endTime = time.format(endDate);

@@ -31,14 +31,12 @@
     <string name="to">đến</string>
     <string name="send">Gửi</string>
     <string name="soonupdated">Thông tin sớm được cập nhật!</string>
-    <!--comment_screen start-->
-    <string name="yourcomment">Nhận xét của bạn</string>
-    <string name="comment">Bình luận</string>
-    <!--comment_screen end-->
+
 
     <!--history_screen start-->
     <string name="completedjob">Công việc hoàn thành</string>
-    <string name="completedhelpler">Người giúp việc đã làm</string>
+    <string name="completedhelpler">Giúp việc đã làm</string>
+    <string name="liabilities">Công nợ</string>
     <string name="before">%s trước</string>
     <plurals name="day">
         <item quantity="other">ngày</item>
@@ -52,11 +50,19 @@
     <plurals name="second">
         <item quantity="other">giây</item>
     </plurals>
-    <string name="liabilities">Công nợ</string>
     <string name="notpayment">Chưa thanh toán</string>
-    <string name="payment">Thanh toán tiền nợ</string>
     <string name="rangetime">Vui lòng xem lại khoản thời gian</string>
     <!--history_screen end-->
+
+    <!--detail_work_history_screen start-->
+    <string name="payment">Thanh toán</string>
+    <string name="description">MÔ TẢ</string>
+    <string name="yourcomment">Nhận xét của bạn</string>
+    <!--detail_work_history_screen end-->
+
+    <!--comment_screen start-->
+    <string name="comment">Bình luận</string>
+    <!--comment_screen end-->
 
     <!--contact and about screen start-->
     <string name="contact">Liên hệ</string>
@@ -74,12 +80,12 @@
     <string name="waiting_work">Công việc đang xử lý</string>
     <string name="post_work">Công việc đã đăng</string>
     <string name="recharge">Nạp tiền vào tài khoản</string>
-    <string name="sodutaikhoan">Số dư tài khoản</string>
+    <string name="sodutaikhoan">Số dư tài khoản: </string>
     <string name="million">triệu</string>
     <!--statistic_screen end-->
 
     <!--Maid near by-->
-    <string name="GPSTitle">Cà đặt GPS</string>
+    <string name="GPSTitle">Cài đặt GPS</string>
     <string name="GPSContent">GPS đang tắt, bạn có muốn đi đến cài đặt GPS?</string>
     <string name="setting">Cài Đặt</string>
     <string name="huy">Hủy</string>
@@ -98,5 +104,6 @@
     <string name="payment_date">Ngày thanh toán:</string>
     <string name="timework">Thời gian làm việc:</string>
     <string name="totalprice">Thành tiền:</string>
+    <string name="accountbalance">Số dư tài khoản: </string>
     <!--payment screen end-->
 </resources>

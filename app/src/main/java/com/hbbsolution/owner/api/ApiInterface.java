@@ -52,6 +52,9 @@ public interface ApiInterface {
     @GET("owner/getHistoryTasks")
     Call<WorkHistoryResponse> getInfoWorkHistory(@Query("startAt") String startAt, @Query("endAt") String endAt, @Query("page") int page);
 
+    @GET("owner/getTaskOfMaid")
+    Call<WorkHistoryResponse> getListWorkByMaid(@Query("maid") String idMaid,@Query("page") int page);
+
     @GET("owner/getAllWorkedMaid")
     Call<HistoryHelperResponse> getAllWorkedMaid(@Query("startAt") String startAt, @Query("endAt") String endAt);
 

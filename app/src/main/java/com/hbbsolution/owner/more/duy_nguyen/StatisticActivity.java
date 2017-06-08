@@ -284,4 +284,9 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     public void getStatisticFail() {
 
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
+    }
 }

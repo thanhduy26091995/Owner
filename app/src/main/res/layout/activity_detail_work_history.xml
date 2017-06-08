@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/home_history"
+                android:text="@string/history_work"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -53,7 +53,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MÔ TẢ" />
+                    android:text="@string/description" />
             </LinearLayout>
 
             <View
@@ -368,7 +368,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Công việc đã hoàn thành"
+                    android:text="@string/history_work"
                     android:textSize="@dimen/text_size_large" />
 
                 <View

@@ -169,4 +169,9 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
         }
         return super.dispatchTouchEvent(event);
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
+    }
 }
