@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "952562827315",
+    "project_id": "owner-51b78"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952562827315:android:22afe5c88476ce5c",
+        "android_client_info": {
+          "package_name": "com.hbbsolution.owner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952562827315-cddnh4errchq70qglpsqis7nipbf8a3j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hbbsolution.owner",
+            "certificate_hash": "feb95d8c9cd9a824e2f04908f996a2e2d049b6d6"
+          }
+        },
+        {
+          "client_id": "952562827315-ujk3qt6gednh8ki30qkkvpl4h39cva1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGx9L12-3rwZ1ch6QhW4_jfeitXA3uDag"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

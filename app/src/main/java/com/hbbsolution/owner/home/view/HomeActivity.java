@@ -57,8 +57,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, View.On
         mLayout_YourTasks.setOnClickListener(this);
         mLayout_History.setOnClickListener(this);
 
-        mHomePresenter = new HomePresenter(this);
-        mHomePresenter.requestCheckToken();
+//        mHomePresenter = new HomePresenter(this);
+//        mHomePresenter.requestCheckToken();
 
     }
 
