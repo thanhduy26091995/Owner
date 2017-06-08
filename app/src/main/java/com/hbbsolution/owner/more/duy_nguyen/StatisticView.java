@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface StatisticView {
-    void getStatisticSuccess(List<Task> listTask ,int total);
+    void getStatisticSuccess(List<Task> listTask ,int total,int wallet);
     void getStatisticFail();
 }

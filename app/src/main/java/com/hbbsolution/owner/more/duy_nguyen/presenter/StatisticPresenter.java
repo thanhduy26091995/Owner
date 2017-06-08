@@ -32,7 +32,7 @@ public class StatisticPresenter {
                 if (response.isSuccessful()) {
                     try {
                         StatisticResponse statisticResponse = response.body();
-                        statisticView.getStatisticSuccess(statisticResponse.getData().getTask(),statisticResponse.getData().getTotalPrice());
+                        statisticView.getStatisticSuccess(statisticResponse.getData().getTask(),statisticResponse.getData().getTotalPrice(),statisticResponse.getData().getWallet());
                     } catch (Exception e) {
                         Log.e("exception", e.toString());
                     }

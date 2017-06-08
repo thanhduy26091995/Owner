@@ -21,11 +21,13 @@ import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +54,9 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     @BindView(R.id.numberDoneTask)
     TextView numberDoneTask;
 
+    @BindView(R.id.tvWallet)
+    TextView tvWallet;
+
     @BindView(R.id.lnStatistic)
     LinearLayout lnStatistic;
     @BindView(R.id.rela_info)
@@ -68,7 +73,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
     private int onCreate, pending, reserved, onDoing, done,immediate;
-
+    private String tempStartDate, tempEndDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +142,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                 if (monthOfYear + 1 < 10) {
                     month = "0" + (monthOfYear + 1);
                 }
+                tempStartDate = tvStartDate.getText().toString();
                 tvStartDate.setText(
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
@@ -147,6 +153,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                     statisticPresenter.getStatistic(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), StatisticActivity.this);
+                    tvStartDate.setText(tempStartDate);
                 }
             }
         };
@@ -178,6 +185,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                 if (monthOfYear + 1 < 10) {
                     month = "0" + (monthOfYear + 1);
                 }
+                tempEndDate = tvEndDate.getText().toString();
                 tvEndDate.setText(
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
@@ -189,6 +197,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                         statisticPresenter.getStatistic(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), StatisticActivity.this);
+                        tvEndDate.setText(tempEndDate);
                     }
                 } else {
                     setNumber();
@@ -249,7 +258,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void getStatisticSuccess(List<Task> listTask, int total) {
+    public void getStatisticSuccess(List<Task> listTask, int total,int wallet) {
         int i = 0;
         while (i < listTask.size()) {
             if (listTask.get(i).getId().equals("000000000000000000000001")) {
@@ -275,7 +284,8 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         numberPostedTask.setText(String.valueOf(onCreate + pending));
         numberDoingTask.setText(String.valueOf(reserved + onDoing + immediate));
         numberDoneTask.setText(String.valueOf(done));
-        totalPrice.setText(String.valueOf(total) + " " + getResources().getString(R.string.million));
+        totalPrice.setText(String.valueOf(total) + " " +  getResources().getQuantityString(R.plurals.million,total));
+        tvWallet.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND ");
         progressBar.setVisibility(View.GONE);
         lnStatistic.setVisibility(View.VISIBLE);
     }

@@ -44,7 +44,6 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         this.listData=listData;
 
     }
-
     @Override
     public void onBindViewHolder(HistoryLiabilitiesAdapter.RecyclerViewHolder holder, int position) {
         p=position;

@@ -14,6 +14,9 @@ public class Data {
     @SerializedName("task")
     @Expose
     private List<Task> task = null;
+    @SerializedName("wallet")
+    @Expose
+    private Integer wallet;
 
     public Integer getTotalPrice() {
         return totalPrice;
@@ -29,6 +32,14 @@ public class Data {
 
     public void setTask(List<Task> task) {
         this.task = task;
+    }
+
+    public Integer getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Integer wallet) {
+        this.wallet = wallet;
     }
 
 }

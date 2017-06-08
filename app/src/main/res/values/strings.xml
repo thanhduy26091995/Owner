@@ -121,7 +121,10 @@
     <string name="post_work">Công việc đã đăng</string>
     <string name="recharge">Nạp tiền vào tài khoản</string>
     <string name="sodutaikhoan">Số dư tài khoản</string>
-    <string name="million">million</string>
+    <plurals name="million">
+        <item quantity="one">million</item>
+        <item quantity="other">millions</item>
+    </plurals>
     <!--statistic_screen end-->
 
     <!--contact and about screen start-->

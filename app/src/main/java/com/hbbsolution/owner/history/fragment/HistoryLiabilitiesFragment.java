@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.history.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by Administrator on 25/05/2017.
  */
@@ -46,14 +49,23 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
     private ProgressBar progressBar;
     private LinearLayout lnNoData;
     private String tempStartDate, tempEndDate;
-
     public static HistoryLiabilitiesFragment newInstance() {
         HistoryLiabilitiesFragment fragment = new HistoryLiabilitiesFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        EventBus.getDefault().register(this);
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,7 +124,8 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
         });
         return v;
     }
-
+    public void onEvent(Integer event) {
+    }
     public void showDatePickerDialog1() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year,
@@ -231,6 +244,8 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
             lnNoData.setVisibility(View.VISIBLE);
         }
         progressBar.setVisibility(View.GONE);
+        Integer numberLiabilities = new Integer(liabilitiesHistories.size());
+        EventBus.getDefault().post(numberLiabilities);
     }
 
     @Override
@@ -238,4 +253,5 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
         lnNoData.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
+
 }

@@ -6,12 +6,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.fragment.HistoryViewPagerFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public class HistoryActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
@@ -20,6 +23,8 @@ public class HistoryActivity extends AppCompatActivity {
     TabLayout tabLayoutHistory;
     @BindView(R.id.view_pager_history)
     ViewPager viewPagerHistory;
+    @BindView(R.id.txtNumber_Liabilities)
+    TextView txtNumber_Liabilities;
     private HistoryViewPagerFragment historyViewPagerFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,5 +57,20 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    public void onEvent(Integer numberLiabilities) {
+        txtNumber_Liabilities.setVisibility(View.VISIBLE);
+        txtNumber_Liabilities.setText(String.valueOf(numberLiabilities));
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -65,6 +65,7 @@
 
         <TextView
             android:id="@+id/txtNumber_Liabilities"
+            android:visibility="gone"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_alignParentEnd="true"
@@ -72,7 +73,6 @@
             android:layout_margin="5dp"
             android:background="@drawable/circle"
             android:gravity="center"
-            android:text="1"
             android:textColor="@color/colorWhite"
             android:textSize="10sp" />
     </RelativeLayout>
