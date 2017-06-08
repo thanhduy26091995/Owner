@@ -82,7 +82,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
             holder.tvTime.setText(String.valueOf(elapsedSeconds) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.second,(int)elapsedSeconds)));
         }
         holder.tvDate.setText(date);
-        holder.tvDeitalTime.setText(startTime.replace(":","h") + " - "+endTime.replace(":","h"));
+        holder.tvDeitalTime.setText(startTime.replace(":","h") + " - " + endTime.replace(":","h"));
     }
 
     @Override

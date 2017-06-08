@@ -135,7 +135,6 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
             }
         }
 
-
         if(mDatum.getInfo().getTools()){
             txtIsTools.setVisibility(View.VISIBLE);
         }else {
@@ -273,7 +272,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
     private String formatPrice(Integer _Price) {
         String mOutputPrice = null;
-        if (_Price != null) {
+        if (_Price != null && _Price != 0) {
             DecimalFormat myFormatter = new DecimalFormat("#,###,##0");
             mOutputPrice  = myFormatter.format(_Price);
         } else if(_Price == 0){

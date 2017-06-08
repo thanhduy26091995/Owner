@@ -35,14 +35,10 @@ import static android.view.View.GONE;
  * Created by buivu on 29/05/2017.
  */
 
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class ProfileActivity extends AppCompatActivity  {
 
-    @BindView(R.id.lo_toolbar)
-    LinearLayout toolbar;
     @BindView(R.id.info_user_appbar)
     AppBarLayout appBarLayout;
-    @BindView(R.id.collapsing_toolbar)
-    CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.toolbar_header)
     Toolbar toolbarHeader;
     @BindView(R.id.txt_profile_name)
@@ -69,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
 
-        appBarLayout.addOnOffsetChangedListener(this);
+//        appBarLayout.addOnOffsetChangedListener(this);
         //set up toolbar
         setSupportActionBar(toolbarHeader);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -121,17 +117,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             }
         });
     }
-
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        if (collapsingToolbarLayout.getHeight() + verticalOffset <= 1 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)) {
-            toolbar.setVisibility(View.VISIBLE);
-            toolbar.animate().alpha(1).setDuration(200);
-        } else {
-            toolbar.setVisibility(GONE);
-            toolbar.animate().alpha(0).setDuration(200);
-        }
-    }
+    
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
