@@ -11,8 +11,8 @@ import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
-import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
-import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.report.model.ReportResponse;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
@@ -98,6 +98,7 @@ public interface ApiInterface {
             @Part MultipartBody.Part image
     );
 
+
     @Multipart
     @POST("auth/login")
     Call<BodyResponse> signInAccount(@Part("username") RequestBody username,
@@ -106,7 +107,7 @@ public interface ApiInterface {
 
     @Multipart
     @PUT("owner/update")
-    Call<UpdateResponse> updateOwner(
+    Call<DataUpdateResponse> updateOwner(
             @Part("phone") RequestBody phone,
             @Part("name") RequestBody name,
             @Part("addressName") RequestBody address,

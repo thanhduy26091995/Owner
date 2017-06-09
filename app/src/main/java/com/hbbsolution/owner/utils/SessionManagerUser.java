@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.hbbsolution.owner.more.viet_pham.Model.Data;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.Data;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 
 import java.util.HashMap;
@@ -72,6 +72,23 @@ public class SessionManagerUser {
         editor.putString(KEY_EMAIL, data.getUser().getInfo().getEmail());
         editor.putString(KEY_IMAGE, data.getUser().getInfo().getImage());
         // commit changes
+        editor.commit();
+    }
+
+    // Remove value whose key
+    public void removeValue()
+    {
+        editor.remove(KEY_TOKEN);
+        editor.remove(KEY_ID);
+        editor.remove(KEY_USERNAME);
+        editor.remove(KEY_NAME);
+        editor.remove(KEY_GENDER);
+        editor.remove(KEY_ADDRESS);
+        editor.remove(KEY_LAT);
+        editor.remove(KEY_LNG);
+        editor.remove(KEY_PHONE);
+        editor.remove(KEY_EMAIL);
+        editor.remove(KEY_IMAGE);
         editor.commit();
     }
 

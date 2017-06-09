@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.home.view.HomeActivity;
-import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
-import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -110,7 +110,7 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
     }
 
     @Override
-    public void displayUpdate(UpdateResponse updateResponse) {
+    public void displayUpdate(DataUpdateResponse dataUpdateResponse) {
 
     }
 

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
@@ -56,17 +56,16 @@ public class UpdateUserPresenter {
         requestBodyGender = RequestBody.create(MediaType.parse("text"), String.valueOf(gender));
         requestBodyLat = RequestBody.create(MediaType.parse("text"), String.valueOf(lat));
         requestBodyLng = RequestBody.create(MediaType.parse("text"), String.valueOf(lng));
-        mApiService.updateOwner(requestBodyPhone,requestBodyName,requestBodyLocation,requestBodyLat,requestBodyLng,requestBodyGender,fileImage).enqueue(new Callback<UpdateResponse>() {
+        mApiService.updateOwner(requestBodyPhone,requestBodyName,requestBodyLocation,requestBodyLat,requestBodyLng,requestBodyGender,fileImage).enqueue(new Callback<DataUpdateResponse>() {
             @Override
-            public void onResponse(Call<UpdateResponse> call, Response<UpdateResponse> response) {
-                int code = response.code();
-                Log.e("Test",code + "");
-                UpdateResponse updateResponse = response.body();
-                mMoreView.displayUpdate(updateResponse);
+            public void onResponse(Call<DataUpdateResponse> call, Response<DataUpdateResponse> response) {
+                DataUpdateResponse dataUpdateResponse = response.body();
+                mMoreView.displayUpdate(dataUpdateResponse);
+
             }
 
             @Override
-            public void onFailure(Call<UpdateResponse> call, Throwable t) {
+            public void onFailure(Call<DataUpdateResponse> call, Throwable t) {
 
             }
         });

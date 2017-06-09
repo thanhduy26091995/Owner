@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.more.duy_nguyen.LanguageActivity;
 import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
 import com.hbbsolution.owner.more.phuc_tran.AboutActivity;
@@ -92,6 +93,8 @@ public class MoreActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            Intent iHome = new Intent(MoreActivity.this, HomeActivity.class);
+            startActivity(iHome);
             finish();
         }
         return super.onOptionsItemSelected(item);

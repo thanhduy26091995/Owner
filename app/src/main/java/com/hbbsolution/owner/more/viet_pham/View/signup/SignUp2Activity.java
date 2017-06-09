@@ -25,8 +25,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
-import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
-import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
@@ -132,6 +131,7 @@ public abstract class SignUp2Activity extends AppCompatActivity implements MoreV
                 } else {
                     if (EmailValidate.IsOk(mEmail)) {
                         mProgressDialog.show();
+                        mProgressDialog.setCanceledOnTouchOutside(false);
                         mRegisterPresenter.getLocaltionAddress(mLocation);
                     } else {
                         ShowAlertDialog.showAlert("Vui lòng nhập đúng email", SignUp2Activity.this);
@@ -237,10 +237,6 @@ public abstract class SignUp2Activity extends AppCompatActivity implements MoreV
 
     }
 
-    @Override
-    public void displayUpdate(UpdateResponse updateResponse) {
-
-    }
 
     @Override
     public void displayError() {

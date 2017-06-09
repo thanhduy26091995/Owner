@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,11 +25,13 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
-import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
-import com.hbbsolution.owner.more.viet_pham.Model.UpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.Data;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.UpdateUserPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
+import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -76,7 +79,6 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     private UpdateUserPresenter mUpdateUserPresenter;
     private double mLat;
     private double mLng;
-    private String token;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,9 +99,9 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
 
         edtEmail.setText(mDataHashUser.get(SessionManagerUser.KEY_EMAIL));
         edtFullName.setText(mDataHashUser.get(SessionManagerUser.KEY_NAME));
-        if (mDataHashUser.get(SessionManagerUser.KEY_GENDER).equals("0")){
+        if (mDataHashUser.get(SessionManagerUser.KEY_GENDER).equals("0")) {
             edtGender.setText("Nam");
-        }else {
+        } else {
             edtGender.setText("Nữ");
         }
         edtNumber.setText(mDataHashUser.get(SessionManagerUser.KEY_PHONE));
@@ -175,8 +177,9 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                         mLocation.trim().length() == 0) {
                     ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin", UpdateUserInfoActivity.this);
                 } else {
-                        mProgressDialog.show();
-                        mUpdateUserPresenter.getLocaltionAddress(mLocation);
+                    mProgressDialog.show();
+                    mProgressDialog.setCanceledOnTouchOutside(false);
+                    mUpdateUserPresenter.getLocaltionAddress(mLocation);
                 }
 
 
@@ -202,6 +205,18 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_READ_EXTERNAL_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startActivityForResult(Intent.createChooser(iChooseImage, "Select image"), PICK_IMAGE_FROM_GALLERY_REQUEST);
+                }
+                break;
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
@@ -223,9 +238,24 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     }
 
     @Override
-    public void displayUpdate(UpdateResponse updateResponse) {
+    public void displayUpdate(DataUpdateResponse dataUpdateResponse) {
+
+        Data data = new Data();
+        data.setUser(dataUpdateResponse.getUser());
+        data.setToken(mDataHashUser.get(SessionManagerUser.KEY_TOKEN));
+        mSessionManagerUser.removeValue();
+        mSessionManagerUser.createLoginSession(data);
         mProgressDialog.dismiss();
-        ShowAlertDialog.showAlert(updateResponse.getMessage(),UpdateUserInfoActivity.this);
+        if(dataUpdateResponse.isStatus() == true)
+        {
+            Intent iProfile = new Intent(UpdateUserInfoActivity.this, ProfileActivity.class);
+            startActivity(iProfile);
+            finish();
+           // ShowAlertDialog.showAlert(dataUpdateResponse.getMessage(),UpdateUserInfoActivity.this);
+        }else {
+            ShowAlertDialog.showAlert("Cập nhật thông tin không thành công",UpdateUserInfoActivity.this);
+        }
+
     }
 
     @Override
@@ -236,7 +266,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     @Override
     public void displayNotFoundLocaltion() {
         mProgressDialog.dismiss();
-        ShowAlertDialog.showAlert("Địa chỉ không tìm thấy",UpdateUserInfoActivity.this);
+        ShowAlertDialog.showAlert("Địa chỉ không tìm thấy", UpdateUserInfoActivity.this);
     }
 
     @Override
@@ -246,7 +276,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
 //        token = mDataHashUser.get(SessionManagerUser.KEY_TOKEN);
         if (mLat != 0 && mLng != 0) {
 
-            mUpdateUserPresenter.updateUserInfo(mPhoneName,mFullName,mFilePath,mLocation,mLat,mLng,iGender,mFileContentResolver);
+            mUpdateUserPresenter.updateUserInfo(mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, iGender, mFileContentResolver);
 
         }
     }
