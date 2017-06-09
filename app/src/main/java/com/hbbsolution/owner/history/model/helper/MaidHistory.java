@@ -3,24 +3,25 @@ package com.hbbsolution.owner.history.model.helper;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.history.model.workhistory.Received;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class Datum implements Serializable {
+public class MaidHistory implements Serializable {
 
     @SerializedName("_id")
     @Expose
-    private Id id;
+    private Received id;
     @SerializedName("times")
     @Expose
     private List<String> times = null;
 
-    public Id getId() {
+    public Received getId() {
         return id;
     }
 
-    public void setId(Id id) {
+    public void setId(Received id) {
         this.id = id;
     }
 

@@ -1,6 +1,6 @@
 package com.hbbsolution.owner.history;
 
-import com.hbbsolution.owner.history.model.helper.Datum;
+import com.hbbsolution.owner.history.model.helper.MaidHistory;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public interface HelperHistoryView {
-    void getInfoHelperHistory (List<Datum> datumList);
+    void getInfoHelperHistory (List<MaidHistory> datumList);
     void getInfoHelperHistoryFail ();
 }

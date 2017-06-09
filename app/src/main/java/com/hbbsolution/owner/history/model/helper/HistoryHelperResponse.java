@@ -16,7 +16,7 @@ public class HistoryHelperResponse {
     private String message;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private List<MaidHistory> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -34,11 +34,11 @@ public class HistoryHelperResponse {
         this.message = message;
     }
 
-    public List<Datum> getData() {
+    public List<MaidHistory> getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<MaidHistory> data) {
         this.data = data;
     }
 

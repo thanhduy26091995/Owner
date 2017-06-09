@@ -16,7 +16,7 @@ public class Received implements Serializable {
     private WorkInfo workInfo;
     @SerializedName("info")
     @Expose
-    private Info info;
+    private InfoMaid info;
 
     public String getId() {
         return id;
@@ -34,11 +34,11 @@ public class Received implements Serializable {
         this.workInfo = workInfo;
     }
 
-    public Info getInfo() {
+    public InfoMaid getInfo() {
         return info;
     }
 
-    public void setInfo(Info info) {
+    public void setInfo(InfoMaid info) {
         this.info = info;
     }
 

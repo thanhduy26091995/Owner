@@ -1,12 +1,12 @@
 
-package com.hbbsolution.owner.history.model.helper;
+package com.hbbsolution.owner.history.model.workhistory;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Info implements Serializable {
+public class InfoMaid implements Serializable {
 
     @SerializedName("username")
     @Expose

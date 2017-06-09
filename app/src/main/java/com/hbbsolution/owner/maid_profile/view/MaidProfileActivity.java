@@ -30,7 +30,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
-import com.hbbsolution.owner.history.model.helper.Datum;
+import com.hbbsolution.owner.history.model.helper.MaidHistory;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.maid_profile.adapter.TypeJobAdapter;
 import com.hbbsolution.owner.maid_profile.choose_maid.view.ChooseMaidActivity;
@@ -105,7 +105,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     private ListCommentAdapter listCommentAdapter;
     private Maid mMaidInfo;
     private WorkHistory workHistory;
-    private Datum datum;
+    private MaidHistory datum;
     private EndlessRecyclerViewScrollListener scrollListener;
     private int currentPage = 1;
     private String idTaskProcess;
@@ -154,7 +154,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
 
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
-        datum = (Datum) getIntent().getSerializableExtra("helper");
+        datum = (MaidHistory) getIntent().getSerializableExtra("helper");
         workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
         isChosenMaidFromRecruitment = getIntent().getBooleanExtra("chosenMaidFromListRecruitment", false);
 

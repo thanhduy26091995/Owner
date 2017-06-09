@@ -1,19 +1,16 @@
 
-package com.hbbsolution.owner.history.model.liabilities;
+package com.hbbsolution.owner.history.model.workhistory;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Work implements Serializable {
+public class Package implements Serializable {
 
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("image")
-    @Expose
-    private String image;
     @SerializedName("name")
     @Expose
     private String name;
@@ -24,14 +21,6 @@ public class Work implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getName() {

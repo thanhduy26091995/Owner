@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.model.helper.Datum;
+import com.hbbsolution.owner.history.model.helper.MaidHistory;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.ReportView;
@@ -51,7 +51,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
 
     private Maid mMaidInfo;
     private WorkHistory workHistory;
-    private Datum datum;
+    private MaidHistory datum;
     private ReportPresenter reportPresenter;
     private String idHelper;
     private int flat;
@@ -68,7 +68,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
         //get intent
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
         workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
-        datum = (Datum) getIntent().getSerializableExtra("helper");
+        datum = (MaidHistory) getIntent().getSerializableExtra("helper");
         //load data
         loadData();
         tvSend.setOnClickListener(this);

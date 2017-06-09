@@ -3,6 +3,7 @@ package com.hbbsolution.owner.history.model.liabilities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 
 import java.io.Serializable;
 
@@ -19,7 +20,7 @@ public class LiabilitiesHistory implements Serializable {
     private String period;
     @SerializedName("task")
     @Expose
-    private Task task;
+    private WorkHistory task;
 
     public String getId() {
         return id;
@@ -45,11 +46,11 @@ public class LiabilitiesHistory implements Serializable {
         this.period = period;
     }
 
-    public Task getTask() {
+    public WorkHistory getTask() {
         return task;
     }
 
-    public void setTask(Task task) {
+    public void setTask(WorkHistory task) {
         this.task = task;
     }
 

@@ -17,16 +17,15 @@ public class WorkHistory implements Serializable {
     @SerializedName("history")
     @Expose
     private History history;
-    @SerializedName("stakeholders")
-    @Expose
-    private Stakeholders stakeholders;
     @SerializedName("info")
     @Expose
-    private Info_ info;
+    private InfoWork info;
     @SerializedName("check")
     @Expose
     private Check check;
-
+    @SerializedName("stakeholders")
+    @Expose
+    private Stakeholders stakeholders;
     public String getId() {
         return id;
     }
@@ -59,11 +58,11 @@ public class WorkHistory implements Serializable {
         this.stakeholders = stakeholders;
     }
 
-    public Info_ getInfo() {
+    public InfoWork getInfo() {
         return info;
     }
 
-    public void setInfo(Info_ info) {
+    public void setInfo(InfoWork info) {
         this.info = info;
     }
 

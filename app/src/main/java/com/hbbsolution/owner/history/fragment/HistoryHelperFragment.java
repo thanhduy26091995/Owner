@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.HelperHistoryView;
 import com.hbbsolution.owner.history.adapter.HistoryHelperAdapter;
-import com.hbbsolution.owner.history.model.helper.Datum;
+import com.hbbsolution.owner.history.model.helper.MaidHistory;
 import com.hbbsolution.owner.history.presenter.HelperHistoryPresenter;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 
@@ -215,7 +215,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
     }
 
     @Override
-    public void getInfoHelperHistory(List<Datum> datumList) {
+    public void getInfoHelperHistory(List<MaidHistory> datumList) {
         historyHelperAdapter = new HistoryHelperAdapter(getActivity(), datumList);
         historyHelperAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(historyHelperAdapter);

@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.model.helper.Datum;
+import com.hbbsolution.owner.history.model.helper.MaidHistory;
 import com.hbbsolution.owner.history.view.ListWorkActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.squareup.picasso.Picasso;
@@ -29,7 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdapter.RecyclerViewHolder> {
     private Context context;
-    private List<Datum> datumList;
+    private List<MaidHistory> datumList;
     private boolean isHis;
     private String time;
     private Date date;
@@ -40,7 +40,7 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
         return new RecyclerViewHolder(view);
     }
 
-    public HistoryHelperAdapter(Context context, List<Datum> datumList) {
+    public HistoryHelperAdapter(Context context, List<MaidHistory> datumList) {
         this.context = context;
         this.datumList = datumList;
     }

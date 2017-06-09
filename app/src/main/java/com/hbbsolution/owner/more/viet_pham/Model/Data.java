@@ -2,6 +2,7 @@ package com.hbbsolution.owner.more.viet_pham.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.User;
 
 /**
  * Created by Administrator on 5/22/2017.
