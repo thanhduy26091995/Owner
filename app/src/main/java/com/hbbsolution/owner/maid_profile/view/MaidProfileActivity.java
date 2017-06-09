@@ -41,7 +41,6 @@ import com.hbbsolution.owner.utils.EndlessRecyclerViewScrollListener;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
-import com.hbbsolution.owner.work_management.presenter.ListMaidPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
 import com.squareup.picasso.Picasso;
@@ -116,6 +115,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     private List<String> list;
     public static Activity mMaidProfileActivity = null;
+
+    private static final int REPORT = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -272,7 +273,6 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         if (collapsingToolbarLayout.getHeight() + verticalOffset <= 1.5 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)) {
             toolbar.setVisibility(View.VISIBLE);
-
             toolbar.animate().alpha(1).setDuration(200);
         } else {
 
@@ -301,7 +301,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 intent.putExtra("maid", mMaidInfo);
                 intent.putExtra("work", workHistory);
                 intent.putExtra("helper", datum);
-                startActivity(intent);
+                startActivityForResult(intent,REPORT);
                 break;
 
         }
@@ -384,5 +384,15 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     @Override
     public void getMessager() {
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==REPORT)
+        {
+            if(resultCode== Activity.RESULT_OK)
+            {
+                ShowAlertDialog.showAlert(data.getStringExtra("message"),this);
+            }
+        }
     }
 }

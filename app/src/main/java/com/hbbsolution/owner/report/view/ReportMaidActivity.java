@@ -32,7 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by buivu on 22/05/2017.
  */
 
-public class ReportMaidActivity extends AppCompatActivity implements View.OnClickListener,ReportView {
+public class ReportMaidActivity extends AppCompatActivity implements View.OnClickListener, ReportView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -54,6 +54,8 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
     private Datum datum;
     private ReportPresenter reportPresenter;
     private String idHelper;
+    private int flat;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +67,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
         reportPresenter = new ReportPresenter(this);
         //get intent
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
-        workHistory = (WorkHistory)getIntent().getSerializableExtra("work");
+        workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
         datum = (Datum) getIntent().getSerializableExtra("helper");
         //load data
         loadData();
@@ -77,22 +79,19 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
         if (mMaidInfo != null) {
             mTextMaidName.setText(mMaidInfo.getInfo().getUsername());
             mTextMaidAddress.setText(mMaidInfo.getInfo().getAddress().getName());
-            idHelper=mMaidInfo.getId();
-            if(!mMaidInfo.getInfo().getImage().equals(""))
-            {
+            idHelper = mMaidInfo.getId();
+            if (!mMaidInfo.getInfo().getImage().equals("")) {
                 Picasso.with(this).load(mMaidInfo.getInfo().getImage())
                         .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
                         .into(imgAvatar);
             }
         }
-        if(workHistory!=null)
-        {
+        if (workHistory != null) {
             mTextMaidName.setText(workHistory.getStakeholders().getReceived().getInfo().getUsername());
             mTextMaidAddress.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
             idHelper = workHistory.getStakeholders().getReceived().getId();
-            if(!workHistory.getStakeholders().getReceived().getInfo().getImage().equals(""))
-            {
+            if (!workHistory.getStakeholders().getReceived().getInfo().getImage().equals("")) {
                 Picasso.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
                         .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
@@ -103,15 +102,16 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
             mTextMaidName.setText(datum.getId().getInfo().getUsername());
             mTextMaidAddress.setText(datum.getId().getInfo().getAddress().getName());
             idHelper = datum.getId().getId();
-            if(!datum.getId().getInfo().getImage().equals(""))
-            {
+            if (!datum.getId().getInfo().getImage().equals("")) {
                 Picasso.with(this).load(datum.getId().getInfo().getImage())
                         .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
                         .into(imgAvatar);
             }
         }
+        flat = 1;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -122,15 +122,18 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvSend:
                 View view = this.getCurrentFocus();
                 if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 if (edtReport.getText().toString().length() > 0) {
-                    reportPresenter.reportMaid(idHelper, edtReport.getText().toString().trim());
+                    if (flat == 1) {
+                        reportPresenter.reportMaid(idHelper, edtReport.getText().toString().trim());
+                        flat = 0;
+                    }
                 } else {
                     Toast.makeText(this, "Vui lòng nhập bình luận", Toast.LENGTH_LONG).show();
                 }
@@ -144,15 +147,17 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void reportSuccess(String message) {
         Intent intent = new Intent();
-        intent.putExtra("message",message);
-        setResult(Activity.RESULT_OK,intent);
+        intent.putExtra("message", message);
+        setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
     @Override
     public void reportFail() {
-
+        flat = 1;
+        edtReport.getText().clear();
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -169,6 +174,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
         }
         return super.dispatchTouchEvent(event);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

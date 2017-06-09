@@ -184,7 +184,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 } else {
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    helperHistoryPresenter.getInfoHelperHistoryTime("", simpleDateFormat.format(endDate));
+                    helperHistoryPresenter.getInfoHelperHistory(simpleDateFormat.format(endDate));
                 }
             }
         };

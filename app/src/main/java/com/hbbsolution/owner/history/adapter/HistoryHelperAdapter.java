@@ -50,7 +50,7 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
         p=position;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
-
+        holder.ratingBar.setRating(datumList.get(p).getId().getWorkInfo().getEvaluationPoint());
         try {
             date = simpleDateFormat.parse(datumList.get(p).getTimes().get(0));
             time = dates.format(date);
