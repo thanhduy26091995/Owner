@@ -2,7 +2,7 @@ package com.hbbsolution.owner.more.viet_pham.Presenter;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.more.viet_pham.Model.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 
 import okhttp3.MediaType;

@@ -20,6 +20,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
+import com.hbbsolution.owner.more.viet_pham.View.MoreActivity;
 import com.hbbsolution.owner.more.viet_pham.View.update.UpdateUserInfoActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 
@@ -60,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity  {
     private HashMap<String, String> hashDataUser = new HashMap<>();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
@@ -122,6 +123,8 @@ public class ProfileActivity extends AppCompatActivity  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            Intent iMore = new Intent(ProfileActivity.this, MoreActivity.class);
+            startActivity(iMore);
             finish();
         }
         return super.onOptionsItemSelected(item);
