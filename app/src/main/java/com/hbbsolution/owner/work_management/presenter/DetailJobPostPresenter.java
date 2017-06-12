@@ -33,7 +33,7 @@ public class DetailJobPostPresenter {
 
     public void deleteJob(String idTask, String ownerId) {
 
-        Call<JobPostResponse> responseCall = apiService.delleteJob(idTask, ownerId);
+        Call<JobPostResponse> responseCall = apiService.deleteJob(idTask, ownerId);
         responseCall.enqueue(new Callback<JobPostResponse>() {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {

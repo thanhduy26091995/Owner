@@ -12,6 +12,42 @@
 
     <!--home screen end-->
 
+    <!--work_manager start-->
+    <string name="work_management">Quản lý công việc</string>
+    <string name="posted_work">Đã đăng</string>
+    <string name="running_work">Đang làm</string>
+
+    <string name="post_your_work">Đăng công việc</string>
+    <string name="title_job_post">Tiêu đề</string>
+    <string name="types_of_work">Loại công việc</string>
+    <string name="work_description">Mô tả công việc</string>
+    <string name="enter_the_salary">Nhập số tiền công</string>
+    <string name="hourly_pay">Tính tiền theo thời gian</string>
+    <string name="hour">/giờ</string>
+    <string name="to_job_post">to</string>
+    <string name="jobs_for_applications">Đang chờ ứng tuyển</string>
+    <string name="qua_han_ung_tuyen">Quá hạn ứng tuyển</string>
+    <string name="dang_cho_xac_nhan">Đang chờ xác nhận</string>
+    <string name="qua_han_xac_nhan">Quá hạn xác nhận</string>
+    <string name="qua_han">Quá hạn</string>
+    <string name="đăng_bài">Đăng bài</string>
+    <string name="update_job_post">Cập nhật</string>
+    <string name="notification">Thông báo</string>
+    <string name="post_successfully">Bạn đã đăng bài thành công!</string>
+    <string name="post_unsuccessfully">Đăng bài thất bại!</string>
+    <string name="check_your_home_address">Vui lòng kiểm tra lại địa chỉ nhà.</string>
+    <string name="check_complete_all_information">Vui lòng điền đầy đủ thông tin.</string>
+    <string name="check_working_time">Thời gian làm việc không phù hợp.</string>
+    <string name="detail_posted">Đã đăng</string>
+    <string name="check_date_post">Ngày bạn chọn không phù hợp.</string>
+    <string name="delete_work_post">Bạn có muốn xóa công việc này không?</string>
+    <string name="ok">Chấp nhận</string>
+    <string name="cancel">Hủy</string>
+    <string name="list_recruitment">Danh sách ứng tuyển</string>
+
+
+    <!--work_manager end-->
+
     <!--terms_screen start-->
     <string name="terms">Điều khoản sử dụng</string>
     <string name="terms_btn_ok">OK</string>

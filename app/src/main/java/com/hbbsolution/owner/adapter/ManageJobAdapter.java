@@ -63,9 +63,11 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
             holder.txtExpired.setVisibility(View.VISIBLE);
             holder.lo_background.setVisibility(View.VISIBLE);
             holder.txtNumber_request_detail_post.setVisibility(View.GONE);
+            holder.txtType.setText(context.getResources().getString(R.string.qua_han_ung_tuyen));
         } else {
             holder.txtExpired.setVisibility(View.GONE);
             holder.lo_background.setVisibility(View.GONE);
+            holder.txtType.setText(context.getResources().getString(R.string.jobs_for_applications));
             if (tabJob == 1) {
                 holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
                 if (mDatum.getStakeholders().getRequest().size() == 0) {

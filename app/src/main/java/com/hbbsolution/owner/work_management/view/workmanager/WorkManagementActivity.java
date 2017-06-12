@@ -44,7 +44,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     private int tabMore, mQuantityJobPost;
     private boolean isPause = false, mTab = false;
-    static int mPositionTab;
+    private int mPositionTab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         //setupView
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        txtManagement_title_toothbar.setText("Quản lý công việc");
+//        txtManagement_title_toothbar.setText("Quản lý công việc");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtManagement_compose_toothbar.setOnClickListener(this);
@@ -93,9 +93,9 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     private void setupViewPagerUser(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new JobPostedFragment(), "Đã đăng");
+        adapter.addFragment(new JobPostedFragment(), getResources().getString(R.string.posted_work));
         adapter.addFragment(new JobPendingFragment(), "Đã phân công");
-        adapter.addFragment(new JobDoingFragment(), "Đang làm");
+        adapter.addFragment(new JobDoingFragment(), getResources().getString(R.string.running_work));
         viewPager.setAdapter(adapter);
     }
 
@@ -161,8 +161,6 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     }
 
     public void onEvent(Integer positionTab) {
-
         mPositionTab = positionTab;
-        Log.d("mPosition", mPositionTab + "");
     }
 }

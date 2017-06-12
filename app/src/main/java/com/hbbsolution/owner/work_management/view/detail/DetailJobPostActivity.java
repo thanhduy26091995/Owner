@@ -100,7 +100,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        txtManager_post_title_toothbar.setText("Đã đăng");
+//        txtManager_post_title_toothbar.setText("Đã đăng");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -188,31 +188,30 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 break;
             case R.id.lo_list_recruitment:
                 if (mDatum.getStakeholders().getRequest().size() > 0) {
-                    if(compareDays(mDatum.getInfo().getTime().getEndAt())) {
+//                    if(compareDays(mDatum.getInfo().getTime().getEndAt())) {
                         Intent itListRecruitment = new Intent(DetailJobPostActivity.this, ListUserRecruitmentActivity.class);
                         itListRecruitment.putExtra("idTaskProcess", mDatum.getId());
                         startActivity(itListRecruitment);
-                    }else {
-                        ShowAlertDialog.showAlert("Công việc này đã hết hạn, bạn không thể xem chi tiết được!", DetailJobPostActivity.this);
-                    }
+//                    }else {
+//                        ShowAlertDialog.showAlert("Công việc này đã hết hạn, bạn không thể xem chi tiết được!", DetailJobPostActivity.this);
+//                    }
                 }
                 break;
             case R.id.lo_clear_job:
                 String id = mDatum.getId();
                 String idOwner = mDatum.getStakeholders().getOwner();
-                Log.d("idrequset", id + " - " + idOwner);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                 alertDialog.setCancelable(false);
-                alertDialog.setTitle("Thông báo");
-                alertDialog.setMessage("Bạn có chắc muốn xóa bài đăng này !");
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                alertDialog.setTitle(getResources().getString(R.string.notification));
+                alertDialog.setMessage(getResources().getString(R.string.delete_work_post));
+                alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         progressBar.setVisibility(View.VISIBLE);
                         mDetailJobPostPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
                     }
                 });
-                alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -232,6 +231,57 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 //                mBottomSheetDialog.dismiss();
 //                break;
         }
+    }
+
+    @Override
+    public void displayNotifyJobPost(boolean isJobPost) {
+        progressBar.setVisibility(View.GONE);
+        if (isJobPost) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage("Bài đăng đã được xóa !");
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    EventBus.getDefault().postSticky(true);
+                    finish();
+
+                }
+            });
+
+            alertDialog.show();
+        } else {
+            ShowAlertDialog.showAlert("Thất bại", DetailJobPostActivity.this);
+        }
+
+    }
+
+    @Override
+    public void displayError(String error) {
+
+    }
+
+    @Override
+    public void checkIn(CheckInResponse checkInResponse) {
+
+    }
+
+    @Override
+    public void checkInFail(String error) {
+
+    }
+
+    private boolean compareDays(String timeEndWork) {
+        long time = System.currentTimeMillis();
+        DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
+        Date date = parser.parseDateTime(timeEndWork).toDate();
+        long millisecond = date.getTime();
+        long timer = (millisecond - time);
+        if(timer < 0) {
+            return false;
+        }
+        return true;
     }
 
     private void editJobPost() {
@@ -279,57 +329,5 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
             mOutputPrice = "Tính tiền theo thời gian";
         }
         return mOutputPrice;
-    }
-
-
-    @Override
-    public void displayNotifyJobPost(boolean isJobPost) {
-        progressBar.setVisibility(View.GONE);
-        if (isJobPost) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setCancelable(false);
-            alertDialog.setTitle("Thông báo");
-            alertDialog.setMessage("Bài đăng đã được xóa !");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    EventBus.getDefault().postSticky(true);
-                    finish();
-
-                }
-            });
-
-            alertDialog.show();
-        } else {
-            ShowAlertDialog.showAlert("Thất bại", DetailJobPostActivity.this);
-        }
-
-    }
-
-    @Override
-    public void displayError(String error) {
-
-    }
-
-    @Override
-    public void checkIn(CheckInResponse checkInResponse) {
-
-    }
-
-    @Override
-    public void checkInFail(String error) {
-
-    }
-
-    private boolean compareDays(String timeEndWork) {
-        long time = System.currentTimeMillis();
-        DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
-        Date date = parser.parseDateTime(timeEndWork).toDate();
-        long millisecond = date.getTime();
-        long timer = (millisecond - time);
-        if(timer < 0) {
-            return false;
-        }
-        return true;
     }
 }

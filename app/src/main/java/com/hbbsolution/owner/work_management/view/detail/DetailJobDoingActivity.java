@@ -77,7 +77,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         ButterKnife.bind(this);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        txtManager_doing_title_toothbar.setText("Đang làm");
+//        txtManager_doing_title_toothbar.setText("Đang làm");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
