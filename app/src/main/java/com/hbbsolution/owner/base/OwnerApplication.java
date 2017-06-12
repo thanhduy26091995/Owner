@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.hbbsolution.owner.api.ApiClient;
+import com.hbbsolution.owner.utils.InternetConnectionReceiver;
 import com.hbbsolution.owner.utils.SessionManagerForLanguage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.joanzapata.iconify.Iconify;
@@ -23,18 +24,19 @@ import java.util.Locale;
 
 public class OwnerApplication extends Application {
     private static OwnerApplication instance;
+    public static InternetConnectionReceiver receiver;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     SessionManagerUser sessionManagerUser;
     public static OwnerApplication getInstance() {
-
         return instance;
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
         Iconify.with(new FontAwesomeModule());
         instance = this;
+        receiver = new InternetConnectionReceiver();
+        BaseActivity.isInternetConnect=InternetConnectionReceiver.isInternetConnect;
         setLocale();
         sessionManagerUser = new SessionManagerUser(this);
         if (sessionManagerUser.isLoggedIn()) {

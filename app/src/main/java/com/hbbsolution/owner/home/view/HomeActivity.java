@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.home.prsenter.HomePresenter;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
@@ -26,7 +26,7 @@ import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActi
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity implements HomeView, View.OnClickListener {
+public class HomeActivity extends BaseActivity implements HomeView, View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -38,8 +38,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, View.On
     RelativeLayout mLayout_YourTasks;
     @BindView(R.id.lo_history)
     RelativeLayout mLayout_History;
-
     private HomePresenter mHomePresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,16 @@ public class HomeActivity extends AppCompatActivity implements HomeView, View.On
 
 //        mHomePresenter = new HomePresenter(this);
 //        mHomePresenter.requestCheckToken();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
