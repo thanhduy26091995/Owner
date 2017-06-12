@@ -98,7 +98,7 @@
                             android:numStars="5"
                             android:rating="3.0"
                             android:stepSize="1.0"
-                            android:theme="@style/RatingBar"/>
+                            android:theme="@style/RatingBar" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
