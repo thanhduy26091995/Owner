@@ -25,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (InternetConnectionReceiver.isInternetConnect) {
             Toast.makeText(getBaseContext(), "Internet is connected", Toast.LENGTH_SHORT).show();
 
+
         } else {
             Toast.makeText(getBaseContext(), "Internet is not connected", Toast.LENGTH_SHORT).show();
         }
