@@ -71,7 +71,7 @@
                             android:layout_marginRight="15dp"
                             android:padding="2dp"
                             android:background="@drawable/background_text_expired"
-                            android:text="Quá hạn"
+                            android:text="@string/qua_han"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/icon_size_normal" />
 
@@ -106,7 +106,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
-                        android:text="Đang chờ ứng tuyển"
+
                         android:textSize="12sp" />
 
                     <View

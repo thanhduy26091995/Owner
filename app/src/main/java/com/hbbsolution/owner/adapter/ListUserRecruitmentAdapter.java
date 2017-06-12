@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
+import com.squareup.picasso.Picasso;
 
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -61,6 +63,10 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
         final Maid mMaid = maidList.get(position).getMaid();
         holder.tvName.setText(mMaid.getInfo().getName());
         holder.ratingBar.setRating(mMaid.getWorkInfo().getEvaluationPoint());
+        Picasso.with(context).load(mMaid.getInfo().getImage())
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .into(holder.img_avatar);
 
         if(isHis){
             holder.imgIcCheck.setVisibility(View.GONE);
@@ -102,6 +108,7 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
         private TextView tvName, tvDate, tvType, imgIcCheck;
         private RatingBar ratingBar;
         private RelativeLayout lo_info_user, lo_ChosenMaid;
+        private ImageView img_avatar;
 
         public ViewHolerListUserRecruitment(View itemView) {
             super(itemView);
@@ -113,6 +120,7 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
             imgIcCheck = (TextView) itemView.findViewById(R.id.img_ic_check);
             lo_info_user = (RelativeLayout) itemView.findViewById(R.id.lo_info_user);
             lo_ChosenMaid = (RelativeLayout) itemView.findViewById(R.id.lo_ChosenMaid);
+            img_avatar = (ImageView) itemView.findViewById(R.id.img_avatar);
         }
     }
 

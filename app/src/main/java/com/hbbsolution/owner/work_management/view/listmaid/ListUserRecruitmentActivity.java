@@ -60,7 +60,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        txtRecruitment_title_toothbar.setText("Danh sách ứng tuyển");
+        txtRecruitment_title_toothbar.setText(getResources().getString(R.string.list_recruitment));
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -114,7 +114,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
         listUserRecruitmentAdapter.setCallbackChosenMaid(new ListUserRecruitmentAdapter.CallbackChosenMaid() {
             @Override
             public void onItemClickChosenMaid(Maid mMaid) {
-                Toast.makeText(ListUserRecruitmentActivity.this, "Đã Chọn", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ListUserRecruitmentActivity.this, "Đã Chọn", Toast.LENGTH_SHORT).show();
                 mListMaidPresenter.sentRequestChosenMaid(idTaskProcess, mMaid.getId());
             }
         });
@@ -125,7 +125,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
         if (isResponseChosenMaid){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
-            alertDialog.setTitle("Thông báo");
+            alertDialog.setTitle(getResources().getString(R.string.notification));
             alertDialog.setMessage("Bạn đã chọn người giúp việc thành công !");
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override

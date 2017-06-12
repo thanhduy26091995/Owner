@@ -140,7 +140,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "task/delete", hasBody = true)
-    Call<JobPostResponse> delleteJob(@Field("id") String idTask, @Field("ownerId") String ownerId);
+    Call<JobPostResponse> deleteJob(@Field("id") String idTask, @Field("ownerId") String ownerId);
 
     @FormUrlEncoded
     @POST("owner/comment")

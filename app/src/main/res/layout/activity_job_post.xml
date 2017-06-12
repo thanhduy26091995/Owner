@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/colorBlack"
-                android:text="Đăng công việc"
+                android:text="@string/post_your_work"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -47,10 +47,10 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appbar"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        >
+        android:layout_below="@+id/appbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
-                    android:hint="Tiêu đề"
+                    android:hint="@string/title_job_post"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="16sp" />
@@ -90,7 +90,7 @@
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
                     android:focusable="false"
-                    android:hint="Loại công việc"
+                    android:hint="@string/types_of_work"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textColor="@color/colorBlack"
@@ -110,7 +110,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
-                    android:hint="Mô tả công việc"
+                    android:hint="@string/work_description"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="16sp" />
@@ -129,7 +129,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
-                    android:hint="Địa chỉ"
+                    android:hint="@string/address_job_post"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="16sp" />
@@ -228,7 +228,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="3"
                             android:background="@android:color/transparent"
-                            android:hint="Nhập số tiền công"
+                            android:hint="@string/enter_the_salary"
                             android:inputType="numberDecimal"
                             android:padding="10dp"
                             android:textColor="@color/colorBlack"
@@ -266,9 +266,9 @@
                             android:background="@android:color/transparent"
                             android:fontFamily="@string/font_family_regular"
                             android:gravity="center_vertical"
-                            android:padding="10dp"
+                            android:text="@string/hourly_pay"
                             android:inputType="number"
-                            android:hint="Tính tiền theo thời gian"
+                            android:padding="10dp"
                             android:textColor="@color/colorBlack"
                             android:textColorHint="@color/colorBlack"
                             android:textSize="16sp" />
@@ -278,7 +278,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="/ giờ"
+                            android:text="@string/hour"
                             android:textColor="@color/colorBlack" />
 
 
@@ -309,7 +309,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="10dp"
-                        android:text="Ngày làm việc"
+                        android:text="@string/the_start_date"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -340,7 +340,7 @@
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
-                    android:text="Thời gian làm việc"
+                    android:text="@string/time_of_working"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold" />
@@ -372,7 +372,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
-                        android:text="đến" />
+                        android:text="@string/to_job_post" />
 
                     <TextView
                         android:id="@+id/txtTime_end"

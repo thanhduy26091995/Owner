@@ -103,7 +103,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
     private JobPostPresenter mJobPostPresenter;
-    private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
 
 
     @Override
@@ -147,7 +146,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if (infoJob != null) {
             isPost = false;
-            txt_post_complete.setText("Cập nhật");
+            txt_post_complete.setText(getResources().getString(R.string.update_job_post));
             mIdTask = infoJob.getId();
 
             edtTitlePost.setText(infoJob.getInfo().getTitle());
@@ -181,7 +180,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         } else {
             isPost = true;
-            txt_post_complete.setText("Đăng bài");
+            txt_post_complete.setText(getResources().getString(R.string.dang_bai));
         }
 
 
@@ -219,7 +218,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 edt_monney_work.setEnabled(false);
 //                edt_monney_work_hour.setEnabled(true);
                 edt_monney_work.setText("");
-                edt_monney_work.setHint("Nhập số tiền công");
+                edt_monney_work.setHint(getResources().getString(R.string.enter_the_salary));
                 break;
 
             case R.id.job_post_txtType_job:
@@ -271,8 +270,8 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         if (isJobPost) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
-            alertDialog.setTitle("Thông báo");
-            alertDialog.setMessage("Bạn đã đăng bài thành công ");
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage(getResources().getString(R.string.post_successfully));
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -292,14 +291,14 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
             alertDialog.show();
         } else {
-            ShowAlertDialog.showAlert("Thất bại", JobPostActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.post_unsuccessfully), JobPostActivity.this);
         }
     }
 
     @Override
     public void displayNotFoundLocaltion() {
 
-        ShowAlertDialog.showAlert("Vui lòng kiểm tra lại địa chỉ", JobPostActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.check_your_home_address), JobPostActivity.this);
     }
 
     @Override
@@ -391,7 +390,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
                 edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert("Chua nhap day du tiêu đề ", JobPostActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
             return false;
         }
 
@@ -408,7 +407,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if (!validateTimeWork()) {
             progressBar.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert("Chon giờ chưa phù hợp ", JobPostActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
             return false;
         }
 
@@ -445,7 +444,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
                 if (CompareDays(txtDate_start_work.getText().toString())) {
-                    ShowAlertDialog.showAlert("Sai ngày", JobPostActivity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_date_post), JobPostActivity.this);
                 }
             }
         }, year, month, date);

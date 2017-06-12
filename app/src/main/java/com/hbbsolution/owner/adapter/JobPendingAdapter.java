@@ -62,19 +62,20 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
         getTimeDoingPost(holder.txtTimeDoingPost, mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt());
 
         if(tabJob == 2){
-            holder.txtType.setText("Đang chờ xác nhận");
             if (CompareDays(getDatePostHistory(mDatum.getInfo().getTime().getEndAt()))) {
+                holder.txtType.setText(context.getResources().getString(R.string.qua_han_xac_nhan));
                 holder.txtExpired.setVisibility(View.VISIBLE);
                 holder.lo_background.setVisibility(View.VISIBLE);
                 holder.txtNumber_request_detail_post.setVisibility(View.GONE);
             } else {
+                holder.txtType.setText(context.getResources().getString(R.string.dang_cho_xac_nhan));
                 holder.txtExpired.setVisibility(View.GONE);
                 holder.lo_background.setVisibility(View.GONE);
             }
         }
 
         if(tabJob == 3){
-            holder.txtType.setText("Đang làm");
+            holder.txtType.setText(context.getResources().getString(R.string.running_work));
         }
 
         Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
