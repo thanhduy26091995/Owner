@@ -1,7 +1,10 @@
 package com.hbbsolution.owner.history.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,7 +101,16 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
                 case R.id.rela_info:
                     intent = new Intent(context, MaidProfileActivity.class);
                     intent.putExtra("helper",datumList.get(getAdapterPosition()));
-                    context.startActivity(intent);
+                    ActivityOptionsCompat historyOption =
+                            ActivityOptionsCompat
+                                    .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_history_avatar), "icAvatar");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        context.startActivity(intent, historyOption.toBundle());
+                    }
+                    else {
+                        context.startActivity(intent);
+                    }
                     break;
                 case R.id.txt_history_list_work:
                     intent = new Intent(context, ListWorkActivity.class);

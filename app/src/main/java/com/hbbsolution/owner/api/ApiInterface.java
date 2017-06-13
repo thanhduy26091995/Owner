@@ -20,6 +20,7 @@ import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidRe
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
+import com.hbbsolution.owner.work_management.view.payment.model.PaymentResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -163,6 +164,9 @@ public interface ApiInterface {
 
     @GET("owner/statistical")
     Call<StatisticResponse> getStatistic(@Query("startAt") String startAt, @Query("endAt") String endAt);
+
+    @GET("owner/getWallet")
+    Call<PaymentResponse> getWallet();
 
     @FormUrlEncoded
     @POST("task/submit")

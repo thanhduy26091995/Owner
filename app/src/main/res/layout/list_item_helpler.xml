@@ -30,7 +30,8 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/avatar" />
+                android:src="@drawable/avatar"
+                android:transitionName="icAvatar"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

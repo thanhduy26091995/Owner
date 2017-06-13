@@ -328,7 +328,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="Số dư tài khoản GV24: 2.000.000 vnđ"
+                        android:text="Số dư tài khoản GV24:"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 

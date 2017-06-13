@@ -2,7 +2,9 @@ package com.hbbsolution.owner.history.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -142,8 +144,6 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
         }
         tvNameHelper.setText(doc.getStakeholders().getReceived().getInfo().getName());
         tvAddressHelper.setText(doc.getStakeholders().getReceived().getInfo().getAddress().getName());
-
-
     }
 
     @Override
@@ -170,7 +170,15 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
             case R.id.rela_info:
                 intent = new Intent(this, MaidProfileActivity.class);
                 intent.putExtra("work", doc);
-                startActivity(intent);
+                ActivityOptionsCompat historyOption =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(DetailWorkHistoryActivity.this, (View)v.findViewById(R.id.detail_helper_history_avatar), "icAvatar");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    startActivity(intent, historyOption.toBundle());
+                }
+                else {
+                    startActivity(intent);
+                }
                 break;
         }
     }
@@ -191,6 +199,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     @Override
     public void checkCommentFail() {
         tvComment.setVisibility(View.VISIBLE);
+        tvContentComment.setVisibility(View.GONE);
     }
 
     @Override
