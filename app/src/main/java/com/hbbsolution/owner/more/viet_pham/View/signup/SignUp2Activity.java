@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
@@ -43,7 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 5/10/2017.
  */
 
-public abstract class SignUp2Activity extends AppCompatActivity implements MoreView {
+public class SignUp2Activity extends AppCompatActivity implements MoreView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.button_next)
@@ -234,6 +235,11 @@ public abstract class SignUp2Activity extends AppCompatActivity implements MoreV
 
     @Override
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
+
+    }
+
+    @Override
+    public void displayUpdate(DataUpdateResponse dataUpdateResponse) {
 
     }
 
