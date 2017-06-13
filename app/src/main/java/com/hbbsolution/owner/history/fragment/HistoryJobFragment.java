@@ -3,7 +3,9 @@ package com.hbbsolution.owner.history.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -52,6 +54,9 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private ProgressBar progressBar;
     private LinearLayout lnNoData;
     private String tempStartDate, tempEndDate;
+    private int startYear, startMonth, startDay, endYear, endMonth, endDay;
+    private ViewPager viewPagerDatePicker;
+    private TabLayout mTabLayoutDatePicker;
 
     public HistoryJobFragment() {
     }
@@ -319,4 +324,5 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         tvStartDate.setText("- - / - - / - - - -");
         tvEndDate.setText(strEndDate);
     }
+
 }

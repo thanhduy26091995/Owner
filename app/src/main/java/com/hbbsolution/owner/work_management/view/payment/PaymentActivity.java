@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
 import com.hbbsolution.owner.history.view.CommentActivity;
+import com.hbbsolution.owner.work_management.view.payment.presenter.PaymentPresenter;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
@@ -32,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by tantr on 5/19/2017.
  */
 
-public class PaymentActivity extends AppCompatActivity implements View.OnClickListener {
+public class PaymentActivity extends AppCompatActivity implements View.OnClickListener,PaymentView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tvJob)
@@ -65,13 +66,15 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private Date date, time;
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String h, m, s, timework="";
-
+    private PaymentPresenter mPaymentPresenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_impossible);
         ButterKnife.bind(this);
         setToolbar();
+        mPaymentPresenter = new PaymentPresenter(this);
+        mPaymentPresenter.getWallet();
         setData();
 //        lo_Gv24.setOnClickListener(this);
     }
@@ -165,7 +168,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -189,5 +192,15 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
         alertDialog.show();
+    }
+
+    @Override
+    public void getWalletSuccess(int wallet) {
+        payment_money_account.setText("Số dư tài khoản GV24: " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet)+ " VND"));
+    }
+
+    @Override
+    public void getWalletFail() {
+        payment_money_account.setText("Số dư tài khoản GV24:");
     }
 }

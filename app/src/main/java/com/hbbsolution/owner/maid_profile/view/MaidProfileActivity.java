@@ -43,6 +43,7 @@ import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidRe
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -198,10 +199,26 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtAddressInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
             ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(workHistory.getStakeholders().getReceived().getId(), 1);
-            Picasso.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .into(img_avatarMaid);
+//            Picasso.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+//                    .placeholder(R.drawable.avatar)
+//                    .error(R.drawable.avatar)
+//                    .into(img_avatarMaid);
+            Picasso.with(this)
+                    .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                    .fit()
+                    .noFade()
+                    .centerCrop()
+                    .into(img_avatarMaid, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            supportStartPostponedEnterTransition();
+                        }
+
+                        @Override
+                        public void onError() {
+                            supportStartPostponedEnterTransition();
+                        }
+                    });
             Glide.with(MaidProfileActivity.this)
                     .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
                     .asBitmap()
@@ -227,10 +244,27 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtAddressInfoMaid.setText(datum.getId().getInfo().getAddress().getName());
             //       ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(datum.getId().getId(), 1);
-            Picasso.with(this).load(datum.getId().getInfo().getImage())
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .into(img_avatarMaid);
+//            Picasso.with(this).load(datum.getId().getInfo().getImage())
+//                    .placeholder(R.drawable.avatar)
+//                    .error(R.drawable.avatar)
+//                    .into(img_avatarMaid);
+            supportPostponeEnterTransition();
+            Picasso.with(this)
+                    .load(datum.getId().getInfo().getImage())
+                    .fit()
+                    .noFade()
+                    .centerCrop()
+                    .into(img_avatarMaid, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            supportStartPostponedEnterTransition();
+                        }
+
+                        @Override
+                        public void onError() {
+                            supportStartPostponedEnterTransition();
+                        }
+                    });
             Glide.with(MaidProfileActivity.this)
                     .load(datum.getId().getInfo().getImage())
                     .asBitmap()
@@ -258,7 +292,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }

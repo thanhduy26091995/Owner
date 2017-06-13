@@ -26,6 +26,7 @@ public class HistoryActivity extends AppCompatActivity {
     @BindView(R.id.txtNumber_Liabilities)
     TextView txtNumber_Liabilities;
     private HistoryViewPagerFragment historyViewPagerFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,4 +74,6 @@ public class HistoryActivity extends AppCompatActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
+
 }

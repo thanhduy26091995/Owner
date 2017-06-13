@@ -110,7 +110,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView
             public void onClick(View view) {
                 String username = editUserName.getText().toString();
                 String password = editPassword.getText().toString();
-
+                btnSignIn.setEnabled(false);
                 mSignInPresenter.signIn(username, password);
             }
         });
@@ -147,6 +147,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView
 
     @Override
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
+        btnSignIn.setEnabled(true);
         if (bodyResponse.getStatus() == true) {
             //save session
             sessionManagerUser.createLoginSession(bodyResponse.getData());
