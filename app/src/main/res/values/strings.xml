@@ -135,8 +135,9 @@
         <item quantity="other">seconds</item>
     </plurals>
 
-    <string name="unpayalbe">Chưa thanh toán</string>
+    <string name="unpayalbe">Unpaid</string>
     <string name="rangetime">Vui lòng xem lại khoảng thời gian!</string>
+    <string name="worklist">Worklist</string>
     <!--history_screen end-->
 
     <!--detail_work_history_screen start-->
@@ -152,9 +153,9 @@
     <!--statistic_screen start-->
     <string name="total">Tổng chi phí</string>
     <string name="history_work">Work history</string>
-    <string name="waiting_work">Công việc đang xử lý</string>
-    <string name="post_work">Công việc đã đăng</string>
-    <string name="recharge">Nạp tiền vào tài khoản</string>
+    <string name="waiting_work">Work-in-process</string>
+    <string name="post_work">Posted work</string>
+    <string name="recharge">Recharge</string>
     <string name="sodutaikhoan">Số dư tài khoản</string>
     <plurals name="million">
         <item quantity="one">million</item>
