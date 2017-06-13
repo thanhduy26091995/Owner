@@ -10,7 +10,7 @@
     <!--<string name="home_history">History</string>-->
     <!--<string name="home_copy_right">Copyright(c).HBB Solution. All right reserved</string>-->
     <string name="home_home">Home</string>
-    <string name="home_maid_around">Giúp việc quanh đây</string>
+    <string name="home_maid_around">Nearby work</string>
     <string name="home_your_tasks">Work management</string>
     <string name="home_history">Work history</string>
     <string name="home_copy_right">Trust - Quality </string>
@@ -69,14 +69,14 @@
 
 
     <!--signup_screen start-->
-    <string name="sign_up_confirm_password">Xác nhận mật khẩu</string>
+    <string name="sign_up_confirm_password">Confirm password</string>
     <string name="sign_up_next">Next</string>
     <string name="sign_up_email">Email</string>
-    <string name="sign_up_full_name">Tên đầy đủ</string>
-    <string name="sign_up_gender">Giới tính</string>
-    <string name="sign_up_age">Tuổi</string>
-    <string name="sign_up_phone_number">Số điện thoại</string>
-    <string name="sign_up_address">Địa chỉ</string>
+    <string name="sign_up_full_name">Full name</string>
+    <string name="sign_up_gender">Sex</string>
+    <string name="sign_up_age">Age</string>
+    <string name="sign_up_phone_number">Phone number</string>
+    <string name="sign_up_address">Address</string>
     <!--signup_screen end-->
 
     <!--profile  start-->
@@ -85,19 +85,19 @@
     <!--terms screen end-->
 
     <!--Page more activity start-->
-    <string name="more_job_statistic">Thống kê công việc</string>
-    <string name="more_notification">Thông báo</string>
-    <string name="more_languge">Ngôn ngữ</string>
+    <string name="more_job_statistic">General statistic</string>
+    <string name="more_notification">Announcement</string>
+    <string name="more_languge">Language</string>
     <string name="english">English</string>
     <string name="vietnamese">Tiếng Việt</string>
     <string name="more_share_app_Gv24">Chia sẻ ứng dụng Gv24</string>
-    <string name="more_follow_Gv24_on_facebook">Theo dõi Gv24 trên Facebook</string>
+    <string name="more_follow_Gv24_on_facebook">Follow us on Facebook</string>
     <string name="more_contact">Liên hệ</string>
-    <string name="gender_men">Nam</string>
-    <string name="gender_women">Nữ</string>
+    <string name="gender_men">Male</string>
+    <string name="gender_women">Female</string>
     <string name="signout">Sign Out</string>
-    <string name="signoutContent">Bạn thực sự muốn log out?</string>
-    <string name="cancel">Cancel</string>
+    <string name="signoutContent">Are you sure to log out?</string>
+    <string name="cancel">Hủy</string>
     <string name="ok">Ok</string>
     <!--Page more activity end-->
 
@@ -184,7 +184,7 @@
 
 
     <!--forgot password screen start-->
-    <string name="send_require">Gửi yêu cầu</string>
+    <string name="send_require">Request</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="term_title">Terms of use</string>
     <!--forgot password screen end-->
