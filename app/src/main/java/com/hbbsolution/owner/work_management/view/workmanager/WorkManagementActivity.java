@@ -44,7 +44,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     private int tabMore, mQuantityJobPost;
     private boolean isPause = false, mTab = false;
-    private int mPositionTab;
+    private int mPositionTab = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,13 +60,12 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtManagement_compose_toothbar.setOnClickListener(this);
 
-
         createFragment();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            tabMore = extras.getInt("tabMore");
-            mViewPager.setCurrentItem(tabMore);
-        }
+//        Bundle extras = getIntent().getExtras();
+//        if (extras != null) {
+//            tabMore = extras.getInt("tabMore");
+//            mViewPager.setCurrentItem(tabMore);
+//        }
     }
 
     @Override
@@ -89,12 +88,13 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         setupViewPagerUser(mViewPager);
         tabLayout.setupWithViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(2);
+
     }
 
     private void setupViewPagerUser(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new JobPostedFragment(), getResources().getString(R.string.posted_work));
-        adapter.addFragment(new JobPendingFragment(), "Đã phân công");
+        adapter.addFragment(new JobPendingFragment(), getResources().getString(R.string.assigned));
         adapter.addFragment(new JobDoingFragment(), getResources().getString(R.string.running_work));
         viewPager.setAdapter(adapter);
     }
@@ -133,15 +133,22 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onResume() {
+        if(mPositionTab == -1) {
+            mViewPager.setCurrentItem(0);
+        }else  {
+            mViewPager.setCurrentItem(mPositionTab);
+        }
         if (isPause) {
             if (mTab) {
+               this.finish();
                 Intent refresh = new Intent(this, WorkManagementActivity.class);
                 startActivity(refresh);
-                mViewPager.setCurrentItem(mPositionTab);
-                this.finish();
-                mPositionTab = 0;
+//                createFragment();
+//                mViewPager.setCurrentItem(mPositionTab);
+                mPositionTab = -1;
                 isPause = false;
                 mTab = false;
+
             }
         }
 
@@ -160,7 +167,8 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         mTab = isTab;
     }
 
-    public void onEvent(Integer positionTab) {
-        mPositionTab = positionTab;
+    public void onEventMainThread(String positionTab) {
+        mPositionTab = Integer.parseInt(positionTab);
+        Log.d("mPositionTab",mPositionTab + ""  );
     }
 }

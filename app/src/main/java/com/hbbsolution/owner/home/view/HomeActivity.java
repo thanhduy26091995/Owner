@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.hbbsolution.owner.home.prsenter.HomePresenter;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
 import com.hbbsolution.owner.more.viet_pham.View.MoreActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
+import com.hbbsolution.owner.utils.SessionManagerForLanguage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
@@ -39,7 +41,9 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     @BindView(R.id.lo_history)
     RelativeLayout mLayout_History;
     private HomePresenter mHomePresenter;
-
+    @BindView(R.id.txt_work_management)
+    TextView txt_work_management;
+    private SessionManagerForLanguage sessionManagerForLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,13 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         mLayout_MaidAround.setOnClickListener(this);
         mLayout_YourTasks.setOnClickListener(this);
         mLayout_History.setOnClickListener(this);
+        sessionManagerForLanguage = new SessionManagerForLanguage(this);
+        String lang =  sessionManagerForLanguage.getLanguage();
+        if (lang.equals("Tiếng Việt")) {
+            txt_work_management.setPadding(20, 5, 20, 0);
+        }else if (lang.equals("English")) {
+            txt_work_management.setPadding(10, 5, 10, 0);
+        }
 
 //        mHomePresenter = new HomePresenter(this);
 //        mHomePresenter.requestCheckToken();

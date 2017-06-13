@@ -155,7 +155,7 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    EventBus.getDefault().postSticky(1);
+                    EventBus.getDefault().postSticky("1");
                     getActivity().finish();
                     getActivity().overridePendingTransition(0, 0);
                     getActivity().startActivity(getActivity().getIntent());

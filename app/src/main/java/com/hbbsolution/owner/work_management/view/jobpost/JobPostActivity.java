@@ -86,12 +86,11 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     CheckBox chb_tools_work;
     @BindView(R.id.progressPostJob)
     ProgressBar progressBar;
-//    @BindView(R.id.edt_monney_work_hour)
-//    TextView edt_monney_work_hour;
+    @BindView(R.id.lo_job_post)
+    EditText lo_job_post;
+
 
     public static Activity mJobPostActivity = null;
-
-//    private int mPrice;
 
     private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId,
             mDateStartWork, mTimeStartWork, mTimeEndWork, mIdTask, mPrice, mHours;
@@ -208,15 +207,11 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             case R.id.rad_type_money_work:
                 mPackageId = "000000000000000000000001";
                 edt_monney_work.setEnabled(true);
-//                edt_monney_work_hour.setEnabled(false);
-//                edt_monney_work_hour.setText("");
-//                edt_monney_work_hour.setHint("Tính tiền theo thời gian");
                 break;
 
             case R.id.rad_type_money_khoan:
                 mPackageId = "000000000000000000000002";
                 edt_monney_work.setEnabled(false);
-//                edt_monney_work_hour.setEnabled(true);
                 edt_monney_work.setText("");
                 edt_monney_work.setHint(getResources().getString(R.string.enter_the_salary));
                 break;
@@ -239,6 +234,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
             case R.id.txtPost:
                 progressBar.setVisibility(View.VISIBLE);
+                lo_job_post.setVisibility(View.VISIBLE);
                 checkLocaltionOfOwner();
                 break;
 
@@ -266,6 +262,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
         txt_post_complete.setEnabled(true);
+        lo_job_post.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         if (isJobPost) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -276,6 +273,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);
+                    EventBus.getDefault().postSticky("0");
                     if (mJobPostActivity != null) {
                         JobPostActivity.mJobPostActivity.finish();
                         try {
@@ -361,13 +359,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             mPrice = "0";
         }
 
-//        if (!edt_monney_work_hour.getText().toString().isEmpty()) {
-//            mHours = edt_monney_work_hour.getText().toString();
-//        } else {
-//            mHours = "0";
-//        }
-//        mPrice = edt_monney_work.getText().toString();
-
         if (chb_tools_work.isChecked()) {
             mChosenTools = true;
         }
@@ -393,11 +384,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
             return false;
         }
-
-//        if (Integer.parseInt(edt_monney_work_hour.getText().toString()) >= 24){
-//            ShowAlertDialog.showAlert("Bạn chọn giờ quá 1 ngày ", JobPostActivity.this);
-//            return false;
-//        }
 
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
@@ -430,7 +416,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     }
 
     private void getDatePicker() {
-
         final Calendar calendar = Calendar.getInstance();
         int date = calendar.get(Calendar.DATE);
         int month = calendar.get(Calendar.MONTH);

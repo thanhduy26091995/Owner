@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
+import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 import com.squareup.picasso.Picasso;
@@ -77,7 +78,6 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         ButterKnife.bind(this);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-//        txtManager_doing_title_toothbar.setText("Đang làm");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -99,8 +99,11 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         txtContentJobDoing.setText(mDatum.getInfo().getDescription());
         txtPriceJobDoing.setText(String.valueOf(mDatum.getInfo().getPrice()));
         txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
-        txtDateJobDoing.setText(getDateStartWork(mDatum.getHistory().getUpdateAt()));
-        txtTimeDoWrokJobDoing.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
+        txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
+        String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
+        String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+        txtTimeDoWrokJobDoing.setText( mStartTime + " - " + mEndTime);
+//        txtTimeDoWrokJobDoing.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
         Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
                 .error(R.drawable.no_image)
                 .placeholder(R.drawable.no_image)
@@ -143,22 +146,4 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         EventBus.getDefault().postSticky(false);
     }
 
-    private String getTimerDoingWork(String startAt, String endAt) {
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
-        Date dateStartAt = new DateTime(startAt).toDate();
-        Date dateEndtAt = new DateTime(endAt).toDate();
-        String mDateStartAt = simpleDateFormat.format(dateStartAt);
-        String mDateEndAt = simpleDateFormat.format(dateEndtAt);
-        String mTimeDoing = mDateStartAt + " - " + mDateEndAt;
-
-        return mTimeDoing;
-    }
-
-    private String getDateStartWork(String dateStartWork) {
-        Date date0 = new DateTime(dateStartWork).toDate();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String mDateStartWork = df.format(date0);
-        return mDateStartWork;
-    }
 }
