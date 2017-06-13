@@ -147,12 +147,12 @@ public class SignInActivity extends AppCompatActivity implements MoreView
 
     @Override
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
+        btnSignIn.setEnabled(true);
         if (bodyResponse.getStatus() == true) {
             //save session
             sessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = sessionManagerUser.getUserDetails();
             ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
-            btnSignIn.setEnabled(true);
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
