@@ -33,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by tantr on 5/19/2017.
  */
 
-public class PaymentActivity extends AppCompatActivity implements View.OnClickListener,PaymentView {
+public class PaymentActivity extends AppCompatActivity implements View.OnClickListener, PaymentView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tvJob)
@@ -65,8 +65,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private SimpleDateFormat formatHour = new SimpleDateFormat("H");
     private Date date, time;
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
-    private String h, m, s, timework="";
+    private String mHourOfWork, mMinutesOFWork, mSecondOfWork, timework = "";
     private PaymentPresenter mPaymentPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +93,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void setData() {
+    private void setData() {
         date = new Date();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -120,26 +121,23 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
         elapsedSeconds = calendar.get(Calendar.SECOND);
 
-        h = String.valueOf(elapsedHours);
-        m = String.valueOf(elapsedMinutes);
-        s = String.valueOf(elapsedSeconds);
+        mHourOfWork = String.valueOf(elapsedHours);
+        mMinutesOFWork = String.valueOf(elapsedMinutes);
+        mSecondOfWork = String.valueOf(elapsedSeconds);
         if (elapsedHours == 0) {
-            h = "";
-        }
-        else {
-            timework+=h +" "+getResources().getQuantityString(R.plurals.hour,(int)elapsedHours)+" ";
+            mHourOfWork = "";
+        } else {
+            timework += mHourOfWork + " " + getResources().getQuantityString(R.plurals.hour, (int) elapsedHours) + " ";
         }
         if (elapsedMinutes == 0) {
-            m = "";
-        }
-        else {
-            timework+=m +" "+ getResources().getQuantityString(R.plurals.minute,(int)elapsedMinutes)+" ";
+            mMinutesOFWork = "";
+        } else {
+            timework += mMinutesOFWork + " " + getResources().getQuantityString(R.plurals.minute, (int) elapsedMinutes) + " ";
         }
         if (elapsedSeconds == 0) {
-            s = "";
-        }
-        else {
-            timework+=s +" "+ getResources().getQuantityString(R.plurals.second,(int)elapsedSeconds);
+            mSecondOfWork = "";
+        } else {
+            timework += mSecondOfWork + " " + getResources().getQuantityString(R.plurals.second, (int) elapsedSeconds);
         }
         payment_timework.setText(getResources().getString(R.string.timework) + " " + timework);
         payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
@@ -165,6 +163,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //                break;
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -172,12 +171,13 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void confirm() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
-        alertDialog.setTitle("Thông báo");
-        alertDialog.setMessage("Vui lòng xác nhận thanh toán bằng cách nhấn " + "OK");
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setTitle(getResources().getString(R.string.notification));
+        alertDialog.setMessage(getResources().getString(R.string.confirm_the_task_completed));
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent itPayment = new Intent(PaymentActivity.this, CommentActivity.class);
@@ -185,7 +185,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 finish();
             }
         });
-        alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -196,7 +196,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getWalletSuccess(int wallet) {
-        payment_money_account.setText("Số dư tài khoản GV24: " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet)+ " VND"));
+        payment_money_account.setText("Số dư tài khoản GV24: " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
     }
 
     @Override

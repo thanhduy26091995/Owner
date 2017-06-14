@@ -140,6 +140,7 @@
     <string name="unpayalbe">Unpaid</string>
     <string name="rangetime">Vui lòng xem lại khoảng thời gian!</string>
     <string name="worklist">Worklist</string>
+    <string name="confirm_the_task_completed">Click "Ok" to confirm the task completed</string>
     <!--history_screen end-->
 
     <!--detail_work_history_screen start-->

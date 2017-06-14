@@ -109,6 +109,7 @@
     <string name="notpayment">Chưa thanh toán</string>
     <string name="rangetime">Vui lòng xem lại khoản thời gian</string>
     <string name="worklist">Danh sách công việc</string>
+    <string name="confirm_the_task_completed">Vui lòng xác nhận công việc đã hoàn thành bằng cách nhấn "OK"</string>
     <!--history_screen end-->
 
     <!--detail_work_history_screen start-->

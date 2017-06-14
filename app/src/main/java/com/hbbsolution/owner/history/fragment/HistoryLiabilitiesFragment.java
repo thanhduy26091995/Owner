@@ -126,6 +126,7 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
     }
     public void onEvent(Integer event) {
     }
+
     public void showDatePickerDialog1() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year,
