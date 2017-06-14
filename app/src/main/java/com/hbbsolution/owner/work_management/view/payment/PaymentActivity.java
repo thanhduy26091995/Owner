@@ -33,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by tantr on 5/19/2017.
  */
 
-public class PaymentActivity extends AppCompatActivity implements View.OnClickListener,PaymentView {
+public class PaymentActivity extends AppCompatActivity implements View.OnClickListener, PaymentView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tvJob)
@@ -65,8 +65,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private SimpleDateFormat formatHour = new SimpleDateFormat("H");
     private Date date, time;
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
-    private String h, m, s, timework="";
+    private String h, m, s, timework = "";
     private PaymentPresenter mPaymentPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,62 +99,62 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         if (extras != null) {
             mLiabilitiesHistory = (LiabilitiesHistory) extras.getSerializable("liability");
         }
-        tvJob.setText(mLiabilitiesHistory.getTask().getInfo().getTitle());
-        tvTypeJob.setText(mLiabilitiesHistory.getTask().getInfo().getWork().getName());
-        payment_helper_name.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
-        payment_helper_address.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
-        payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice()) + " VND/ ");
-        payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
-        try {
-            time = simpleDateFormat.parse(mLiabilitiesHistory.getPeriod());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
+        if (mLiabilitiesHistory != null) {
+            tvJob.setText(mLiabilitiesHistory.getTask().getInfo().getTitle());
+            tvTypeJob.setText(mLiabilitiesHistory.getTask().getInfo().getWork().getName());
+            payment_helper_name.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
+            payment_helper_address.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
+            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice()) + " VND/ ");
+            payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
+            try {
+                time = simpleDateFormat.parse(mLiabilitiesHistory.getPeriod());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
 
-        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
-        calendar.setTime(time);
+            Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+            calendar.setTime(time);
 
-        elapsedHours = calendar.get(Calendar.HOUR);
+            elapsedHours = calendar.get(Calendar.HOUR);
 
-        elapsedMinutes = calendar.get(Calendar.MINUTE);
+            elapsedMinutes = calendar.get(Calendar.MINUTE);
 
-        elapsedSeconds = calendar.get(Calendar.SECOND);
+            elapsedSeconds = calendar.get(Calendar.SECOND);
 
-        h = String.valueOf(elapsedHours);
-        m = String.valueOf(elapsedMinutes);
-        s = String.valueOf(elapsedSeconds);
-        if (elapsedHours == 0) {
-            h = "";
-        }
-        else {
-            timework+=h +" "+getResources().getQuantityString(R.plurals.hour,(int)elapsedHours)+" ";
-        }
-        if (elapsedMinutes == 0) {
-            m = "";
-        }
-        else {
-            timework+=m +" "+ getResources().getQuantityString(R.plurals.minute,(int)elapsedMinutes)+" ";
-        }
-        if (elapsedSeconds == 0) {
-            s = "";
-        }
-        else {
-            timework+=s +" "+ getResources().getQuantityString(R.plurals.second,(int)elapsedSeconds);
-        }
-        payment_timework.setText(getResources().getString(R.string.timework) + " " + timework);
-        payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
-        if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
-            Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
-                    .placeholder(R.drawable.no_image)
-                    .error(R.drawable.no_image)
-                    .into(img_job_type);
-        }
-        if (!mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage().equals("")) {
-            Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage())
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .into(payment_avatar);
+            h = String.valueOf(elapsedHours);
+            m = String.valueOf(elapsedMinutes);
+            s = String.valueOf(elapsedSeconds);
+            if (elapsedHours == 0) {
+                h = "";
+            } else {
+                timework += h + " " + getResources().getQuantityString(R.plurals.hour, (int) elapsedHours) + " ";
+            }
+            if (elapsedMinutes == 0) {
+                m = "";
+            } else {
+                timework += m + " " + getResources().getQuantityString(R.plurals.minute, (int) elapsedMinutes) + " ";
+            }
+            if (elapsedSeconds == 0) {
+                s = "";
+            } else {
+                timework += s + " " + getResources().getQuantityString(R.plurals.second, (int) elapsedSeconds);
+            }
+            payment_timework.setText(getResources().getString(R.string.timework) + " " + timework);
+            payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
+            if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
+                Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
+                        .placeholder(R.drawable.no_image)
+                        .error(R.drawable.no_image)
+                        .into(img_job_type);
+            }
+            if (!mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage().equals("")) {
+                Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage())
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .into(payment_avatar);
+            }
         }
     }
 
@@ -165,6 +166,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //                break;
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -172,6 +174,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void confirm() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
@@ -196,7 +199,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getWalletSuccess(int wallet) {
-        payment_money_account.setText("Số dư tài khoản GV24: " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet)+ " VND"));
+        payment_money_account.setText("Số dư tài khoản GV24: " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
     }
 
     @Override
