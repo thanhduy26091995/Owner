@@ -22,6 +22,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
@@ -84,10 +85,8 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
     TextView txtExpired_request_detail_post;
 
     public static Activity mDetailJobPostActivity = null;
-    TextView txt_edit_edit_post, txt_clear_edit_post, txt_cancel_edit_post;
 
     private Datum mDatum;
-    private Dialog mBottomSheetDialog;
     private DetailJobPostPresenter mDetailJobPostPresenter;
 
 
@@ -100,7 +99,6 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-//        txtManager_post_title_toothbar.setText("Đã đăng");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -146,8 +144,10 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
         txtContent_job_detail_psot.setText(mDatum.getInfo().getDescription());
         txtPrice_job_detail_post.setText(formatPrice(mDatum.getInfo().getPrice()));
         txtAddress_detail_post.setText(mDatum.getInfo().getAddress().getName());
-        txtDate_job_detail_post.setText(getDateStartWork(mDatum.getHistory().getUpdateAt()));
-        txtTime_work_doing_detail_post.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
+        txtDate_job_detail_post.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
+        String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
+        String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+        txtTime_work_doing_detail_post.setText( mStartTime + " - " + mEndTime);
         Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
                 .error(R.drawable.no_image)
                 .placeholder(R.drawable.no_image)
@@ -198,8 +198,6 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 }
                 break;
             case R.id.lo_clear_job:
-                String id = mDatum.getId();
-                String idOwner = mDatum.getStakeholders().getOwner();
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                 alertDialog.setCancelable(false);
                 alertDialog.setTitle(getResources().getString(R.string.notification));
@@ -220,16 +218,6 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 alertDialog.show();
                 break;
 
-//            case R.id.txt_edit_edit_post:
-//                Toast.makeText(DetailJobPostActivity.this, "Chỉnh sửa", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.txt_clear_edit_post:
-//
-//                Toast.makeText(DetailJobPostActivity.this, "Xóa", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.txt_cancel_edit_post:
-//                mBottomSheetDialog.dismiss();
-//                break;
         }
     }
 
@@ -284,49 +272,13 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
         return true;
     }
 
-    private void editJobPost() {
-        View view = getLayoutInflater().inflate(R.layout.edit_job_post_bottom_sheet, null);
-        txt_edit_edit_post = (TextView) view.findViewById(R.id.txt_edit_edit_post);
-        txt_clear_edit_post = (TextView) view.findViewById(R.id.txt_clear_edit_post);
-        txt_cancel_edit_post = (TextView) view.findViewById(R.id.txt_cancel_edit_post);
-
-        mBottomSheetDialog = new Dialog(DetailJobPostActivity.this, R.style.MaterialDialogSheet);
-        mBottomSheetDialog.setContentView(view);
-        mBottomSheetDialog.setCancelable(false);
-        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
-        mBottomSheetDialog.show();
-
-        txt_edit_edit_post.setOnClickListener(this);
-        txt_clear_edit_post.setOnClickListener(this);
-        txt_cancel_edit_post.setOnClickListener(this);
-    }
-
-    private String getTimerDoingWork(String startAt, String endAt) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
-        Date dateStartAt = new DateTime(startAt).toDate();
-        Date dateEndtAt = new DateTime(endAt).toDate();
-        String mDateStartAt = simpleDateFormat.format(dateStartAt);
-        String mDateEndAt = simpleDateFormat.format(dateEndtAt);
-        String mTimeDoing = mDateStartAt + " - " + mDateEndAt;
-
-        return mTimeDoing;
-    }
-
-    private String getDateStartWork(String dateStartWork) {
-        Date date0 = new DateTime(dateStartWork).toDate();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String mDateStartWork = df.format(date0);
-        return mDateStartWork;
-    }
-
     private String formatPrice(Integer _Price) {
         String mOutputPrice = null;
         if (_Price != null && _Price != 0) {
             DecimalFormat myFormatter = new DecimalFormat("#,###,##0");
             mOutputPrice  = myFormatter.format(_Price);
         } else if(_Price == 0){
-            mOutputPrice = "Tính tiền theo thời gian";
+            mOutputPrice = getResources().getString(R.string.hourly_pay);
         }
         return mOutputPrice;
     }

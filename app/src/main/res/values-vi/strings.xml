@@ -15,15 +15,19 @@
     <!--work_manager start-->
     <string name="work_management">Quản lý công việc</string>
     <string name="posted_work">Đã đăng</string>
+    <string name="assigned">Đã phân công</string>
     <string name="running_work">Đang làm</string>
 
     <string name="post_your_work">Đăng công việc</string>
     <string name="title_job_post">Tiêu đề</string>
     <string name="types_of_work">Loại công việc</string>
+    <string name="address_job_post">Địa chỉ</string>
     <string name="work_description">Mô tả công việc</string>
     <string name="enter_the_salary">Nhập số tiền công</string>
     <string name="hourly_pay">Tính tiền theo thời gian</string>
     <string name="hour">/giờ</string>
+    <string name="the_start_date">Ngày bặt đầu</string>
+    <string name="time_of_working">Thời gian làm việc</string>
     <string name="to_job_post">to</string>
     <string name="jobs_for_applications">Đang chờ ứng tuyển</string>
     <string name="qua_han_ung_tuyen">Quá hạn ứng tuyển</string>
@@ -44,6 +48,7 @@
     <string name="ok">Chấp nhận</string>
     <string name="cancel">Hủy</string>
     <string name="list_recruitment">Danh sách ứng tuyển</string>
+    <string name="work_complete">Hoàn tất công việc</string>
 
 
     <!--work_manager end-->
@@ -104,6 +109,7 @@
     <string name="notpayment">Chưa thanh toán</string>
     <string name="rangetime">Vui lòng xem lại khoản thời gian</string>
     <string name="worklist">Danh sách công việc</string>
+    <string name="confirm_the_task_completed">Vui lòng xác nhận công việc đã hoàn thành bằng cách nhấn "OK"</string>
     <!--history_screen end-->
 
     <!--detail_work_history_screen start-->

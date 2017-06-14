@@ -128,7 +128,7 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:text="Hoàn tất công việc"
+                    android:text="@string/work_complete"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/home_background_history" />
 
@@ -162,7 +162,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="20dp"
                         android:paddingBottom="10dp"
-                        android:text="MÔ TẢ"
+                        android:text="@string/description"
                         android:textStyle="bold" />
                 </RelativeLayout>
 

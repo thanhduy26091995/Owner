@@ -18,6 +18,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListUserRecruitmentAdapter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.Request;
@@ -48,7 +49,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     private RecyclerView.LayoutManager layoutManager;
     private ListUserRecruitmentAdapter listUserRecruitmentAdapter;
     private RecyclerView mRecycler;
-    private  String idTaskProcess;
+    private String idTaskProcess;
     public static Activity mListUserRecruitmentActivity = null;
 
     @Override
@@ -67,7 +68,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
         mListMaidPresenter = new ListMaidPresenter(this);
         idTaskProcess = getIntent().getStringExtra("idTaskProcess");
 
-        if(!idTaskProcess.isEmpty()) {
+        if (!idTaskProcess.isEmpty()) {
             mListMaidPresenter.getInfoListMaid(idTaskProcess);
         }
     }
@@ -80,6 +81,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -90,7 +92,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     public void getInfoListMaid(ListMaidResponse mListMaidRespose) {
 
         int size = mListMaidRespose.getData().size();
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             mListMaid.addAll(mListMaidRespose.getData().get(i).getRequest());
 
         }
@@ -104,8 +106,8 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
             @Override
             public void onItemClick(Maid mMaid) {
                 Intent itInfoUser = new Intent(ListUserRecruitmentActivity.this, MaidProfileActivity.class);
-                itInfoUser.putExtra("maid",mMaid);
-                itInfoUser.putExtra("idTaskProcess",idTaskProcess);
+                itInfoUser.putExtra("maid", mMaid);
+                itInfoUser.putExtra("idTaskProcess", idTaskProcess);
                 itInfoUser.putExtra("chosenMaidFromListRecruitment", true);
                 startActivity(itInfoUser);
             }
@@ -122,7 +124,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
 
     @Override
     public void responseChosenMaid(boolean isResponseChosenMaid) {
-        if (isResponseChosenMaid){
+        if (isResponseChosenMaid) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
@@ -131,22 +133,22 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);
-                    if(mListUserRecruitmentActivity != null){
+                    EventBus.getDefault().postSticky("1");
+                    if (mListUserRecruitmentActivity != null) {
                         ListUserRecruitmentActivity.mListUserRecruitmentActivity.finish();
-                        try{
-                            if(DetailJobPostActivity.mDetailJobPostActivity != null){
+                        try {
+                            if (DetailJobPostActivity.mDetailJobPostActivity != null) {
                                 DetailJobPostActivity.mDetailJobPostActivity.finish();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                     }
-
                 }
             });
 
             alertDialog.show();
-        }else {
+        } else {
             ShowAlertDialog.showAlert("Thất bại", ListUserRecruitmentActivity.this);
         }
     }

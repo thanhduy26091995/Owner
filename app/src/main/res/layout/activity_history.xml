@@ -47,7 +47,9 @@
             app:tabIndicatorColor="@color/home_background_history"
             app:tabSelectedTextColor="@color/home_background_history"
             app:tabTextAppearance="@style/MyCustomTextAppearance"
-            app:tabTextColor="@color/home_background_history"></android.support.design.widget.TabLayout>
+            app:tabTextColor="@color/home_background_history">
+
+        </android.support.design.widget.TabLayout>
 
 
         <View

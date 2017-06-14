@@ -34,6 +34,7 @@ import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.EncodeImage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.squareup.picasso.Picasso;
@@ -138,8 +139,11 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         txtContentJobPending.setText(mDatum.getInfo().getDescription());
         txtPriceJobPending.setText(String.valueOf(mDatum.getInfo().getPrice()));
         txtAddressJobPending.setText(mDatum.getInfo().getAddress().getName());
-        txtDateJobPending.setText(getDateStartWork(mDatum.getHistory().getUpdateAt()));
-        txtTimeDoWrokJobPending.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
+        txtDateJobPending.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
+        String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
+        String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+        txtTimeDoWrokJobPending.setText( mStartTime + " - " + mEndTime);
+//        txtTimeDoWrokJobPending.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
         Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
                 .error(R.drawable.no_image)
                 .placeholder(R.drawable.no_image)
@@ -367,24 +371,6 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         }
     }
 
-    private String getTimerDoingWork(String startAt, String endAt) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
-        Date dateStartAt = new DateTime(startAt).toDate();
-        Date dateEndtAt = new DateTime(endAt).toDate();
-        String mDateStartAt = simpleDateFormat.format(dateStartAt);
-        String mDateEndAt = simpleDateFormat.format(dateEndtAt);
-        String mTimeDoing = mDateStartAt + " - " + mDateEndAt;
-
-        return mTimeDoing;
-    }
-
-    private String getDateStartWork(String dateStartWork) {
-        Date date0 = new DateTime(dateStartWork).toDate();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String mDateStartWork = df.format(date0);
-        return mDateStartWork;
-    }
-
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
         progressBar.setVisibility(View.GONE);
@@ -397,7 +383,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);
-                    EventBus.getDefault().postSticky(1);
+                    EventBus.getDefault().postSticky("1");
                     finish();
                 }
             });
