@@ -1,7 +1,6 @@
 package com.hbbsolution.owner.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
@@ -12,7 +11,6 @@ import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -26,30 +24,35 @@ public class WorkTimeValidate {
 
     private static String[] workTimeValidate(String endDate)  {
         long currentTime = System.currentTimeMillis();
+        Date currentDate = new Date();
         DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
         Date date = parser.parseDateTime(endDate).toDate();
         long millisecond = date.getTime();
         long timer = (currentTime - millisecond);
         long timeHistory = (timer / 60000);
-        String[] currentTimeHistory = {"0", "0", "0"};
+        String[] currentTimeHistory = {"0", "0", "0","0","0"};
         if (timeHistory < 60) {
             currentTimeHistory[0] = String.format("%d",
                     TimeUnit.MILLISECONDS.toMinutes(timer));
-            currentTimeHistory[1] ="0";
-            currentTimeHistory[2] ="0";
 
         } else if (60 < timeHistory && timeHistory < 1440) {
             currentTimeHistory[1] = String.format("%d",
                     TimeUnit.MILLISECONDS.toHours(timer));
-            currentTimeHistory[0] ="0";
-            currentTimeHistory[2] ="0";
 
         } else if (timeHistory > 1440) {
             currentTimeHistory[2] = String.format("%d",
                     TimeUnit.MILLISECONDS.toDays(timer));
-            currentTimeHistory[0] ="0";
-            currentTimeHistory[1] ="0";
 
+        } else if (timeHistory > 1440*30)
+        {
+            if(currentDate.getYear()-date.getYear()>0)
+            {
+                currentTimeHistory[4]=String.valueOf(currentDate.getYear()-date.getYear());
+            }
+            else
+            {
+                currentTimeHistory[3]=String.valueOf(currentDate.getMonth()-date.getMonth());
+            }
         }
         return currentTimeHistory;
     }

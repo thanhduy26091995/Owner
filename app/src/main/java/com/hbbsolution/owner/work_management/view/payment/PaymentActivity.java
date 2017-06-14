@@ -123,37 +123,38 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
             elapsedSeconds = calendar.get(Calendar.SECOND);
 
-        mHourOfWork = String.valueOf(elapsedHours);
-        mMinutesOFWork = String.valueOf(elapsedMinutes);
-        mSecondOfWork = String.valueOf(elapsedSeconds);
-        if (elapsedHours == 0) {
-            mHourOfWork = "";
-        } else {
-            timework += mHourOfWork + " " + getResources().getQuantityString(R.plurals.hour, (int) elapsedHours) + " ";
-        }
-        if (elapsedMinutes == 0) {
-            mMinutesOFWork = "";
-        } else {
-            timework += mMinutesOFWork + " " + getResources().getQuantityString(R.plurals.minute, (int) elapsedMinutes) + " ";
-        }
-        if (elapsedSeconds == 0) {
-            mSecondOfWork = "";
-        } else {
-            timework += mSecondOfWork + " " + getResources().getQuantityString(R.plurals.second, (int) elapsedSeconds);
-        }
-        payment_timework.setText(getResources().getString(R.string.timework) + " " + timework);
-        payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
-        if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
-            Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
-                    .placeholder(R.drawable.no_image)
-                    .error(R.drawable.no_image)
-                    .into(img_job_type);
-        }
-        if (!mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage().equals("")) {
-            Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage())
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .into(payment_avatar);
+            mHourOfWork = String.valueOf(elapsedHours);
+            mMinutesOFWork = String.valueOf(elapsedMinutes);
+            mSecondOfWork = String.valueOf(elapsedSeconds);
+            if (elapsedHours == 0) {
+                mHourOfWork = "";
+            } else {
+                timework += mHourOfWork + " " + getResources().getQuantityString(R.plurals.hour, (int) elapsedHours) + " ";
+            }
+            if (elapsedMinutes == 0) {
+                mMinutesOFWork = "";
+            } else {
+                timework += mMinutesOFWork + " " + getResources().getQuantityString(R.plurals.minute, (int) elapsedMinutes) + " ";
+            }
+            if (elapsedSeconds == 0) {
+                mSecondOfWork = "";
+            } else {
+                timework += mSecondOfWork + " " + getResources().getQuantityString(R.plurals.second, (int) elapsedSeconds);
+            }
+            payment_timework.setText(getResources().getString(R.string.timework) + " " + timework);
+            payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
+            if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
+                Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
+                        .placeholder(R.drawable.no_image)
+                        .error(R.drawable.no_image)
+                        .into(img_job_type);
+            }
+            if (!mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage().equals("")) {
+                Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage())
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .into(payment_avatar);
+            }
         }
     }
 
