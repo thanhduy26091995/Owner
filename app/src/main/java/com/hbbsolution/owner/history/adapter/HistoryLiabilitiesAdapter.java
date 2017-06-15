@@ -54,8 +54,11 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         holder.tvJob.setText(liabilitiesHistory.getTask().getInfo().getTitle());
         if(!liabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
             Glide.with(context).load(liabilitiesHistory.getTask().getInfo().getWork().getImage())
+                    .thumbnail(0.5f)
+                    .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)
                     .centerCrop()
+                    .dontAnimate()
                     .into(holder.imgType);
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");

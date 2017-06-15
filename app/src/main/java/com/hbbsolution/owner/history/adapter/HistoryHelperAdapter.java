@@ -37,7 +37,6 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
     private boolean isHis;
     private String time;
     private Date date;
-    private int p;
     @Override
     public HistoryHelperAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_helpler, parent, false);
@@ -65,8 +64,11 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
         holder.tvDate.setText(time);
         if(!maidHistory.getId().getInfo().getImage().equals("")) {
             Glide.with(context).load(maidHistory.getId().getInfo().getImage())
+                    .thumbnail(0.5f)
+                    .placeholder(R.drawable.avatar)
                     .error(R.drawable.avatar)
                     .centerCrop()
+                    .dontAnimate()
                     .into(holder.imgMaid);
         }
     }

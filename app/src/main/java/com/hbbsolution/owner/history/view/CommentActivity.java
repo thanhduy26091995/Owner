@@ -18,10 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.CommentView;
 import com.hbbsolution.owner.history.presenter.CommentPresenter;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,9 +71,12 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             tvNameHelper.setText(nameHelper);
             tvAddress.setText(addressHelper);
             if(!imgHelper.equals("")) {
-                Picasso.with(this).load(imgHelper)
+                Glide.with(this).load(imgHelper)
+                        .thumbnail(0.5f)
                         .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
+                        .centerCrop()
+                        .dontAnimate()
                         .into(imgAvatar);
             }
 

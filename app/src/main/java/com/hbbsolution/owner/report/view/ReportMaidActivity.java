@@ -16,13 +16,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.helper.MaidHistory;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.report.ReportView;
 import com.hbbsolution.owner.report.presenter.ReportPresenter;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,9 +81,12 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
             mTextMaidAddress.setText(mMaidInfo.getInfo().getAddress().getName());
             idHelper = mMaidInfo.getId();
             if (!mMaidInfo.getInfo().getImage().equals("")) {
-                Picasso.with(this).load(mMaidInfo.getInfo().getImage())
+                Glide.with(this).load(mMaidInfo.getInfo().getImage())
+                        .thumbnail(0.5f)
                         .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
+                        .centerCrop()
+                        .dontAnimate()
                         .into(imgAvatar);
             }
         }
@@ -92,9 +95,12 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
             mTextMaidAddress.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
             idHelper = workHistory.getStakeholders().getReceived().getId();
             if (!workHistory.getStakeholders().getReceived().getInfo().getImage().equals("")) {
-                Picasso.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                Glide.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                        .thumbnail(0.5f)
                         .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
+                        .centerCrop()
+                        .dontAnimate()
                         .into(imgAvatar);
             }
         }
@@ -103,9 +109,12 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
             mTextMaidAddress.setText(datum.getId().getInfo().getAddress().getName());
             idHelper = datum.getId().getId();
             if (!datum.getId().getInfo().getImage().equals("")) {
-                Picasso.with(this).load(datum.getId().getInfo().getImage())
+                Glide.with(this).load(datum.getId().getInfo().getImage())
+                        .thumbnail(0.5f)
                         .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
+                        .centerCrop()
+                        .dontAnimate()
                         .into(imgAvatar);
             }
         }

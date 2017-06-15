@@ -20,7 +20,6 @@ import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.presenter.CommentHistoryPresenter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
-import com.squareup.picasso.Picasso;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -106,9 +105,12 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
         if (extras != null) {
             doc = (WorkHistory) extras.getSerializable("work");
             commentHistoryPresenter.checkComment(doc.getId());
-            Picasso.with(this).load(doc.getInfo().getWork().getImage())
+            Glide.with(this).load(doc.getInfo().getWork().getImage())
+                    .thumbnail(0.5f)
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)
+                    .centerCrop()
+                    .dontAnimate()
                     .into(imgJobType);
             tvJob.setText(doc.getInfo().getTitle());
             tvWork.setText(doc.getInfo().getWork().getName());
@@ -138,8 +140,11 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
 
             if(!doc.getStakeholders().getReceived().getInfo().getImage().equals("")) {
                 Glide.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
+                        .thumbnail(0.5f)
+                        .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
                         .centerCrop()
+                        .dontAnimate()
                         .into(imgHelper);
             }
             tvNameHelper.setText(doc.getStakeholders().getReceived().getInfo().getName());

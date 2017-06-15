@@ -151,14 +151,20 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
             if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
                 Glide.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
+                        .thumbnail(0.5f)
+                        .placeholder(R.drawable.no_image)
                         .error(R.drawable.no_image)
                         .centerCrop()
+                        .dontAnimate()
                         .into(img_job_type);
             }
             if (!mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage().equals("")) {
                 Glide.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage())
+                        .thumbnail(0.5f)
+                        .placeholder(R.drawable.avatar)
                         .error(R.drawable.avatar)
                         .centerCrop()
+                        .dontAnimate()
                         .into(payment_avatar);
             }
         }

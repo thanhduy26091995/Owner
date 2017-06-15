@@ -46,8 +46,6 @@ import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidRe
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,9 +168,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
             ratingInfoMaid.setRating(mMaidInfo.getWorkInfo().getEvaluationPoint());
-            Picasso.with(this).load(mMaidInfo.getInfo().getImage())
+            Glide.with(this).load(mMaidInfo.getInfo().getImage())
+                    .thumbnail(0.5f)
                     .placeholder(R.drawable.avatar)
                     .error(R.drawable.avatar)
+                    .centerCrop()
+                    .dontAnimate()
                     .into(img_avatarMaid);
             mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), currentPage);
 
@@ -206,22 +207,24 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 //                    .placeholder(R.drawable.avatar)
 //                    .error(R.drawable.avatar)
 //                    .into(img_avatarMaid);
-            Picasso.with(this)
+            Glide.with(this)
                     .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
-                    .fit()
-                    .noFade()
                     .centerCrop()
-                    .into(img_avatarMaid, new Callback() {
+                    .dontAnimate()
+                    .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
-                        public void onSuccess() {
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                             supportStartPostponedEnterTransition();
+                            return false;
                         }
 
                         @Override
-                        public void onError() {
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             supportStartPostponedEnterTransition();
+                            return false;
                         }
-                    });
+                    })
+                    .into(img_avatarMaid);
             Glide.with(MaidProfileActivity.this)
                     .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
                     .asBitmap()
@@ -254,6 +257,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             supportPostponeEnterTransition();
             Glide.with(this)
                     .load(datum.getId().getInfo().getImage())
+                    .thumbnail(0.5f)
+                    .error(R.drawable.avatar)
                     .centerCrop()
                     .dontAnimate()
                     .listener(new RequestListener<String, GlideDrawable>() {
