@@ -24,12 +24,20 @@ public class AboutPresenter {
         this.mAboutView = mAboutView;
     }
 
-    public Object getAbout() {
+    public void getAbout(){
+        getData("000000000000000000000001");
+    }
+
+    public void getTerm(){
+        getData("000000000000000000000002");
+    }
+
+    public Object getData(String id) {
         try {
             ApiInterface apiService =
                     ApiClient.getClient().create(ApiInterface.class);
 
-            Call<AboutResponse> call = apiService.getAbout("000000000000000000000001");
+            Call<AboutResponse> call = apiService.getAbout(id);
             call.enqueue(new Callback<AboutResponse>() {
                 @Override
                 public void onResponse(Call<AboutResponse> call, Response<AboutResponse> response) {
