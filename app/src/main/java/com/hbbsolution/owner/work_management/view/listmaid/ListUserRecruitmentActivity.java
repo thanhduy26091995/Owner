@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     private RecyclerView mRecycler;
     private String idTaskProcess;
     public static Activity mListUserRecruitmentActivity = null;
+    private ProgressBar progressListRecruitment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +72,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
         idTaskProcess = getIntent().getStringExtra("idTaskProcess");
 
         if (!idTaskProcess.isEmpty()) {
+            progressListRecruitment.setVisibility(View.VISIBLE);
             mListMaidPresenter.getInfoListMaid(idTaskProcess);
         }
     }
@@ -90,7 +94,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
 
     @Override
     public void getInfoListMaid(ListMaidResponse mListMaidRespose) {
-
+        progressListRecruitment.setVisibility(View.GONE);
         int size = mListMaidRespose.getData().size();
         for (int i = 0; i < size; i++) {
             mListMaid.addAll(mListMaidRespose.getData().get(i).getRequest());
@@ -155,6 +159,6 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
 
     @Override
     public void getError() {
-
+        progressListRecruitment.setVisibility(View.GONE);
     }
 }

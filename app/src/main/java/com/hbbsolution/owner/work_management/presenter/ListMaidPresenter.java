@@ -31,19 +31,17 @@ public class ListMaidPresenter {
             @Override
             public void onResponse(Call<ListMaidResponse> call, Response<ListMaidResponse> response) {
                 if(response.isSuccessful()){
-                    Log.e("successfuly", "successful");
                     try{
                         ListMaidResponse mListMaidResponse = response.body();
                         mListMaidView.getInfoListMaid(mListMaidResponse);
                     }catch (Exception e){
-                        Log.e("exception", e.toString());
+
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<ListMaidResponse> call, Throwable t) {
-                Log.e("errors", t.toString());
             }
         });
     }

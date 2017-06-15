@@ -76,10 +76,18 @@
                         android:gravity="center"
                         android:layout_marginTop="5dp"
                         android:paddingRight="10dp"
-                        android:text="150.000 VND"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/colorBlack" />
 
+                    <TextView
+                        android:layout_toRightOf="@+id/txtPrice_and_Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/vnd_hour"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/colorBlack" />
                     <RatingBar
                         android:id="@+id/rating_comment"
                         style="?android:attr/ratingBarStyleSmall"

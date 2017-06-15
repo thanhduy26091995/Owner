@@ -86,10 +86,12 @@ public class LanguageActivity extends AppCompatActivity implements View.OnClickL
         Configuration configuration = res.getConfiguration();
         configuration.locale = locale;
         res.updateConfiguration(configuration, displayMetrics);
+        finish();
+        overridePendingTransition(0, 0);
         Intent refresh = new Intent(this, this.getClass());
         refresh.putExtra("language",language);
         startActivity(refresh);
-        finish();
+        overridePendingTransition(0, 0);
     }
     @Override
     protected void onDestroy() {
