@@ -11,6 +11,7 @@ import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
+import com.hbbsolution.owner.more.phuc_tran.model.AboutResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.report.model.ReportResponse;
@@ -179,4 +180,7 @@ public interface ApiInterface {
     @POST("task/checkin")
     Call<CheckInResponse> checkIn(@Part MultipartBody.Part fileImage, @Part("ownerId") RequestBody ownerId, @Part("id") RequestBody taskId);
 
+
+    @GET("more/getTerm")
+    Call<AboutResponse> getAbout (@Query("id") String idTask);
 }
