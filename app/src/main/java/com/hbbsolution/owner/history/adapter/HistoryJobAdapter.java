@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.view.DetailWorkHistoryActivity;
-import com.squareup.picasso.Picasso;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -32,10 +32,12 @@ import java.util.Locale;
 public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.RecyclerViewHolder> {
     private Context context;
     private List<WorkHistory> listData;
+    private WorkHistory workHistory;
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String date;
     private String startTime, endTime;
     private int p;
+
     @Override
     public HistoryJobAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_job, parent, false);
@@ -49,12 +51,12 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
 
     @Override
     public void onBindViewHolder(HistoryJobAdapter.RecyclerViewHolder holder, int position) {
-        p=position;
-        holder.tvJob.setText(listData.get(p).getInfo().getTitle());
-        if(!listData.get(p).getInfo().getWork().getImage().equals("")) {
-            Picasso.with(context).load(listData.get(p).getInfo().getWork().getImage())
-                    .placeholder(R.drawable.no_image)
+        workHistory = listData.get(position);
+        holder.tvJob.setText(workHistory.getInfo().getTitle());
+        if (!workHistory.getInfo().getWork().getImage().equals("")) {
+            Glide.with(context).load(workHistory.getInfo().getWork().getImage())
                     .error(R.drawable.no_image)
+                    .centerCrop()
                     .into(holder.imgType);
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -62,12 +64,12 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
         DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
         // OVERRIDE SOME symbols WHILE RETAINING OTHERS
-        symbols.setAmPmStrings(new String[] { "am", "pm" });
+        symbols.setAmPmStrings(new String[]{"am", "pm"});
         time.setDateFormatSymbols(symbols);
         try {
-            Date endDate = simpleDateFormat.parse(listData.get(p).getInfo().getTime().getEndAt());
+            Date endDate = simpleDateFormat.parse(workHistory.getInfo().getTime().getEndAt());
             Date nowDate = new Date();
-            Date startDate = simpleDateFormat.parse(listData.get(p).getInfo().getTime().getStartAt());
+            Date startDate = simpleDateFormat.parse(workHistory.getInfo().getTime().getStartAt());
             date = dates.format(endDate);
             startTime = time.format(startDate);
             endTime = time.format(endDate);
@@ -76,16 +78,16 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
             e.printStackTrace();
         }
         if (elapsedDays != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedDays) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.day,(int)elapsedDays)));
+            holder.tvTime.setText(String.valueOf(elapsedDays) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.day, (int) elapsedDays)));
         } else if (elapsedHours != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedHours) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.hour,(int)elapsedHours)));
+            holder.tvTime.setText(String.valueOf(elapsedHours) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.hour, (int) elapsedHours)));
         } else if (elapsedMinutes != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedMinutes) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.minute,(int)elapsedMinutes)));
+            holder.tvTime.setText(String.valueOf(elapsedMinutes) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.minute, (int) elapsedMinutes)));
         } else if (elapsedSeconds != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedSeconds) + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.second,(int)elapsedSeconds)));
+            holder.tvTime.setText(String.valueOf(elapsedSeconds) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.second, (int) elapsedSeconds)));
         }
         holder.tvDate.setText(date);
-        holder.tvDeitalTime.setText(startTime.replace(":","h") + " - " + endTime.replace(":","h"));
+        holder.tvDeitalTime.setText(startTime.replace(":", "h") + " - " + endTime.replace(":", "h"));
     }
 
     @Override
@@ -111,15 +113,14 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, DetailWorkHistoryActivity.class);
-            intent.putExtra("work",listData.get(getAdapterPosition()));
+            intent.putExtra("work", listData.get(getAdapterPosition()));
             ActivityOptionsCompat historyOption =
                     ActivityOptionsCompat
-                            .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_job_type), "icJobType");
+                            .makeSceneTransitionAnimation((Activity) context, (View) v.findViewById(R.id.img_job_type), "icJobType");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 context.startActivity(intent, historyOption.toBundle());
-            }
-            else {
+            } else {
                 context.startActivity(intent);
             }
         }

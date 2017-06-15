@@ -25,8 +25,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
@@ -249,22 +252,24 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 //                    .error(R.drawable.avatar)
 //                    .into(img_avatarMaid);
             supportPostponeEnterTransition();
-            Picasso.with(this)
+            Glide.with(this)
                     .load(datum.getId().getInfo().getImage())
-                    .fit()
-                    .noFade()
                     .centerCrop()
-                    .into(img_avatarMaid, new Callback() {
+                    .dontAnimate()
+                    .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
-                        public void onSuccess() {
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                             supportStartPostponedEnterTransition();
+                            return false;
                         }
 
                         @Override
-                        public void onError() {
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             supportStartPostponedEnterTransition();
+                            return false;
                         }
-                    });
+                    })
+                    .into(img_avatarMaid);
             Glide.with(MaidProfileActivity.this)
                     .load(datum.getId().getInfo().getImage())
                     .asBitmap()

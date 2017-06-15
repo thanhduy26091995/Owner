@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
 import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
-import com.squareup.picasso.Picasso;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -31,6 +31,7 @@ import java.util.Locale;
 public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabilitiesAdapter.RecyclerViewHolder> {
     private Context context;
     private List<LiabilitiesHistory> listData;
+    private LiabilitiesHistory liabilitiesHistory;
     private boolean isHis;
     private long elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds;
     private String date;
@@ -49,12 +50,12 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
     }
     @Override
     public void onBindViewHolder(HistoryLiabilitiesAdapter.RecyclerViewHolder holder, int position) {
-        p=position;
-        holder.tvJob.setText(listData.get(p).getTask().getInfo().getTitle());
-        if(!listData.get(p).getTask().getInfo().getWork().getImage().equals("")) {
-            Picasso.with(context).load(listData.get(p).getTask().getInfo().getWork().getImage())
-                    .placeholder(R.drawable.no_image)
+        liabilitiesHistory = listData.get(position);
+        holder.tvJob.setText(liabilitiesHistory.getTask().getInfo().getTitle());
+        if(!liabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
+            Glide.with(context).load(liabilitiesHistory.getTask().getInfo().getWork().getImage())
                     .error(R.drawable.no_image)
+                    .centerCrop()
                     .into(holder.imgType);
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -65,9 +66,9 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         symbols.setAmPmStrings(new String[]{"am", "pm"});
         time.setDateFormatSymbols(symbols);
         try {
-            Date endDate = simpleDateFormat.parse(listData.get(p).getTask().getInfo().getTime().getEndAt());
+            Date endDate = simpleDateFormat.parse(liabilitiesHistory.getTask().getInfo().getTime().getEndAt());
             Date nowDate = new Date();
-            Date startDate = simpleDateFormat.parse(listData.get(p).getTask().getInfo().getTime().getStartAt());
+            Date startDate = simpleDateFormat.parse(liabilitiesHistory.getTask().getInfo().getTime().getStartAt());
             date = dates.format(endDate);
             startTime = time.format(startDate);
             endTime = time.format(endDate);

@@ -97,7 +97,7 @@
                             android:clickable="false"
                             android:isIndicator="false"
                             android:numStars="5"
-                            android:rating="3.0"
+                            android:rating="0"
                             android:stepSize="1.0"
                             android:theme="@style/RatingBar" />
                     </LinearLayout>

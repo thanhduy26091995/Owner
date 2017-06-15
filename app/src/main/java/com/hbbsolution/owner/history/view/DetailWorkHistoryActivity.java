@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.CommentHistoryView;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
@@ -99,51 +100,51 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
 
     public void getData() {
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            doc = (WorkHistory) extras.getSerializable("work");
-        }
         tvContentComment.setVisibility(View.GONE);
         tvComment.setVisibility(View.GONE);
         commentHistoryPresenter = new CommentHistoryPresenter(this);
-        commentHistoryPresenter.checkComment(doc.getId());
-        Picasso.with(this).load(doc.getInfo().getWork().getImage())
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
-                .into(imgJobType);
-        tvJob.setText(doc.getInfo().getTitle());
-        tvWork.setText(doc.getInfo().getWork().getName());
-        tvContent.setText(doc.getInfo().getDescription());
-        tvSalary.setText(String.valueOf(doc.getInfo().getPrice()));
+        if (extras != null) {
+            doc = (WorkHistory) extras.getSerializable("work");
+            commentHistoryPresenter.checkComment(doc.getId());
+            Picasso.with(this).load(doc.getInfo().getWork().getImage())
+                    .placeholder(R.drawable.no_image)
+                    .error(R.drawable.no_image)
+                    .into(imgJobType);
+            tvJob.setText(doc.getInfo().getTitle());
+            tvWork.setText(doc.getInfo().getWork().getName());
+            tvContent.setText(doc.getInfo().getDescription());
+            tvSalary.setText(String.valueOf(doc.getInfo().getPrice()));
 
-        tvAddress.setText(doc.getInfo().getAddress().getName());
+            tvAddress.setText(doc.getInfo().getAddress().getName());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
-        DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
-        // OVERRIDE SOME symbols WHILE RETAINING OTHERS
-        symbols.setAmPmStrings(new String[]{"am", "pm"});
-        time.setDateFormatSymbols(symbols);
-        try {
-            Date endDate = simpleDateFormat.parse(doc.getInfo().getTime().getEndAt());
-            Date startDate = simpleDateFormat.parse(doc.getInfo().getTime().getStartAt());
-            date = dates.format(endDate);
-            startTime = time.format(startDate);
-            endTime = time.format(endDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
+            DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
+            // OVERRIDE SOME symbols WHILE RETAINING OTHERS
+            symbols.setAmPmStrings(new String[]{"am", "pm"});
+            time.setDateFormatSymbols(symbols);
+            try {
+                Date endDate = simpleDateFormat.parse(doc.getInfo().getTime().getEndAt());
+                Date startDate = simpleDateFormat.parse(doc.getInfo().getTime().getStartAt());
+                date = dates.format(endDate);
+                startTime = time.format(startDate);
+                endTime = time.format(endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            tvDate.setText(date);
+            tvTime.setText(startTime.replace(":", "h") + " - " + endTime.replace(":", "h"));
+
+            if(!doc.getStakeholders().getReceived().getInfo().getImage().equals("")) {
+                Glide.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
+                        .error(R.drawable.avatar)
+                        .centerCrop()
+                        .into(imgHelper);
+            }
+            tvNameHelper.setText(doc.getStakeholders().getReceived().getInfo().getName());
+            tvAddressHelper.setText(doc.getStakeholders().getReceived().getInfo().getAddress().getName());
         }
-        tvDate.setText(date);
-        tvTime.setText(startTime.replace(":", "h") + " - " + endTime.replace(":", "h"));
-
-        if(!doc.getStakeholders().getReceived().getInfo().getImage().equals("")) {
-            Picasso.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .into(imgHelper);
-        }
-        tvNameHelper.setText(doc.getStakeholders().getReceived().getInfo().getName());
-        tvAddressHelper.setText(doc.getStakeholders().getReceived().getInfo().getAddress().getName());
     }
 
     @Override

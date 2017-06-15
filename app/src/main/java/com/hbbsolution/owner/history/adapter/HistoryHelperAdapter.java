@@ -13,11 +13,11 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.helper.MaidHistory;
 import com.hbbsolution.owner.history.view.ListWorkActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
-import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,6 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdapter.RecyclerViewHolder> {
     private Context context;
     private List<MaidHistory> datumList;
+    private MaidHistory maidHistory;
     private boolean isHis;
     private String time;
     private Date date;
@@ -50,22 +51,22 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
 
     @Override
     public void onBindViewHolder(HistoryHelperAdapter.RecyclerViewHolder holder, int position) {
-        p=position;
+        maidHistory = datumList.get(position);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
-        holder.ratingBar.setRating(datumList.get(p).getId().getWorkInfo().getEvaluationPoint());
+        holder.ratingBar.setRating(maidHistory.getId().getWorkInfo().getEvaluationPoint());
         try {
-            date = simpleDateFormat.parse(datumList.get(p).getTimes().get(0));
+            date = simpleDateFormat.parse(maidHistory.getTimes().get(0));
             time = dates.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.tvName.setText(datumList.get(p).getId().getInfo().getName());
+        holder.tvName.setText(maidHistory.getId().getInfo().getName());
         holder.tvDate.setText(time);
-        if(!datumList.get(p).getId().getInfo().getImage().equals("")) {
-            Picasso.with(context).load(datumList.get(p).getId().getInfo().getImage())
-                    .placeholder(R.drawable.avatar)
+        if(!maidHistory.getId().getInfo().getImage().equals("")) {
+            Glide.with(context).load(maidHistory.getId().getInfo().getImage())
                     .error(R.drawable.avatar)
+                    .centerCrop()
                     .into(holder.imgMaid);
         }
     }

@@ -48,9 +48,6 @@ public class ListWorkActivity extends AppCompatActivity implements ListWorkView 
         ButterKnife.bind(this);
         setToolbar();
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            idMaid = extras.getString("idMaid");
-        }
 
         progressBar = (ProgressBar) findViewById(R.id.progressPost);
         progressBar.setVisibility(View.VISIBLE);
@@ -67,21 +64,25 @@ public class ListWorkActivity extends AppCompatActivity implements ListWorkView 
         currentPage = 1;
 
         mListWorkPresenter = new ListWorkPresenter(this);
-        mListWorkPresenter.getInfoListWorkHistory(idMaid, currentPage);
+        if (extras != null) {
+            idMaid = extras.getString("idMaid");
+            mListWorkPresenter.getInfoListWorkHistory(idMaid, currentPage);
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        currentPage = 1;
-                        mListWorkPresenter.getInfoListWorkHistory(idMaid,currentPage);
-                        mSwipeRefreshLayout.setRefreshing(false);
-                    }
-                }, 1500);
-            }
-        });
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            currentPage = 1;
+                            mListWorkPresenter.getInfoListWorkHistory(idMaid,currentPage);
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    }, 1500);
+                }
+            });
+        }
+
     }
 
     @Override

@@ -62,22 +62,22 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             imgHelper = extras.getString("imgHelper");
             nameHelper = extras.getString("nameHelper");
             addressHelper = extras.getString("addressHelper");
-        }
-        commentPresenter = new CommentPresenter(this);
-        lnCheck.setVisibility(View.VISIBLE);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
+            commentPresenter = new CommentPresenter(this);
+            lnCheck.setVisibility(View.VISIBLE);
+            toolbar.setTitle("");
+            setSupportActionBar(toolbar);
 
-        //       setBackgroundRatingBar();
-        tvNameHelper.setText(nameHelper);
-        tvAddress.setText(addressHelper);
-        if(!imgHelper.equals("")) {
-            Picasso.with(this).load(imgHelper)
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .into(imgAvatar);
-        }
+            //       setBackgroundRatingBar();
+            tvNameHelper.setText(nameHelper);
+            tvAddress.setText(addressHelper);
+            if(!imgHelper.equals("")) {
+                Picasso.with(this).load(imgHelper)
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .into(imgAvatar);
+            }
 
+        }
         txtNext.setOnClickListener(this);
         lnCheck.setOnClickListener(this);
         edtComment.setOnClickListener(this);

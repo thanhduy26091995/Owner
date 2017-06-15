@@ -65,6 +65,8 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@color/colorWhite"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
                        >
                         <View
                             android:layout_width="match_parent"
@@ -75,15 +77,12 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/img_job_type"
                             android:layout_width="64dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="64dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
-                            android:paddingTop="2dp"
-                            android:paddingBottom="2dp"
                             android:layout_marginLeft="10dp"
-                            android:scaleType="centerCrop"
                             android:src="@drawable/dondepnha"
                             android:transitionName="icJobType"
                             />
@@ -148,17 +147,18 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
                        >
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/payment_avatar"
                             android:layout_width="64dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="64dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:src="@drawable/avatar"
-                            android:paddingTop="2dp"
-                            android:paddingBottom="2dp"
+                            android:transitionName="icAvatar"
                             />
 
                         <LinearLayout

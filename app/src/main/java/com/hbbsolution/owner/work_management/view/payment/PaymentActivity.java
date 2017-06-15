@@ -2,20 +2,24 @@ package com.hbbsolution.owner.work_management.view.payment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
 import com.hbbsolution.owner.history.view.CommentActivity;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.work_management.view.payment.presenter.PaymentPresenter;
-import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -58,7 +62,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     CircleImageView img_job_type;
     @BindView(R.id.payment_avatar)
     CircleImageView payment_avatar;
-
+    @BindView(R.id.rela_info)
+    RelativeLayout rela_info;
     private LiabilitiesHistory mLiabilitiesHistory;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
@@ -77,6 +82,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         mPaymentPresenter = new PaymentPresenter(this);
         mPaymentPresenter.getWallet();
         setData();
+        setEventClick();
 //        lo_Gv24.setOnClickListener(this);
     }
 
@@ -144,26 +150,45 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             payment_timework.setText(getResources().getString(R.string.timework) + " " + timework);
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
             if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
-                Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
-                        .placeholder(R.drawable.no_image)
+                Glide.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
                         .error(R.drawable.no_image)
+                        .centerCrop()
                         .into(img_job_type);
             }
             if (!mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage().equals("")) {
-                Picasso.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage())
-                        .placeholder(R.drawable.avatar)
+                Glide.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage())
                         .error(R.drawable.avatar)
+                        .centerCrop()
                         .into(payment_avatar);
             }
         }
     }
 
+    private void setEventClick()
+    {
+        rela_info.setOnClickListener(this);
+    }
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
 //            case lo_Gv24:
 //                confirm();
 //                break;
+            case R.id.rela_info:
+                intent = new Intent(PaymentActivity.this, MaidProfileActivity.class);
+                intent.putExtra("work",mLiabilitiesHistory.getTask());
+                ActivityOptionsCompat historyOption =
+                        ActivityOptionsCompat
+                                .makeSceneTransitionAnimation(PaymentActivity.this, (View)findViewById(R.id.payment_avatar), "icAvatar");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    startActivity(intent, historyOption.toBundle());
+                }
+                else {
+                    startActivity(intent);
+                }
+                break;
         }
     }
 
