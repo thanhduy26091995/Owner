@@ -39,11 +39,7 @@ import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPendi
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
-
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -142,7 +138,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         txtDateJobPending.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
         String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
         String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
-        txtTimeDoWrokJobPending.setText( mStartTime + " - " + mEndTime);
+        txtTimeDoWrokJobPending.setText(mStartTime + " - " + mEndTime);
 //        txtTimeDoWrokJobPending.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
         Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
                 .error(R.drawable.no_image)
@@ -330,7 +326,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
             //   Log.d("PATH", photoPath);
             //show progress
             showProgress();
-            mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", "59114b6cbd3b3f2de964950c");
+            mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", mDatum.getId());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -406,37 +402,39 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         Log.d("TIME", "" + (timeEnd - timeStart) / 1000);
         boolean status = checkInResponse.isStatus();
         if (status) {
-            boolean isIdentical = checkInResponse.getData().isIdentical();
-            if (isIdentical) {
-                try {
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailJobPendingActivity.this);
-                    alertDialogBuilder.setMessage("Xác thực thành công");
-                    alertDialogBuilder.setCancelable(false);
-                    alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
-                            new DialogInterface.OnClickListener() {
+            //boolean isIdentical = checkInResponse.getData().isIdentical();
+            // if (isIdentical) {
+            try {
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailJobPendingActivity.this);
+                alertDialogBuilder.setMessage("Xác thực thành công");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
+                        new DialogInterface.OnClickListener() {
 
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    finish();
-                                    Constants.isLoadTabDoing = true;
-                                    alertDialogBuilder.create().dismiss();
-                                }
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                finish();
+                                Constants.isLoadTabDoing = true;
+                                alertDialogBuilder.create().dismiss();
+                            }
 
-                            });
+                        });
 
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
-                } catch (Exception e) {
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            } catch (Exception e) {
 
-                }
-            } else {
-                ShowAlertDialog.showAlert("Xác thực không thành công, vui lòng thử lại", DetailJobPendingActivity.this);
             }
+        } else {
+            ShowAlertDialog.showAlert("Xác thực không thành công, vui lòng thử lại", DetailJobPendingActivity.this);
         }
+        // }
     }
 
     @Override
     public void checkInFail(String error) {
-
+        Log.d("ERROR", error);
+        hideProgress();
+        ShowAlertDialog.showAlert("Xác thực không thành công, vui lòng thử lại", DetailJobPendingActivity.this);
     }
 }

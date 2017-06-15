@@ -201,4 +201,6 @@
     <string name="totalprice">Thành tiền:</string>
     <string name="accountbalance">Account balance</string>
     <!--payment screen end-->
+
+    <string name="loading">Loading...</string>
 </resources>

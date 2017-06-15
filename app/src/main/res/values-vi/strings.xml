@@ -166,4 +166,6 @@
     <string name="totalprice">Thành tiền:</string>
     <string name="accountbalance">Số dư tài khoản: </string>
     <!--payment screen end-->
+
+    <string name="loading">Đang tải...</string>
 </resources>

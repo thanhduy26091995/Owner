@@ -45,8 +45,8 @@ public class FilterPresenter {
         });
     }
 
-    public void filterMaid(Double lat, Double lng, Integer ageMin, Integer ageMax, Integer gender, Integer maxDistance, Integer priceMin, Integer priceMax) {
-        Call<MaidNearByResponse> nearByResponseCall = apiService.getMaidNearBy(lat, lng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax);
+    public void filterMaid(Double lat, Double lng, Integer ageMin, Integer ageMax, Integer gender, Integer maxDistance, Integer priceMin, Integer priceMax, String workId) {
+        Call<MaidNearByResponse> nearByResponseCall = apiService.getMaidNearBy(lat, lng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax, workId);
         nearByResponseCall.enqueue(new Callback<MaidNearByResponse>() {
             @Override
             public void onResponse(Call<MaidNearByResponse> call, Response<MaidNearByResponse> response) {

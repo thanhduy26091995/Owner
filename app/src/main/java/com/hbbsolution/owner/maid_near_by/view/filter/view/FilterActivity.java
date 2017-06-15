@@ -221,7 +221,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
             //save
-            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax);
+            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax, workId);
         }
     }
 

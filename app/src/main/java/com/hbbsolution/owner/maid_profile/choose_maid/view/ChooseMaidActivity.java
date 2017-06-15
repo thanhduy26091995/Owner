@@ -193,7 +193,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
 
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(ChooseMaidActivity.this);
-        progressDialog.setMessage("Đang tải...");
+        progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
@@ -233,7 +233,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
                 edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert("Hãy nhập đầy đủ thông tin", ChooseMaidActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), ChooseMaidActivity.this);
             return false;
         }
 

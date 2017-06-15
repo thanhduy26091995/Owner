@@ -146,7 +146,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     private void showProgress() {
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Đang tải...");
+        mProgressDialog.setMessage(getResources().getString(R.string.loading));
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
     }
@@ -416,10 +416,12 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         if (item.getItemId() == android.R.id.home) {
             finish();
         } else if (item.getItemId() == R.id.action_filter) {
-            Intent intent = new Intent(MaidNearByActivity.this, FilterActivity.class);
-            intent.putExtra(Constants.LAT, location.getLatitude());
-            intent.putExtra(Constants.LNG, location.getLongitude());
-            startActivityForResult(intent, Constants.FILTER_MAID_INTENT);
+            if (location != null) {
+                Intent intent = new Intent(MaidNearByActivity.this, FilterActivity.class);
+                intent.putExtra(Constants.LAT, location.getLatitude());
+                intent.putExtra(Constants.LNG, location.getLongitude());
+                startActivityForResult(intent, Constants.FILTER_MAID_INTENT);
+            }
         }
         return super.onOptionsItemSelected(item);
     }

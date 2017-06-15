@@ -14,7 +14,8 @@ import com.hbbsolution.owner.base.BaseActivity;
  */
 
 public class InternetConnectionReceiver extends BroadcastReceiver {
-    public static  boolean isInternetConnect;
+    public static boolean isInternetConnect;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

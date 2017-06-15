@@ -70,7 +70,7 @@ public interface ApiInterface {
     @GET("more/getAllMaids")
     Call<MaidNearByResponse> getMaidNearBy(@Query("lat") Double lat, @Query("lng") Double lng, @Query("ageMin") Integer ageMin, @Query("ageMax") Integer ageMax,
                                            @Query("gender") Integer gender, @Query("maxDistance") Integer maxDistance, @Query("priceMin") Integer priceMin,
-                                           @Query("priceMax") Integer priceMax);
+                                           @Query("priceMax") Integer priceMax, @Query("work") String workId);
 
     @GET("more/getAllMaids")
     Call<MaidNearByResponse> searchMaidByAddress(@Query("lat") Double lat, @Query("lng") Double lng);
