@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.adapter.JobPostAdapter;
 import com.hbbsolution.owner.adapter.ManageJobAdapter;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
@@ -43,7 +44,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
     private LinearLayout lnNoData;
     private WorkManagerPresenter mWorkManagerPresenter;
     private List<Datum> mJobList = new ArrayList<>();
-    private ManageJobAdapter mJobPostAdapter;
+    private JobPostAdapter mJobPostAdapter;
     private RecyclerView mRecycler;
     private ProgressBar progressBar;
     private SwipeRefreshLayout mSwipeRefreshLayoutSale;
@@ -94,7 +95,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             mRecycler.setVisibility(View.VISIBLE);
             mRecycler.setHasFixedSize(true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-            mJobPostAdapter = new ManageJobAdapter(getActivity(), mJobList, 1);
+            mJobPostAdapter = new JobPostAdapter(getActivity(), mJobList);
             mRecycler.setLayoutManager(linearLayoutManager);
             mRecycler.setAdapter(mJobPostAdapter);
 

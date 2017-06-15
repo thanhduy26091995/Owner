@@ -49,12 +49,12 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
 
     @Override
     public JobPostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = View.inflate(context, R.layout.item_job_post, null);
+        View rootView = View.inflate(context, R.layout.item_job_pending, null);
         return new ManageJobAdapter.JobPostViewHolder(rootView);
     }
 
     @Override
-    public void onBindViewHolder(JobPostViewHolder holder, int position) {
+    public void onBindViewHolder(final JobPostViewHolder holder, int position) {
         final Datum mDatum = datumList.get(position);
         holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
         holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
@@ -107,6 +107,7 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
                 return true;
             }
         });
+
     }
 
     @Override
@@ -131,7 +132,6 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
             txtExpired = (TextView) itemView.findViewById(R.id.txtExpired_request_detail_post);
             lo_background = (LinearLayout) itemView.findViewById(R.id.lo_background);
             txtType = (TextView) itemView.findViewById(R.id.txtType);
-
         }
     }
 

@@ -25,6 +25,7 @@ import com.hbbsolution.owner.more.phuc_tran.ContactActivity;
 import com.hbbsolution.owner.more.phuc_tran.TermActivity;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
+import com.hbbsolution.owner.utils.SessionManagerForLanguage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 
 import java.util.HashMap;
@@ -64,6 +65,7 @@ public class MoreActivity extends AppCompatActivity {
     RelativeLayout lo_terms;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
+    private boolean isPause = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -183,5 +185,26 @@ public class MoreActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isPause = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isPause) {
+            SessionManagerForLanguage sessionManagerForLanguage = new SessionManagerForLanguage(MoreActivity.this);
+            boolean isChangeLanguage = sessionManagerForLanguage.changeLanguage();
+            if(isChangeLanguage) {
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(this.getIntent());
+                overridePendingTransition(0, 0);
+            }
+        }
     }
 }

@@ -47,4 +47,8 @@ public class SessionManagerForLanguage {
         //commit
         editor.commit();
     }
+
+    public boolean changeLanguage() {
+        return pref.getBoolean(KEY_IS_CLICK_LANGUAGE, true);
+    }
 }

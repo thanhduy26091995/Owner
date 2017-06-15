@@ -49,6 +49,8 @@
     <string name="cancel">Hủy</string>
     <string name="list_recruitment">Danh sách ứng tuyển</string>
     <string name="work_complete">Hoàn tất công việc</string>
+    <string name="vnd">VND</string>
+    <string name="vnd_hour">VND/giờ</string>
 
 
     <!--work_manager end-->
