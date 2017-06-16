@@ -97,6 +97,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.lnCheck:
                 lnCheck.setVisibility(View.INVISIBLE);
+                View view = this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 if (edtComment.getText().toString().length() > 0) {
                     commentPresenter.postComment(idTask, idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
                 } else {
