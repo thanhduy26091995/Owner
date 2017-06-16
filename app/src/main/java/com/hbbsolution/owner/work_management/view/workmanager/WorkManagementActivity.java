@@ -138,6 +138,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         }else  {
             mViewPager.setCurrentItem(mPositionTab);
         }
+
         if (isPause) {
             if (mTab) {
                this.finish();

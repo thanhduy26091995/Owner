@@ -413,8 +413,11 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
+//                                finish();
+//                                Constants.isLoadTabDoing = true;
+                                EventBus.getDefault().postSticky(true);
+                                EventBus.getDefault().postSticky("1");
                                 finish();
-                                Constants.isLoadTabDoing = true;
                                 alertDialogBuilder.create().dismiss();
                             }
 

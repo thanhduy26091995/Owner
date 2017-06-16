@@ -144,6 +144,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
     public void onBackPressed() {
         super.onBackPressed();
         EventBus.getDefault().postSticky(false);
+        EventBus.getDefault().postSticky("2");
     }
 
 }

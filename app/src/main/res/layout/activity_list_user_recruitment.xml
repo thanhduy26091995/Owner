@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -33,6 +33,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/appbar"
         android:scrollbars="vertical"
         android:scrollbarStyle="insideOverlay"
         android:id="@+id/recycler_listmaid"
@@ -49,4 +50,4 @@
         android:layout_marginTop="20dp"
         android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

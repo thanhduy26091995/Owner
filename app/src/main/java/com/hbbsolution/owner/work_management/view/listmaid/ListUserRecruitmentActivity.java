@@ -45,6 +45,8 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     Toolbar toolbar;
     @BindView(R.id.recruitment_title_toothbar)
     TextView txtRecruitment_title_toothbar;
+    @BindView(R.id.progressListRecruitment)
+    ProgressBar progressListRecruitment;
 
     private ListMaidPresenter mListMaidPresenter;
     private List<Request> mListMaid = new ArrayList<>();
@@ -53,7 +55,6 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     private RecyclerView mRecycler;
     private String idTaskProcess;
     public static Activity mListUserRecruitmentActivity = null;
-    private ProgressBar progressListRecruitment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
