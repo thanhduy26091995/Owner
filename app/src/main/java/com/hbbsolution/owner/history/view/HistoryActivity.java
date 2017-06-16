@@ -61,8 +61,10 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     public void onEvent(Integer numberLiabilities) {
-        txtNumber_Liabilities.setVisibility(View.VISIBLE);
-        txtNumber_Liabilities.setText(String.valueOf(numberLiabilities));
+        if(numberLiabilities>0) {
+            txtNumber_Liabilities.setVisibility(View.VISIBLE);
+            txtNumber_Liabilities.setText(String.valueOf(numberLiabilities));
+        }
     }
     @Override
     public void onStart() {

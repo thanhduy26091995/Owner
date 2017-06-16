@@ -2,10 +2,8 @@ package com.hbbsolution.owner.work_management.view.payment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -184,16 +182,16 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.rela_info:
                 intent = new Intent(PaymentActivity.this, MaidProfileActivity.class);
                 intent.putExtra("work",mLiabilitiesHistory.getTask());
-                ActivityOptionsCompat historyOption =
-                        ActivityOptionsCompat
-                                .makeSceneTransitionAnimation(PaymentActivity.this, (View)findViewById(R.id.payment_avatar), "icAvatar");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    startActivity(intent, historyOption.toBundle());
-                }
-                else {
+//                ActivityOptionsCompat historyOption =
+//                        ActivityOptionsCompat
+//                                .makeSceneTransitionAnimation(PaymentActivity.this, (View)findViewById(R.id.payment_avatar), "icAvatar");
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                    startActivity(intent, historyOption.toBundle());
+//                }
+//                else {
                     startActivity(intent);
-                }
+//                }
                 break;
         }
     }

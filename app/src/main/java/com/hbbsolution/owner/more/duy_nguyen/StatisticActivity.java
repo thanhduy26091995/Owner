@@ -13,13 +13,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.model.Task;
 import com.hbbsolution.owner.more.duy_nguyen.presenter.StatisticPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
-import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -72,8 +72,9 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     private StatisticPresenter statisticPresenter;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private ProgressBar progressBar;
-    private int onCreate, pending, reserved, onDoing, done,immediate;
+    private int onCreate, pending, reserved, onDoing, done, immediate;
     private String tempStartDate, tempEndDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +92,9 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         cal = Calendar.getInstance();
         getTime();
         setNumber();
-        getData();
+        if (hashDataUser != null) {
+            getData();
+        }
         setEventClick();
     }
 
@@ -115,16 +118,17 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         reserved = 0;
         onDoing = 0;
         done = 0;
-        immediate=0;
+        immediate = 0;
     }
 
     public void getData() {
-        if(!hashDataUser.get(SessionManagerUser.KEY_IMAGE).equals("")) {
-            Picasso.with(this).load(hashDataUser.get(SessionManagerUser.KEY_IMAGE))
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.avatar)
-                    .into(imgAvatar);
-        }
+        Glide.with(this).load(hashDataUser.get(SessionManagerUser.KEY_IMAGE))
+                .thumbnail(0.5f)
+                .placeholder(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .centerCrop()
+                .dontAnimate()
+                .into(imgAvatar);
         tvOwnerName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
         statisticPresenter.getStatistic("", simpleDateFormat.format(endDate));
     }
@@ -243,7 +247,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                 startActivity(intent);
                 break;
             case R.id.txt_statistic_payment:
-                intent = new Intent(StatisticActivity.this,RechargeActivity.class);
+                intent = new Intent(StatisticActivity.this, RechargeActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -258,7 +262,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void getStatisticSuccess(List<Task> listTask, int total,int wallet) {
+    public void getStatisticSuccess(List<Task> listTask, int total, int wallet) {
         int i = 0;
         while (i < listTask.size()) {
             if (listTask.get(i).getId().equals("000000000000000000000001")) {
@@ -284,7 +288,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         numberPostedTask.setText(String.valueOf(onCreate + pending));
         numberDoingTask.setText(String.valueOf(reserved + onDoing + immediate));
         numberDoneTask.setText(String.valueOf(done));
-        totalPrice.setText(String.valueOf(total) + " " +  getResources().getQuantityString(R.plurals.million,total));
+        totalPrice.setText(String.valueOf(total) + " " + getResources().getQuantityString(R.plurals.million, total));
         tvWallet.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND ");
         progressBar.setVisibility(View.GONE);
         lnStatistic.setVisibility(View.VISIBLE);
@@ -294,6 +298,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     public void getStatisticFail() {
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -1,10 +1,7 @@
 package com.hbbsolution.owner.history.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,16 +114,16 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         public void onClick(View v) {
             Intent intent = new Intent(context, PaymentActivity.class);
             intent.putExtra("liability", listData.get(getAdapterPosition()));
-            ActivityOptionsCompat historyOption =
-                    ActivityOptionsCompat
-                            .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_job_type), "icJobType");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                context.startActivity(intent, historyOption.toBundle());
-            }
-            else {
+//            ActivityOptionsCompat historyOption =
+//                    ActivityOptionsCompat
+//                            .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_job_type), "icJobType");
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                context.startActivity(intent, historyOption.toBundle());
+//            }
+//            else {
                 context.startActivity(intent);
-            }
+//            }
         }
 
         @Override

@@ -5,9 +5,6 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
-
-import com.hbbsolution.owner.utils.InternetConnectionReceiver;
 
 import static com.hbbsolution.owner.base.OwnerApplication.receiver;
 
@@ -21,13 +18,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (InternetConnectionReceiver.isInternetConnect) {
-            Toast.makeText(getBaseContext(), "Internet is connected", Toast.LENGTH_SHORT).show();
-
-
-        } else {
-            Toast.makeText(getBaseContext(), "Internet is not connected", Toast.LENGTH_SHORT).show();
-        }
     }
 
 

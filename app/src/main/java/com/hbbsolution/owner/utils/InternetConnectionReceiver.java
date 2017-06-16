@@ -28,11 +28,7 @@ public class InternetConnectionReceiver extends BroadcastReceiver {
 
         isInternetConnect = isWifiConnect || isDataConnect;
 
-        if (InternetConnectionReceiver.isInternetConnect) {
-            if (BaseActivity.isInternetConnect != isInternetConnect) {
-                Toast.makeText(context, "Internet is connected", Toast.LENGTH_SHORT).show();
-            }
-        } else {
+        if (!isInternetConnect) {
             if (BaseActivity.isInternetConnect != isInternetConnect) {
                 Toast.makeText(context, "Internet is not connected", Toast.LENGTH_SHORT).show();
             }

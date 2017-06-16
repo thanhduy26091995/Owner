@@ -254,5 +254,4 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
         lnNoData.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
-
 }
