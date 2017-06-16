@@ -14,7 +14,12 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
-    ArrayList<String> arrayListTitle = new ArrayList<>();
+    private ArrayList<String> arrayListTitle = new ArrayList<>();
+
+    public void clearFragment() {
+        fragmentList.clear();
+        arrayListTitle.clear();
+    }
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);

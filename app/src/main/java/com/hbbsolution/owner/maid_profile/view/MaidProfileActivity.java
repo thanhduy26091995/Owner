@@ -161,6 +161,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         isChosenMaidFromRecruitment = getIntent().getBooleanExtra("chosenMaidFromListRecruitment", false);
 
         if (mMaidInfo != null) {
+            lo_ChosenMaidInfo.setVisibility(View.GONE);
             idTaskProcess = getIntent().getStringExtra("idTaskProcess");
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));

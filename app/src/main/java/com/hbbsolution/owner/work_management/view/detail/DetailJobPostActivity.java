@@ -123,7 +123,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
         }else {
             txtExpired_request_detail_post.setVisibility(View.GONE);
             if (mDatum.getStakeholders().getRequest().size() > 0 ) {
-//                txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                txtNumber_request_detail_post.setVisibility(View.VISIBLE);
                 txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
                 lo_list_recruitment.setVisibility(View.VISIBLE);
                 txtJob_post_edit_toothbar.setVisibility(View.GONE);
@@ -169,7 +169,6 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         ButterKnife.bind(this).unbind();
     }
 
@@ -177,6 +176,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
     public void onBackPressed() {
         super.onBackPressed();
         EventBus.getDefault().postSticky(false);
+        EventBus.getDefault().postSticky("0");
     }
 
     @Override

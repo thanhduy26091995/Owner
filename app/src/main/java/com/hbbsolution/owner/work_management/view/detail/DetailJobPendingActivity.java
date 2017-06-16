@@ -151,6 +151,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             EventBus.getDefault().postSticky(false);
+            EventBus.getDefault().postSticky("1");
             finish();
         }
 
@@ -167,6 +168,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     public void onBackPressed() {
         super.onBackPressed();
         EventBus.getDefault().postSticky(false);
+        EventBus.getDefault().postSticky("1");
     }
 
     @Override

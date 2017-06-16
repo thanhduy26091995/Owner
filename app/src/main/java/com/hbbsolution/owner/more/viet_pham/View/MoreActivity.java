@@ -95,8 +95,8 @@ public class MoreActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent iHome = new Intent(MoreActivity.this, HomeActivity.class);
-            startActivity(iHome);
+//            Intent iHome = new Intent(MoreActivity.this, HomeActivity.class);
+//            startActivity(iHome);
             finish();
         }
         return super.onOptionsItemSelected(item);

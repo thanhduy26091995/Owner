@@ -114,6 +114,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             EventBus.getDefault().postSticky(false);
+            EventBus.getDefault().postSticky("2");
             finish();
         }
 

@@ -45,6 +45,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     private int tabMore, mQuantityJobPost;
     private boolean isPause = false, mTab = false;
     private int mPositionTab = -1;
+    private ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,19 +59,22 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 //        txtManagement_title_toothbar.setText("Quản lý công việc");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        txtManagement_compose_toothbar.setOnClickListener(this);
 
+        txtManagement_compose_toothbar.setOnClickListener(this);
+Log.d("mss", tabMore + "");
         createFragment();
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            tabMore = extras.getInt("tabMore");
-//            mViewPager.setCurrentItem(tabMore);
-//        }
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            tabMore = extras.getInt("tabMore");
+            mViewPager.setCurrentItem(tabMore);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            EventBus.getDefault().postSticky(true);
+            EventBus.getDefault().postSticky("0");
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -92,11 +96,13 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     }
 
     private void setupViewPagerUser(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+         adapter = new ViewPagerAdapter(getSupportFragmentManager());
+//        adapter.clearFragment();
         adapter.addFragment(new JobPostedFragment(), getResources().getString(R.string.posted_work));
         adapter.addFragment(new JobPendingFragment(), getResources().getString(R.string.assigned));
         adapter.addFragment(new JobDoingFragment(), getResources().getString(R.string.running_work));
         viewPager.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -125,6 +131,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         EventBus.getDefault().unregister(this);
     }
 
+
     @Override
     protected void onPause() {
         isPause = true;
@@ -133,10 +140,12 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onResume() {
+        Log.d("mPositionTab1",mPositionTab + ""  );
         if(mPositionTab == -1) {
             mViewPager.setCurrentItem(0);
-        }else  {
+        } else {
             mViewPager.setCurrentItem(mPositionTab);
+            mPositionTab = -1;
         }
 
         if (isPause) {
@@ -144,6 +153,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
                this.finish();
                 Intent refresh = new Intent(this, WorkManagementActivity.class);
                 startActivity(refresh);
+//                adapter.clearFragment();
 //                createFragment();
 //                mViewPager.setCurrentItem(mPositionTab);
                 mPositionTab = -1;
@@ -158,6 +168,13 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
             Constants.isLoadTabDoing = false;
         }
         super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().postSticky(true);
+        EventBus.getDefault().postSticky("0");
     }
 
     public void onEventMainThread(Integer quantityJobPost) {
