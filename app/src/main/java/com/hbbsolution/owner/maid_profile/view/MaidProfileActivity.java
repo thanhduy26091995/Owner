@@ -101,6 +101,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     RecyclerView recy_listTypeJob;
     @BindView(R.id.nestedScrollView)
     NestedScrollView nestedScrollView;
+    @BindView(R.id.txtNoComment)
+    TextView txtNoComment;
 
     private MaidProfilePresenter mMaidProfilePresenter;
     private List<Doc> commentList = new ArrayList<>();
@@ -363,20 +365,28 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public void getListCommentMaid(CommentMaidResponse mCommentMaidResponse) {
         final int pages = mCommentMaidResponse.getData().getPages();
         commentList = mCommentMaidResponse.getData().getDocs();
-        listCommentAdapter = new ListCommentAdapter(this, commentList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecycler.setLayoutManager(layoutManager);
-        mRecycler.setHasFixedSize(true);
-        mRecycler.setAdapter(listCommentAdapter);
-        listCommentAdapter.notifyDataSetChanged();
-        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                if (currentPage < pages) {
-                    mMaidProfilePresenter.getMoreInfoListMaid(mMaidInfo.getId(), currentPage);
+        if(commentList.size() > 0){
+            mRecycler.setVisibility(View.VISIBLE);
+            txtNoComment.setVisibility(View.GONE);
+            listCommentAdapter = new ListCommentAdapter(this, commentList);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            mRecycler.setLayoutManager(layoutManager);
+            mRecycler.setHasFixedSize(true);
+            mRecycler.setAdapter(listCommentAdapter);
+            listCommentAdapter.notifyDataSetChanged();
+            scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+                @Override
+                public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                    if (currentPage < pages) {
+                        mMaidProfilePresenter.getMoreInfoListMaid(mMaidInfo.getId(), currentPage);
+                    }
                 }
-            }
-        };
+            };
+        } else {
+            mRecycler.setVisibility(GONE);
+            txtNoComment.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

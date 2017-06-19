@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Selection;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
@@ -38,6 +40,8 @@ import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -72,7 +76,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     RadioButton rad_type_money_work;
     @BindView(R.id.rad_type_money_khoan)
     RadioButton rad_type_money_khoan;
-    @BindView(R.id.txtPost)
+    @BindView(R.id.txtPostJob)
     TextView txt_post_complete;
     @BindView(R.id.edt_monney_work)
     EditText edt_monney_work;
@@ -195,9 +199,14 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().postSticky(false);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().postSticky(false);
         ButterKnife.bind(this).unbind();
     }
 
@@ -232,7 +241,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 getDatePicker();
                 break;
 
-            case R.id.txtPost:
+            case R.id.txtPostJob:
                 progressBar.setVisibility(View.VISIBLE);
                 lo_job_post.setVisibility(View.VISIBLE);
                 checkLocaltionOfOwner();
@@ -381,20 +390,30 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
                 edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
+            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
             return false;
         }
 
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
+            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert("Chua nhap so tien", JobPostActivity.this);
+            return false;
+        }
+        if (CompareTimeStart(getTimeWork(txtTime_start.getText().toString()))) {
+            progressBar.setVisibility(View.GONE);
+            lo_job_post.setVisibility(View.GONE);
+            ShowAlertDialog.showAlert("Thời gian bắt đầu không phù hợp", JobPostActivity.this);
             return false;
         }
 
         if (!validateTimeWork()) {
             progressBar.setVisibility(View.GONE);
+            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
             return false;
+
         }
 
         return true;
@@ -437,7 +456,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     }
 
     private void getDateCurrent() {
-
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
@@ -462,6 +480,17 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             return false;
         }
         return true;
+    }
+
+    private boolean CompareTimeStart(String start) {
+        Date dateNow = new Date();
+        DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
+        Date dateStart = parser.parseDateTime(start).toDate();
+        long elapsed = dateNow.getTime() - dateStart.getTime();
+        if (elapsed > 0) {
+            return true;
+        }
+        return false;
     }
 
     private boolean CompareTime(String start, String end) {
@@ -527,7 +556,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     }
 
     private String getTimeDoingPost(String mTimeWork) {
-
         Date date = new DateTime(mTimeWork).toDate();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         return simpleDateFormat.format(date);

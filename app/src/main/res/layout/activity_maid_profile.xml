@@ -50,6 +50,15 @@
                 tools:listitem="@layout/item_comment">
 
             </android.support.v7.widget.RecyclerView>
+            
+            <TextView
+                android:id="@+id/txtNoComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="Chưa có nhận xét"
+                android:gravity="center"
+                android:padding="20dp"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

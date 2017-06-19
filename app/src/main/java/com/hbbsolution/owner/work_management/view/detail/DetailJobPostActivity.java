@@ -129,7 +129,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 txtJob_post_edit_toothbar.setVisibility(View.GONE);
             } else {
 //                txtNumber_request_detail_post.setVisibility(View.GONE);
-                lo_list_recruitment.setVisibility(View.VISIBLE);
+                lo_list_recruitment.setVisibility(View.GONE);
                 txtJob_post_edit_toothbar.setVisibility(View.VISIBLE);
 
             }

@@ -44,6 +44,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     @BindView(R.id.txt_work_management)
     TextView txt_work_management;
     private SessionManagerForLanguage sessionManagerForLanguage;
+    private boolean isPause = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,5 +154,26 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     @Override
     public void errorConnectService() {
         ShowAlertDialog.showAlert("Thất bại", HomeActivity.this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isPause = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isPause) {
+            SessionManagerForLanguage sessionManagerForLanguage = new SessionManagerForLanguage(HomeActivity.this);
+            boolean isChangeLanguage = sessionManagerForLanguage.changeLanguage();
+            if(isChangeLanguage) {
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(this.getIntent());
+                overridePendingTransition(0, 0);
+            }
+        }
     }
 }
