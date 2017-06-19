@@ -65,6 +65,10 @@ public class HistoryActivity extends AppCompatActivity {
             txtNumber_Liabilities.setVisibility(View.VISIBLE);
             txtNumber_Liabilities.setText(String.valueOf(numberLiabilities));
         }
+        else
+        {
+            txtNumber_Liabilities.setVisibility(View.GONE);
+        }
     }
     @Override
     public void onStart() {
