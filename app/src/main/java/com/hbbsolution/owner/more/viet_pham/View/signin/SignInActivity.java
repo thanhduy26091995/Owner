@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.base.OwnerApplication;
@@ -83,7 +84,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView
         addEvents();
 
         mSignInPresenter = new SignInPresenter(this);
-  //      loginGoogle();
+        //      loginGoogle();
 
     }
 
@@ -110,8 +111,9 @@ public class SignInActivity extends AppCompatActivity implements MoreView
             public void onClick(View view) {
                 String username = editUserName.getText().toString();
                 String password = editPassword.getText().toString();
+                String deviceToken = FirebaseInstanceId.getInstance().getToken();
                 btnSignIn.setEnabled(false);
-                mSignInPresenter.signIn(username, password);
+                mSignInPresenter.signIn(username, password, deviceToken);
             }
         });
         btnForgetPassword.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +134,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView
         imbGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
- //               signIn();
+                //               signIn();
             }
         });
 

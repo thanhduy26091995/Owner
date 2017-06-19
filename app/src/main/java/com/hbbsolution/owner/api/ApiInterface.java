@@ -55,7 +55,7 @@ public interface ApiInterface {
     Call<WorkHistoryResponse> getInfoWorkHistory(@Query("startAt") String startAt, @Query("endAt") String endAt, @Query("page") int page);
 
     @GET("owner/getTaskOfMaid")
-    Call<WorkHistoryResponse> getListWorkByMaid(@Query("maid") String idMaid,@Query("page") int page);
+    Call<WorkHistoryResponse> getListWorkByMaid(@Query("maid") String idMaid, @Query("page") int page);
 
     @GET("owner/getAllWorkedMaid")
     Call<HistoryHelperResponse> getAllWorkedMaid(@Query("startAt") String startAt, @Query("endAt") String endAt);
@@ -104,7 +104,8 @@ public interface ApiInterface {
     @Multipart
     @POST("auth/login")
     Call<BodyResponse> signInAccount(@Part("username") RequestBody username,
-                                     @Part("password") RequestBody password
+                                     @Part("password") RequestBody password,
+                                     @Part("device_token") RequestBody deviceToken
     );
 
     @Multipart
@@ -171,7 +172,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("task/submit")
-    Call<JobPostResponse> sentRequestChosenMaid (@Field("id") String id, @Field("maidId") String maidId);
+    Call<JobPostResponse> sentRequestChosenMaid(@Field("id") String id, @Field("maidId") String maidId);
 
     @GET("owner/checkToken")
     Call<ResponseRequest> checkToken();
@@ -182,5 +183,5 @@ public interface ApiInterface {
 
 
     @GET("more/getTerm")
-    Call<AboutResponse> getAbout (@Query("id") String idTask);
+    Call<AboutResponse> getAbout(@Query("id") String idTask);
 }

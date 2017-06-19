@@ -32,7 +32,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value=" AIzaSyAzSFwRry4u2KYJYq3IT_oc-w9sww5yVpY" />
+            android:value="AIzaSyCD5w90Aa8k4ISQoPIcHQ-HsABUj2aAzns" />
 
         <activity android:name=".splashscreenactivity.SplashScreenActivity">
             <intent-filter>
@@ -68,12 +68,23 @@
         <activity android:name=".maid_near_by.view.filter.view.FilterActivity" />
         <activity android:name=".more.viet_pham.View.profile.ProfileActivity" />
         <activity android:name=".maid_profile.choose_maid.view.ChooseMaidActivity" />
-        <activity android:name=".history.view.DetailLiabilitiesHistory" />
         <activity android:name=".more.duy_nguyen.LanguageActivity" />
         <activity android:name=".more.phuc_tran.TermActivity" />
         <activity android:name=".more.duy_nguyen.RechargeActivity" />
         <activity android:name=".more.duy_nguyen.InfoBankActivity" />
         <activity android:name=".history.view.ListWorkActivity"></activity>
+
+        <service android:name=".service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

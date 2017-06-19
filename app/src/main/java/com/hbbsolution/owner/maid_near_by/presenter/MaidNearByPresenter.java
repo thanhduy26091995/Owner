@@ -34,6 +34,8 @@ public class MaidNearByPresenter {
                     boolean status = response.body().getStatus();
                     if (status) {
                         mView.displayMaidNearBy(response.body());
+                    } else {
+                        mView.displayError(response.body().getMessage());
                     }
                 } else {
                     mView.displayError(response.message());

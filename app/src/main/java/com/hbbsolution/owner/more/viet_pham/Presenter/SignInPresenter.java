@@ -24,10 +24,11 @@ public class SignInPresenter {
         mApiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void signIn(String username, String password) {
+    public void signIn(String username, String password, String deviceToken) {
         RequestBody requestBodyUserName = RequestBody.create(MediaType.parse("text"), username);
         RequestBody requestBodyPassword = RequestBody.create(MediaType.parse("text"), password);
-        mApiService.signInAccount(requestBodyUserName, requestBodyPassword).enqueue(new Callback<BodyResponse>() {
+        RequestBody requestBodyDeviceToken = RequestBody.create(MediaType.parse("text"), deviceToken);
+        mApiService.signInAccount(requestBodyUserName, requestBodyPassword, requestBodyDeviceToken).enqueue(new Callback<BodyResponse>() {
             @Override
             public void onResponse(Call<BodyResponse> call, Response<BodyResponse> response) {
                 try {

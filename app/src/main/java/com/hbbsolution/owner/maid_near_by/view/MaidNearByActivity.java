@@ -465,7 +465,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     @Override
     public void displayError(String error) {
-
+        hideKeyboard();
+        hideProgress();
     }
 
     @Override

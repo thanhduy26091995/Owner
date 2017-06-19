@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,13 +61,12 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         mLayout_YourTasks.setOnClickListener(this);
         mLayout_History.setOnClickListener(this);
         sessionManagerForLanguage = new SessionManagerForLanguage(this);
-        String lang =  sessionManagerForLanguage.getLanguage();
+        String lang = sessionManagerForLanguage.getLanguage();
         if (lang.equals("Tiếng Việt")) {
             txt_work_management.setPadding(20, 5, 20, 0);
-        }else if (lang.equals("English")) {
+        } else if (lang.equals("English")) {
             txt_work_management.setPadding(10, 5, 10, 0);
         }
-
 //        mHomePresenter = new HomePresenter(this);
 //        mHomePresenter.requestCheckToken();
     }
