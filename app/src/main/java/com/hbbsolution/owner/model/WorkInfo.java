@@ -15,17 +15,17 @@ public class WorkInfo implements Serializable{
     @SerializedName("evaluation_point")
     @Expose
     private Integer evaluationPoint;
-//    @SerializedName("ability")
-//    @Expose
-//    private List<Ability> ability = null;
+    @SerializedName("ability")
+    @Expose
+    private List<Ability> ability = null;
 
-//    public List<Ability> getAbility() {
-//        return ability;
-//    }
-//
-//    public void setAbility(List<Ability> ability) {
-//        this.ability = ability;
-//    }
+    public List<Ability> getAbility() {
+        return ability;
+    }
+
+    public void setAbility(List<Ability> ability) {
+        this.ability = ability;
+    }
 
     public int getPrice() {
         return price;
