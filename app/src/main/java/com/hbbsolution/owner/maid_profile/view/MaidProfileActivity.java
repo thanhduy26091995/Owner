@@ -114,6 +114,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     private int currentPage = 1;
     private String idTaskProcess;
     private boolean isChosenMaidFromRecruitment = false;
+    private int mTabJobPending;
 
     public static MaidProfileActivity maidProfileActivity;
 
@@ -146,13 +147,13 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         txtBackInfoMaid.setOnClickListener(this);
         linearReportMaid.setOnClickListener(this);
 
-        list = new ArrayList<>();
-        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
-        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
-        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
-        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
-        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
-        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
+//        list = new ArrayList<>();
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
+//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
 //        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
 //        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
 
@@ -163,7 +164,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         isChosenMaidFromRecruitment = getIntent().getBooleanExtra("chosenMaidFromListRecruitment", false);
 
         if (mMaidInfo != null) {
-            lo_ChosenMaidInfo.setVisibility(View.GONE);
+            mTabJobPending = getIntent().getIntExtra("tabJonPending", 1);
+            if(mTabJobPending == 1){
+                lo_ChosenMaidInfo.setVisibility(View.GONE);
+            }else {
+                lo_ChosenMaidInfo.setVisibility(View.VISIBLE);
+            }
             idTaskProcess = getIntent().getStringExtra("idTaskProcess");
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
@@ -195,7 +201,11 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                         }
                     });
 
-
+            TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,mMaidInfo.getWorkInfo().getAbility());
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+            recy_listTypeJob.setLayoutManager(layoutManager);
+            recy_listTypeJob.setAdapter(typeJobAdapter);
+            typeJobAdapter.notifyDataSetChanged();
         }
 
         if (workHistory != null) {
@@ -241,7 +251,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                                     .into(imgBlurImage);
                         }
                     });
-            lo_ChosenMaidInfo.setVisibility(View.GONE);
+//            lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
 
@@ -292,14 +302,9 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                         }
                     });
 
-            lo_ChosenMaidInfo.setVisibility(View.GONE);
+//            lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
-        TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,list);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-        recy_listTypeJob.setLayoutManager(layoutManager);
-        recy_listTypeJob.setAdapter(typeJobAdapter);
-        typeJobAdapter.notifyDataSetChanged();
     }
 
     @Override

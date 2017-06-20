@@ -56,11 +56,16 @@ public class JobPostPresenter {
             public void onResponse(Call<GeoCodeMapResponse> call, Response<GeoCodeMapResponse> response) {
                 if (response.isSuccessful()) {
                     GeoCodeMapResponse mGeoCodeMapResponse = response.body();
-                    double lat = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
-                    double lng = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
-                    if (lat != 0 || lng != 0) {
-                        mJobPostView.getLocaltionAddress(mGeoCodeMapResponse);
-                    } else {
+                    if(mGeoCodeMapResponse.getResults().size() > 0){
+                        double lat = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
+                        double lng = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+                        if (lat != 0 || lng != 0) {
+                            mJobPostView.getLocaltionAddress(mGeoCodeMapResponse);
+                        } else {
+                            mJobPostView.displayNotFoundLocaltion();
+                        }
+
+                    }else {
                         mJobPostView.displayNotFoundLocaltion();
                     }
 

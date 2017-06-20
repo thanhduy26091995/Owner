@@ -200,6 +200,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
             case R.id.lo_infoMaid:
                 Intent itInfoUser = new Intent(DetailJobPendingActivity.this, MaidProfileActivity.class);
                 itInfoUser.putExtra("maid", mDatum.getStakeholders().getMadi());
+                itInfoUser.putExtra("tabJonPending", 1);
                 startActivity(itInfoUser);
                 break;
             case R.id.rela_confirm_maid: {

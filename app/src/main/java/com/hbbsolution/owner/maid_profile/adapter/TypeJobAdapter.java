@@ -8,9 +8,11 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ManageJobAdapter;
+import com.hbbsolution.owner.model.Ability;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,11 +24,11 @@ import java.util.List;
 public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobViewHolder> {
 
     private Context context;
-    private List<String> stringList;
+    private List<Ability> abilityList;
 
-    public TypeJobAdapter(Context context, List<String> stringList) {
+    public TypeJobAdapter(Context context, List<Ability> abilityList) {
         this.context = context;
-        this.stringList = stringList;
+        this.abilityList = abilityList;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobV
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((AppCompatActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        if(stringList.size() > 3){
+        if(abilityList.size() > 3){
 
             int devicewidth = displaymetrics.widthPixels / 3;
             int percent = devicewidth / 10;
@@ -48,7 +50,7 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobV
             holder.imageView.getLayoutParams().width = devicewidth - percent ;
             holder.imageView.getLayoutParams().height = deviceheight;
 
-        } else if(stringList.size() <= 3) {
+        } else if(abilityList.size() <= 3) {
 
             int devicewidth = displaymetrics.widthPixels / 3;
             int deviceheight = displaymetrics.heightPixels / 10;
@@ -56,11 +58,11 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobV
             holder.imageView.getLayoutParams().height = deviceheight;
         }
 
-        String urlImage = stringList.get(position);
-        holder.urlImg = urlImage;
-
+        Ability ability = abilityList.get(position);
+//        holder.urlImg = ability.getImage();
+        holder.txtNameTypeJob.setText(ability.getName());
         Picasso.with(context)
-                .load(urlImage)
+                .load(ability.getImage())
                 .error(R.drawable.no_image)
                 .placeholder(R.drawable.no_image)
                 .into(holder.imageView);
@@ -69,19 +71,18 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.TypeJobV
 
     @Override
     public int getItemCount() {
-        return stringList.size();
+        return abilityList.size();
     }
 
     public class TypeJobViewHolder extends RecyclerView.ViewHolder {
-
         ImageView imageView;
-        String urlImg;
+        TextView txtNameTypeJob;
 
         public TypeJobViewHolder(View itemView) {
             super(itemView);
 
             imageView = (ImageView) itemView.findViewById(R.id.img_TypeJob);
-
+            txtNameTypeJob = (TextView) itemView.findViewById(R.id.txtNameTypeJob);
         }
     }
 }

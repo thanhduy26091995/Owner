@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class WorkInfo implements Serializable{
 
@@ -14,6 +15,17 @@ public class WorkInfo implements Serializable{
     @SerializedName("evaluation_point")
     @Expose
     private Integer evaluationPoint;
+    @SerializedName("ability")
+    @Expose
+    private List<Ability> ability = null;
+
+    public List<Ability> getAbility() {
+        return ability;
+    }
+
+    public void setAbility(List<Ability> ability) {
+        this.ability = ability;
+    }
 
     public int getPrice() {
         return price;

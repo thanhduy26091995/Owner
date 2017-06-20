@@ -298,13 +298,16 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
             alertDialog.show();
         } else {
+            lo_job_post.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.post_unsuccessfully), JobPostActivity.this);
         }
     }
 
     @Override
     public void displayNotFoundLocaltion() {
-
+        lo_job_post.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         ShowAlertDialog.showAlert(getResources().getString(R.string.check_your_home_address), JobPostActivity.this);
     }
 

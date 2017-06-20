@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 04/05/2017.
  */
 
-public class MoreActivity extends AppCompatActivity {
+public class MoreActivity extends AppCompatActivity implements View.OnClickListener{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -63,6 +63,9 @@ public class MoreActivity extends AppCompatActivity {
     RelativeLayout lo_terms1;
     @BindView(R.id.lo_terms)
     RelativeLayout lo_terms;
+    @BindView(R.id.lo_share_app)
+    LinearLayout lo_share_app;
+
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private boolean isPause = false;
@@ -80,6 +83,8 @@ public class MoreActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtMore_title_toothbar.setText(getResources().getString(R.string.more));
+
+        lo_share_app.setOnClickListener(this);
         addEvents();
     }
 
@@ -205,6 +210,15 @@ public class MoreActivity extends AppCompatActivity {
                 startActivity(this.getIntent());
                 overridePendingTransition(0, 0);
             }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.lo_share_app:
+
+                break;
         }
     }
 }
