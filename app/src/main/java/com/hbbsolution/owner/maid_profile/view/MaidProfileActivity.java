@@ -201,11 +201,11 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                         }
                     });
 
-            TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,mMaidInfo.getWorkInfo().getAbility());
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-            recy_listTypeJob.setLayoutManager(layoutManager);
-            recy_listTypeJob.setAdapter(typeJobAdapter);
-            typeJobAdapter.notifyDataSetChanged();
+//            TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,mMaidInfo.getWorkInfo().getAbility());
+//            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+//            recy_listTypeJob.setLayoutManager(layoutManager);
+//            recy_listTypeJob.setAdapter(typeJobAdapter);
+//            typeJobAdapter.notifyDataSetChanged();
         }
 
         if (workHistory != null) {

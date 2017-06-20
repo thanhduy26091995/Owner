@@ -61,7 +61,6 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtManagement_compose_toothbar.setOnClickListener(this);
-Log.d("mss", tabMore + "");
         createFragment();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
