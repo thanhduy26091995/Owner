@@ -24,6 +24,7 @@ public class SignInPresenter {
         mApiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
+
     public void signIn(String username, String password, String deviceToken) {
         RequestBody requestBodyUserName = RequestBody.create(MediaType.parse("text"), username);
         RequestBody requestBodyPassword = RequestBody.create(MediaType.parse("text"), password);
@@ -46,4 +47,5 @@ public class SignInPresenter {
             }
         });
     }
+
 }
