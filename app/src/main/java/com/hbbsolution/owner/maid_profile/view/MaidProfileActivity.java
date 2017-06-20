@@ -121,6 +121,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public static Activity mMaidProfileActivity = null;
 
     private static final int REPORT = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +164,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         isChosenMaidFromRecruitment = getIntent().getBooleanExtra("chosenMaidFromListRecruitment", false);
 
         if (mMaidInfo != null) {
-            lo_ChosenMaidInfo.setVisibility(View.GONE);
+            lo_ChosenMaidInfo.setVisibility(View.VISIBLE);
             idTaskProcess = getIntent().getStringExtra("idTaskProcess");
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
             txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
@@ -196,9 +197,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                     });
 
 
-        }
-
-        if (workHistory != null) {
+        } else if (workHistory != null) {
             txtNameInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getName());
             txtPriceInfoMaid.setText(String.valueOf(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice()));
             txtGenderInfoMaid.setText(getGenderMaid(workHistory.getStakeholders().getReceived().getInfo().getGender()));
@@ -243,9 +242,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                     });
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
-        }
-
-        if (datum != null) {
+        } else if (datum != null) {
             txtNameInfoMaid.setText(datum.getId().getInfo().getName());
             //       txtPriceInfoMaid.setText(String.valueOf(datum.getId().getWorkInfo().getPrice()));
             txtGenderInfoMaid.setText(getGenderMaid(datum.getId().getInfo().getGender()));
@@ -295,7 +292,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             lo_ChosenMaidInfo.setVisibility(View.GONE);
             vLine.setVisibility(View.GONE);
         }
-        TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,list);
+        TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this, list);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
         recy_listTypeJob.setLayoutManager(layoutManager);
         recy_listTypeJob.setAdapter(typeJobAdapter);
@@ -334,7 +331,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             case R.id.lo_ChosenMaidInfo:
                 if (isChosenMaidFromRecruitment) {
                     mMaidProfilePresenter.sentRequestChosenMaid(idTaskProcess, mMaidInfo.getId());
-                }else {
+                } else {
                     Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
                     intentChooseMaid.putExtra("maid", mMaidInfo);
                     startActivity(intentChooseMaid);
@@ -348,7 +345,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 intent.putExtra("maid", mMaidInfo);
                 intent.putExtra("work", workHistory);
                 intent.putExtra("helper", datum);
-                startActivityForResult(intent,REPORT);
+                startActivityForResult(intent, REPORT);
                 break;
 
         }
@@ -365,7 +362,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public void getListCommentMaid(CommentMaidResponse mCommentMaidResponse) {
         final int pages = mCommentMaidResponse.getData().getPages();
         commentList = mCommentMaidResponse.getData().getDocs();
-        if(commentList.size() > 0){
+        if (commentList.size() > 0) {
             mRecycler.setVisibility(View.VISIBLE);
             txtNoComment.setVisibility(View.GONE);
             listCommentAdapter = new ListCommentAdapter(this, commentList);
@@ -391,7 +388,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     @Override
     public void getMoreListCommentMaid(CommentMaidResponse mCommentMaidResponse) {
-        commentList.addAll( mCommentMaidResponse.getData().getDocs());
+        commentList.addAll(mCommentMaidResponse.getData().getDocs());
         currentPage++;
         listCommentAdapter.notifyDataSetChanged();
         mRecycler.post(new Runnable() {
@@ -404,7 +401,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     @Override
     public void responseChosenMaid(boolean isResponseChosenMaid) {
-        if (isResponseChosenMaid){
+        if (isResponseChosenMaid) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle("Thông báo");
@@ -413,16 +410,16 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);
-                    if(mMaidProfileActivity != null){
+                    if (mMaidProfileActivity != null) {
                         MaidProfileActivity.mMaidProfileActivity.finish();
-                        try{
-                            if(DetailJobPostActivity.mDetailJobPostActivity != null){
+                        try {
+                            if (DetailJobPostActivity.mDetailJobPostActivity != null) {
                                 DetailJobPostActivity.mDetailJobPostActivity.finish();
                             }
-                            if(ListUserRecruitmentActivity.mListUserRecruitmentActivity != null){
+                            if (ListUserRecruitmentActivity.mListUserRecruitmentActivity != null) {
                                 ListUserRecruitmentActivity.mListUserRecruitmentActivity.finish();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                     }
@@ -431,7 +428,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             });
 
             alertDialog.show();
-        }else {
+        } else {
             ShowAlertDialog.showAlert("Thất bại", MaidProfileActivity.this);
         }
     }
@@ -440,13 +437,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public void getMessager() {
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==REPORT)
-        {
-            if(resultCode== Activity.RESULT_OK)
-            {
-                ShowAlertDialog.showAlert(data.getStringExtra("message"),this);
+        if (requestCode == REPORT) {
+            if (resultCode == Activity.RESULT_OK) {
+                ShowAlertDialog.showAlert(data.getStringExtra("message"), this);
             }
         }
     }

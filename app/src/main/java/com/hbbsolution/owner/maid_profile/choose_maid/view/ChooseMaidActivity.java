@@ -334,6 +334,8 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void displayError(String error) {
         Log.d("ERROR", error);
+        hideProgressDialog();
+        ShowAlertDialog.showAlert("Gửi yêu cầu thất bại", ChooseMaidActivity.this);
     }
 
     @Override
