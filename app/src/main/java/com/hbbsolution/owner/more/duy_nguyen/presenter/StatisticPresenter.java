@@ -34,6 +34,7 @@ public class StatisticPresenter {
                         StatisticResponse statisticResponse = response.body();
                         statisticView.getStatisticSuccess(statisticResponse.getData().getTask(),statisticResponse.getData().getTotalPrice(),statisticResponse.getData().getWallet());
                     } catch (Exception e) {
+                        statisticView.getStatisticFail();
                         Log.e("exception", e.toString());
                     }
                 }
@@ -41,6 +42,7 @@ public class StatisticPresenter {
 
             @Override
             public void onFailure(Call<StatisticResponse> call, Throwable t) {
+                statisticView.getStatisticFail();
             }
         });
     }

@@ -285,7 +285,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
             }
             i++;
         }
-        numberPostedTask.setText(String.valueOf(onCreate + pending));
+        numberPostedTask.setText(String.valueOf(onCreate));
         numberDoingTask.setText(String.valueOf(reserved + onDoing + immediate));
         numberDoneTask.setText(String.valueOf(done));
         totalPrice.setText(String.valueOf(total) + " " + getResources().getQuantityString(R.plurals.million, total));
@@ -296,7 +296,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void getStatisticFail() {
-
+        ShowAlertDialog.showAlert("ERROR",StatisticActivity.this);
     }
 
     @Override
