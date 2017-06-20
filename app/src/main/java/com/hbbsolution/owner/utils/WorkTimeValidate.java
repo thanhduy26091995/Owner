@@ -108,5 +108,4 @@ public class WorkTimeValidate {
             txtTimePostHistory.setText("Vừa xong");
         }
     }
-
 }

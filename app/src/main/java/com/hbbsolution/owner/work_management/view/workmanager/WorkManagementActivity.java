@@ -139,13 +139,12 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onResume() {
-        Log.d("mPositionTab1",mPositionTab + ""  );
-        if(mPositionTab == -1) {
-            mViewPager.setCurrentItem(0);
-        } else {
-            mViewPager.setCurrentItem(mPositionTab);
-            mPositionTab = -1;
-        }
+//        if(mPositionTab == -1) {
+//            mViewPager.setCurrentItem(0);
+//        } else {
+//            mViewPager.setCurrentItem(mPositionTab);
+//            mPositionTab = -1;
+//        }
 
         if (isPause) {
             if (mTab) {
@@ -159,6 +158,13 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
                 isPause = false;
                 mTab = false;
 
+            }
+        }else {
+            if(mPositionTab == -1) {
+                mViewPager.setCurrentItem(0);
+            } else {
+                mViewPager.setCurrentItem(mPositionTab);
+                mPositionTab = -1;
             }
         }
 
@@ -186,6 +192,5 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     public void onEventMainThread(String positionTab) {
         mPositionTab = Integer.parseInt(positionTab);
-        Log.d("mPositionTab",mPositionTab + ""  );
     }
 }
