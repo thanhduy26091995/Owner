@@ -48,6 +48,9 @@ public class SessionManagerForLanguage {
         editor.commit();
     }
 
+    public void setChangeLanguage(){
+        editor.putBoolean(KEY_IS_CLICK_LANGUAGE, false);
+    }
     public boolean changeLanguage() {
         return pref.getBoolean(KEY_IS_CLICK_LANGUAGE, true);
     }

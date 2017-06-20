@@ -105,7 +105,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //        }
 //
 //        if (data.get("type").equals("other")) {
-//            Intent intent = new Intent(this, MainActivity.class);
+//            Intent intent = new Intent(this, PaymentOnlineActivity.class);
 //            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 //        }
 

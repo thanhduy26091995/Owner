@@ -209,6 +209,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(0, 0);
                 startActivity(this.getIntent());
                 overridePendingTransition(0, 0);
+                sessionManagerForLanguage.setChangeLanguage();
             }
         }
     }

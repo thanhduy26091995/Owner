@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
 import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
+import com.hbbsolution.owner.paymentonline.ui.activity.PaymentOnlineActivity;
 import com.hbbsolution.owner.work_management.view.payment.presenter.PaymentPresenter;
 
 import java.text.NumberFormat;
@@ -62,6 +64,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     CircleImageView payment_avatar;
     @BindView(R.id.rela_info)
     RelativeLayout rela_info;
+    @BindView(R.id.lo_payment_online)
+    LinearLayout lo_payment_online;
+
     private LiabilitiesHistory mLiabilitiesHistory;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
@@ -171,6 +176,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private void setEventClick()
     {
         rela_info.setOnClickListener(this);
+        lo_payment_online.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -192,6 +198,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //                else {
                     startActivity(intent);
 //                }
+                break;
+            case R.id.lo_payment_online:
+               Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
+                startActivity(itPaymentOnline);
                 break;
         }
     }
