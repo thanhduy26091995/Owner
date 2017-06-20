@@ -3,6 +3,7 @@ package com.hbbsolution.owner.history.model.workhistory;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.model.Ability;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +18,7 @@ public class WorkInfo implements Serializable {
     private Integer evaluationPoint;
     @SerializedName("ability")
     @Expose
-    private List<Object> ability = null;
+    private List<Ability> ability = null;
 
     public Integer getPrice() {
         return price;
@@ -35,11 +36,11 @@ public class WorkInfo implements Serializable {
         this.evaluationPoint = evaluationPoint;
     }
 
-    public List<Object> getAbility() {
+    public List<Ability> getAbility() {
         return ability;
     }
 
-    public void setAbility(List<Object> ability) {
+    public void setAbility(List<Ability> ability) {
         this.ability = ability;
     }
 

@@ -25,11 +25,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
 import com.hbbsolution.owner.base.IconTextView;
@@ -120,7 +117,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     private List<String> list;
     public static Activity mMaidProfileActivity = null;
-
+    private TypeJobAdapter typeJobAdapter;
     private static final int REPORT = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -200,8 +197,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                                     .into(imgBlurImage);
                         }
                     });
-
-            TypeJobAdapter typeJobAdapter = new TypeJobAdapter(this,mMaidInfo.getWorkInfo().getAbility());
+            typeJobAdapter = new TypeJobAdapter(this,mMaidInfo.getWorkInfo().getAbility());
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
             recy_listTypeJob.setLayoutManager(layoutManager);
             recy_listTypeJob.setAdapter(typeJobAdapter);
@@ -220,23 +216,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 //                    .placeholder(R.drawable.avatar)
 //                    .error(R.drawable.avatar)
 //                    .into(img_avatarMaid);
-            Glide.with(this)
-                    .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+            Glide.with(this).load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                    .thumbnail(0.5f)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
                     .centerCrop()
                     .dontAnimate()
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            supportStartPostponedEnterTransition();
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            supportStartPostponedEnterTransition();
-                            return false;
-                        }
-                    })
                     .into(img_avatarMaid);
             Glide.with(MaidProfileActivity.this)
                     .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
@@ -252,6 +237,11 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                         }
                     });
 //            lo_ChosenMaidInfo.setVisibility(View.GONE);
+            typeJobAdapter = new TypeJobAdapter(this,workHistory.getStakeholders().getReceived().getWorkInfo().getAbility());
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+            recy_listTypeJob.setLayoutManager(layoutManager);
+            recy_listTypeJob.setAdapter(typeJobAdapter);
+            typeJobAdapter.notifyDataSetChanged();
             vLine.setVisibility(View.GONE);
         }
 
@@ -268,25 +258,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 //                    .error(R.drawable.avatar)
 //                    .into(img_avatarMaid);
             supportPostponeEnterTransition();
-            Glide.with(this)
-                    .load(datum.getId().getInfo().getImage())
+            Glide.with(this).load(datum.getId().getInfo().getImage())
                     .thumbnail(0.5f)
+                    .placeholder(R.drawable.avatar)
                     .error(R.drawable.avatar)
                     .centerCrop()
                     .dontAnimate()
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            supportStartPostponedEnterTransition();
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            supportStartPostponedEnterTransition();
-                            return false;
-                        }
-                    })
                     .into(img_avatarMaid);
             Glide.with(MaidProfileActivity.this)
                     .load(datum.getId().getInfo().getImage())
@@ -303,6 +280,11 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                     });
 
 //            lo_ChosenMaidInfo.setVisibility(View.GONE);
+            typeJobAdapter = new TypeJobAdapter(this,datum.getId().getWorkInfo().getAbility());
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+            recy_listTypeJob.setLayoutManager(layoutManager);
+            recy_listTypeJob.setAdapter(typeJobAdapter);
+            typeJobAdapter.notifyDataSetChanged();
             vLine.setVisibility(View.GONE);
         }
     }
