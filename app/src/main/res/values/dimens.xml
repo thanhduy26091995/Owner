@@ -3,4 +3,8 @@
     <dimen name="text_size_large">18sp</dimen>
     <dimen name="icon_size_normal">16sp</dimen>
     <dimen name="icon_size">20sp</dimen>
+
+    <dimen name="TEXT_SIZE_NORMAL">15dp</dimen>
+    <dimen name="TEXT_SIZE_LARGE">18dp</dimen>
+    <dimen name="HEIGHT_EDIT_TEXT">48dp</dimen>
 </resources>

@@ -72,7 +72,8 @@
         <activity android:name=".more.phuc_tran.TermActivity" />
         <activity android:name=".more.duy_nguyen.RechargeActivity" />
         <activity android:name=".more.duy_nguyen.InfoBankActivity" />
-        <activity android:name=".history.view.ListWorkActivity"></activity>
+        <activity android:name=".history.view.ListWorkActivity"/>
+        <activity android:name=".paymentonline.ui.activity.PaymentOnlineActivity"/>
 
         <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>

@@ -56,5 +56,10 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     //notification
     compile 'com.google.firebase:firebase-messaging:10.0.1'
+
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.github.rey5137:material:1.2.2'
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
