@@ -27,16 +27,18 @@ public class OwnerApplication extends Application {
     public static InternetConnectionReceiver receiver;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     SessionManagerUser sessionManagerUser;
+
     public static OwnerApplication getInstance() {
         return instance;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
         Iconify.with(new FontAwesomeModule());
         instance = this;
         receiver = new InternetConnectionReceiver();
-        BaseActivity.isInternetConnect=InternetConnectionReceiver.isInternetConnect;
+        BaseActivity.isInternetConnect = InternetConnectionReceiver.isInternetConnect;
         setLocale();
         sessionManagerUser = new SessionManagerUser(this);
         if (sessionManagerUser.isLoggedIn()) {
@@ -82,6 +84,7 @@ public class OwnerApplication extends Application {
             }
         });
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -100,8 +103,7 @@ public class OwnerApplication extends Application {
         }
     }
 
-    private void setToken(String token)
-    {
+    private void setToken(String token) {
         ApiClient.setToken(token);
     }
 

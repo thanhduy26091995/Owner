@@ -119,6 +119,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public static Activity mMaidProfileActivity = null;
     private TypeJobAdapter typeJobAdapter;
     private static final int REPORT = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,9 +163,9 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         if (mMaidInfo != null) {
             mTabJobPending = getIntent().getIntExtra("tabJonPending", 1);
-            if(mTabJobPending == 1){
+            if (mTabJobPending == 1) {
                 lo_ChosenMaidInfo.setVisibility(View.GONE);
-            }else {
+            } else {
                 lo_ChosenMaidInfo.setVisibility(View.VISIBLE);
             }
             idTaskProcess = getIntent().getStringExtra("idTaskProcess");
@@ -197,11 +198,15 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                                     .into(imgBlurImage);
                         }
                     });
-            typeJobAdapter = new TypeJobAdapter(this,mMaidInfo.getWorkInfo().getAbility());
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-            recy_listTypeJob.setLayoutManager(layoutManager);
-            recy_listTypeJob.setAdapter(typeJobAdapter);
-            typeJobAdapter.notifyDataSetChanged();
+            if (mMaidInfo.getWorkInfo().getAbility() != null) {
+                typeJobAdapter = new TypeJobAdapter(this, mMaidInfo.getWorkInfo().getAbility());
+                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+                recy_listTypeJob.setLayoutManager(layoutManager);
+                recy_listTypeJob.setAdapter(typeJobAdapter);
+                typeJobAdapter.notifyDataSetChanged();
+            }
+            vLine.setVisibility(View.VISIBLE);
+            lo_ChosenMaidInfo.setVisibility(View.VISIBLE);
         }
 
         if (workHistory != null) {
@@ -237,11 +242,13 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                         }
                     });
 //            lo_ChosenMaidInfo.setVisibility(View.GONE);
-            typeJobAdapter = new TypeJobAdapter(this,workHistory.getStakeholders().getReceived().getWorkInfo().getAbility());
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-            recy_listTypeJob.setLayoutManager(layoutManager);
-            recy_listTypeJob.setAdapter(typeJobAdapter);
-            typeJobAdapter.notifyDataSetChanged();
+            if (workHistory.getStakeholders().getReceived().getWorkInfo().getAbility() != null) {
+                typeJobAdapter = new TypeJobAdapter(this, workHistory.getStakeholders().getReceived().getWorkInfo().getAbility());
+                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+                recy_listTypeJob.setLayoutManager(layoutManager);
+                recy_listTypeJob.setAdapter(typeJobAdapter);
+                typeJobAdapter.notifyDataSetChanged();
+            }
             vLine.setVisibility(View.GONE);
         }
 
@@ -280,11 +287,13 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                     });
 
 //            lo_ChosenMaidInfo.setVisibility(View.GONE);
-            typeJobAdapter = new TypeJobAdapter(this,datum.getId().getWorkInfo().getAbility());
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-            recy_listTypeJob.setLayoutManager(layoutManager);
-            recy_listTypeJob.setAdapter(typeJobAdapter);
-            typeJobAdapter.notifyDataSetChanged();
+            if (datum.getId().getWorkInfo().getAbility() != null) {
+                typeJobAdapter = new TypeJobAdapter(this, datum.getId().getWorkInfo().getAbility());
+                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+                recy_listTypeJob.setLayoutManager(layoutManager);
+                recy_listTypeJob.setAdapter(typeJobAdapter);
+                typeJobAdapter.notifyDataSetChanged();
+            }
             vLine.setVisibility(View.GONE);
         }
     }
@@ -321,7 +330,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             case R.id.lo_ChosenMaidInfo:
                 if (isChosenMaidFromRecruitment) {
                     mMaidProfilePresenter.sentRequestChosenMaid(idTaskProcess, mMaidInfo.getId());
-                }else {
+                } else {
                     Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
                     intentChooseMaid.putExtra("maid", mMaidInfo);
                     startActivity(intentChooseMaid);
@@ -335,7 +344,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 intent.putExtra("maid", mMaidInfo);
                 intent.putExtra("work", workHistory);
                 intent.putExtra("helper", datum);
-                startActivityForResult(intent,REPORT);
+                startActivityForResult(intent, REPORT);
                 break;
 
         }
@@ -352,7 +361,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public void getListCommentMaid(CommentMaidResponse mCommentMaidResponse) {
         final int pages = mCommentMaidResponse.getData().getPages();
         commentList = mCommentMaidResponse.getData().getDocs();
-        if(commentList.size() > 0){
+        if (commentList.size() > 0) {
             mRecycler.setVisibility(View.VISIBLE);
             txtNoComment.setVisibility(View.GONE);
             listCommentAdapter = new ListCommentAdapter(this, commentList);
@@ -378,7 +387,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     @Override
     public void getMoreListCommentMaid(CommentMaidResponse mCommentMaidResponse) {
-        commentList.addAll( mCommentMaidResponse.getData().getDocs());
+        commentList.addAll(mCommentMaidResponse.getData().getDocs());
         currentPage++;
         listCommentAdapter.notifyDataSetChanged();
         mRecycler.post(new Runnable() {
@@ -391,7 +400,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
     @Override
     public void responseChosenMaid(boolean isResponseChosenMaid) {
-        if (isResponseChosenMaid){
+        if (isResponseChosenMaid) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle("Thông báo");
@@ -400,16 +409,16 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);
-                    if(mMaidProfileActivity != null){
+                    if (mMaidProfileActivity != null) {
                         MaidProfileActivity.mMaidProfileActivity.finish();
-                        try{
-                            if(DetailJobPostActivity.mDetailJobPostActivity != null){
+                        try {
+                            if (DetailJobPostActivity.mDetailJobPostActivity != null) {
                                 DetailJobPostActivity.mDetailJobPostActivity.finish();
                             }
-                            if(ListUserRecruitmentActivity.mListUserRecruitmentActivity != null){
+                            if (ListUserRecruitmentActivity.mListUserRecruitmentActivity != null) {
                                 ListUserRecruitmentActivity.mListUserRecruitmentActivity.finish();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                     }
@@ -418,7 +427,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             });
 
             alertDialog.show();
-        }else {
+        } else {
             ShowAlertDialog.showAlert("Thất bại", MaidProfileActivity.this);
         }
     }
@@ -427,13 +436,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     public void getMessager() {
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==REPORT)
-        {
-            if(resultCode== Activity.RESULT_OK)
-            {
-                ShowAlertDialog.showAlert(data.getStringExtra("message"),this);
+        if (requestCode == REPORT) {
+            if (resultCode == Activity.RESULT_OK) {
+                ShowAlertDialog.showAlert(data.getStringExtra("message"), this);
             }
         }
     }
