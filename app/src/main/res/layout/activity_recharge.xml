@@ -208,10 +208,10 @@
                         android:padding="1dp"/>
 
                     <TextView
+                        android:id="@+id/address_recharge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
-                        android:text="123 đường 1, phường Phạm Ngũ Lão, Quận 1, Thành phố Hồ Chí Minh."
                         android:textColor="@color/colorBlack"
                         android:textSize="10sp"
                         android:padding="2dp"/>
@@ -241,10 +241,10 @@
                         android:padding="2dp"/>
 
                     <TextView
+                        android:id="@+id/phone_recharge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
-                        android:text="1234 123 123"
                         android:textColor="@color/colorBlack"
                         android:textSize="10sp"
                         android:padding="2dp"/>

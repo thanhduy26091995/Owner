@@ -112,11 +112,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/tv_note_infobank"
                 android:padding="15dp"
                 android:textSize="10sp"
-                android:textStyle="bold"
-                android:text="Lưu ý: nên giữ lại biên lai chuyển tiền, nhất là trong trường hợp chuyển từ cây ATM không ghi dược nội dung.
-Sau khi chuyển xong hãy chat trực tiếp với nhân viên bán hàng ở phần phía dưới và chụp biên lai chuyển tiền để được thanh toán nhanh nhất."/>
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

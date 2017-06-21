@@ -166,6 +166,7 @@
         <item quantity="one">million</item>
         <item quantity="other">millions</item>
     </plurals>
+    <string name="million_zero">million</string>
     <!--statistic_screen end-->
 
     <!--contact and about screen start-->

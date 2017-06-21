@@ -141,7 +141,11 @@
     <string name="post_work">Công việc đã đăng</string>
     <string name="recharge">Nạp tiền vào tài khoản</string>
     <string name="sodutaikhoan">Số dư tài khoản: </string>
-    <string name="million">triệu</string>
+    <plurals name="million">
+        <item quantity="one">triệu</item>
+        <item quantity="other">triệu</item>
+    </plurals>
+    <string name="million_zero">triệu</string>
     <!--statistic_screen end-->
 
     <!--Maid near by-->

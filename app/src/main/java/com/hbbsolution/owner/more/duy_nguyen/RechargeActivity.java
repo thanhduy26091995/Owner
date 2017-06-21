@@ -7,25 +7,36 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.more.duy_nguyen.model.DataContact;
+import com.hbbsolution.owner.more.duy_nguyen.presenter.ContactPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RechargeActivity extends AppCompatActivity implements View.OnClickListener{
+public class RechargeActivity extends AppCompatActivity implements View.OnClickListener,ContactView{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.rlRecharge)
     RelativeLayout rlRecharge;
     @BindView(R.id.rlInfoBank)
     RelativeLayout rlInfoBank;
+    @BindView(R.id.address_recharge)
+    TextView tvAddressRecharge;
+    @BindView(R.id.phone_recharge)
+    TextView tvPhoneRecharge;
+    private ContactPresenter contactPresenter;
+    private String mNote;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
         ButterKnife.bind(this);
+        contactPresenter = new ContactPresenter(this);
         setToolbar();
+        contactPresenter.getContact();
         setEventClick();
     }
 
@@ -49,6 +60,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.rlInfoBank:
                 intent = new Intent(RechargeActivity.this,InfoBankActivity.class);
+                intent.putExtra("note",mNote);
                 startActivity(intent);
                 break;
         }
@@ -57,7 +69,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -65,5 +77,17 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void getContactSuccess(DataContact dataContact) {
+        tvAddressRecharge.setText(dataContact.getAddress());
+        tvPhoneRecharge.setText(dataContact.getPhone());
+        mNote = dataContact.getNote();
+    }
+
+    @Override
+    public void getContactFail() {
+
     }
 }

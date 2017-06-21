@@ -288,7 +288,13 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         numberPostedTask.setText(String.valueOf(onCreate));
         numberDoingTask.setText(String.valueOf(reserved + onDoing + immediate));
         numberDoneTask.setText(String.valueOf(done));
-        totalPrice.setText(String.valueOf(total) + " " + getResources().getQuantityString(R.plurals.million, total));
+        if(total!=0) {
+            totalPrice.setText(String.valueOf(total) + " " + getResources().getQuantityString(R.plurals.million, total));
+        }
+        else
+        {
+            totalPrice.setText(String.valueOf(total) + " " + getResources().getString(R.string.million_zero));
+        }
         tvWallet.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND ");
         progressBar.setVisibility(View.GONE);
         lnStatistic.setVisibility(View.VISIBLE);

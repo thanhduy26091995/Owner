@@ -10,6 +10,7 @@ import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
+import com.hbbsolution.owner.more.duy_nguyen.model.ContactResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
 import com.hbbsolution.owner.more.phuc_tran.model.AboutResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
@@ -184,4 +185,7 @@ public interface ApiInterface {
 
     @GET("more/getTerm")
     Call<AboutResponse> getAbout(@Query("id") String idTask);
+
+    @GET("more/getContact")
+    Call<ContactResponse> getContact();
 }
