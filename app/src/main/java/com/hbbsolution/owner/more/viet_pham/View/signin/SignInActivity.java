@@ -89,6 +89,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     public static GoogleApiClient mGoogleApiClient;
     private SignInGooAndFacePresenter mSignInGooAndFacePresenter;
     private ProgressDialog mProgressDialog;
+
     private String TokenID ;
     private String IdUser ;
     private String DeviceToken ;
