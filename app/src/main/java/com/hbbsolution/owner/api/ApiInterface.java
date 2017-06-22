@@ -208,7 +208,7 @@ public interface ApiInterface {
     Call<CheckInResponse> checkIn(@Part MultipartBody.Part fileImage, @Part("ownerId") RequestBody ownerId, @Part("id") RequestBody taskId);
 
 
-    @GET("more/getTerm")
+    @GET("more/getGV24HInfo")
     Call<AboutResponse> getAbout(@Query("id") String idTask);
 
     @GET("more/getContact")
