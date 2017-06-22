@@ -100,7 +100,7 @@ public class ContactActivity extends AppCompatActivity implements ContactView {
         i.setType("application/octet-stream");
 
         i.putExtra(Intent.EXTRA_EMAIL, new String[]{mail});       //{mail}  --> mail nguoi nhan
-        i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");       //chu de mail
+        i.putExtra(Intent.EXTRA_SUBJECT, "");       //chu de mail
         i.putExtra(Intent.EXTRA_TEXT, "");          //body of mail
         try {
             startActivity(i);
