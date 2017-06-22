@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.work_management.view.workmanager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,10 +48,13 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     private int mPositionTab = -1;
     private ViewPagerAdapter adapter;
 
+    public static Activity mWorkManagementActivity = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_management);
+        mWorkManagementActivity = this;
         ButterKnife.bind(this);
 
         //setupView

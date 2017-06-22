@@ -16,6 +16,8 @@ import com.hbbsolution.owner.more.phuc_tran.model.AboutResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.report.model.ReportResponse;
+import com.hbbsolution.owner.work_management.model.billGv24.BillGv24Response;
+import com.hbbsolution.owner.work_management.model.chekout.CheckOutResponse;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
@@ -188,4 +190,13 @@ public interface ApiInterface {
 
     @GET("more/getContact")
     Call<ContactResponse> getContact();
+
+    @FormUrlEncoded
+    @POST("task/checkout")
+    Call<CheckOutResponse> getInfoCheckOut(@Field("id") String idTask);
+
+    @FormUrlEncoded
+    @POST("payment/payBillGV")
+    Call<BillGv24Response> getInfoBill24h(@Field("billId") String idBill);
+
 }
