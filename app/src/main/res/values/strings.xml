@@ -250,4 +250,7 @@
     <string name="error_32">buyer_mobile không hợp lệ</string>
     <string name="error_33">buyer_address không hợp lệ</string>
     <!--paymentonlioneNganLuong end-->
+    <!--Facebook API-->
+    <string name="facebook_app_id">694403967422336</string>
+    <!--end facebook API-->
 </resources>

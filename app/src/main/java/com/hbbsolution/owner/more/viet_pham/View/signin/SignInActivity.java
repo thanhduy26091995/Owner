@@ -13,6 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -20,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -41,7 +47,9 @@ import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,9 +81,11 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     private SessionManagerUser sessionManagerUser;
     private OwnerApplication ownerApplication;
     private FirebaseAuth mFirebaseAuth;
+    private LoginManager mLoginManager;
+    private CallbackManager mCallbackManager;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     public static final int CODE_SIGN_IN_GOOGLE = 1;
-    public static int CHECK_AUTH_PROVIDER_GOOGLE = 101;
+    public static int CHECK_AUTH = 101;
     public static GoogleApiClient mGoogleApiClient;
     private SignInGooAndFacePresenter mSignInGooAndFacePresenter;
     private ProgressDialog mProgressDialog;
@@ -85,12 +95,15 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     private String emailGoogle ;
     private String nameGoogle ;
     private String imageGoogle ;
+    private List<String> listPermissonFacebook = Arrays.asList("email","public_profile");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
+        mCallbackManager = CallbackManager.Factory.create();
+        mLoginManager = LoginManager.getInstance();
         sessionManagerUser = new SessionManagerUser(this);
         ownerApplication = new OwnerApplication();
         toolbar.setTitle("");
@@ -104,6 +117,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         mSignInGooAndFacePresenter = new SignInGooAndFacePresenter(this);
         mSignInPresenter = new SignInPresenter(this);
         loginGoogle();
+
     }
 
     @Override
@@ -153,6 +167,31 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
             @Override
             public void onClick(View v) {
                 SignInGoogle(mGoogleApiClient);
+            }
+        });
+
+        imbFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLoginManager.logInWithReadPermissions(SignInActivity.this,listPermissonFacebook);
+                mLoginManager.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        CHECK_AUTH = 102;
+                        String TokenId = loginResult.getAccessToken().getToken();
+                        ConfirmSignInFireBase(TokenId);
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+
+                    }
+                });
             }
         });
 
@@ -245,7 +284,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
 
     }
     private void SignInGoogle(GoogleApiClient apiClient) {
-        CHECK_AUTH_PROVIDER_GOOGLE = 101;
+        CHECK_AUTH = 101;
         Intent iDNGoogle = Auth.GoogleSignInApi.getSignInIntent(apiClient);
         startActivityForResult(iDNGoogle, CODE_SIGN_IN_GOOGLE);
     }
@@ -265,13 +304,18 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
                 mSignInGooAndFacePresenter.signInGooAndFace(IdUser,TokenID,DeviceToken);
                 ConfirmSignInFireBase(TokenID);
             }
+        }else {
+            mCallbackManager.onActivityResult(requestCode,resultCode,data);
         }
     }
 
     private void ConfirmSignInFireBase(String TokenID) {
         // Confirm google
-        if (CHECK_AUTH_PROVIDER_GOOGLE == 101) {
+        if (CHECK_AUTH == 101) {
             AuthCredential authCredential = GoogleAuthProvider.getCredential(TokenID, null);
+            mFirebaseAuth.signInWithCredential(authCredential);
+        } else if (CHECK_AUTH == 102)  {
+            AuthCredential authCredential = FacebookAuthProvider.getCredential(TokenID);
             mFirebaseAuth.signInWithCredential(authCredential);
         }
     }
