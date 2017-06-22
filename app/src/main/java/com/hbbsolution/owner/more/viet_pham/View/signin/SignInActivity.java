@@ -276,6 +276,9 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     @Override
     public void displaySignInGooAndFace(BodyResponse bodyResponse) {
         if (bodyResponse.isStatus() == true) {
+            sessionManagerUser.createLoginSession(bodyResponse.getData());
+            hashDataUser = sessionManagerUser.getUserDetails();
+            ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
