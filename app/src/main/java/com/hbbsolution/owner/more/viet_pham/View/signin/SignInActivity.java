@@ -2,13 +2,11 @@ package com.hbbsolution.owner.more.viet_pham.View.signin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,8 +19,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
-import com.google.android.gms.common.api.ResultCallback;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.api.ApiClient;
@@ -32,9 +32,11 @@ import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
 import com.hbbsolution.owner.more.phuc_tran.ForgotPassActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Presenter.SignInGooAndFacePresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp1Activity;
+import com.hbbsolution.owner.more.viet_pham.View.update_google_face.UpdateGooAndFaceActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -48,9 +50,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 5/9/2017.
  */
 
-public class SignInActivity extends AppCompatActivity implements MoreView
-        , GoogleApiClient.OnConnectionFailedListener
-{
+public class SignInActivity extends AppCompatActivity implements MoreView, FirebaseAuth.AuthStateListener {
     @BindView(R.id.toobar)
     Toolbar toolbar;
     @BindView(R.id.bt_work_around_here)
@@ -72,11 +72,19 @@ public class SignInActivity extends AppCompatActivity implements MoreView
     private SignInPresenter mSignInPresenter;
     private SessionManagerUser sessionManagerUser;
     private OwnerApplication ownerApplication;
+    private FirebaseAuth mFirebaseAuth;
     private HashMap<String, String> hashDataUser = new HashMap<>();
-
+    public static final int CODE_SIGN_IN_GOOGLE = 1;
+    public static int CHECK_AUTH_PROVIDER_GOOGLE = 101;
     public static GoogleApiClient mGoogleApiClient;
+    private SignInGooAndFacePresenter mSignInGooAndFacePresenter;
     private ProgressDialog mProgressDialog;
-    private static final int RC_SIGN_IN = 007;
+    private String TokenID ;
+    private String IdUser ;
+    private String DeviceToken ;
+    private String emailGoogle ;
+    private String nameGoogle ;
+    private String imageGoogle ;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,16 +94,16 @@ public class SignInActivity extends AppCompatActivity implements MoreView
         sessionManagerUser = new SessionManagerUser(this);
         ownerApplication = new OwnerApplication();
         toolbar.setTitle("");
-
+        mFirebaseAuth  = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addEvents();
 
+        mSignInGooAndFacePresenter = new SignInGooAndFacePresenter(this);
         mSignInPresenter = new SignInPresenter(this);
-              loginGoogle();
-
+        loginGoogle();
     }
 
     @Override
@@ -144,7 +152,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView
         imbGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                               signIn();
+                SignInGoogle(mGoogleApiClient);
             }
         });
 
@@ -195,142 +203,97 @@ public class SignInActivity extends AppCompatActivity implements MoreView
 
     }
 
-    //LogIn_google----Start---
+    @Override
+    public void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse) {
+        if (dataUpdateResponse.isStatus() == true)
+        {
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }else {
+            Bundle bUpdate = new Bundle();
+            bUpdate.putString("idUser",IdUser);
+            bUpdate.putString("TokenId",TokenID);
+            bUpdate.putString("deviceToken",DeviceToken);
+            bUpdate.putString("emailGoogle",emailGoogle);
+            bUpdate.putString("imageGoogle",imageGoogle);
+            bUpdate.putString("nameGoogle",nameGoogle);
+            Intent iUpdate = new Intent(SignInActivity.this, UpdateGooAndFaceActivity.class);
+            iUpdate.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            iUpdate.putExtra("infoGoogle",bUpdate);
+            startActivity(iUpdate);
+            finish();
+        }
+    }
 
     private void loginGoogle() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder()
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, (GoogleApiClient.OnConnectionFailedListener)this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
 
     }
-
-
-
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+    private void SignInGoogle(GoogleApiClient apiClient) {
+        CHECK_AUTH_PROVIDER_GOOGLE = 101;
+        Intent iDNGoogle = Auth.GoogleSignInApi.getSignInIntent(apiClient);
+        startActivityForResult(iDNGoogle, CODE_SIGN_IN_GOOGLE);
     }
-
-
-//    private void signOut() {
-//        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-//                new ResultCallback<Status>() {
-//                    @Override
-//                    public void onResult(Status status) {
-////                        updateUI(false);
-//                    }
-//                });
-//    }
-//
-//
-//    private void revokeAccess() {
-//        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-//                new ResultCallback<Status>() {
-//                    @Override
-//                    public void onResult(Status status) {
-////                        updateUI(false);
-//                    }
-//                });
-//    }
-
-
-    private void handleSignInResult(GoogleSignInResult result) {
-        Log.d("TAG", "handleSignInResult:" + result.isSuccess());
-        if (result.isSuccess()) {
-            //Cập nhật giao diện khi đăng nhập thành công
-            GoogleSignInAccount acct = result.getSignInAccount();
-
-            Log.e("TAG", "display name: " + acct.getDisplayName());
-
-            String id=acct.getId();
-            String userToken=acct.getIdToken();
-            String personName = acct.getDisplayName();
-            Uri personPhotoUrl =  acct.getPhotoUrl();
-            String email = acct.getEmail();
-            String deviceToken = FirebaseInstanceId.getInstance().getToken();
-
-            Log.e("TS", "Name: " + personName + ", \nemail: " + email.toString()
-                    + ", \nImage: " + personPhotoUrl+", \nid: " + id+", \ndeviceToken: " + deviceToken+", \nuserToken: " + userToken);
-            hideProgressDialog();
-
-            Intent iHome = new Intent(SignInActivity.this, HomeActivity.class);
-            startActivity(iHome);
-
-        } else {
-            // Signed out, show unauthenticated UI.
-//            updateUI(false);
-        }
-
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Nhập kết quả trả về khi đăng nhập
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                GoogleSignInAccount googleSignInAccount = googleSignInResult.getSignInAccount();
+                TokenID = googleSignInAccount.getIdToken();
+                IdUser = googleSignInAccount.getId();
+                DeviceToken = FirebaseInstanceId.getInstance().getToken();
+                emailGoogle = googleSignInAccount.getEmail();
+                nameGoogle = googleSignInAccount.getDisplayName();
+                imageGoogle = googleSignInAccount.getPhotoUrl().toString();
+                mSignInGooAndFacePresenter.signInGooAndFace(IdUser,TokenID,DeviceToken);
+                ConfirmSignInFireBase(TokenID);
+            }
+        }
+    }
+
+    private void ConfirmSignInFireBase(String TokenID) {
+        // Confirm google
+        if (CHECK_AUTH_PROVIDER_GOOGLE == 101) {
+            AuthCredential authCredential = GoogleAuthProvider.getCredential(TokenID, null);
+            mFirebaseAuth.signInWithCredential(authCredential);
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (opr.isDone()) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
-            Log.d("TAG", "Got cached sign-in");
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
-            showProgressDialog();
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(GoogleSignInResult googleSignInResult) {
-                    hideProgressDialog();
-                    handleSignInResult(googleSignInResult);
-                }
-            });
-
-
-            hideProgressDialog();
-        }
-
+        mFirebaseAuth.addAuthStateListener(this);
     }
-
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d("TAG", "onConnectionFailed:" + connectionResult);
+    protected void onStop() {
+        super.onStop();
+        mFirebaseAuth.removeAuthStateListener(this);
     }
 
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if(user != null){
 
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
         }
     }
-
-    //LogIn_google----End---
 
 }

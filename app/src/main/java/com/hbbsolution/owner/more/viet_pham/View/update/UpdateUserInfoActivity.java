@@ -115,6 +115,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
 
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -279,5 +280,10 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
             mUpdateUserPresenter.updateUserInfo(mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, iGender, mFileContentResolver);
 
         }
+    }
+
+    @Override
+    public void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse) {
+
     }
 }

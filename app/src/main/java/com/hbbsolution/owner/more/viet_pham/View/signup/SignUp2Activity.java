@@ -278,4 +278,9 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             mProgressDialog.dismiss();
         }
     }
+
+    @Override
+    public void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse) {
+
+    }
 }
