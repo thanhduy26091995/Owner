@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.model.DataContact;
 import com.hbbsolution.owner.more.duy_nguyen.presenter.ContactPresenter;
+import com.hbbsolution.owner.paymentonline.ui.activity.PaymentOnlineActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +58,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         Intent intent;
         switch (v.getId()) {
             case R.id.rlRecharge:
+                intent = new Intent(RechargeActivity.this,PaymentOnlineActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rlInfoBank:
                 intent = new Intent(RechargeActivity.this,InfoBankActivity.class);
