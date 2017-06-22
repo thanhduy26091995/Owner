@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,19 +16,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.more.duy_nguyen.ContactView;
+import com.hbbsolution.owner.more.duy_nguyen.model.DataContact;
+import com.hbbsolution.owner.more.duy_nguyen.presenter.ContactPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends AppCompatActivity implements ContactView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.contact_title_toothbar)
-    TextView txtContact_title_toothbar;
+    TextView txt_contact_title_toothbar;
     @BindView(R.id.btn_call)
     Button btn_call;
     @BindView(R.id.btn_email)
     Button btn_email;
+    @BindView(R.id.tvName)
+    TextView txt_name;
+    @BindView(R.id.tvAddr)
+    TextView txt_address;
+
+    private ContactPresenter mContactPresenter;
+    private String phoneNo;
+    private String mail;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +55,11 @@ public class ContactActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        txtContact_title_toothbar.setText(getResources().getString(R.string.contact));
+        txt_contact_title_toothbar.setText(getResources().getString(R.string.contact));
+
+        mContactPresenter = new ContactPresenter(this);
+
+        mContactPresenter.getContact();
 
         addEvents();
     }
@@ -62,7 +79,7 @@ public class ContactActivity extends AppCompatActivity {
         btn_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneNo = "0900000000";  //set tạm
+
                 clickCall(phoneNo);
             }
         });
@@ -70,7 +87,6 @@ public class ContactActivity extends AppCompatActivity {
         btn_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mail = "mailmail@gmail.com"; //set tạm
                 clickEmail(mail);
             }
         });
@@ -101,5 +117,18 @@ public class ContactActivity extends AppCompatActivity {
         } else {
             Toast.makeText(ContactActivity.this, R.string.enter_phonenumber, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void getContactSuccess(DataContact dataContact) {
+        mail = dataContact.getEmail();
+        phoneNo = dataContact.getPhone();
+        txt_name.setText(dataContact.getName());
+        txt_address.setText(dataContact.getAddress());
+        Log.e("thongtin",""+mail+phoneNo+dataContact.getName()+dataContact.getAddress());
+    }
+
+    @Override
+    public void getContactFail() {
     }
 }

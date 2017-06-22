@@ -1,14 +1,18 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +20,11 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
+import com.hbbsolution.owner.work_management.model.chekout.CheckOutResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
+import com.hbbsolution.owner.work_management.presenter.CheckOutAndBillPresenter;
 import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +42,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobDoingActivity extends AppCompatActivity implements View.OnClickListener{
+public class DetailJobDoingActivity extends AppCompatActivity implements View.OnClickListener, CheckOutView{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -67,6 +74,13 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
     TextView txtAddressJobDoing;
     @BindView(R.id.lo_infoMaidDoing)
     RelativeLayout lo_infoMaidDoing;
+    @BindView(R.id.txt_lo_infoMail)
+    TextView txt_lo_infoMail;
+    @BindView(R.id.progressDetailJobDoing)
+    ProgressBar progressDetailJobDoing;
+
+    private CheckOutAndBillPresenter checkOutAndBillPresenter;
+    public static Activity mDetailJobDoingActivity = null;
 
 
     private DatumPending mDatum;
@@ -74,6 +88,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_job_doing);
+        mDetailJobDoingActivity = this;
 
         ButterKnife.bind(this);
         toolbar.setTitle("");
@@ -83,6 +98,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
 
         lo_ChosenCheckin.setOnClickListener(this);
         lo_infoMaidDoing.setOnClickListener(this);
+        checkOutAndBillPresenter = new CheckOutAndBillPresenter(this);
 
         final Intent intent = getIntent();
         mDatum = (DatumPending) intent.getSerializableExtra("mDatum");
@@ -130,8 +146,11 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.lo_ChosenCheckin:
-                Intent itComment = new Intent(DetailJobDoingActivity.this, PaymentActivity.class);
-                startActivity(itComment);
+                checkOutAndBillPresenter.getInfoCheckOut(mDatum.getId());
+                progressDetailJobDoing.setVisibility(View.VISIBLE);
+                txt_lo_infoMail.setVisibility(View.VISIBLE);
+//                Intent itComment = new Intent(DetailJobDoingActivity.this, PaymentActivity.class);
+//                startActivity(itComment);
                 break;
             case R.id.lo_infoMaidDoing:
                 Intent itInfoUser = new Intent(DetailJobDoingActivity.this, MaidProfileActivity.class);
@@ -148,4 +167,35 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         EventBus.getDefault().postSticky("2");
     }
 
+    @Override
+    public void getInfoCheckOut(final CheckOutResponse checkOutResponse) {
+        progressDetailJobDoing.setVisibility(View.GONE);
+        txt_lo_infoMail.setVisibility(View.GONE);
+
+        boolean isCheckOut = checkOutResponse.getStatus();
+        if(isCheckOut) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage("Check out thành công");
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent itPayment = new Intent(DetailJobDoingActivity.this, PaymentActivity.class);
+                    Bundle bdPayment = new Bundle();
+                    bdPayment.putSerializable("datacheckout", checkOutResponse.getData());
+                    bdPayment.putSerializable("mDatum", mDatum);
+                    itPayment.putExtra("databill", bdPayment);
+                    startActivity(itPayment);
+                }
+            });
+
+            alertDialog.show();
+        }
+    }
+
+    @Override
+    public void getErrorCheckOut(String error) {
+        ShowAlertDialog.showAlert("Thất bại", DetailJobDoingActivity.this);
+    }
 }

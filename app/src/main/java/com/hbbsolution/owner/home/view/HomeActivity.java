@@ -39,11 +39,13 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     RelativeLayout mLayout_YourTasks;
     @BindView(R.id.lo_history)
     RelativeLayout mLayout_History;
-    private HomePresenter mHomePresenter;
     @BindView(R.id.txt_work_management)
     TextView txt_work_management;
+    @BindView(R.id.txt_work_management_history)
+    TextView txt_work_management_history;
     private SessionManagerForLanguage sessionManagerForLanguage;
     private boolean isPause = false;
+    private HomePresenter mHomePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +65,11 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         sessionManagerForLanguage = new SessionManagerForLanguage(this);
         String lang = sessionManagerForLanguage.getLanguage();
         if (lang.equals("Tiếng Việt")) {
-            txt_work_management.setPadding(20, 5, 20, 0);
+            txt_work_management.setPadding(20, 0, 20, 5);
+            txt_work_management_history.setPadding(15, 0, 15, 5);
         } else if (lang.equals("English")) {
-            txt_work_management.setPadding(10, 5, 10, 0);
+            txt_work_management.setPadding(10, 0, 10, 5);
+            txt_work_management_history.setPadding(5, 0, 5, 5);
         }
 //        mHomePresenter = new HomePresenter(this);
 //        mHomePresenter.requestCheckToken();

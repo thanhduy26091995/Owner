@@ -37,7 +37,6 @@ public class DetailJobPostPresenter {
         responseCall.enqueue(new Callback<JobPostResponse>() {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
-                Log.d("onResponse", response.code() + "");
                 try {
                     if (response.isSuccessful()) {
 
@@ -45,14 +44,12 @@ public class DetailJobPostPresenter {
                         mDetailJobPostView.displayNotifyJobPost(isJbPost);
                     }
                 } catch (Exception e) {
-                    Log.d("Exception", e.toString());
                 }
-
             }
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-                Log.d("onFailure", t.toString());
+
             }
         });
     }
