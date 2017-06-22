@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -19,8 +18,6 @@ import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
-
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +40,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
-    private int tabMore, mQuantityJobPost;
+    private Integer tabMore, mQuantityJobPost;
     private boolean isPause = false, mTab = false;
     private int mPositionTab = -1;
     private ViewPagerAdapter adapter;
@@ -66,9 +63,8 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
         txtManagement_compose_toothbar.setOnClickListener(this);
         createFragment();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            tabMore = extras.getInt("tabMore");
+        tabMore = getIntent().getIntExtra("tabMore", 0);
+        if (tabMore != null) {
             mViewPager.setCurrentItem(tabMore);
         }
     }

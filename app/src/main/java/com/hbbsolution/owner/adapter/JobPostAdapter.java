@@ -63,15 +63,18 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
             holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
             if (mDatum.getStakeholders().getRequest().size() == 0) {
                 holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-            }else {
+            } else {
                 holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
             }
         }
 
-        Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
-                .into(holder.imgTypeJobPost);
+        if (mDatum.getInfo().getWork().getImage() != null) {
+            Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
+                    .placeholder(R.drawable.no_image)
+                    .error(R.drawable.no_image)
+                    .into(holder.imgTypeJobPost);
+        }
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

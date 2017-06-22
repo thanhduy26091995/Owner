@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
-import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.paymentonline.ui.activity.PaymentOnlineActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -27,12 +26,9 @@ import com.hbbsolution.owner.work_management.model.billGv24.BillGv24Response;
 import com.hbbsolution.owner.work_management.model.chekout.DataBill;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
-import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 import com.hbbsolution.owner.work_management.view.payment.presenter.PaymentPresenter;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -168,7 +164,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             payment_helper_address.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
             payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getStakeholders().getMadi().getWorkInfo().getPrice()) + " VND/giờ ");
             payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
-            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mDataBill.getPeriod()));
+//            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mDataBill.getPeriod()));
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mDataBill.getPrice()) + " VND");
             Glide.with(PaymentActivity.this).load(mDatum.getInfo().getWork().getImage())
                     .thumbnail(0.5f)
