@@ -113,14 +113,14 @@ public interface ApiInterface {
 
     @Multipart
     @POST("auth/thirdLogin")
-    Call<DataUpdateResponse> signInGoogleAndFace(@Part("id") RequestBody username,
+    Call<BodyResponse> signInGoogleAndFace(@Part("id") RequestBody username,
                                      @Part("token") RequestBody password,
                                      @Part("device_token") RequestBody deviceToken
     );
 
     @Multipart
     @POST("auth/thirdRegister")
-    Call<DataUpdateResponse> updateGoogleAndFace(   @Part("id") RequestBody id,
+    Call<BodyResponse> updateGoogleAndFace(   @Part("id") RequestBody id,
                                                     @Part("token") RequestBody Token,
                                                     @Part("device_token") RequestBody deviceToken,
                                                     @Part("phone") RequestBody phone,

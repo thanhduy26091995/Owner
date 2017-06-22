@@ -283,7 +283,8 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     }
 
     @Override
-    public void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse) {
+    public void displaySignInGooAndFace(BodyResponse bodyResponse) {
 
     }
+
 }

@@ -130,7 +130,9 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
     }
 
     @Override
-    public void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse) {
+    public void displaySignInGooAndFace(BodyResponse bodyResponse) {
 
     }
+
+
 }
