@@ -15,6 +15,8 @@ import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActi
 import java.util.List;
 import java.util.Map;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by buivu on 28/10/2016.
  */
@@ -72,18 +74,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (NotificationUtils.isAppIsInBackground(getApplicationContext())) {
             pushNotification(remoteMessage);
         } else {
-            if (!isAtActivity("WorkManagementActivity")) {
-                if (status.equals("2")) {
-                    pushNotification(remoteMessage);
-                }
-
-            }
-            if (!isAtActivity("CommentActivity")) {
-                if (status.equals("comment")) {
-                    pushNotification(remoteMessage);
-                }
-
-            }
+            pushNotification(remoteMessage);
         }
     }
 
@@ -91,25 +82,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
         PendingIntent pendingIntent = null;
         if (data.get("status").equals("2")) {
+            EventBus.getDefault().postSticky(false);
+            EventBus.getDefault().postSticky("1");
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 1);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         }
-//
-//        if (data.get("type").equals("comment")) {
-//            Intent intent = new Intent(this, CommentActivity.class);
-//            Homestay homestay = new Homestay(data.get("homestayId"), Integer.parseInt(data.get("districtId")), Integer.parseInt(data.get("provinceId")));
-//            intent.putExtra(Constants.HOMESTAY, homestay);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-//        }
-//
-//        if (data.get("type").equals("other")) {
-//            Intent intent = new Intent(this, PaymentOnlineActivity.class);
-//            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-//        }
-
+        else if (data.get("status").equals("0")) {
+            Intent intent = new Intent(this, WorkManagementActivity.class);
+            intent.putExtra("tabMore", 0);
+            EventBus.getDefault().postSticky(false);
+            EventBus.getDefault().postSticky("0");
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setContentTitle(data.get("title"))

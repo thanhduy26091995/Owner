@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
@@ -61,16 +61,16 @@ public class UpdateInfoGooAndFacePresenter {
         requestBodyLng = RequestBody.create(MediaType.parse("text"), String.valueOf(lng));
         requestBodyFileImage = RequestBody.create(MediaType.parse("text"), filePath);
         mApiService.updateGoogleAndFace(requestBodyId,requestBodyToken,requestBodyDeviceToken,requestBodyPhone,requestBodyUserName,requestBodyName,requestBodyEmail,
-                requestBodyLocation,requestBodyLat,requestBodyLng,requestBodyGender,requestBodyFileImage).enqueue(new Callback<DataUpdateResponse>() {
+                requestBodyLocation,requestBodyLat,requestBodyLng,requestBodyGender,requestBodyFileImage).enqueue(new Callback<BodyResponse>() {
             @Override
-            public void onResponse(Call<DataUpdateResponse> call, Response<DataUpdateResponse> response) {
-                DataUpdateResponse dataUpdateResponse = response.body();
-                mMoreView.displaySignInGooAndFace(dataUpdateResponse);
+            public void onResponse(Call<BodyResponse> call, Response<BodyResponse> response) {
+                BodyResponse bodyResponse = response.body();
+                mMoreView.displaySignInGooAndFace(bodyResponse);
 
             }
 
             @Override
-            public void onFailure(Call<DataUpdateResponse> call, Throwable t) {
+            public void onFailure(Call<BodyResponse> call, Throwable t) {
 
             }
         });

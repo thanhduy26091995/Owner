@@ -2,7 +2,7 @@ package com.hbbsolution.owner.more.viet_pham.Presenter;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 
 import okhttp3.MediaType;
@@ -29,12 +29,12 @@ public class SignInGooAndFacePresenter {
         RequestBody requestBodyId = RequestBody.create(MediaType.parse("text"), id);
         RequestBody requestBodyToken= RequestBody.create(MediaType.parse("text"), token);
         RequestBody requestBodyDeviceToken = RequestBody.create(MediaType.parse("text"), deviceToken);
-        mApiService.signInGoogleAndFace(requestBodyId, requestBodyToken, requestBodyDeviceToken).enqueue(new Callback<DataUpdateResponse>() {
+        mApiService.signInGoogleAndFace(requestBodyId, requestBodyToken, requestBodyDeviceToken).enqueue(new Callback<BodyResponse>() {
             @Override
-            public void onResponse(Call<DataUpdateResponse> call, Response<DataUpdateResponse> response) {
+            public void onResponse(Call<BodyResponse> call, Response<BodyResponse> response) {
                 try {
-                    DataUpdateResponse dataUpdateResponse = response.body();
-                    mMoreView.displaySignInGooAndFace(dataUpdateResponse);
+                    BodyResponse bodyResponse = response.body();
+                    mMoreView.displaySignInGooAndFace(bodyResponse);
 
                 } catch (Exception e) {
                     mMoreView.displayError();
@@ -42,7 +42,7 @@ public class SignInGooAndFacePresenter {
             }
 
             @Override
-            public void onFailure(Call<DataUpdateResponse> call, Throwable t) {
+            public void onFailure(Call<BodyResponse> call, Throwable t) {
 
             }
         });

@@ -7,12 +7,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -20,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -41,7 +50,12 @@ import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,29 +87,36 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     private SessionManagerUser sessionManagerUser;
     private OwnerApplication ownerApplication;
     private FirebaseAuth mFirebaseAuth;
+    private LoginManager mLoginManager;
+    private CallbackManager mCallbackManager;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     public static final int CODE_SIGN_IN_GOOGLE = 1;
-    public static int CHECK_AUTH_PROVIDER_GOOGLE = 101;
+    public static int CHECK_AUTH = 101;
     public static GoogleApiClient mGoogleApiClient;
     private SignInGooAndFacePresenter mSignInGooAndFacePresenter;
     private ProgressDialog mProgressDialog;
-    private String TokenID ;
-    private String IdUser ;
-    private String DeviceToken ;
-    private String emailGoogle ;
-    private String nameGoogle ;
-    private String imageGoogle ;
+
+    private String TokenID;
+    private String IdUser;
+    private String DeviceToken;
+    private String emailGoogleOrFace;
+    private String nameGoogleOrFace;
+    private String imageGoogleOrFace;
+    private List<String> listPermissonFacebook = Arrays.asList("email", "public_profile");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
+        mCallbackManager = CallbackManager.Factory.create();
+        mLoginManager = LoginManager.getInstance();
         sessionManagerUser = new SessionManagerUser(this);
         ownerApplication = new OwnerApplication();
         toolbar.setTitle("");
-        mFirebaseAuth  = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
+        mProgressDialog = new ProgressDialog(this);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,6 +125,20 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         mSignInGooAndFacePresenter = new SignInGooAndFacePresenter(this);
         mSignInPresenter = new SignInPresenter(this);
         loginGoogle();
+
+    }
+
+    private void showProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Đang tải...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override
@@ -129,9 +164,15 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
             public void onClick(View view) {
                 String username = editUserName.getText().toString();
                 String password = editPassword.getText().toString();
-                String deviceToken = FirebaseInstanceId.getInstance().getToken();
-                btnSignIn.setEnabled(false);
-                mSignInPresenter.signIn(username, password, deviceToken);
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), SignInActivity.this);
+                } else {
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                    btnSignIn.setEnabled(false);
+                    showProgress();
+                    mSignInPresenter.signIn(username, password, deviceToken);
+                }
+
             }
         });
         btnForgetPassword.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +193,54 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         imbGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignInGoogle(mGoogleApiClient);
+
+//                mProgressDialog.show();
+//                mProgressDialog.setCanceledOnTouchOutside(false);
+                signInGoogle(mGoogleApiClient);
+            }
+        });
+
+        imbFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLoginManager.logInWithReadPermissions(SignInActivity.this, listPermissonFacebook);
+                mLoginManager.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        CHECK_AUTH = 102;
+                        TokenID = loginResult.getAccessToken().getToken();
+                        confirmSignInFireBase(TokenID);
+                        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                try {
+                                    IdUser = object.getString("id");
+                                    nameGoogleOrFace = object.getString("name");
+                                    emailGoogleOrFace = object.getString("email");
+                                    imageGoogleOrFace = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                                    DeviceToken = FirebaseInstanceId.getInstance().getToken();
+                                    mSignInGooAndFacePresenter.signInGooAndFace(IdUser, TokenID, DeviceToken);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        Bundle parameter = new Bundle();
+                        parameter.putString("fields", "id,name,gender,email,picture");
+                        request.setParameters(parameter);
+                        request.executeAsync();
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+
+                    }
+                });
             }
         });
 
@@ -169,6 +257,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
         btnSignIn.setEnabled(true);
         if (bodyResponse.getStatus() == true) {
+            hideProgress();
             //save session
             sessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = sessionManagerUser.getUserDetails();
@@ -204,27 +293,34 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     }
 
     @Override
-    public void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse) {
-        if (dataUpdateResponse.isStatus() == true)
-        {
+    public void displaySignInGooAndFace(BodyResponse bodyResponse) {
+        hideProgress();
+        if (bodyResponse.isStatus() == true) {
+            sessionManagerUser.createLoginSession(bodyResponse.getData());
+            hashDataUser = sessionManagerUser.getUserDetails();
+            ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
-        }else {
-            Bundle bUpdate = new Bundle();
-            bUpdate.putString("idUser",IdUser);
-            bUpdate.putString("TokenId",TokenID);
-            bUpdate.putString("deviceToken",DeviceToken);
-            bUpdate.putString("emailGoogle",emailGoogle);
-            bUpdate.putString("imageGoogle",imageGoogle);
-            bUpdate.putString("nameGoogle",nameGoogle);
-            Intent iUpdate = new Intent(SignInActivity.this, UpdateGooAndFaceActivity.class);
-            iUpdate.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            iUpdate.putExtra("infoGoogle",bUpdate);
-            startActivity(iUpdate);
-            finish();
+        } else {
+            pushInforGoogleAndFace();
         }
+    }
+
+    public void pushInforGoogleAndFace() {
+        Bundle bUpdate = new Bundle();
+        bUpdate.putString("idUser", IdUser);
+        bUpdate.putString("TokenId", TokenID);
+        bUpdate.putString("deviceToken", DeviceToken);
+        bUpdate.putString("emailGoogle", emailGoogleOrFace);
+        bUpdate.putString("imageGoogle", imageGoogleOrFace);
+        bUpdate.putString("nameGoogle", nameGoogleOrFace);
+        Intent iUpdate = new Intent(SignInActivity.this, UpdateGooAndFaceActivity.class);
+        iUpdate.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        iUpdate.putExtra("infoGoogle", bUpdate);
+        startActivity(iUpdate);
+        finish();
     }
 
     private void loginGoogle() {
@@ -244,34 +340,43 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
                 .build();
 
     }
-    private void SignInGoogle(GoogleApiClient apiClient) {
-        CHECK_AUTH_PROVIDER_GOOGLE = 101;
+
+    private void signInGoogle(GoogleApiClient apiClient) {
+        CHECK_AUTH = 101;
         Intent iDNGoogle = Auth.GoogleSignInApi.getSignInIntent(apiClient);
         startActivityForResult(iDNGoogle, CODE_SIGN_IN_GOOGLE);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (requestCode == CODE_SIGN_IN_GOOGLE) {
             if (resultCode == RESULT_OK) {
+                showProgress();
                 GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                 GoogleSignInAccount googleSignInAccount = googleSignInResult.getSignInAccount();
                 TokenID = googleSignInAccount.getIdToken();
                 IdUser = googleSignInAccount.getId();
                 DeviceToken = FirebaseInstanceId.getInstance().getToken();
-                emailGoogle = googleSignInAccount.getEmail();
-                nameGoogle = googleSignInAccount.getDisplayName();
-                imageGoogle = googleSignInAccount.getPhotoUrl().toString();
-                mSignInGooAndFacePresenter.signInGooAndFace(IdUser,TokenID,DeviceToken);
-                ConfirmSignInFireBase(TokenID);
+                emailGoogleOrFace = googleSignInAccount.getEmail();
+                nameGoogleOrFace = googleSignInAccount.getDisplayName();
+                imageGoogleOrFace = googleSignInAccount.getPhotoUrl().toString();
+                mSignInGooAndFacePresenter.signInGooAndFace(IdUser, TokenID, DeviceToken);
+                confirmSignInFireBase(TokenID);
             }
+        } else {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private void ConfirmSignInFireBase(String TokenID) {
+    private void confirmSignInFireBase(String TokenID) {
         // Confirm google
-        if (CHECK_AUTH_PROVIDER_GOOGLE == 101) {
+        if (CHECK_AUTH == 101) {
             AuthCredential authCredential = GoogleAuthProvider.getCredential(TokenID, null);
+            mFirebaseAuth.signInWithCredential(authCredential);
+
+        } else if (CHECK_AUTH == 102) {
+            AuthCredential authCredential = FacebookAuthProvider.getCredential(TokenID);
             mFirebaseAuth.signInWithCredential(authCredential);
         }
     }
@@ -291,7 +396,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if(user != null){
+        if (user != null) {
 
         }
     }

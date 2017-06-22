@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,13 +16,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.base.ImageLoader;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.UpdateInfoGooAndFacePresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
+import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +67,8 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
     private String imageGoogle ;
     private String mFullName,mPhoneName, mLocation, mGender;
     private int iGender;
+    private SessionManagerUser mSessionManagerUser;
+    private HashMap<String, String> hashDataUser = new HashMap<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +81,18 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
         loadInfoFromGooAndFace();
         mUpdateInfoGooAndFacePresenter = new UpdateInfoGooAndFacePresenter(this);
         mProgressDialog = new ProgressDialog(this);
+        mSessionManagerUser = new SessionManagerUser(this);
         addEvents();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void addEvents() {
 
@@ -193,13 +210,19 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
     }
 
     @Override
-    public void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse) {
+    public void displaySignInGooAndFace(BodyResponse bodyResponse) {
         mProgressDialog.dismiss();
-        if (dataUpdateResponse.isStatus() == true)
+        if (bodyResponse.isStatus() == true)
         {
-            ShowAlertDialog.showAlert("Cập nhật thông tin thành công",UpdateGooAndFaceActivity.this);
+            mSessionManagerUser.createLoginSession(bodyResponse.getData());
+            hashDataUser = mSessionManagerUser.getUserDetails();
+            ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
+            Intent intent = new Intent(UpdateGooAndFaceActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         }else {
-            ShowAlertDialog.showAlert("Cập nhật thông tin không thành công",UpdateGooAndFaceActivity.this);
+            ShowAlertDialog.showAlert("Cập nhật thông tin không thành công. Email đã tồn tại",UpdateGooAndFaceActivity.this);
         }
     }
 }

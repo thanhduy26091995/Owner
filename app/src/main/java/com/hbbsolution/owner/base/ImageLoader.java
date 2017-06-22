@@ -35,8 +35,9 @@ public class ImageLoader {
                     .error(R.drawable.avatar)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
-                    .thumbnail(0.5f)
+                    .thumbnail(0.1f)
                     .placeholder(R.drawable.avatar)
+                    .dontAnimate()
                     .into(imageView);
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
