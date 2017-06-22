@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -127,6 +128,19 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
 
     }
 
+    private void showProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Đang tải...");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -150,11 +164,15 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
             public void onClick(View view) {
                 String username = editUserName.getText().toString();
                 String password = editPassword.getText().toString();
-                String deviceToken = FirebaseInstanceId.getInstance().getToken();
-                btnSignIn.setEnabled(false);
-                mProgressDialog.show();
-                mProgressDialog.setCanceledOnTouchOutside(false);
-                mSignInPresenter.signIn(username, password, deviceToken);
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), SignInActivity.this);
+                } else {
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                    btnSignIn.setEnabled(false);
+                    showProgress();
+                    mSignInPresenter.signIn(username, password, deviceToken);
+                }
+
             }
         });
         btnForgetPassword.setOnClickListener(new View.OnClickListener() {
@@ -176,9 +194,9 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
             @Override
             public void onClick(View v) {
 
-                mProgressDialog.show();
-                mProgressDialog.setCanceledOnTouchOutside(false);
-                SignInGoogle(mGoogleApiClient);
+//                mProgressDialog.show();
+//                mProgressDialog.setCanceledOnTouchOutside(false);
+                signInGoogle(mGoogleApiClient);
             }
         });
 
@@ -191,7 +209,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
                     public void onSuccess(LoginResult loginResult) {
                         CHECK_AUTH = 102;
                         TokenID = loginResult.getAccessToken().getToken();
-                        ConfirmSignInFireBase(TokenID);
+                        confirmSignInFireBase(TokenID);
                         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -239,6 +257,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
         btnSignIn.setEnabled(true);
         if (bodyResponse.getStatus() == true) {
+            hideProgress();
             //save session
             sessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = sessionManagerUser.getUserDetails();
@@ -321,7 +340,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
 
     }
 
-    private void SignInGoogle(GoogleApiClient apiClient) {
+    private void signInGoogle(GoogleApiClient apiClient) {
         CHECK_AUTH = 101;
         Intent iDNGoogle = Auth.GoogleSignInApi.getSignInIntent(apiClient);
         startActivityForResult(iDNGoogle, CODE_SIGN_IN_GOOGLE);
@@ -332,6 +351,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                showProgress();
                 GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                 GoogleSignInAccount googleSignInAccount = googleSignInResult.getSignInAccount();
                 TokenID = googleSignInAccount.getIdToken();
@@ -341,18 +361,19 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
                 nameGoogleOrFace = googleSignInAccount.getDisplayName();
                 imageGoogleOrFace = googleSignInAccount.getPhotoUrl().toString();
                 mSignInGooAndFacePresenter.signInGooAndFace(IdUser, TokenID, DeviceToken);
-                ConfirmSignInFireBase(TokenID);
+                confirmSignInFireBase(TokenID);
             }
         } else {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private void ConfirmSignInFireBase(String TokenID) {
+    private void confirmSignInFireBase(String TokenID) {
         // Confirm google
         if (CHECK_AUTH == 101) {
             AuthCredential authCredential = GoogleAuthProvider.getCredential(TokenID, null);
             mFirebaseAuth.signInWithCredential(authCredential);
+            hideProgress();
         } else if (CHECK_AUTH == 102) {
             AuthCredential authCredential = FacebookAuthProvider.getCredential(TokenID);
             mFirebaseAuth.signInWithCredential(authCredential);
