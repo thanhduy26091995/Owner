@@ -294,6 +294,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
 
     @Override
     public void displaySignInGooAndFace(BodyResponse bodyResponse) {
+        hideProgress();
         if (bodyResponse.isStatus() == true) {
             sessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = sessionManagerUser.getUserDetails();
@@ -349,7 +350,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (requestCode == CODE_SIGN_IN_GOOGLE) {
             if (resultCode == RESULT_OK) {
                 showProgress();
                 GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -373,7 +374,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         if (CHECK_AUTH == 101) {
             AuthCredential authCredential = GoogleAuthProvider.getCredential(TokenID, null);
             mFirebaseAuth.signInWithCredential(authCredential);
-            hideProgress();
+
         } else if (CHECK_AUTH == 102) {
             AuthCredential authCredential = FacebookAuthProvider.getCredential(TokenID);
             mFirebaseAuth.signInWithCredential(authCredential);
