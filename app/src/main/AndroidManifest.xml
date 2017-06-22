@@ -74,6 +74,7 @@
         <activity android:name=".more.duy_nguyen.InfoBankActivity" />
         <activity android:name=".history.view.ListWorkActivity"/>
         <activity android:name=".paymentonline.ui.activity.PaymentOnlineActivity"/>
+        <activity android:name=".more.viet_pham.View.update_google_face.UpdateGooAndFaceActivity"/>
 
         <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>

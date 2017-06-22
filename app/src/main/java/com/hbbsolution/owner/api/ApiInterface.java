@@ -112,6 +112,29 @@ public interface ApiInterface {
     );
 
     @Multipart
+    @POST("auth/thirdLogin")
+    Call<DataUpdateResponse> signInGoogleAndFace(@Part("id") RequestBody username,
+                                     @Part("token") RequestBody password,
+                                     @Part("device_token") RequestBody deviceToken
+    );
+
+    @Multipart
+    @POST("auth/thirdRegister")
+    Call<DataUpdateResponse> updateGoogleAndFace(   @Part("id") RequestBody id,
+                                                    @Part("token") RequestBody Token,
+                                                    @Part("device_token") RequestBody deviceToken,
+                                                    @Part("phone") RequestBody phone,
+                                                    @Part("username") RequestBody username,
+                                                    @Part("name") RequestBody name,
+                                                    @Part("email") RequestBody email,
+                                                    @Part("addressName") RequestBody address,
+                                                    @Part("lat") RequestBody lat,
+                                                    @Part("lng") RequestBody lng,
+                                                    @Part("gender") RequestBody gender,
+                                                    @Part ("image") RequestBody image
+    );
+
+    @Multipart
     @PUT("owner/update")
     Call<DataUpdateResponse> updateOwner(
             @Part("phone") RequestBody phone,

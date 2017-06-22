@@ -14,4 +14,5 @@ public interface MoreView {
     void displayError();
     void displayNotFoundLocaltion();
     void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse);
+    void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse);
 }

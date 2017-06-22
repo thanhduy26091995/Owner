@@ -128,4 +128,9 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
     public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
 
     }
+
+    @Override
+    public void displaySignInGooAndFace(DataUpdateResponse dataUpdateResponse) {
+
+    }
 }
