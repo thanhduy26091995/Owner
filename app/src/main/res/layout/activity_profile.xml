@@ -45,13 +45,16 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:background="@color/more_background"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_collapseMode="parallax">
+            app:layout_collapseMode="parallax"
+
+            >
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -106,10 +109,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="5dp"
-                android:weightSum="4">
+                android:weightSum="4"
+                android:background="@android:color/white"
+                >
 
                 <com.hbbsolution.owner.base.IconTextView
                     android:layout_width="0dp"
@@ -149,7 +153,9 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:paddingTop="5dp"
-                android:weightSum="4">
+                android:weightSum="4"
+                android:background="@android:color/white"
+                >
 
                 <com.hbbsolution.owner.base.IconTextView
                     android:layout_width="0dp"
@@ -187,7 +193,9 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:paddingTop="5dp"
-                android:weightSum="4">
+                android:weightSum="4"
+                android:background="@android:color/white"
+                >
 
                 <com.hbbsolution.owner.base.IconTextView
                     android:layout_width="0dp"
@@ -217,7 +225,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
-                android:layout_marginTop="5dp"
                 android:background="@android:color/darker_gray" />
 
             <TextView
@@ -239,19 +246,16 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="Không có nhận xét nào"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:background="@android:color/white"
+                />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
-                android:layout_marginTop="5dp"
                 android:background="@android:color/darker_gray" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></LinearLayout>
         </LinearLayout>
-
-
-
-
-
     </android.support.v4.widget.NestedScrollView>
-
-
 </LinearLayout>

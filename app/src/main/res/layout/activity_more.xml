@@ -457,7 +457,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/signout"
-                    android:textColor="@color/colorBlack" />
+                    android:textColor="@color/home_background_maid_aound" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
