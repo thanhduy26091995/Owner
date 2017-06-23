@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.phuc_tran.presenter.AboutPresenter;
+import com.hbbsolution.owner.more.phuc_tran.view.AboutView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,9 +19,9 @@ public class AboutActivity extends AppCompatActivity implements AboutView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.abuot_title_toothbar)
+    @BindView(R.id.about_title_toolbar)
     TextView txtTerms_title_toothbar;
-    @BindView(R.id.wvAbout)
+    @BindView(R.id.wbv_about)
     WebView wvAbout;
     private AboutPresenter mAboutPresenter;
 

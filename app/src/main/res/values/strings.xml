@@ -193,6 +193,9 @@
     <string name="send_require">Request</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="term_title">Terms of use</string>
+    <string name="usename_empty">Username không được để trống</string>
+    <string name="emai_empty">Email không được để trống</string>
+    <string name="email_wrong">Email sai</string>
     <!--forgot password screen end-->
 
 

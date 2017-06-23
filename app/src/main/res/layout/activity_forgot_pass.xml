@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hbbsolution.owner.more.phuc_tran.ForgotPassActivity">
+    tools:context="com.hbbsolution.owner.more.phuc_tran.view.ForgotPassActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -43,7 +43,7 @@
         android:layout_marginTop="30dp">
 
         <EditText
-            android:id="@+id/edit_username"
+            android:id="@+id/edt_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -82,7 +82,7 @@
         android:layout_marginTop="10dp">
 
         <EditText
-            android:id="@+id/edit_email"
+            android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -112,7 +112,7 @@
 
 
     <Button
-        android:id="@+id/bt_send_require"
+        android:id="@+id/btn_send_require"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lo_email"

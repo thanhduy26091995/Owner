@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.more.phuc_tran.AboutView;
+import com.hbbsolution.owner.more.phuc_tran.view.AboutView;
 import com.hbbsolution.owner.more.phuc_tran.model.AboutResponse;
 
 import retrofit2.Call;

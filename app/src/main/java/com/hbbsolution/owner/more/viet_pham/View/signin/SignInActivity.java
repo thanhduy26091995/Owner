@@ -38,7 +38,7 @@ import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.base.OwnerApplication;
 import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
-import com.hbbsolution.owner.more.phuc_tran.ForgotPassActivity;
+import com.hbbsolution.owner.more.phuc_tran.view.ForgotPassActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.SignInGooAndFacePresenter;

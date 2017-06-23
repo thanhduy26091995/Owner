@@ -162,6 +162,9 @@
     <string name="send_require">Gửi yêu cầu</string>
     <string name="forgot_password">Quên mật khẩu</string>
     <string name="term_title">Điều khoản sử dụng</string>
+    <string name="usename_empty">Username không được để trống</string>
+    <string name="emai_empty">Email không được để trống</string>
+    <string name="email_wrong">Email sai</string>
     <!--forgot password screen end-->
 
     <!--payment screen start-->

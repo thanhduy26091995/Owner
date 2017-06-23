@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.more.phuc_tran;
+package com.hbbsolution.owner.more.phuc_tran.view;
 
 
 import android.content.Intent;
@@ -26,7 +26,7 @@ public class ContactActivity extends AppCompatActivity implements ContactView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.contact_title_toolbar)
-    TextView txt_contact_title_toothbar;
+    TextView txt_contact_title_toolbar;
     @BindView(R.id.btn_call)
     Button btn_call;
     @BindView(R.id.btn_email)
@@ -54,7 +54,7 @@ public class ContactActivity extends AppCompatActivity implements ContactView {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        txt_contact_title_toothbar.setText(getResources().getString(R.string.contact));
+        txt_contact_title_toolbar.setText(getResources().getString(R.string.contact));
 
         mContactPresenter = new ContactPresenter(this);
 

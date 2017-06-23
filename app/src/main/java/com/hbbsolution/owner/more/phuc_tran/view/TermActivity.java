@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.more.phuc_tran;
+package com.hbbsolution.owner.more.phuc_tran.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.phuc_tran.presenter.AboutPresenter;
-import com.hbbsolution.owner.more.phuc_tran.view.AboutView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +20,7 @@ public class TermActivity extends AppCompatActivity implements AboutView{
     @BindView(R.id.term_title_toolbar)
     TextView txt_term_pass_toolbar;
     @BindView(R.id.wbv_content_term)
-    WebView webview_content_term;
+    WebView wbv_content_term;
 
     private AboutPresenter mAboutPresenter;
 
@@ -60,8 +59,8 @@ public class TermActivity extends AppCompatActivity implements AboutView{
         if (content.equals("")){
             content="Chưa có dữ liệu";
         }
-        webview_content_term.getSettings().setJavaScriptEnabled(true);
-        webview_content_term.loadDataWithBaseURL(null,
+        wbv_content_term.getSettings().setJavaScriptEnabled(true);
+        wbv_content_term.loadDataWithBaseURL(null,
                 content,
                 "text/html",
                 "utf-8",
