@@ -388,7 +388,7 @@
                         android:layout_marginRight="20dp"
                         android:gravity="center"
                         android:text="@string/manager_ic_trash"
-                        android:textColor="@color/home_background_history"
+                        android:textColor="@color/home_background_maid_aound"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 

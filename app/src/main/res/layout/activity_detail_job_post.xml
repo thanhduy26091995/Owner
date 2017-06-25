@@ -72,7 +72,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="20dp"
                         android:paddingBottom="10dp"
-                        android:text="MÔ TẢ"
+                        android:text="@string/description"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -132,7 +132,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:padding="2dp"
                                 android:background="@drawable/background_text_expired"
-                                android:text="Quá hạn"
+                                android:text="@string/qua_han"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="@dimen/icon_size_normal" />
 
@@ -314,8 +314,8 @@
                     android:id="@+id/job_post_txtTitle_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
                     android:layout_gravity="center"
+                    android:layout_weight="4"
                     android:gravity="center_vertical"
                     android:paddingBottom="10dp"
                     android:paddingLeft="20dp"
@@ -358,7 +358,7 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:text="Xóa công việc"
+                    android:text="@string/delete_this_work"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/home_background_maid_aound" />
 
@@ -369,7 +369,7 @@
                     android:layout_marginRight="20dp"
                     android:gravity="center"
                     android:text="@string/manager_ic_trash"
-                    android:textColor="@color/home_background_history"
+                    android:textColor="@color/home_background_maid_aound"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 

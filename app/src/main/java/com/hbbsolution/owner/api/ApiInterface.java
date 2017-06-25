@@ -13,6 +13,7 @@ import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.ContactResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
 import com.hbbsolution.owner.more.phuc_tran.model.AboutResponse;
+import com.hbbsolution.owner.more.phuc_tran.model.ForgotPassResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.report.model.ReportResponse;
@@ -221,5 +222,17 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("payment/payBillGV")
     Call<BillGv24Response> getInfoBill24h(@Field("billId") String idBill);
+
+    @FormUrlEncoded
+    @POST("payment/payDirectly")
+    Call<BillGv24Response> getInfoPaymnetByMoney(@Field("billId") String idBill);
+
+    @FormUrlEncoded
+    @POST("payment/payOnlineConfirm")
+    Call<BillGv24Response> getInfoPaymnetByOnline(@Field("billId") String idBill);
+
+    @FormUrlEncoded
+    @POST("owner/forgotPassword")
+    Call<ForgotPassResponse> forgotPassword();
 
 }

@@ -117,6 +117,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 txtNumber_request_detail_post.setVisibility(View.VISIBLE);
                 txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
             } else {
+                lo_list_recruitment.setVisibility(View.GONE);
                 txtNumber_request_detail_post.setVisibility(View.GONE);
 
             }
@@ -230,7 +231,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
-            alertDialog.setMessage("Bài đăng đã được xóa !");
+            alertDialog.setMessage(getResources().getString(R.string.notification__pass_del_job_post));
             alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

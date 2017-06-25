@@ -61,10 +61,15 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
             holder.lo_background.setVisibility(View.GONE);
             holder.txtType.setText(context.getResources().getString(R.string.jobs_for_applications));
             holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-            if (mDatum.getStakeholders().getRequest().size() == 0) {
-                holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-            } else {
-                holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+            if(mDatum.getProcess().getId().equals("000000000000000000000006")){
+                holder.txtRequestDirect.setVisibility(View.VISIBLE);
+            }else {
+                holder.txtRequestDirect.setVisibility(View.GONE);
+                if (mDatum.getStakeholders().getRequest().size() == 0) {
+                    holder.txtNumber_request_detail_post.setVisibility(View.GONE);
+                } else {
+                    holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                }
             }
         }
 
@@ -103,7 +108,7 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
 
     public class JobPostViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTimePostHistory, txtDatePostHistory, txtTimeDoingPost,
-                txtTitleJobPost, txtNumber_request_detail_post, txtExpired, txtType;
+                txtTitleJobPost, txtNumber_request_detail_post, txtExpired, txtType, txtRequestDirect;
         private ImageView imgTypeJobPost;
         private LinearLayout lo_background;
 
@@ -118,6 +123,7 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
             txtExpired = (TextView) itemView.findViewById(R.id.txtExpired_request_detail_post);
             lo_background = (LinearLayout) itemView.findViewById(R.id.lo_background);
             txtType = (TextView) itemView.findViewById(R.id.txtType);
+            txtRequestDirect = (TextView) itemView.findViewById(R.id.txtExpired_request_direct_detail);
         }
     }
 

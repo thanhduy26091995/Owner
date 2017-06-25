@@ -39,7 +39,6 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
     private LinearLayout lo_item_pending;
 
-    private String token = "0eb910010d0252eb04296d7dc32e657b402290755a85367e8b7a806c7e8bd14b0902e541763a67ef41f2dfb3b9b4919869b609e34dbf6bace4525fa6731d1046";
     private String idProcess = "000000000000000000000003";
 
     private View rootView;
@@ -119,16 +118,16 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
                 public void onItemLongClick(final DatumPending mDatum) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                     alertDialog.setCancelable(false);
-                    alertDialog.setTitle("Thông báo");
-                    alertDialog.setMessage("Bạn có muốn xóa công việc nay ? ");
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    alertDialog.setTitle(getResources().getString(R.string.notification));
+                    alertDialog.setMessage(getResources().getString(R.string.notification__pass_del_job_post));
+                    alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             progressBar.setVisibility(View.GONE);
                             mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
                         }
                     });
-                    alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    alertDialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -150,9 +149,9 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
         if(isJobPost){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
             alertDialog.setCancelable(false);
-            alertDialog.setTitle("Thông báo");
-            alertDialog.setMessage("Bạn đã xóa công việc này ");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage(getResources().getString(R.string.notification__pass_del_job_post));
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);

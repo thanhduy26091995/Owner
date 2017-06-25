@@ -68,7 +68,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
             txt_work_management.setPadding(20, 0, 20, 5);
             txt_work_management_history.setPadding(15, 0, 15, 5);
         } else if (lang.equals("English")) {
-            txt_work_management.setPadding(10, 0, 10, 5);
+            txt_work_management.setPadding(15, 0, 15, 5);
             txt_work_management_history.setPadding(5, 0, 5, 5);
         }
 //        mHomePresenter = new HomePresenter(this);

@@ -175,21 +175,21 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lo_clear_job_pending:
-                String id = mDatum.getId();
-                String idOwner = mDatum.getStakeholders().getOwner();
-                Log.d("idrequset", id + " - " + idOwner);
+//                String id = mDatum.getId();
+//                String idOwner = mDatum.getStakeholders().getOwner();
+//                Log.d("idrequset", id + " - " + idOwner);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                 alertDialog.setCancelable(false);
-                alertDialog.setTitle("Thông báo");
-                alertDialog.setMessage("Bạn có chắc muốn xóa bài đăng này !");
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                alertDialog.setTitle(getResources().getString(R.string.notification));
+                alertDialog.setMessage(getResources().getString(R.string.notification_del_job_post));
+                alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         progressBar.setVisibility(View.VISIBLE);
                         mDetailJobPostPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
                     }
                 });
-                alertDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -376,9 +376,9 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         if (isJobPost) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
-            alertDialog.setTitle("Thông báo");
-            alertDialog.setMessage("Bài đăng đã được xóa !");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage(getResources().getString(R.string.notification__pass_del_job_post));
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);

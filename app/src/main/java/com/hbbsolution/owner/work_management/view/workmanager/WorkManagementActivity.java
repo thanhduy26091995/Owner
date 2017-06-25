@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
@@ -34,7 +35,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     @BindView(R.id.management_title_toothbar)
     TextView txtManagement_title_toothbar;
     @BindView(R.id.management_compose_toothbar)
-    IconTextView txtManagement_compose_toothbar;
+    LinearLayout txtManagement_compose_toothbar;
     @BindView(R.id.tabs)
     TabLayout tabLayout;
     @BindView(R.id.viewpager)
@@ -57,7 +58,6 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         //setupView
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-//        txtManagement_title_toothbar.setText("Quản lý công việc");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -95,8 +95,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     }
 
     private void setupViewPagerUser(ViewPager viewPager) {
-         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        adapter.clearFragment();
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new JobPostedFragment(), getResources().getString(R.string.posted_work));
         adapter.addFragment(new JobPendingFragment(), getResources().getString(R.string.assigned));
         adapter.addFragment(new JobDoingFragment(), getResources().getString(R.string.running_work));
@@ -112,7 +111,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
                     Intent intent = new Intent(WorkManagementActivity.this, JobPostActivity.class);
                     startActivity(intent);
                 } else {
-                    ShowAlertDialog.showAlert("Số lượng bài đăng không được vượt quá 10 bài!", WorkManagementActivity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), WorkManagementActivity.this);
                 }
                 break;
         }
@@ -139,16 +138,10 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onResume() {
-//        if(mPositionTab == -1) {
-//            mViewPager.setCurrentItem(0);
-//        } else {
-//            mViewPager.setCurrentItem(mPositionTab);
-//            mPositionTab = -1;
-//        }
 
         if (isPause) {
             if (mTab) {
-               this.finish();
+                this.finish();
                 Intent refresh = new Intent(this, WorkManagementActivity.class);
                 startActivity(refresh);
 //                adapter.clearFragment();
@@ -159,8 +152,8 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
                 mTab = false;
 
             }
-        }else {
-            if(mPositionTab == -1) {
+        } else {
+            if (mPositionTab == -1) {
                 mViewPager.setCurrentItem(0);
             } else {
                 mViewPager.setCurrentItem(mPositionTab);

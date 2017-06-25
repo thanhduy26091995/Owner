@@ -5,7 +5,7 @@ import android.util.Log;
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
 import com.hbbsolution.owner.work_management.model.billGv24.BillGv24Response;
-import com.hbbsolution.owner.work_management.view.payment.PaymentView;
+import com.hbbsolution.owner.work_management.view.payment.view.PaymentView;
 import com.hbbsolution.owner.work_management.view.payment.model.PaymentResponse;
 
 import retrofit2.Call;
@@ -52,11 +52,9 @@ public class PaymentPresenter {
             @Override
             public void onResponse(Call<BillGv24Response> call, Response<BillGv24Response> response) {
                 if (response.isSuccessful()) {
-                    Log.e("onResponseBill", response.code() + "");
                     try {
                         paymentView.getInfoBill24h(response.body());
                     } catch (Exception e) {
-                        Log.e("exceptionBill", e.toString());
                         paymentView.getErrorBill24h(e.toString());
                     }
                 }
@@ -64,8 +62,52 @@ public class PaymentPresenter {
 
             @Override
             public void onFailure(Call<BillGv24Response> call, Throwable t) {
-                Log.e("onFailureBill", t.toString());
+
                 paymentView.getErrorBill24h(t.toString());
+            }
+        });
+    }
+
+    public void getInfoPaymnetByMoney(String idBill) {
+        Call<BillGv24Response> call = apiService.getInfoPaymnetByMoney(idBill);
+        call.enqueue(new Callback<BillGv24Response>() {
+            @Override
+            public void onResponse(Call<BillGv24Response> call, Response<BillGv24Response> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        paymentView.getInfoPaymentBymoney(response.body());
+                    } catch (Exception e) {
+                        paymentView.getErrorPaymentBymoney(e.toString());
+                        Log.e("exception", e.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BillGv24Response> call, Throwable t) {
+                paymentView.getErrorPaymentBymoney(t.toString());
+            }
+        });
+    }
+
+    public void getInfoPaymnetByOnline(String idBill) {
+        Call<BillGv24Response> call = apiService.getInfoPaymnetByOnline(idBill);
+        call.enqueue(new Callback<BillGv24Response>() {
+            @Override
+            public void onResponse(Call<BillGv24Response> call, Response<BillGv24Response> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        paymentView.getInfoPaymentByOnline(response.body());
+                    } catch (Exception e) {
+                        paymentView.getErrorPaymentBymoney(e.toString());
+                        Log.e("exception", e.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BillGv24Response> call, Throwable t) {
+                paymentView.getErrorPaymentBymoney(t.toString());
             }
         });
     }

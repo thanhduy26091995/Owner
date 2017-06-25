@@ -34,9 +34,9 @@
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
-        android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_weight="2.2"
                 android:orientation="vertical"
                 android:weightSum="3">
 
@@ -61,21 +61,22 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="3"
-                        android:orientation="vertical">
+                        android:layout_weight="5"
+                        android:orientation="vertical"
+                        android:weightSum="4">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/colorWhite"
-                            >
+                            android:layout_height="0dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="2"
+                            android:background="@color/colorWhite">
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.1dp"
                                 android:background="@color/color_line_view" />
-
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_job_type"
@@ -86,12 +87,10 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
-                                android:src="@drawable/dondepnha"
-                                android:transitionName="icJobType"
-                                android:layout_marginTop="2dp"
                                 android:layout_marginBottom="2dp"
-                                />
-
+                                android:layout_marginTop="2dp"
+                                android:src="@drawable/dondepnha"
+                                android:transitionName="icJobType" />
 
                             <LinearLayout
                                 android:id="@+id/ln1"
@@ -122,12 +121,69 @@
                                     android:textSize="12sp" />
 
                             </LinearLayout>
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.1dp"
-                                android:background="@color/color_line_view"
-                                android:layout_alignParentBottom="true"/>
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/color_line_view" />
 
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="2"
+                            android:background="@color/colorWhite">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/txtBill"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:text="Mã số hóa đơn"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/text_size_large"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/txtSeriBill"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/txtBill"
+                                    android:layout_marginLeft="10dp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/icon_size_normal" />
+
+
+                            </LinearLayout>
+
+                            <com.hbbsolution.owner.base.IconTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="@string/ion_chevron_right"
+                                android:textColor="@android:color/darker_gray"
+                                android:textSize="@dimen/icon_size_normal" />
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -140,7 +196,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="5"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="4"
                         android:background="@color/colorWhite"
                         android:orientation="vertical"
                         android:weightSum="2">
@@ -149,22 +206,23 @@
                             android:id="@+id/rela_info"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            >
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/payment_avatar"
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
                                 android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/avatar"
-                                android:transitionName="icAvatar"
-                                android:layout_marginTop="2dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
                                 android:layout_marginBottom="2dp"
-                                />
+                                android:layout_marginTop="2dp"
+                                android:src="@drawable/avatar"
+                                android:transitionName="icAvatar" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -229,68 +287,44 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:weightSum="2">
+                            android:layout_weight="0.5"
+                            android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
+                            <com.hbbsolution.owner.base.IconTextView
+                                android:id="@+id/ic_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="15dp"
+                                android:gravity="center"
+                                android:text="@string/manager_ic_money"
+                                android:textColor="@color/home_background_history"
+                                android:textSize="24sp" />
 
-                                <com.hbbsolution.owner.base.IconTextView
-                                    android:id="@+id/ic_money"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="10dp"
-                                    android:gravity="center"
-                                    android:text="@string/manager_ic_money"
-                                    android:textColor="@color/home_background_history"
-                                    android:textSize="24sp" />
+                            <TextView
+                                android:id="@+id/payment_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="20dp"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_size_large" />
 
-                                <TextView
-                                    android:id="@+id/payment_money"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="20dp"
-                                    android:text="200.000 VND/"
-                                    android:textColor="@color/colorBlack"
-                                    android:textSize="@dimen/text_size_large" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:layout_marginBottom="4dp"
-                                    android:text="1 giờ"
-                                    android:textColor="@color/colorBlack"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1">
-
-                                <TextView
-                                    android:id="@+id/payment_timework"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="10dp"
-                                    android:text="Thời gian làm việc: 2 giờ"
-                                    android:textColor="@color/colorBlack"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center"
+                                android:text=" VND/1 giờ"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.1dp"
                             android:background="@color/color_line_view" />
+
 
                     </LinearLayout>
 
@@ -319,7 +353,7 @@
                             android:id="@+id/payment_date"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Ngày thanh toán: 10/10/2017"
@@ -330,7 +364,7 @@
                             android:id="@+id/payment_money_account"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Số dư tài khoản GV24:"
@@ -346,7 +380,7 @@
                             android:id="@+id/payment_total"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Thành tiền: 400.000 VNĐ"
@@ -365,14 +399,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:orientation="vertical"
-                android:weightSum="6">
+                android:weightSum="5">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"></LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -422,7 +452,7 @@
                             android:gravity="center"
                             android:text="Tài khoản Gv24"
                             android:textColor="@color/home_background_maid_aound"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/TEXT_SIZE_NORMAL" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -450,10 +480,11 @@
                             android:gravity="center"
                             android:text="Thanh toán Online"
                             android:textColor="@color/home_background_your_tasks"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/TEXT_SIZE_NORMAL" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lo_paymentbymoney"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -477,7 +508,7 @@
                             android:gravity="center"
                             android:text="Thanh toán tiền mặt"
                             android:textColor="@color/home_background_history"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/TEXT_SIZE_NORMAL" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -487,7 +518,7 @@
             android:id="@+id/txt_lo_payment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 
     <ProgressBar

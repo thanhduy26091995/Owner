@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.work_management.view.payment;
+package com.hbbsolution.owner.work_management.view.payment.view;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -58,8 +58,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     TextView payment_helper_address;
     @BindView(R.id.payment_money)
     TextView payment_money;
-    @BindView(R.id.payment_timework)
-    TextView payment_timework;
+//    @BindView(R.id.payment_timework)
+//    TextView payment_timework;
     @BindView(R.id.payment_date)
     TextView payment_date;
     @BindView(R.id.payment_money_account)
@@ -80,6 +80,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     TextView txt_lo_payment;
     @BindView(R.id.progressPayment)
     ProgressBar progressPayment;
+    @BindView(R.id.lo_paymentbymoney)
+    LinearLayout lo_paymentbymoney;
+    @BindView(R.id.txtSeriBill)
+    TextView txtSeriBill;
 
     private LiabilitiesHistory mLiabilitiesHistory;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -132,10 +136,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             tvTypeJob.setText(mLiabilitiesHistory.getTask().getInfo().getWork().getName());
             payment_helper_name.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
             payment_helper_address.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
-            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice()) + " VND/ ");
+            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice()));
             payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
-
-            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mLiabilitiesHistory.getPeriod()));
+//            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mLiabilitiesHistory.getPeriod()));
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
             if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
                 Glide.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
@@ -162,8 +165,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             tvTypeJob.setText(mDatum.getInfo().getWork().getName());
             payment_helper_name.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
             payment_helper_address.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
-            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getStakeholders().getMadi().getWorkInfo().getPrice()) + " VND/giờ ");
+            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getStakeholders().getMadi().getWorkInfo().getPrice()));
             payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
+            txtSeriBill.setText(mDataBill.getId());
 //            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mDataBill.getPeriod()));
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mDataBill.getPrice()) + " VND");
             Glide.with(PaymentActivity.this).load(mDatum.getInfo().getWork().getImage())
@@ -187,6 +191,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         rela_info.setOnClickListener(this);
         lo_payment_online.setOnClickListener(this);
         lo_Gv24.setOnClickListener(this);
+        lo_paymentbymoney.setOnClickListener(this);
     }
 
     private String getTimeDoWork(String _timeDoWork) {
@@ -233,7 +238,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent;
         switch (view.getId()) {
             case R.id.lo_Gv24:
-                confirm();
+                confirm(1);
                 break;
             case R.id.rela_info:
                 intent = new Intent(PaymentActivity.this, MaidProfileActivity.class);
@@ -250,8 +255,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //                }
                 break;
             case R.id.lo_payment_online:
-                Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
-                startActivity(itPaymentOnline);
+                confirm(3);
+//                Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
+//                startActivity(itPaymentOnline);
+                break;
+            case R.id.lo_paymentbymoney:
+                confirm(2);
                 break;
         }
     }
@@ -264,7 +273,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    private void confirm() {
+    private void confirm(final int formPayment) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
         alertDialog.setTitle(getResources().getString(R.string.notification));
@@ -274,7 +283,17 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(DialogInterface dialogInterface, int i) {
                 progressPayment.setVisibility(View.VISIBLE);
                 txt_lo_payment.setVisibility(View.VISIBLE);
-                mPaymentPresenter.getInfoPaymentBill24h(mDataBill.getId());
+                switch (formPayment) {
+                    case 1:
+                        mPaymentPresenter.getInfoPaymentBill24h(mDataBill.getId());
+                        break;
+                    case 2:
+                        mPaymentPresenter.getInfoPaymnetByMoney(mDataBill.getId());
+                        break;
+                    case 3:
+                        mPaymentPresenter.getInfoPaymnetByOnline(mDataBill.getId());
+                        break;
+                }
             }
         });
         alertDialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -299,32 +318,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getInfoBill24h(BillGv24Response billGv24Response) {
+        progressPayment.setVisibility(View.GONE);
+        txt_lo_payment.setVisibility(View.GONE);
         if (billGv24Response.getStatus()) {
-            progressPayment.setVisibility(View.GONE);
-            txt_lo_payment.setVisibility(View.GONE);
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setCancelable(false);
-            alertDialog.setTitle(getResources().getString(R.string.notification));
-            alertDialog.setMessage("Thanh toán thành cong");
-            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (mPaymentActivity != null) {
-                        PaymentActivity.mPaymentActivity.finish();
-                        try {
-                            if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
-                                DetailJobDoingActivity.mDetailJobDoingActivity.finish();
-                            }
-                            if (WorkManagementActivity.mWorkManagementActivity != null) {
-                                WorkManagementActivity.mWorkManagementActivity.finish();
-                            }
-                        } catch (Exception e) {
-
-                        }
-                    }
-                }
-            });
-            alertDialog.show();
+            PaymentSuccess();
         } else {
             ShowAlertDialog.showAlert("Thất bại", PaymentActivity.this);
         }
@@ -335,6 +332,60 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         progressPayment.setVisibility(View.GONE);
         txt_lo_payment.setVisibility(View.GONE);
         Toast.makeText(PaymentActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getInfoPaymentBymoney(BillGv24Response billGv24Response) {
+        progressPayment.setVisibility(View.GONE);
+        txt_lo_payment.setVisibility(View.GONE);
+        if (billGv24Response.getStatus()) {
+            PaymentSuccess();
+        } else {
+            ShowAlertDialog.showAlert("Thất bại", PaymentActivity.this);
+        }
+    }
+
+    @Override
+    public void getErrorPaymentBymoney(String error) {
+
+    }
+
+    @Override
+    public void getInfoPaymentByOnline(BillGv24Response billGv24Response) {
+        progressPayment.setVisibility(View.GONE);
+        txt_lo_payment.setVisibility(View.GONE);
+        if(billGv24Response.getStatus()){
+            Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
+            startActivity(itPaymentOnline);
+        }else {
+            ShowAlertDialog.showAlert("Thất bại", PaymentActivity.this);
+        }
+    }
+
+    private void PaymentSuccess() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setCancelable(false);
+        alertDialog.setTitle(getResources().getString(R.string.notification));
+        alertDialog.setMessage("Thanh toán thành công");
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (mPaymentActivity != null) {
+                    PaymentActivity.mPaymentActivity.finish();
+                    try {
+                        if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
+                            DetailJobDoingActivity.mDetailJobDoingActivity.finish();
+                        }
+                        if (WorkManagementActivity.mWorkManagementActivity != null) {
+                            WorkManagementActivity.mWorkManagementActivity.finish();
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        });
+        alertDialog.show();
     }
 
 }

@@ -28,16 +28,24 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <com.hbbsolution.owner.base.IconTextView
-                android:id="@+id/management_compose_toothbar"                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/management_compose_toothbar"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:gravity="center"
-                android:layout_marginRight="15dp"
-                android:text="@string/manager_ic_compose"
-                android:textColor="@color/home_background_history"
-                android:textStyle="bold"
-                android:textSize="24sp" />
+                android:layout_gravity="right">
+
+                <com.hbbsolution.owner.base.IconTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="@string/manager_ic_compose"
+                    android:textColor="@color/home_background_history"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
         </android.support.v7.widget.Toolbar>
 

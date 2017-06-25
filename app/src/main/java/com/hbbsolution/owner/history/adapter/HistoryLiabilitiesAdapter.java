@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
-import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
+import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;

@@ -8,31 +8,22 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.chekout.CheckOutResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.CheckOutAndBillPresenter;
-import com.hbbsolution.owner.work_management.view.payment.PaymentActivity;
+import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
 import com.squareup.picasso.Picasso;
-
-import org.joda.time.DateTime;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -136,6 +127,19 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
 
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        EventBus.getDefault().registerSticky(this);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        EventBus.getDefault().unregister(this);
+//    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -196,6 +200,8 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
 
     @Override
     public void getErrorCheckOut(String error) {
-        ShowAlertDialog.showAlert("Thất bại", DetailJobDoingActivity.this);
+        progressDetailJobDoing.setVisibility(View.GONE);
+        txt_lo_infoMail.setVisibility(View.GONE);
+        ShowAlertDialog.showAlert(error, DetailJobDoingActivity.this);
     }
 }

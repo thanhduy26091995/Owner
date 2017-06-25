@@ -120,7 +120,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             int color = 0x008000;
             notificationBuilder.setColor(color);
             return com.hbbsolution.owner.R.mipmap.ic_launcher;
-
         } else {
             return com.hbbsolution.owner.R.mipmap.ic_launcher;
         }

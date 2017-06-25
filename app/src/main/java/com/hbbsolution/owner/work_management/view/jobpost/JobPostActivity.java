@@ -401,13 +401,13 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
             lo_job_post.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert("Chua nhap so tien", JobPostActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), JobPostActivity.this);
             return false;
         }
         if (CompareTimeStart(getTimeWork(txtTime_start.getText().toString()))) {
             progressBar.setVisibility(View.GONE);
             lo_job_post.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert("Thời gian bắt đầu không phù hợp", JobPostActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
             return false;
         }
 
@@ -547,7 +547,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         } else {
             progressBar.setVisibility(View.GONE);
 
-            ShowAlertDialog.showAlert("Vui lòng nhập địa chỉ đầy đủ!", JobPostActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_address), JobPostActivity.this);
         }
     }
 

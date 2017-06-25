@@ -17,6 +17,9 @@
     <string name="posted_work">Đã đăng</string>
     <string name="assigned">Đã phân công</string>
     <string name="running_work">Đang làm</string>
+    <string name="check_number_job_post">Số lượng bài đăng không được vượt quá 10 bài!</string>
+    <string name="notification_del_job_post">Bạn có muốn xóa công việc này?</string>
+    <string name="notification__pass_del_job_post">Bạn đã xóa công việc này!</string>
 
     <string name="post_your_work">Đăng công việc</string>
     <string name="title_job_post">Tiêu đề</string>
@@ -48,9 +51,12 @@
     <string name="ok">Chấp nhận</string>
     <string name="cancel">Hủy</string>
     <string name="list_recruitment">Danh sách ứng tuyển</string>
+    <string name="delete_this_work">Xóa công việc</string>
     <string name="work_complete">Hoàn tất công việc</string>
     <string name="vnd">VND</string>
     <string name="vnd_hour">VND/giờ</string>
+    <string name="no_amount">Bạn vui lòng nhập số tiền cho công việc</string>
+    <string name="check_address">Vui lòng kiểm tra lại địa chỉ nhà.</string>
 
 
     <!--work_manager end-->
