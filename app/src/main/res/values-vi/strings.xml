@@ -75,7 +75,14 @@
     <string name="pro_file_information">Thông tin</string>
     <!--profile end-->
 
-
+    <!--signin_screen start-->
+    <string name="sign_in_user_name">Tên đăng nhập</string>
+    <string name="sign_in_password">Mật khẩu</string>
+    <string name="sign_in_sign_in">Đăng nhập</string>
+    <string name="sign_in_forget_password">Quên mật khẩu</string>
+    <string name="sign_in_sign_now">Đăng ký ngay</string>
+    <string name="sign_in_by">Đăng nhập bằng</string>
+    <!--signin_screen end-->
     <!--Page more activity start-->
     <string name="more_job_statistic">Thống kê công việc</string>
     <string name="more_notification">Thông báo</string>

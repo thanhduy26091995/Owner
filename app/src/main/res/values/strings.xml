@@ -24,12 +24,12 @@
     <!--terms screen end-->
 
     <!--signin_screen start-->
-    <string name="sign_in_user_name">Tên đăng nhập</string>
-    <string name="sign_in_password">Mật khẩu</string>
-    <string name="sign_in_sign_in">Đăng nhập</string>
-    <string name="sign_in_forget_password">Quên mật khẩu</string>
-    <string name="sign_in_sign_now">Đăng ký ngay</string>
-    <string name="sign_in_by">Đăng nhập bằng</string>
+    <string name="sign_in_user_name">Username</string>
+    <string name="sign_in_password">Password</string>
+    <string name="sign_in_sign_in">Sign in</string>
+    <string name="sign_in_forget_password">Forgot password?</string>
+    <string name="sign_in_sign_now">Sign up now</string>
+    <string name="sign_in_by">Login with</string>
     <!--signin_screen end-->
 
     <!--work_manager start-->
