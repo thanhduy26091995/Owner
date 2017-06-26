@@ -18,9 +18,9 @@
     <!--home screen end-->
 
     <!--terms_screen start-->
-    <string name="terms">Điều khoản sử dụng</string>
+    <string name="terms">Terms of use</string>
     <string name="terms_btn_ok">OK</string>
-
+    <string name="content_null">Chưa có dữ liệu</string>
     <!--terms screen end-->
 
     <!--signin_screen start-->
@@ -57,7 +57,7 @@
     <string name="dang_cho_xac_nhan">Jobs for applications</string>
     <string name="qua_han_xac_nhan">Exceeded</string>
     <string name="qua_han">Exceeded</string>
-    <string name="dang_bai">Đăng bài</string>
+    <string name="dang_bai">Post</string>
     <string name="update_job_post">Update</string>
     <string name="notification">Notification</string>
     <string name="post_successfully">Post successfully!</string>
@@ -100,9 +100,9 @@
     <string name="more_languge">Language</string>
     <string name="english">English</string>
     <string name="vietnamese">Tiếng Việt</string>
-    <string name="more_share_app_Gv24">Chia sẻ ứng dụng Gv24</string>
+    <string name="more_share_app_Gv24">Share NGV247</string>
     <string name="more_follow_Gv24_on_facebook">Follow us on Facebook</string>
-    <string name="more_contact">Liên hệ</string>
+    <string name="more_contact">Contact</string>
     <string name="gender_men">Male</string>
     <string name="gender_women">Female</string>
     <string name="signout">Sign Out</string>
