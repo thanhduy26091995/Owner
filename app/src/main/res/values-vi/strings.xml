@@ -267,4 +267,11 @@
     <string name="cap_nhat_thong_tin">Cập nhật thông tin không thành công</string>
     <string name="dia_chi_khong_tim_thay">Địa chỉ không tìm thấy</string>
     <!--more-end-->
+
+    <string name="maid_near_by">Người giúp việc quanh đây</string>
+    <string name="no_internet">Không có kết nối mạng</string>
+    <string name="from">Từ</string>
+    <string name="old">tuổi</string>
+    <string name="no_result_found">Không tìm thấy kết quả</string>
+    <string name="add_comment">Vui lòng nhập bình luận</string>
 </resources>

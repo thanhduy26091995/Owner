@@ -294,4 +294,10 @@
     <string name="cap_nhat_thong_tin">Cập nhật thông tin không thành công</string>
     <string name="dia_chi_khong_tim_thay">Địa chỉ không tìm thấy</string>
     <!--more-end-viet-->
+
+    <string name="maid_near_by">Partners nearby</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="old">years old</string>
+    <string name="no_result_found">No results found</string>
+    <string name="add_comment">Please enter your comment</string>
 </resources>

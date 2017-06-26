@@ -16,12 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.history.CommentView;
 import com.hbbsolution.owner.history.presenter.CommentPresenter;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.utils.ShowSnackbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,7 +72,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             //       setBackgroundRatingBar();
             tvNameHelper.setText(nameHelper);
             tvAddress.setText(addressHelper);
-            if(!imgHelper.equals("")) {
+            if (!imgHelper.equals("")) {
                 Glide.with(this).load(imgHelper)
                         .thumbnail(0.5f)
                         .placeholder(R.drawable.avatar)
@@ -84,6 +86,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         txtNext.setOnClickListener(this);
         lnCheck.setOnClickListener(this);
         edtComment.setOnClickListener(this);
+
+        //check internet
+        if (!InternetConnection.getInstance().isOnline(CommentActivity.this)) {
+            ShowSnackbar.showSnack(CommentActivity.this, getResources().getString(R.string.no_internet));
+        }
     }
 
 
@@ -91,7 +98,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtNext:
-                if(DetailWorkHistoryActivity.detailWorkHistory!=null) {
+                if (DetailWorkHistoryActivity.detailWorkHistory != null) {
                     finish();
                 }
                 break;
@@ -105,7 +112,8 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 if (edtComment.getText().toString().length() > 0) {
                     commentPresenter.postComment(idTask, idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
                 } else {
-                    Toast.makeText(this, "Vui lòng nhập bình luận", Toast.LENGTH_LONG).show();
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.add_comment), CommentActivity.this);
+
                 }
                 break;
             case R.id.edtComment:
@@ -122,7 +130,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void commentSuccess(String message) {
-        if(DetailWorkHistoryActivity.detailWorkHistory!=null) {
+        if (DetailWorkHistoryActivity.detailWorkHistory != null) {
             Intent intent = new Intent();
             intent.putExtra("message", message);
             setResult(Activity.RESULT_OK, intent);
