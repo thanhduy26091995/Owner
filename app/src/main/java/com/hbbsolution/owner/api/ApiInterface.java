@@ -232,6 +232,10 @@ public interface ApiInterface {
     Call<BillGv24Response> getInfoPaymnetByOnline(@Field("billId") String idBill);
 
     @FormUrlEncoded
+    @POST("payment/payOnline")
+    Call<BillGv24Response> getInfoPaymnetByOnlineSuccess(@Field("billId") String idBill);
+
+    @FormUrlEncoded
     @POST("owner/forgotPassword")
     Call<ForgotPassResponse> forgotPassword(@Field("email") String email,
                                             @Field("username") String username);

@@ -24,12 +24,12 @@
     <!--terms screen end-->
 
     <!--signin_screen start-->
-    <string name="sign_in_user_name">Tên đăng nhập</string>
-    <string name="sign_in_password">Mật khẩu</string>
-    <string name="sign_in_sign_in">Đăng nhập</string>
-    <string name="sign_in_forget_password">Quên mật khẩu</string>
-    <string name="sign_in_sign_now">Đăng ký ngay</string>
-    <string name="sign_in_by">Đăng nhập bằng</string>
+    <string name="sign_in_user_name">Username</string>
+    <string name="sign_in_password">Password</string>
+    <string name="sign_in_sign_in">Sign in</string>
+    <string name="sign_in_forget_password">Forgot password?</string>
+    <string name="sign_in_sign_now">Sign up now</string>
+    <string name="sign_in_by">Login with</string>
     <!--signin_screen end-->
 
     <!--work_manager start-->
@@ -75,6 +75,7 @@
     <string name="vnd_hour">VND/hour</string>
     <string name="no_amount">You have not entered the amount</string>
     <string name="check_address">Please, double check your home address.</string>
+<string name="select_your_applicants">Select your applicants</string>
     <!--work_manager end-->
 
 
@@ -290,10 +291,16 @@
     <string name="nhan_xet">Comment</string>
     <string name="khong_co_nhanxet">There are no comments</string>
     <string name="thong_tin">Applicant profile</string>
-    <string name="vui_long_dien_day_du">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="vui_long_dien_day_du">Please fill out all information</string>
     <string name="select_image">Select image</string>
-    <string name="vui_long_nhap_dia_chi">Vui lòng nhập chính xác địa chỉ</string>
-    <string name="cap_nhat_thong_tin">Cập nhật thông tin không thành công</string>
-    <string name="dia_chi_khong_tim_thay">Địa chỉ không tìm thấy</string>
+    <string name="vui_long_nhap_dia_chi">Please enter a valid address</string>
+    <string name="cap_nhat_thong_tin">Update unsuccessfully!</string>
+    <string name="dia_chi_khong_tim_thay">Address not found!</string>
     <!--more-end-viet-->
+
+    <string name="maid_near_by">Partners nearby</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="old">years old</string>
+    <string name="no_result_found">No results found</string>
+    <string name="add_comment">Please enter your comment</string>
 </resources>

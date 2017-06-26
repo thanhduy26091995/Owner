@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.maid_near_by.model.MarkerInfoWindowAdapter;
 import com.hbbsolution.owner.maid_near_by.presenter.MaidNearByPresenter;
 import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterActivity;
@@ -47,6 +48,7 @@ import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.utils.ShowSnackbar;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
@@ -107,14 +109,18 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
-        mTextTitle.setText("Người giúp việc quanh đây");
+        mTextTitle.setText(getResources().getString(R.string.maid_near_by));
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            showSettingLocationAlert();
+        if (InternetConnection.getInstance().isOnline(MaidNearByActivity.this)) {
+            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                showSettingLocationAlert();
+            } else {
+                //get data
+                loadData();
+            }
         } else {
-            //get data
-            loadData();
+            ShowSnackbar.showSnack(MaidNearByActivity.this, getResources().getString(R.string.no_internet));
         }
         //  searchView.setIconified(false);
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -173,8 +179,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
                 if (statusOfGPS) {
                     final ProgressDialog progressDialog = new ProgressDialog(context);
                     progressDialog.setCancelable(false);
-                    progressDialog.setTitle("Thông Báo");
-                    progressDialog.setMessage("Đang tải...Vui lòng chờ");
+                    progressDialog.setTitle(getResources().getString(R.string.notification));
+                    progressDialog.setMessage(getResources().getString(R.string.loading));
                     progressDialog.show();
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -416,12 +422,12 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         if (item.getItemId() == android.R.id.home) {
             finish();
         } else if (item.getItemId() == R.id.action_filter) {
-            if (location != null) {
-                Intent intent = new Intent(MaidNearByActivity.this, FilterActivity.class);
-                intent.putExtra(Constants.LAT, location.getLatitude());
-                intent.putExtra(Constants.LNG, location.getLongitude());
-                startActivityForResult(intent, Constants.FILTER_MAID_INTENT);
-            }
+            // if (location != null) {
+            Intent intent = new Intent(MaidNearByActivity.this, FilterActivity.class);
+            intent.putExtra(Constants.LAT, latitude);
+            intent.putExtra(Constants.LNG, longitude);
+            startActivityForResult(intent, Constants.FILTER_MAID_INTENT);
+            // }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -435,7 +441,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
             markerLoadImage.clear();
             maidInfoList = (List<Maid>) data.getSerializableExtra(String.valueOf(Constants.MAID_LIST));
             if (maidInfoList.size() == 0) {
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.activity), "Không tìm thấy kết quả", Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.activity), getResources().getString(R.string.no_result_found), Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
             updateMap(googleMap);

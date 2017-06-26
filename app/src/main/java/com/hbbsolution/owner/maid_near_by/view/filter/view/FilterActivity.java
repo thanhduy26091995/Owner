@@ -22,11 +22,13 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.maid_near_by.view.filter.presenter.FilterPresenter;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.ShowSnackbar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -122,7 +124,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Đang tải...");
+        progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
@@ -166,8 +168,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if (v == linearGender) {
             final List<String> listGender = new ArrayList<>();
-            listGender.add("Nam");
-            listGender.add("Nữ");
+            listGender.add(getResources().getString(R.string.pro_file_gender_male));
+            listGender.add(getResources().getString(R.string.pro_file_gender_female));
             showBottomSheetGender(listGender, txtGender);
         } else if (v == linearTypeJob) {
             if (listTypeJobName.size() > 0) {
@@ -185,9 +187,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         } else if (v == linearOld) {
             showDialogFilterOld();
         } else if (v == txtFilter) {
-            showProgressDialog();
-            //disable button
-            txtFilter.setEnabled(false);
             Integer ageMin = null, ageMax = null;
             //filter project
             workId = hashMapTypeJob.get(txtTypeJob.getText().toString());
@@ -220,8 +219,15 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                     priceMin = 450000;
                 }
             }
-            //save
-            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax, workId);
+            if (InternetConnection.getInstance().isOnline(FilterActivity.this)) {
+                //disable button
+                txtFilter.setEnabled(false);
+                showProgressDialog();
+                //save
+                presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax, workId);
+            } else {
+                ShowSnackbar.showSnack(FilterActivity.this, getResources().getString(R.string.no_internet));
+            }
         }
     }
 
@@ -283,9 +289,9 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 if (fromOld == toOld) {
-                    txtOld.setText(String.format("%d tuổi", fromOld));
+                    txtOld.setText(String.format("%d %s", fromOld, getResources().getString(R.string.old)));
                 } else {
-                    txtOld.setText(String.format("Từ %d đến %d", fromOld, toOld));
+                    txtOld.setText(String.format("%s %d %s %d", getResources().getString(R.string.from), fromOld, getResources().getString(R.string.to), toOld));
                 }
                 isChooseOld = true;
                 dialog.dismiss();

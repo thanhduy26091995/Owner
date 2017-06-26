@@ -34,6 +34,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
 
     private ScrollView scrollView;
     private ProgressView progressView;
+    private String idBillOrder = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,12 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_payment_online);
 
         initView();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            idBillOrder = extras.getString(idBillOrder, "");
+
+        }
+//        idBillOrder = getIntent().getStringExtra("idBillOrder");
     }
 
     private void initView() {
@@ -104,7 +111,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         sendOrderBean.setVersion("1.0");
         sendOrderBean.setMerchantID(Constants.MERCHANT_ID);
         sendOrderBean.setMerchantAccount("info@hbbsolution.com");
-        sendOrderBean.setOrderCode("123456DEMO");
+        sendOrderBean.setOrderCode(idBillOrder);
         sendOrderBean.setTotalAmount(Integer.valueOf(amount));
         sendOrderBean.setCurrency("vnd");
         sendOrderBean.setLanguage("vi");
@@ -161,6 +168,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                     Intent intentCheckout = new Intent(getApplicationContext(), CheckOutActivity.class);
                     intentCheckout.putExtra(CheckOutActivity.TOKEN_CODE, tokenCode);
                     intentCheckout.putExtra(CheckOutActivity.CHECKOUT_URL, checkoutUrl);
+                    intentCheckout.putExtra("idOderBill", idBillOrder);
                     startActivity(intentCheckout);
                     finish();
                 } else {

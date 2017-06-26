@@ -35,8 +35,11 @@ import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -239,13 +242,19 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
 
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert("Chưa nhập số tiền", ChooseMaidActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), ChooseMaidActivity.this);
+            return false;
+        }
+
+        if (CompareTimeStart(getTimeWork(txtTime_start.getText().toString()))) {
+            progressBar.setVisibility(View.GONE);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), ChooseMaidActivity.this);
             return false;
         }
 
         if (!validateTimeWork()) {
             progressBar.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert("Chọn giờ chưa phù hợp", ChooseMaidActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), ChooseMaidActivity.this);
             return false;
         }
 
@@ -372,6 +381,17 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
             e.printStackTrace();
         }
         return new DateTime(mTimeAt).toString();
+    }
+
+    private boolean CompareTimeStart(String start) {
+        Date dateNow = new Date();
+        DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
+        Date dateStart = parser.parseDateTime(start).toDate();
+        long elapsed = dateNow.getTime() - dateStart.getTime();
+        if (elapsed > 0) {
+            return true;
+        }
+        return false;
     }
 
     @Override

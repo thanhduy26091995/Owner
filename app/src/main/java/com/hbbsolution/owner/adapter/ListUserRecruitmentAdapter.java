@@ -70,13 +70,13 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
 
         if(isHis){
             holder.imgIcCheck.setVisibility(View.GONE);
-            holder.tvDate.setText("12/03/2016");
-            holder.tvType.setText("Danh sách công việc");
+//            holder.tvDate.setText("12/03/2016");
+            holder.tvType.setText(context.getResources().getString(R.string.worklist));
 
         }else {
             holder.imgIcCheck.setVisibility(View.VISIBLE);
             holder.tvDate.setText(String.valueOf(mMaid.getWorkInfo().getPrice()));
-            holder.tvType.setText("Chọn người giúp việc");
+            holder.tvType.setText(context.getResources().getString(R.string.select_your_applicants));
         }
 
         holder.lo_info_user.setOnClickListener(new View.OnClickListener() {
