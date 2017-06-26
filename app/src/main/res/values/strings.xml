@@ -288,11 +288,11 @@
     <string name="nhan_xet">Comment</string>
     <string name="khong_co_nhanxet">There are no comments</string>
     <string name="thong_tin">Applicant profile</string>
-    <string name="vui_long_dien_day_du">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="vui_long_dien_day_du">Please fill out all information</string>
     <string name="select_image">Select image</string>
-    <string name="vui_long_nhap_dia_chi">Vui lòng nhập chính xác địa chỉ</string>
-    <string name="cap_nhat_thong_tin">Cập nhật thông tin không thành công</string>
-    <string name="dia_chi_khong_tim_thay">Địa chỉ không tìm thấy</string>
+    <string name="vui_long_nhap_dia_chi">Please enter a valid address</string>
+    <string name="cap_nhat_thong_tin">Update unsuccessfully!</string>
+    <string name="dia_chi_khong_tim_thay">Address not found!</string>
     <!--more-end-viet-->
 
     <string name="maid_near_by">Partners nearby</string>
