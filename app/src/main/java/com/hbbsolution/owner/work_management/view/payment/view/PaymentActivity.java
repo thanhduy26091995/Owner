@@ -134,6 +134,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         if (mLiabilitiesHistory != null) {
             tvJob.setText(mLiabilitiesHistory.getTask().getInfo().getTitle());
             tvTypeJob.setText(mLiabilitiesHistory.getTask().getInfo().getWork().getName());
+            txtSeriBill.setText(mLiabilitiesHistory.getId());
             payment_helper_name.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
             payment_helper_address.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
             payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice()));

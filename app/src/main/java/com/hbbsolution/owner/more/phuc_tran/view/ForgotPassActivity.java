@@ -29,6 +29,7 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
     EditText edt_email;
     @BindView(R.id.btn_send_require)
     Button btn_send_require;
+
     ForgotPasswordPresenter forgotPasswordPresenter;
 
     @Override

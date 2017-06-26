@@ -9,10 +9,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.paymentonline.api.SendOrderRequest;
@@ -105,7 +103,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         sendOrderBean.setFunc("sendOrder");
         sendOrderBean.setVersion("1.0");
         sendOrderBean.setMerchantID(Constants.MERCHANT_ID);
-        sendOrderBean.setMerchantAccount("nhant@peacesoft.net");
+        sendOrderBean.setMerchantAccount("info@hbbsolution.com");
         sendOrderBean.setOrderCode("123456DEMO");
         sendOrderBean.setTotalAmount(Integer.valueOf(amount));
         sendOrderBean.setCurrency("vnd");

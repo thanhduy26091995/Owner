@@ -18,9 +18,9 @@
     <!--home screen end-->
 
     <!--terms_screen start-->
-    <string name="terms">Điều khoản sử dụng</string>
+    <string name="terms">Terms of use</string>
     <string name="terms_btn_ok">OK</string>
-
+    <string name="content_null">Chưa có dữ liệu</string>
     <!--terms screen end-->
 
     <!--signin_screen start-->
@@ -57,7 +57,7 @@
     <string name="dang_cho_xac_nhan">Jobs for applications</string>
     <string name="qua_han_xac_nhan">Exceeded</string>
     <string name="qua_han">Exceeded</string>
-    <string name="dang_bai">Đăng bài</string>
+    <string name="dang_bai">Post</string>
     <string name="update_job_post">Update</string>
     <string name="notification">Notification</string>
     <string name="post_successfully">Post successfully!</string>
@@ -100,9 +100,9 @@
     <string name="more_languge">Language</string>
     <string name="english">English</string>
     <string name="vietnamese">Tiếng Việt</string>
-    <string name="more_share_app_Gv24">Chia sẻ ứng dụng Gv24</string>
+    <string name="more_share_app_Gv24">Share NGV247</string>
     <string name="more_follow_Gv24_on_facebook">Follow us on Facebook</string>
-    <string name="more_contact">Liên hệ</string>
+    <string name="more_contact">Contact</string>
     <string name="gender_men">Male</string>
     <string name="gender_women">Female</string>
     <string name="signout">Sign Out</string>
@@ -146,7 +146,7 @@
     </plurals>
 
     <string name="unpayalbe">Unpaid</string>
-    <string name="rangetime">Vui lòng xem lại khoảng thời gian!</string>
+    <string name="rangetime">Please double check time chosen!</string>
     <string name="worklist">Worklist</string>
     <string name="confirm_the_task_completed">Click "Ok" to confirm the task completed</string>
     <!--history_screen end-->
@@ -155,19 +155,21 @@
     <string name="payment">Payment</string>
     <string name="description">DESCRIPTION</string>
     <string name="yourcomment">Add comments</string>
+    <string name="doer">DOER</string>
     <!--detail_work_history_screen end-->
 
     <!--comment_screen start-->
     <string name="comment">Comment</string>
     <!--comment_screen end-->
 
+
     <!--statistic_screen start-->
-    <string name="total">Tổng chi phí</string>
+    <string name="total">Total expense</string>
     <string name="history_work">Work history</string>
     <string name="waiting_work">Work-in-process</string>
     <string name="post_work">Posted work</string>
     <string name="recharge">Recharge</string>
-    <string name="sodutaikhoan">Số dư tài khoản</string>
+    <string name="sodutaikhoan">Account balance</string>
     <plurals name="million">
         <item quantity="one">million</item>
         <item quantity="other">millions</item>
@@ -208,9 +210,9 @@
 
 
     <!--payment screen start-->
-    <string name="payment_date">Ngày thanh toán:</string>
+    <string name="payment_date">Payment date:</string>
     <string name="timework">Time of working:</string>
-    <string name="totalprice">Thành tiền:</string>
+    <string name="totalprice">Total:</string>
     <string name="accountbalance">Account balance</string>
     <!--payment screen end-->
 
@@ -265,4 +267,15 @@
     <!--Facebook API-->
     <string name="facebook_app_id">694403967422336</string>
     <!--end facebook API-->
+
+    <!--more-start-viet-->
+    <string name="nhan_xet">Nhận xét</string>
+    <string name="khong_co_nhanxet">There are no comments</string>
+    <string name="thong_tin">Applicant profile</string>
+    <string name="vui_long_dien_day_du">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="select_image">Select image</string>
+    <string name="vui_long_nhap_dia_chi">Vui lòng nhập chính xác địa chỉ</string>
+    <string name="cap_nhat_thong_tin">Cập nhật thông tin không thành công</string>
+    <string name="dia_chi_khong_tim_thay">Địa chỉ không tìm thấy</string>
+    <!--more-end-viet-->
 </resources>

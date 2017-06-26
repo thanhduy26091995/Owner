@@ -254,7 +254,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
             finish();
            // ShowAlertDialog.showAlert(dataUpdateResponse.getMessage(),UpdateUserInfoActivity.this);
         }else {
-            ShowAlertDialog.showAlert("Cập nhật thông tin không thành công",UpdateUserInfoActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.cap_nhat_thong_tin),UpdateUserInfoActivity.this);
         }
 
     }
@@ -267,7 +267,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     @Override
     public void displayNotFoundLocaltion() {
         mProgressDialog.dismiss();
-        ShowAlertDialog.showAlert("Địa chỉ không tìm thấy", UpdateUserInfoActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.dia_chi_khong_tim_thay), UpdateUserInfoActivity.this);
     }
 
     @Override

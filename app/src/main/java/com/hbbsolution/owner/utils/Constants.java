@@ -21,7 +21,7 @@ public class Constants {
 
     public static final int TIMEOUT = 30000;
 
-    public static final String MERCHANT_ID = "45060";
-    public static final String MERCHANT_PASSWORD = "9fff39a446b7af9d5757b3c20cf3a9c1";
+    public static final String MERCHANT_ID = "45578";
+    public static final String MERCHANT_PASSWORD = "e1e51221f0320fa22e0e30909bad4f86";
 
 }

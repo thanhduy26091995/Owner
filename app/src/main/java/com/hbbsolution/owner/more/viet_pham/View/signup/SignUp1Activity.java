@@ -61,7 +61,7 @@ public class SignUp1Activity extends AppCompatActivity {
                 String password = edtPassword.getText().toString();
                 String confirmPassword = edtConfirmPassword.getText().toString();
                 if (username.trim().length() == 0 || password.length() == 0 || confirmPassword.length() == 0) {
-                    ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin",SignUp1Activity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du),SignUp1Activity.this);
                 } else {
                     if (password.equals(confirmPassword)) {
                         Intent iSignUp1 = new Intent(SignUp1Activity.this, SignUp2Activity.class);
@@ -72,7 +72,7 @@ public class SignUp1Activity extends AppCompatActivity {
                         startActivity(iSignUp1);
                     } else {
 //                        Toast.makeText(SignUp1Activity.this,"Xác nhận mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                        ShowAlertDialog.showAlert("Xác nhận mật khẩu không đúng",SignUp1Activity.this);
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong),SignUp1Activity.this);
                     }
                 }
             }

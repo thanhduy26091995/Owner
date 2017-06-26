@@ -64,6 +64,7 @@
     <!--terms_screen start-->
     <string name="terms">Điều khoản sử dụng</string>
     <string name="terms_btn_ok">OK</string>
+    <string name="content_null">Chưa có dữ liệu</string>
     <!--terms screen end-->
 
     <!--profile  start-->
@@ -124,6 +125,7 @@
     <string name="payment">Thanh toán</string>
     <string name="description">MÔ TẢ</string>
     <string name="yourcomment">Nhận xét của bạn</string>
+    <string name="doer">Người thực hiện</string>
     <!--detail_work_history_screen end-->
 
     <!--comment_screen start-->
@@ -170,7 +172,7 @@
     <string name="term_title">Điều khoản sử dụng</string>
     <string name="usename_empty">Username không được để trống</string>
     <string name="emai_empty">Email không được để trống</string>
-    <string name="email_wrong">Email sai</string>
+    <string name="email_wrong">Email nhập không đúng</string>
     <string name="forgot_password_success">Đã gửi thành công link đặt lại mật khẩu về email của bạn.</string>
     <string name="forgot_password_failed">Thất bại, hảy kiểm tra lại email và tài khoản của bạn.</string>
     <!--forgot password screen end-->
@@ -228,6 +230,16 @@
     <string name="error_31">buyer_email không hợp lệ</string>
     <string name="error_32">buyer_mobile không hợp lệ</string>
     <string name="error_33">buyer_address không hợp lệ</string>
-
     <!--paymentonlioneNganLuong end-->
+
+    <!--more-start-->
+    <string name="nhan_xet">Nhận xét</string>
+    <string name="khong_co_nhanxet">Không có nhận xét nào</string>
+    <string name="thong_tin">Thông tin</string>
+    <string name="vui_long_dien_day_du">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="select_image">Chọn hình ảnh</string>
+    <string name="vui_long_nhap_dia_chi">Vui lòng nhập chính xác địa chỉ</string>
+    <string name="cap_nhat_thong_tin">Cập nhật thông tin không thành công</string>
+    <string name="dia_chi_khong_tim_thay">Địa chỉ không tìm thấy</string>
+    <!--more-end-->
 </resources>
