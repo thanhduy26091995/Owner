@@ -20,7 +20,7 @@
     <!--terms_screen start-->
     <string name="terms">Terms of use</string>
     <string name="terms_btn_ok">OK</string>
-    <string name="content_null">Chưa có dữ liệu</string>
+    <string name="content_null">Chưa có nội dung</string>
     <!--terms screen end-->
 
     <!--signin_screen start-->
@@ -211,11 +211,11 @@
     <string name="send_require">Request</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="term_title">Terms of use</string>
-    <string name="usename_empty">Username không được để trống</string>
-    <string name="emai_empty">Email không được để trống</string>
+    <string name="usename_empty">Please fill in your username</string>
+    <string name="emai_empty">Please fill in your email</string>
     <string name="email_wrong">Invalid email address</string>
-    <string name="forgot_password_success">Đã gửi thành công link đặt lại mật khẩu về email của bạn.</string>
-    <string name="forgot_password_failed">Thất bại, hảy kiểm tra lại email và tài khoản của bạn.</string>
+    <string name="forgot_password_success">A password reset link is sent to your email.</string>
+    <string name="forgot_password_failed">Failed! Please double check your email and account.</string>
     <!--forgot password screen end-->
 
 
@@ -281,7 +281,7 @@
     <string name="loginFirst">Hãy đăng nhập trước khi sử dụng tính năng này</string>
 
     <!--more-start-viet-->
-    <string name="nhan_xet">Nhận xét</string>
+    <string name="nhan_xet">Comment</string>
     <string name="khong_co_nhanxet">There are no comments</string>
     <string name="thong_tin">Applicant profile</string>
     <string name="vui_long_dien_day_du">Vui lòng nhập đầy đủ thông tin</string>

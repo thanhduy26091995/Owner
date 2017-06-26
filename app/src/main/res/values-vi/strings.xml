@@ -64,7 +64,7 @@
     <!--terms_screen start-->
     <string name="terms">Điều khoản sử dụng</string>
     <string name="terms_btn_ok">OK</string>
-    <string name="content_null">Chưa có dữ liệu</string>
+    <string name="content_null">Chưa có nội dung</string>
     <!--terms screen end-->
 
     <!--profile  start-->
