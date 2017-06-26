@@ -364,10 +364,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         progressPayment.setVisibility(View.GONE);
         txt_lo_payment.setVisibility(View.GONE);
         if(billGv24Response.getStatus()){
-            checkOrderPresenter.getInfoPaymnetByOnline(mDataBill.getId());
-//            Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
-//            itPaymentOnline.putExtra("idBillOrder",mDataBill.getId());
-//            startActivity(itPaymentOnline);
+//            checkOrderPresenter.getInfoPaymnetByOnline(mDataBill.getId());
+            Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
+            itPaymentOnline.putExtra("idBillOrder",mDataBill.getId());
+            startActivity(itPaymentOnline);
         }else {
             ShowAlertDialog.showAlert("Thất bại", PaymentActivity.this);
         }

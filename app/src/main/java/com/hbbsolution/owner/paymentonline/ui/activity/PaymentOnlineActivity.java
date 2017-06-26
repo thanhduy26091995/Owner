@@ -22,7 +22,6 @@ import com.rey.material.widget.ProgressView;
 import org.json.JSONObject;
 
 
-
 public class PaymentOnlineActivity extends AppCompatActivity implements View.OnClickListener, SendOrderRequest.SendOrderRequestOnResult {
 
     private EditText editFullName;
@@ -44,7 +43,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         initView();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            idBillOrder = extras.getString(idBillOrder, "");
+            idBillOrder = extras.getString("idBillOrder", "");
 
         }
 //        idBillOrder = getIntent().getStringExtra("idBillOrder");

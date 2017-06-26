@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
@@ -182,6 +183,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     @Override
     public void checkOrderServerSuccess() {
         mProgressView.setVisibility(View.GONE);
+        Toast.makeText(CheckOrderActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
     }
 
     @Override
