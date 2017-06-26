@@ -146,7 +146,7 @@
     </plurals>
 
     <string name="unpayalbe">Unpaid</string>
-    <string name="rangetime">Vui lòng xem lại khoảng thời gian!</string>
+    <string name="rangetime">Please double check time chosen!</string>
     <string name="worklist">Worklist</string>
     <string name="confirm_the_task_completed">Click "Ok" to confirm the task completed</string>
     <!--history_screen end-->
@@ -155,19 +155,21 @@
     <string name="payment">Payment</string>
     <string name="description">DESCRIPTION</string>
     <string name="yourcomment">Add comments</string>
+    <string name="doer">DOER</string>
     <!--detail_work_history_screen end-->
 
     <!--comment_screen start-->
     <string name="comment">Comment</string>
     <!--comment_screen end-->
 
+
     <!--statistic_screen start-->
-    <string name="total">Tổng chi phí</string>
+    <string name="total">Total expense</string>
     <string name="history_work">Work history</string>
     <string name="waiting_work">Work-in-process</string>
     <string name="post_work">Posted work</string>
     <string name="recharge">Recharge</string>
-    <string name="sodutaikhoan">Số dư tài khoản</string>
+    <string name="sodutaikhoan">Account balance</string>
     <plurals name="million">
         <item quantity="one">million</item>
         <item quantity="other">millions</item>
@@ -208,9 +210,9 @@
 
 
     <!--payment screen start-->
-    <string name="payment_date">Ngày thanh toán:</string>
+    <string name="payment_date">Payment date:</string>
     <string name="timework">Time of working:</string>
-    <string name="totalprice">Thành tiền:</string>
+    <string name="totalprice">Total:</string>
     <string name="accountbalance">Account balance</string>
     <!--payment screen end-->
 

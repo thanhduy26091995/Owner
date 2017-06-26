@@ -166,7 +166,6 @@
                                     android:layout_marginLeft="10dp"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-
                                     android:textColor="@android:color/black"
                                     android:textSize="@dimen/icon_size_normal" />
 

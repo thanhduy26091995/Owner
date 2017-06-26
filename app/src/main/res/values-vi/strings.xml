@@ -124,6 +124,7 @@
     <string name="payment">Thanh toán</string>
     <string name="description">MÔ TẢ</string>
     <string name="yourcomment">Nhận xét của bạn</string>
+    <string name="doer">Người thực hiện</string>
     <!--detail_work_history_screen end-->
 
     <!--comment_screen start-->
