@@ -57,7 +57,7 @@ public class TermActivity extends AppCompatActivity implements AboutView{
     @Override
     public void getAbout(String content) {
         if (content.equals("")){
-            content="Chưa có dữ liệu";
+            content=getResources().getString(R.string.content_null);
         }
         wbv_content_term.getSettings().setJavaScriptEnabled(true);
         wbv_content_term.loadDataWithBaseURL(null,
