@@ -267,4 +267,15 @@
     <!--Facebook API-->
     <string name="facebook_app_id">694403967422336</string>
     <!--end facebook API-->
+
+    <!--more-start-viet-->
+    <string name="nhan_xet">Nhận xét</string>
+    <string name="khong_co_nhanxet">There are no comments</string>
+    <string name="thong_tin">Applicant profile</string>
+    <string name="vui_long_dien_day_du">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="select_image">Select image</string>
+    <string name="vui_long_nhap_dia_chi">Vui lòng nhập chính xác địa chỉ</string>
+    <string name="cap_nhat_thong_tin">Cập nhật thông tin không thành công</string>
+    <string name="dia_chi_khong_tim_thay">Địa chỉ không tìm thấy</string>
+    <!--more-end-viet-->
 </resources>

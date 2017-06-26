@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Thông tin"
+                android:text="@string/thong_tin"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="10dp"
-                android:text="Cập nhật"
+                android:text="@string/update_job_post"
                 android:textColor="@color/home_background_history"
                 android:textSize="20sp" />
 
@@ -233,7 +233,7 @@
                 android:paddingTop="20dp"
                 android:paddingLeft="20dp"
                 android:paddingBottom="10dp"
-                android:text="Nhận xét"
+                android:text="@string/nhan_xet"
                 android:background="@color/more_background"
                 android:textColor="@color/colorBlack"/>
             <View
@@ -245,7 +245,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="Không có nhận xét nào"
+                android:text="@string/khong_co_nhanxet"
                 android:textColor="@color/colorBlack"
                 android:background="@android:color/white"
                 />

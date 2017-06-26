@@ -119,7 +119,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
                 mPhoneName = edtNumber.getText().toString();
                 mLocation = edtLocation.getText().toString();
                 // End get data from Edittext of Sign up 2
-                if (mGender.equals("Nam")) {
+                if (mGender.equals(getResources().getString(R.string.gender_men))) {
                     iGender = 0;
                 } else {
                     iGender = 1;
@@ -128,14 +128,14 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
                 // Start transfer data from Sign up 2 to page terms
                 if (mEmail.trim().length() == 0 || mFullName.trim().length() == 0 || mGender.length() == 0 || mPhoneName.trim().length() == 0 ||
                         mLocation.trim().length() == 0) {
-                    ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin", SignUp2Activity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), SignUp2Activity.this);
                 } else {
                     if (EmailValidate.IsOk(mEmail)) {
                         mProgressDialog.show();
                         mProgressDialog.setCanceledOnTouchOutside(false);
                         mRegisterPresenter.getLocaltionAddress(mLocation);
                     } else {
-                        ShowAlertDialog.showAlert("Vui lòng nhập đúng email", SignUp2Activity.this);
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong), SignUp2Activity.this);
                     }
 
                 }
@@ -191,7 +191,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
                 if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(SignUp2Activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_PERMISSION);
                 } else {
-                    startActivityForResult(Intent.createChooser(iChooseImage, "Select image"), PICK_IMAGE_FROM_GALLERY_REQUEST);
+                    startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
                 }
 
             }
@@ -204,7 +204,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         switch (requestCode) {
             case REQUEST_READ_EXTERNAL_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(Intent.createChooser(iChooseImage, "Select image"), PICK_IMAGE_FROM_GALLERY_REQUEST);
+                    startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
                 }
                 break;
         }
@@ -252,7 +252,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
     @Override
     public void displayNotFoundLocaltion() {
         mProgressDialog.dismiss();
-        ShowAlertDialog.showAlert("Vui lòng nhập chính xác địa chỉ", SignUp2Activity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_nhap_dia_chi), SignUp2Activity.this);
     }
 
     @Override
