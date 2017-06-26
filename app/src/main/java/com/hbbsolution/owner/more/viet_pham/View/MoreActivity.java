@@ -10,12 +10,12 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.GraphRequestAsyncTask;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.more.duy_nguyen.LanguageActivity;
@@ -23,7 +23,6 @@ import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.AboutActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.ContactActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.TermActivity;
-import com.hbbsolution.owner.more.viet_pham.View.follow_fan_page.FollowFanPageFace;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 import com.hbbsolution.owner.utils.SessionManagerForLanguage;
@@ -68,7 +67,6 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout lo_terms;
     @BindView(R.id.lo_share_app)
     LinearLayout lo_share_app;
-    private GraphRequestAsyncTask graphRequest;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private boolean isPause = false;
@@ -189,8 +187,10 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
         lnlFollowFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iLikeFanPage = new Intent(MoreActivity.this, FollowFanPageFace.class);
-                startActivity(iLikeFanPage);
+                WebView webview = new WebView(MoreActivity.this);
+                webview.getSettings().setJavaScriptEnabled(true);
+                webview.loadUrl("https://www.facebook.com/Ng%C6%B0%E1%BB%9Di-Gi%C3%BAp-Vi%E1%BB%87c-247-122998571630965/");
+
             }
         });
 
