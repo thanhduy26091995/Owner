@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.more.phuc_tran;
+package com.hbbsolution.owner.more.phuc_tran.view;
 
 import com.hbbsolution.owner.more.phuc_tran.model.ForgotPassResponse;
 

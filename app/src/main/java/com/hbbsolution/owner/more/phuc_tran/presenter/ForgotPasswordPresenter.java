@@ -2,10 +2,8 @@ package com.hbbsolution.owner.more.phuc_tran.presenter;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.more.phuc_tran.ForgotPassView;
+import com.hbbsolution.owner.more.phuc_tran.view.ForgotPassView;
 import com.hbbsolution.owner.more.phuc_tran.model.ForgotPassResponse;
-import com.hbbsolution.owner.work_management.model.chekout.CheckOutResponse;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobPostView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,8 +22,8 @@ public class ForgotPasswordPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void forgotPassword() {
-        Call<ForgotPassResponse> responseCall = apiService.forgotPassword();
+    public void forgotPassword(String email,String username) {
+        Call<ForgotPassResponse> responseCall = apiService.forgotPassword(email,username);
         responseCall.enqueue(new Callback<ForgotPassResponse>() {
             @Override
             public void onResponse(Call<ForgotPassResponse> call, Response<ForgotPassResponse> response) {
