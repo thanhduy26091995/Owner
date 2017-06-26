@@ -125,7 +125,7 @@
 
     <!--history_screen start-->
     <string name="completedjob">Work history</string>
-    <string name="completedhelpler">Your helpers</string>
+    <string name="completedhelpler">Former partners</string>
     <string name="liabilities">Unpaid work</string>
     <string name="before">%s before</string>
     <plurals name="day">
@@ -162,6 +162,16 @@
     <string name="comment">Comment</string>
     <!--comment_screen end-->
 
+    <!--recharge_screen start-->
+    <string name="huongdannaptien">Recharging instruction</string>
+    <string name="naptientructuyen">Nạp tiền trực tuyến</string>
+    <string name="thongtinchuyenkhoan">Remittance information</string>
+    <string name="contentrecharge">Clients can come to the company for direct remittance.</string>
+    <!--recharge_screen end-->
+
+    <!--infobank_screen start-->
+    <string name="accountinformation">ACCOUNT INFORMATION</string>
+    <!--infobank_screen end-->
 
     <!--statistic_screen start-->
     <string name="total">Total expense</string>
@@ -203,7 +213,7 @@
     <string name="term_title">Terms of use</string>
     <string name="usename_empty">Username không được để trống</string>
     <string name="emai_empty">Email không được để trống</string>
-    <string name="email_wrong">Email sai</string>
+    <string name="email_wrong">Invalid email address</string>
     <string name="forgot_password_success">Đã gửi thành công link đặt lại mật khẩu về email của bạn.</string>
     <string name="forgot_password_failed">Thất bại, hảy kiểm tra lại email và tài khoản của bạn.</string>
     <!--forgot password screen end-->
@@ -267,6 +277,8 @@
     <!--Facebook API-->
     <string name="facebook_app_id">694403967422336</string>
     <!--end facebook API-->
+
+    <string name="loginFirst">Hãy đăng nhập trước khi sử dụng tính năng này</string>
 
     <!--more-start-viet-->
     <string name="nhan_xet">Nhận xét</string>

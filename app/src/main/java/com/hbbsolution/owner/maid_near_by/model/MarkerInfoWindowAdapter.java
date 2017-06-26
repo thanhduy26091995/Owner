@@ -2,6 +2,7 @@ package com.hbbsolution.owner.maid_near_by.model;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -94,6 +95,10 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
             Intent intent = new Intent(mActivity, MaidProfileActivity.class);
             intent.putExtra("maid", maidInfo);
             mActivity.startActivity(intent);
+        }
+        else{
+            Snackbar snackbar = Snackbar.make(mActivity.findViewById(R.id.activity), mActivity.getResources().getString(R.string.loginFirst), Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 }
