@@ -268,6 +268,8 @@
     <string name="facebook_app_id">694403967422336</string>
     <!--end facebook API-->
 
+    <string name="loginFirst">Hãy đăng nhập trước khi sử dụng tính năng này</string>
+
     <!--more-start-viet-->
     <string name="nhan_xet">Nhận xét</string>
     <string name="khong_co_nhanxet">There are no comments</string>
