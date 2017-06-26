@@ -66,12 +66,13 @@
     <!--terms_screen start-->
     <string name="terms">Điều khoản sử dụng</string>
     <string name="terms_btn_ok">OK</string>
-    <string name="content_null">Chưa có dữ liệu</string>
+    <string name="content_null">Chưa có nội dung</string>
     <!--terms screen end-->
 
     <!--profile  start-->
     <string name="pro_file_gender_male">Nam</string>
     <string name="pro_file_gender_female">Nữ</string>
+    <string name="pro_file_information">Thông tin</string>
     <!--profile end-->
 
 
@@ -134,6 +135,18 @@
     <string name="comment">Bình luận</string>
     <!--comment_screen end-->
 
+    <!--recharge_screen start-->
+    <string name="RechargingInstructions">CÁCH NẠP TIỀN VÀO TÀI KHOẢN</string>
+    <string name="huongdannaptien">Hướng dẫn nạp tiền</string>
+    <string name="naptientructuyen">Nạp tiền trực tuyến</string>
+    <string name="thongtinchuyenkhoan">Thông tin chuyển khoản</string>
+    <string name="contentrecharge">Khách hàng có thể đến trụ sở công ty để gửi tiền trực tiếp vào tài khoản NGV24.</string>
+    <!--recharge_screen end-->
+
+    <!--infobank_screen start-->
+    <string name="accountinformation">THÔNG TIN TÀI KHOẢN</string>
+    <!--infobank_screen end-->
+
     <!--contact and about screen start-->
     <string name="contact">Liên hệ</string>
     <string name="about">Về chúng tôi</string>
@@ -158,6 +171,7 @@
     <string name="million_zero">triệu</string>
     <!--statistic_screen end-->
 
+
     <!--Maid near by-->
     <string name="GPSTitle">Cài đặt GPS</string>
     <string name="GPSContent">GPS đang tắt, bạn có muốn đi đến cài đặt GPS?</string>
@@ -172,8 +186,8 @@
     <string name="send_require">Gửi yêu cầu</string>
     <string name="forgot_password">Quên mật khẩu</string>
     <string name="term_title">Điều khoản sử dụng</string>
-    <string name="usename_empty">Username không được để trống</string>
-    <string name="emai_empty">Email không được để trống</string>
+    <string name="usename_empty">Vui lòng điền username</string>
+    <string name="emai_empty">Vui lòng điền email</string>
     <string name="email_wrong">Email nhập không đúng</string>
     <string name="forgot_password_success">Đã gửi thành công link đặt lại mật khẩu về email của bạn.</string>
     <string name="forgot_password_failed">Thất bại, hảy kiểm tra lại email và tài khoản của bạn.</string>
@@ -184,7 +198,10 @@
     <string name="timework">Thời gian làm việc:</string>
     <string name="totalprice">Thành tiền:</string>
     <string name="accountbalance">Số dư tài khoản: </string>
+    <string name="invoicemumber">Mã số hóa đơn</string>
+    <string name="paymentmethods">PHƯƠNG THỨC THANH TOÁN</string>
     <!--payment screen end-->
+
 
     <string name="loading">Đang tải...</string>
 
@@ -232,6 +249,12 @@
     <string name="error_31">buyer_email không hợp lệ</string>
     <string name="error_32">buyer_mobile không hợp lệ</string>
     <string name="error_33">buyer_address không hợp lệ</string>
+    <!--Facebook API-->
+    <string name="facebook_app_id">694403967422336</string>
+    <!--end facebook API-->
+    <string name="loginFirst">Hãy đăng nhập trước khi sử dụng tính năng này</string>
+
+
     <!--paymentonlioneNganLuong end-->
 
     <!--more-start-->

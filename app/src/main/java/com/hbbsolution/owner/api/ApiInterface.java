@@ -115,24 +115,24 @@ public interface ApiInterface {
     @Multipart
     @POST("auth/thirdLogin")
     Call<BodyResponse> signInGoogleAndFace(@Part("id") RequestBody username,
-                                     @Part("token") RequestBody password,
-                                     @Part("device_token") RequestBody deviceToken
+                                           @Part("token") RequestBody password,
+                                           @Part("device_token") RequestBody deviceToken
     );
 
     @Multipart
     @POST("auth/thirdRegister")
-    Call<BodyResponse> updateGoogleAndFace(   @Part("id") RequestBody id,
-                                                    @Part("token") RequestBody Token,
-                                                    @Part("device_token") RequestBody deviceToken,
-                                                    @Part("phone") RequestBody phone,
-                                                    @Part("username") RequestBody username,
-                                                    @Part("name") RequestBody name,
-                                                    @Part("email") RequestBody email,
-                                                    @Part("addressName") RequestBody address,
-                                                    @Part("lat") RequestBody lat,
-                                                    @Part("lng") RequestBody lng,
-                                                    @Part("gender") RequestBody gender,
-                                                    @Part ("image") RequestBody image
+    Call<BodyResponse> updateGoogleAndFace(@Part("id") RequestBody id,
+                                           @Part("token") RequestBody Token,
+                                           @Part("device_token") RequestBody deviceToken,
+                                           @Part("phone") RequestBody phone,
+                                           @Part("username") RequestBody username,
+                                           @Part("name") RequestBody name,
+                                           @Part("email") RequestBody email,
+                                           @Part("addressName") RequestBody address,
+                                           @Part("lat") RequestBody lat,
+                                           @Part("lng") RequestBody lng,
+                                           @Part("gender") RequestBody gender,
+                                           @Part("image") RequestBody image
     );
 
     @Multipart
@@ -237,6 +237,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("owner/forgotPassword")
-    Call<ForgotPassResponse> forgotPassword(@Field("email") String email, @Field("username") String username);
+    Call<ForgotPassResponse> forgotPassword(@Field("email") String email,
+                                            @Field("username") String username);
 
 }

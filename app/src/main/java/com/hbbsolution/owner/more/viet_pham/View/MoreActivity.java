@@ -10,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,7 +37,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 04/05/2017.
  */
 
-public class MoreActivity extends AppCompatActivity implements View.OnClickListener{
+public class MoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -56,6 +57,8 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout lnLanguage;
     @BindView(R.id.lnLogOut)
     LinearLayout lnLogOut;
+    @BindView(R.id.linearlayout_follow_facebook)
+    LinearLayout lnlFollowFacebook;
     @BindView(R.id.lo_about)
     RelativeLayout lo_about;
     @BindView(R.id.lo_terms1)
@@ -64,7 +67,6 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout lo_terms;
     @BindView(R.id.lo_share_app)
     LinearLayout lo_share_app;
-
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private boolean isPause = false;
@@ -154,7 +156,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 sessionManagerUser.logoutUser();
-                                Intent intent= new Intent(MoreActivity.this, SignInActivity.class);
+                                Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -182,6 +184,15 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(iStatistic);
             }
         });
+        lnlFollowFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebView webview = new WebView(MoreActivity.this);
+                webview.getSettings().setJavaScriptEnabled(true);
+                webview.loadUrl("https://www.facebook.com/Ng%C6%B0%E1%BB%9Di-Gi%C3%BAp-Vi%E1%BB%87c-247-122998571630965/");
+
+            }
+        });
 
     }
 
@@ -200,10 +211,10 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        if(isPause) {
+        if (isPause) {
             SessionManagerForLanguage sessionManagerForLanguage = new SessionManagerForLanguage(MoreActivity.this);
             boolean isChangeLanguage = sessionManagerForLanguage.changeLanguage();
-            if(isChangeLanguage) {
+            if (isChangeLanguage) {
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(this.getIntent());
@@ -215,7 +226,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.lo_share_app:
 
                 break;

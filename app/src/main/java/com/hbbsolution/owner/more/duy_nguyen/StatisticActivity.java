@@ -303,6 +303,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void getStatisticFail() {
         ShowAlertDialog.showAlert("ERROR",StatisticActivity.this);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

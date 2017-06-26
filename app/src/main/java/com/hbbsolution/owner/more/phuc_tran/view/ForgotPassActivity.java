@@ -96,5 +96,4 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
         ShowAlertDialog.showAlert(error, ForgotPassActivity.this);
     }
 
-
 }
