@@ -20,7 +20,7 @@
     <!--terms_screen start-->
     <string name="terms">Terms of use</string>
     <string name="terms_btn_ok">OK</string>
-    <string name="content_null">Chưa có nội dung</string>
+    <string name="content_null">No content</string>
     <!--terms screen end-->
 
     <!--signin_screen start-->
