@@ -70,6 +70,7 @@
     <!--profile  start-->
     <string name="pro_file_gender_male">Nam</string>
     <string name="pro_file_gender_female">Nữ</string>
+    <string name="pro_file_information">Thông tin</string>
     <!--profile end-->
 
 

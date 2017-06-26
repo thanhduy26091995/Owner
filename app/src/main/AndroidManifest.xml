@@ -75,6 +75,7 @@
         <activity android:name=".history.view.ListWorkActivity"/>
         <activity android:name=".paymentonline.ui.activity.PaymentOnlineActivity"/>
         <activity android:name=".more.viet_pham.View.update_google_face.UpdateGooAndFaceActivity"/>
+        <activity android:name=".more.viet_pham.View.follow_fan_page.FollowFanPageFace"/>
 
         <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>

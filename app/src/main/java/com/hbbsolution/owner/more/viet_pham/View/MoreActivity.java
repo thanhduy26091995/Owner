@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.GraphRequestAsyncTask;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.more.duy_nguyen.LanguageActivity;
@@ -22,6 +23,7 @@ import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.AboutActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.ContactActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.TermActivity;
+import com.hbbsolution.owner.more.viet_pham.View.follow_fan_page.FollowFanPageFace;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 import com.hbbsolution.owner.utils.SessionManagerForLanguage;
@@ -36,7 +38,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 04/05/2017.
  */
 
-public class MoreActivity extends AppCompatActivity implements View.OnClickListener{
+public class MoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -56,6 +58,8 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout lnLanguage;
     @BindView(R.id.lnLogOut)
     LinearLayout lnLogOut;
+    @BindView(R.id.linearlayout_follow_facebook)
+    LinearLayout lnlFollowFacebook;
     @BindView(R.id.lo_about)
     RelativeLayout lo_about;
     @BindView(R.id.lo_terms1)
@@ -64,7 +68,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout lo_terms;
     @BindView(R.id.lo_share_app)
     LinearLayout lo_share_app;
-
+    private GraphRequestAsyncTask graphRequest;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private boolean isPause = false;
@@ -154,7 +158,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 sessionManagerUser.logoutUser();
-                                Intent intent= new Intent(MoreActivity.this, SignInActivity.class);
+                                Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -182,6 +186,13 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(iStatistic);
             }
         });
+        lnlFollowFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iLikeFanPage = new Intent(MoreActivity.this, FollowFanPageFace.class);
+                startActivity(iLikeFanPage);
+            }
+        });
 
     }
 
@@ -200,10 +211,10 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        if(isPause) {
+        if (isPause) {
             SessionManagerForLanguage sessionManagerForLanguage = new SessionManagerForLanguage(MoreActivity.this);
             boolean isChangeLanguage = sessionManagerForLanguage.changeLanguage();
-            if(isChangeLanguage) {
+            if (isChangeLanguage) {
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(this.getIntent());
@@ -215,7 +226,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.lo_share_app:
 
                 break;

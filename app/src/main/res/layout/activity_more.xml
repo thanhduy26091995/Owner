@@ -403,6 +403,7 @@
                         android:background="@android:color/darker_gray" />
 
                     <LinearLayout
+                        android:id="@+id/linearlayout_follow_facebook"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
