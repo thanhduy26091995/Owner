@@ -137,7 +137,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             txtSeriBill.setText(mLiabilitiesHistory.getId());
             payment_helper_name.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
             payment_helper_address.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
-            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice()));
+            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice())+" ");
             payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
 //            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mLiabilitiesHistory.getPeriod()));
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
@@ -166,7 +166,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             tvTypeJob.setText(mDatum.getInfo().getWork().getName());
             payment_helper_name.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
             payment_helper_address.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
-            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getStakeholders().getMadi().getWorkInfo().getPrice()));
+            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getStakeholders().getMadi().getWorkInfo().getPrice())+" ");
             payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
             txtSeriBill.setText(mDataBill.getId());
 //            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mDataBill.getPeriod()));

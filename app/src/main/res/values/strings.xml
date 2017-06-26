@@ -163,10 +163,11 @@
     <!--comment_screen end-->
 
     <!--recharge_screen start-->
+    <string name="RechargingInstructions">RECHARGING INSTRUCTIONS</string>
     <string name="huongdannaptien">Recharging instruction</string>
-    <string name="naptientructuyen">Nạp tiền trực tuyến</string>
+    <string name="naptientructuyen">Recharge online</string>
     <string name="thongtinchuyenkhoan">Remittance information</string>
-    <string name="contentrecharge">Clients can come to the company for direct remittance.</string>
+    <string name="contentrecharge">Moreover, clients can come to the company for a direct remittance.</string>
     <!--recharge_screen end-->
 
     <!--infobank_screen start-->
@@ -224,6 +225,8 @@
     <string name="timework">Time of working:</string>
     <string name="totalprice">Total:</string>
     <string name="accountbalance">Account balance</string>
+    <string name="invoicemumber">Invoice number</string>
+    <string name="paymentmethods">PAYMENT METHODS</string>
     <!--payment screen end-->
 
     <string name="loading">Loading...</string>
