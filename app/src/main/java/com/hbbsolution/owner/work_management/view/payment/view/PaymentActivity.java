@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
+import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
+import com.hbbsolution.owner.paymentonline.ui.activity.CheckOrderView;
 import com.hbbsolution.owner.paymentonline.ui.activity.PaymentOnlineActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.billGv24.BillGv24Response;
@@ -45,7 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by tantr on 5/19/2017.
  */
 
-public class PaymentActivity extends AppCompatActivity implements View.OnClickListener, PaymentView {
+public class PaymentActivity extends AppCompatActivity implements View.OnClickListener, PaymentView, CheckOrderView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tvJob)
@@ -96,6 +98,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private DatumPending mDatum;
     private DataBill mDataBill;
 
+    private CheckOrderPresenter checkOrderPresenter;
     public static Activity mPaymentActivity = null;
 
     @Override
@@ -105,6 +108,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         mPaymentActivity = this;
         ButterKnife.bind(this);
         setToolbar();
+        checkOrderPresenter = new CheckOrderPresenter(this);
         mPaymentPresenter = new PaymentPresenter(this);
         mPaymentPresenter.getWallet();
         setData();
@@ -347,6 +351,11 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
+    public void checkOrderServerSuccess() {
+        Toast.makeText(PaymentActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void getErrorPaymentBymoney(String error) {
 
     }
@@ -356,8 +365,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         progressPayment.setVisibility(View.GONE);
         txt_lo_payment.setVisibility(View.GONE);
         if(billGv24Response.getStatus()){
-            Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
-            startActivity(itPaymentOnline);
+            checkOrderPresenter.getInfoPaymnetByOnline(mDataBill.getId());
+//            Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
+//            itPaymentOnline.putExtra("idBillOrder",mDataBill.getId());
+//            startActivity(itPaymentOnline);
         }else {
             ShowAlertDialog.showAlert("Thất bại", PaymentActivity.this);
         }

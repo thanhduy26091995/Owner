@@ -25,6 +25,7 @@ public class CheckOutActivity extends Activity {
 
     private String mTokenCode = "";
     private String mCheckoutUrl = "";
+    private String idBillOrder = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class CheckOutActivity extends Activity {
         if (extras != null) {
             mTokenCode = extras.getString(TOKEN_CODE, "");
             mCheckoutUrl = extras.getString(CHECKOUT_URL, "");
+            idBillOrder = extras.getString("idOderBill", "");
         }
 
         initView();
@@ -53,6 +55,7 @@ public class CheckOutActivity extends Activity {
                 if (url.equalsIgnoreCase(Constants.RETURN_URL)) {
                     Intent intentCheckOut = new Intent(getApplicationContext(), CheckOrderActivity.class);
                     intentCheckOut.putExtra(CheckOrderActivity.TOKEN_CODE, mTokenCode);
+                    intentCheckOut.putExtra("idBillOrder",idBillOrder );
                     startActivity(intentCheckOut);
                     finish();
                 }

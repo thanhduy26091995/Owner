@@ -57,6 +57,8 @@
     <string name="vnd_hour">VND/giờ</string>
     <string name="no_amount">Bạn vui lòng nhập số tiền cho công việc</string>
     <string name="check_address">Vui lòng kiểm tra lại địa chỉ nhà.</string>
+    <string name="select_your_applicants">Chọn người giúp việc</string>
+
 
 
     <!--work_manager end-->

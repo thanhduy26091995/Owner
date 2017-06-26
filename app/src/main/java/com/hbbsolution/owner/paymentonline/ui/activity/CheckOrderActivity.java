@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
+import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderRequest;
 import com.hbbsolution.owner.paymentonline.bean.CheckOrderBean;
 import com.hbbsolution.owner.utils.Commons;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 /**
  * Created by DucChinh on 6/14/2016.
  */
-public class CheckOrderActivity extends BaseActivity implements CheckOrderRequest.CheckOrderRequestOnResult {
+public class CheckOrderActivity extends BaseActivity implements CheckOrderRequest.CheckOrderRequestOnResult, CheckOrderView {
 
     public static final String TOKEN_CODE = "token_code";
 
@@ -33,6 +34,8 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     private ProgressView mProgressView;
 
     private String mTokenCode = "";
+    private String idBillOrder = "";
+    private CheckOrderPresenter checkOrderPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,10 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mTokenCode = extras.getString(TOKEN_CODE, "");
+            idBillOrder = extras.getString("idBillOrder", "");
         }
-
+        checkOrderPresenter = new CheckOrderPresenter(this);
+        checkOrderPresenter.getInfoPaymnetByOnline(idBillOrder);
         initView();
     }
 
@@ -93,6 +98,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
 
     @Override
     public void onCheckOrderRequestOnResult(boolean result, String data) {
+
         if (result == true) {
             try {
                 JSONObject objResult = new JSONObject(data);
@@ -139,7 +145,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
 
                     txtData.setText(dataCheckOrder);
                     txtData.setVisibility(View.VISIBLE);
-                    mProgressView.setVisibility(View.GONE);
+//                    mProgressView.setVisibility(View.GONE);
                 } else {
                     mProgressView.setVisibility(View.GONE);
                     showErrorDialog(Commons.getCodeError(getApplicationContext(), responseCode), false);
@@ -171,5 +177,15 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         });
 
         mSuccessDialog.show();
+    }
+
+    @Override
+    public void checkOrderServerSuccess() {
+        mProgressView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void getErrorPaymentBymoney(String error) {
+        mProgressView.setVisibility(View.GONE);
     }
 }
