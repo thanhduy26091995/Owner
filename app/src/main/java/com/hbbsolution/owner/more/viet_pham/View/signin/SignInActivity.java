@@ -130,7 +130,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
 
     private void showProgress() {
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Đang tải...");
+        mProgressDialog.setMessage(getResources().getString(R.string.loading));
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
     }

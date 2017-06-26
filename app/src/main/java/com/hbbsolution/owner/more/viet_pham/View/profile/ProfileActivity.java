@@ -5,14 +5,11 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,8 +26,6 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.blurry.Blurry;
-
-import static android.view.View.GONE;
 
 /**
  * Created by buivu on 29/05/2017.
@@ -83,9 +78,9 @@ public class ProfileActivity extends AppCompatActivity  {
         txtProfileName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
         txtProfileAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
         if (Integer.parseInt(hashDataUser.get(SessionManagerUser.KEY_GENDER)) == 0) {
-            txtProfileGender.setText("Nam");
+            txtProfileGender.setText(getResources().getString(R.string.gender_men));
         } else {
-            txtProfileGender.setText("Nữ");
+            txtProfileGender.setText(getResources().getString(R.string.gender_women));
         }
         txtProfilePhone.setText(hashDataUser.get(SessionManagerUser.KEY_PHONE));
         ImageLoader.getInstance().loadImageAvatar(ProfileActivity.this, hashDataUser.get(SessionManagerUser.KEY_IMAGE),
