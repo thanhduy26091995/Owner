@@ -314,7 +314,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:gravity="center"
-                                android:text=" VND/1 giờ"
+                                android:text="@string/vnd_hour"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -366,7 +366,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="Số dư tài khoản GV24:"
+                            android:text="Account balance:"
                             android:textColor="@color/colorBlack"
                             android:textSize="16sp" />
 
@@ -382,7 +382,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="Thành tiền: 400.000 VNĐ"
+                            android:text="@string/totalprice"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/text_size_large"
                             android:textStyle="bold" />

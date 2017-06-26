@@ -309,12 +309,11 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getWalletSuccess(int wallet) {
-        payment_money_account.setText("Số dư tài khoản GV24: " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
+        payment_money_account.setText(getResources().getString(R.string.accountbalance)+": " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
     }
 
     @Override
     public void getWalletFail() {
-        payment_money_account.setText("Số dư tài khoản GV24:");
     }
 
     @Override

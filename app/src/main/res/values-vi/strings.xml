@@ -132,6 +132,17 @@
     <string name="comment">Bình luận</string>
     <!--comment_screen end-->
 
+    <!--recharge_screen start-->
+    <string name="huongdannaptien">Hướng dẫn nạp tiền</string>
+    <string name="naptientructuyen">Nạp tiền trực tuyến</string>
+    <string name="thongtinchuyenkhoan">Thông tin chuyển khoản</string>
+    <string name="contentrecharge">Khách hàng có thể đến trụ sở công ty để gửi tiền trực tiếp vào tài khoản NGV24.</string>
+    <!--recharge_screen end-->
+
+    <!--infobank_screen start-->
+    <string name="accountinformation">THÔNG TIN TÀI KHOẢN</string>
+    <!--infobank_screen end-->
+
     <!--contact and about screen start-->
     <string name="contact">Liên hệ</string>
     <string name="about">Về chúng tôi</string>
@@ -155,6 +166,7 @@
     </plurals>
     <string name="million_zero">triệu</string>
     <!--statistic_screen end-->
+
 
     <!--Maid near by-->
     <string name="GPSTitle">Cài đặt GPS</string>
@@ -183,6 +195,7 @@
     <string name="totalprice">Thành tiền:</string>
     <string name="accountbalance">Số dư tài khoản: </string>
     <!--payment screen end-->
+
 
     <string name="loading">Đang tải...</string>
 

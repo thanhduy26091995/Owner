@@ -125,7 +125,7 @@
 
     <!--history_screen start-->
     <string name="completedjob">Work history</string>
-    <string name="completedhelpler">Your helpers</string>
+    <string name="completedhelpler">Former partners</string>
     <string name="liabilities">Unpaid work</string>
     <string name="before">%s before</string>
     <plurals name="day">
@@ -162,6 +162,16 @@
     <string name="comment">Comment</string>
     <!--comment_screen end-->
 
+    <!--recharge_screen start-->
+    <string name="huongdannaptien">Recharging instruction</string>
+    <string name="naptientructuyen">Nạp tiền trực tuyến</string>
+    <string name="thongtinchuyenkhoan">Remittance information</string>
+    <string name="contentrecharge">Clients can come to the company for direct remittance.</string>
+    <!--recharge_screen end-->
+
+    <!--infobank_screen start-->
+    <string name="accountinformation">ACCOUNT INFORMATION</string>
+    <!--infobank_screen end-->
 
     <!--statistic_screen start-->
     <string name="total">Total expense</string>
