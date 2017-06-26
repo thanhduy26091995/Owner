@@ -317,7 +317,6 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         bUpdate.putString("imageGoogle", imageGoogleOrFace);
         bUpdate.putString("nameGoogle", nameGoogleOrFace);
         Intent iUpdate = new Intent(SignInActivity.this, UpdateGooAndFaceActivity.class);
-        iUpdate.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         iUpdate.putExtra("infoGoogle", bUpdate);
         startActivity(iUpdate);
         finish();
