@@ -54,7 +54,7 @@
                 android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
                 android:paddingTop="10dp"
-                android:text="CÁCH NẠP TIỀN VÀO TÀI KHOẢN" />
+                android:text="@string/recharginginstructions" />
         </LinearLayout>
 
         <View
@@ -94,7 +94,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/img1"
-                    android:text="Nạp tiền trực tuyến"
+                    android:text="@string/naptientructuyen"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold" />
             </RelativeLayout>

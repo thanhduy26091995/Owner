@@ -163,7 +163,7 @@
     <!--comment_screen end-->
 
     <!--recharge_screen start-->
-    <string name="RechargingInstructions">RECHARGING INSTRUCTIONS</string>
+    <string name="recharginginstructions">RECHARGING INSTRUCTIONS</string>
     <string name="huongdannaptien">Recharging instruction</string>
     <string name="naptientructuyen">Recharge online</string>
     <string name="thongtinchuyenkhoan">Remittance information</string>
@@ -227,6 +227,9 @@
     <string name="accountbalance">Account balance</string>
     <string name="invoicemumber">Invoice number</string>
     <string name="paymentmethods">PAYMENT METHODS</string>
+    <string name="thanhtoanonline">Online payment</string>
+    <string name="thanhtoantienmat">Cash payment</string>
+    <string name="taikhoanGV24">GV24 account</string>
     <!--payment screen end-->
 
     <string name="loading">Loading...</string>

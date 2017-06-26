@@ -134,7 +134,7 @@
     <!--comment_screen end-->
 
     <!--recharge_screen start-->
-    <string name="RechargingInstructions">CÁCH NẠP TIỀN VÀO TÀI KHOẢN</string>
+    <string name="recharginginstructions">CÁCH NẠP TIỀN VÀO TÀI KHOẢN</string>
     <string name="huongdannaptien">Hướng dẫn nạp tiền</string>
     <string name="naptientructuyen">Nạp tiền trực tuyến</string>
     <string name="thongtinchuyenkhoan">Thông tin chuyển khoản</string>
@@ -198,6 +198,9 @@
     <string name="accountbalance">Số dư tài khoản: </string>
     <string name="invoicemumber">Mã số hóa đơn</string>
     <string name="paymentmethods">PHƯƠNG THỨC THANH TOÁN</string>
+    <string name="thanhtoanonline">Thanh toán cnline</string>
+    <string name="thanhtoantienmat">Thanh toán tiền mặt</string>
+    <string name="taikhoanGV24">Tài khoản Gv24</string>
     <!--payment screen end-->
 
 

@@ -137,7 +137,10 @@
                             android:layout_marginBottom="5dp"
                             android:layout_weight="2"
                             android:background="@color/colorWhite">
-
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.1dp"
+                                android:background="@color/color_line_view" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -183,6 +186,11 @@
                                 android:text="@string/ion_chevron_right"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="@dimen/icon_size_normal" />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.1dp"
+                                android:background="@color/color_line_view"
+                                android:layout_alignParentBottom="true"/>
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -190,12 +198,13 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
-                        android:background="@color/color_line_view" />
+                        android:background="@color/color_line_view"
+                        android:layout_marginTop="10dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginTop="10dp"
+
                         android:layout_weight="4"
                         android:background="@color/colorWhite"
                         android:orientation="vertical"
@@ -317,23 +326,22 @@
                                 android:text="@string/vnd_hour"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="16sp" />
+
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="@color/color_line_view" />
-
-
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
-
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/color_line_view"
+                        />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -415,7 +423,11 @@
                         android:layout_marginLeft="10dp"
                         android:text="@string/paymentmethods" />
                 </LinearLayout>
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/color_line_view"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -449,7 +461,7 @@
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Tài khoản Gv24"
+                            android:text="@string/taikhoanGV24"
                             android:textColor="@color/home_background_maid_aound"
                             android:textSize="@dimen/TEXT_SIZE_NORMAL" />
                     </LinearLayout>
@@ -477,7 +489,7 @@
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Thanh toán Online"
+                            android:text="@string/thanhtoanonline"
                             android:textColor="@color/home_background_your_tasks"
                             android:textSize="@dimen/TEXT_SIZE_NORMAL" />
                     </LinearLayout>
@@ -505,7 +517,7 @@
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Thanh toán tiền mặt"
+                            android:text="@string/thanhtoantienmat"
                             android:textColor="@color/home_background_history"
                             android:textSize="@dimen/TEXT_SIZE_NORMAL" />
                     </LinearLayout>
