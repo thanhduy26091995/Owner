@@ -233,6 +233,6 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("owner/forgotPassword")
-    Call<ForgotPassResponse> forgotPassword();
+    Call<ForgotPassResponse> forgotPassword(@Field("email") String email, @Field("username") String username);
 
 }
