@@ -286,7 +286,7 @@
     <string name="facebook_app_id">694403967422336</string>
     <!--end facebook API-->
 
-    <string name="loginFirst">Hãy đăng nhập trước khi sử dụng tính năng này</string>
+    <string name="loginFirst">Please sign in before using this feature</string>
 
     <!--more-start-viet-->
     <string name="nhan_xet">Comment</string>
@@ -307,28 +307,28 @@
 
     <!--chua sua-->
     <string name="hotline">Hotline:</string>
-    <string name="chon_ngay_bat_dau">Chọn ngày bắt đầu</string>
-    <string name="chon_ngay_ket_thuc">Chọn ngày kết thúc</string>
-    <string name="boqua">Bỏ qua</string>
-    <string name="tk_da_dangnhap_noikhac">Tài khoản của bạn đã được đăng nhập từ một thiết bị khác!</string>
-    <string name="thatbai">Thất bại</string>
-    <string name="saingay">Sai ngày</string>
-    <string name="gui_yeu_cau_that_bai">Gửi yêu cầu thất bại</string>
-    <string name="gui_yeu_cau_thanh_cong">Gửi yêu cầu thành công</string>
+    <string name="chon_ngay_bat_dau">Please choose the start date!</string>
+    <string name="chon_ngay_ket_thuc">Please choose the end date!</string>
+    <string name="boqua">Skip</string>
+    <string name="tk_da_dangnhap_noikhac">Your account was accessed from another device!</string>
+    <string name="thatbai">Failed!</string>
+    <string name="saingay">Wrong date!</string>
+    <string name="gui_yeu_cau_that_bai">Failed to send request!</string>
+    <string name="gui_yeu_cau_thanh_cong">Request sent successfully!</string>
     <string name="loi_thu_lai">Error! Please try again!</string>
-    <string name="tieude">Tiêu đề</string>
-    <string name="diachi_lamviec">Địa chỉ làm việc</string>
-    <string name="mang_theo_dung_cu">Mang theo dụng cụ làm việc</string>
-    <string name="khoangtienlamviec">Khoán tiền công theo thời gian</string>
-    <string name="baocao">Báo cáo</string>
-    <string name="noi_dung_bao_cao">Nội dung báo cáo</string>
+    <string name="tieude">Title</string>
+    <string name="diachi_lamviec">Address</string>
+    <string name="mang_theo_dung_cu">Bring your cleaning supplies!</string>
+    <string name="khoangtienlamviec">Hourly pay</string>
+    <string name="baocao">Report</string>
+    <string name="noi_dung_bao_cao">Report content</string>
     <string name="locationisnotfound">Location not found!</string>
-    <string name="k_timthaykq">Không tìm thấy kết quả</string>
-    <string name="dang_xacthuc">Đang xác thực...Việc này có thể mất khá nhiều thời gian</string>
-    <string name="xacnhannguoigiupviec">Xác nhận người giúp việc</string>
-    <string name="chon_nguoi_giup_viec_thanh_cong">Bạn đã chọn người giúp việc thành công !</string>
-    <string name="thanhtoanthanhcong">Thanh toán thành công</string>
-    <string name="xoa_that_bai">Xóa thất bại</string>
+    <string name="k_timthaykq">No results found!</string>
 
+    <string name="dang_xacthuc">Validating... This process will take a few minutes</string>
+    <string name="xacnhannguoigiupviec">Partner verification</string>
+    <string name="chon_nguoi_giup_viec_thanh_cong">Congrats! You have your right parner!</string>
+    <string name="thanhtoanthanhcong">Payment successful!</string>
+    <string name="xoa_that_bai">Failed to delete!</string>
     <string name="request_sent_successfully">Request sent successfully!</string>
 </resources>
