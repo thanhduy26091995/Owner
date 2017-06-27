@@ -15,7 +15,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Selection;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +26,6 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
@@ -106,8 +104,8 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
     private JobPostPresenter mJobPostPresenter;
-
-
+    private Date startTime,endTime,startTimeTemp,endTimeTemp;
+    private Calendar cal;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +118,11 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        cal= Calendar.getInstance();
+        cal.set(0, 0, 0, 0, 0, 0);
+        startTime= cal.getTime();
+        endTime= cal.getTime();
 
         mJobPostPresenter = new JobPostPresenter(this);
         txt_post_complete.setEnabled(false);
@@ -230,11 +233,11 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 break;
 
             case R.id.txtTime_start:
-                getTimePicker(txtTime_start);
+                getTimePicker();
                 break;
 
             case R.id.txtTime_end:
-                getTimePicker(txtTime_end);
+                getTimePicker2();
                 break;
 
             case R.id.txtDate_start_work:
@@ -422,20 +425,46 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         return true;
     }
 
-    private void getTimePicker(final TextView txtTime) {
-
+    private void getTimePicker() {
         final Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(0, 0, 0, hourOfDay, minute, 0);
-                txtTime.setText(simpleDateFormat.format(calendar.getTime()));
+                startTimeTemp = calendar.getTime();
+                if(endTime.getTime() - startTimeTemp.getTime() >= 0) {
+                    txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
+                    startTime=startTimeTemp;
+                }
+                else
+                {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
+                }
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         timePickerDialog.show();
     }
-
+    private void getTimePicker2 (){
+        final Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(0, 0, 0, hourOfDay, minute, 0);
+                endTimeTemp=calendar.getTime();
+                if(endTimeTemp.getTime() - startTime.getTime() >= 0) {
+                    txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
+                    endTime=endTimeTemp;
+                }
+                else
+                {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
+                }
+            }
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        timePickerDialog.show();
+    }
     private void getDatePicker() {
         final Calendar calendar = Calendar.getInstance();
         int date = calendar.get(Calendar.DATE);
