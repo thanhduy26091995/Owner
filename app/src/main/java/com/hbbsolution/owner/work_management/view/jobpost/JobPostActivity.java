@@ -446,6 +446,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                         startTime = startTimeTemp;
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
+
                     }
                 }
                 else
