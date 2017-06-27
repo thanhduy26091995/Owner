@@ -35,6 +35,7 @@ import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -343,7 +344,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     public void displayError(String error) {
         Log.d("ERROR", error);
         hideProgressDialog();
-        ShowAlertDialog.showAlert(getResources().getString(R.string.gui_yeu_cau_that_bai), ChooseMaidActivity.this);
+        ShowAlertDialog.showAlert(error, ChooseMaidActivity.this);
     }
 
     @Override

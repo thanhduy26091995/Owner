@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.work_management.view.listmaid;
 
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 
 /**
@@ -8,6 +9,6 @@ import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 
 public interface ListMaidView {
     void getInfoListMaid(ListMaidResponse mListMaidRespose);
-    void responseChosenMaid(boolean isResponseChosenMaid);
+    void responseChosenMaid(JobPostResponse mJobPostResponse);
     void getError();
 }

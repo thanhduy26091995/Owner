@@ -15,6 +15,7 @@
     <string name="home_history">Work history</string>
     <string name="home_copy_right">Trust - Quality </string>
     <string name="more_sign_in">Sign In</string>
+    <string name="auth">You account has been logged into from a new device</string>
     <!--home screen end-->
 
     <!--terms_screen start-->
@@ -328,4 +329,5 @@
     <string name="chon_nguoi_giup_viec_thanh_cong">Congrats! You have your right parner!</string>
     <string name="thanhtoanthanhcong">Payment successful!</string>
     <string name="xoa_that_bai">Failed to delete!</string>
+    <string name="request_sent_successfully">Request sent successfully!</string>
 </resources>

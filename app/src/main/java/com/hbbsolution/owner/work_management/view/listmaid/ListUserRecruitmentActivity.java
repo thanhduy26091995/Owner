@@ -14,16 +14,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListUserRecruitmentAdapter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 import com.hbbsolution.owner.work_management.presenter.ListMaidPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
+import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,8 +129,8 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
     }
 
     @Override
-    public void responseChosenMaid(boolean isResponseChosenMaid) {
-        if (isResponseChosenMaid) {
+    public void responseChosenMaid(JobPostResponse isResponseChosenMaid) {
+        if (isResponseChosenMaid.getStatus()) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
