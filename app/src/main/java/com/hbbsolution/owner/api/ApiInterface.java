@@ -236,7 +236,7 @@ public interface ApiInterface {
     Call<BillGv24Response> getInfoPaymnetByOnlineSuccess(@Field("billId") String idBill);
 
     @FormUrlEncoded
-    @POST("owner/forgotPassword")
+    @POST("more/ownerForgotPassword")
     Call<ForgotPassResponse> forgotPassword(@Field("email") String email,
                                             @Field("username") String username);
 

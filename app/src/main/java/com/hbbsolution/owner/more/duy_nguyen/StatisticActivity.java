@@ -172,7 +172,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
         int nam = Integer.parseInt(strArrtmp[2]);
         DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
-        pic.setTitle("Chọn ngày bắt đầu");
+        pic.setTitle(getResources().getString(R.string.chon_ngay_bat_dau));
         pic.show();
     }
 
@@ -217,7 +217,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         int thang = Integer.parseInt(strArrtmp[1]) - 1;
         int nam = Integer.parseInt(strArrtmp[2]);
         DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
-        pic.setTitle("Chọn ngày kết thúc");
+        pic.setTitle(getResources().getString(R.string.chon_ngay_ket_thuc));
         pic.show();
     }
 

@@ -168,7 +168,7 @@
                             android:fontFamily="@string/font_family_regular"
                             android:gravity="center_vertical"
                             android:padding="10dp"
-                            android:text="Mang theo dụng cụ làm việc"
+                            android:text="@string/mang_theo_dung_cu"
                             android:textColor="@color/colorBlack"
                             android:textSize="16sp" />
 

@@ -136,8 +136,8 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     public void responseCheckToken() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
-        alertDialog.setTitle("Thông báo");
-        alertDialog.setMessage("Tài khoản của bạn đã được đăng nhập từ một thiết bị khác! ");
+        alertDialog.setTitle(getResources().getString(R.string.notification));
+        alertDialog.setMessage(getResources().getString(R.string.tk_da_dangnhap_noikhac));
         alertDialog.setCancelable(false);
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -155,7 +155,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
 
     @Override
     public void errorConnectService() {
-        ShowAlertDialog.showAlert("Thất bại", HomeActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), HomeActivity.this);
     }
 
     @Override

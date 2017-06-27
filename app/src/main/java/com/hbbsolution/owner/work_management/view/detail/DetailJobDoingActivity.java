@@ -181,7 +181,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
-            alertDialog.setMessage("Check out thành công");
+            alertDialog.setMessage(getResources().getString(R.string.work_complete));
             alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

@@ -10,7 +10,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPostAdapter;
 import com.hbbsolution.owner.adapter.ManageJobAdapter;
-import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
@@ -161,7 +159,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
 
             alertDialog.show();
         }else {
-            Toast.makeText(getActivity(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.xoa_that_bai), Toast.LENGTH_SHORT).show();
         }
 
     }
