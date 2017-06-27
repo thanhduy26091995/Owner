@@ -1,12 +1,16 @@
 package com.hbbsolution.owner.more.viet_pham.View.signup;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -61,7 +65,7 @@ public class SignUp1Activity extends AppCompatActivity {
                 String password = edtPassword.getText().toString();
                 String confirmPassword = edtConfirmPassword.getText().toString();
                 if (username.trim().length() == 0 || password.length() == 0 || confirmPassword.length() == 0) {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du),SignUp1Activity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), SignUp1Activity.this);
                 } else {
                     if (password.equals(confirmPassword)) {
                         Intent iSignUp1 = new Intent(SignUp1Activity.this, SignUp2Activity.class);
@@ -72,7 +76,7 @@ public class SignUp1Activity extends AppCompatActivity {
                         startActivity(iSignUp1);
                     } else {
 //                        Toast.makeText(SignUp1Activity.this,"Xác nhận mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                        ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong),SignUp1Activity.this);
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong), SignUp1Activity.this);
                     }
                 }
             }
@@ -83,5 +87,22 @@ public class SignUp1Activity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 }

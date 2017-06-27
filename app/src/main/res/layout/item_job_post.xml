@@ -100,7 +100,7 @@
                             android:background="@drawable/background_txt_request_direct"
                             android:gravity="center"
                             android:padding="2dp"
-                            android:text="Gửi trực tiếp"
+                            android:text="@string/sent_directly"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/text_size_small"
                             android:visibility="gone" />
@@ -137,7 +137,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="23 phút trước"
+                        android:text="1 phút trước"
                         android:textSize="12sp" />
 
                 </LinearLayout>

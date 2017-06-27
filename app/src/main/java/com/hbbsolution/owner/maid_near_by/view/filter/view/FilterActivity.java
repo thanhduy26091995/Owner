@@ -140,20 +140,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         if (item.getItemId() == android.R.id.home) {
             finish();
         } else if (item.getItemId() == R.id.action_done) {
-//            Integer ageMin = null, ageMax = null;
-//            //filter project
-//            workId = hashMapTypeJob.get(txtTypeJob.getText().toString());
-//            if (txtGender.getText().toString().equals("Nam") || txtGender.getText().toString().equals("Male")) {
-//                gender = 0;
-//            } else if (txtGender.getText().toString().equals("Nữ") || txtGender.getText().toString().equals("Female")) {
-//                gender = 1;
-//            }
-//            if (isChooseOld) {
-//                ageMin = fromOld;
-//                ageMax = toOld;
-//            }
-//            //save
-//            presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance);
         }
         return super.onOptionsItemSelected(item);
     }

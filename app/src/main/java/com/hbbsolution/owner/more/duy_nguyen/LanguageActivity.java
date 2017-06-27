@@ -27,8 +27,13 @@ public class LanguageActivity extends AppCompatActivity implements View.OnClickL
     TextView tvVietnamese;
     @BindView(R.id.tvEnglish)
     TextView tvEnglish;
+    @BindView(R.id.txt_chk_en)
+    TextView txtEng;
+    @BindView(R.id.txt_chk_vi)
+    TextView txtVi;
     private Locale locale;
     private SessionManagerForLanguage sessionManagerForLanguage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,19 +42,36 @@ public class LanguageActivity extends AppCompatActivity implements View.OnClickL
         setToolbar();
         setEventClick();
         sessionManagerForLanguage = new SessionManagerForLanguage(this);
+        String language = sessionManagerForLanguage.getLanguage();
+        if (language.equals("Tiếng Việt") || language.equals("Vietnamese")){
+            hideIconEng();
+        }
+        else{
+            hideIconVi();
+        }
     }
 
+    private void hideIconEng(){
+        txtEng.setVisibility(View.GONE);
+        txtVi.setVisibility(View.VISIBLE);
+    }
+
+    private void hideIconVi(){
+        txtEng.setVisibility(View.VISIBLE);
+        txtVi.setVisibility(View.GONE);
+    }
     public void setToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    public void setEventClick()
-    {
+
+    public void setEventClick() {
         tvEnglish.setOnClickListener(this);
         tvVietnamese.setOnClickListener(this);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -61,25 +83,25 @@ public class LanguageActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         String language;
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.tvVietnamese:
                 ApiClient.setLanguage("vi");
                 language = "Tiếng Việt";
-                setLocale("vi",language);
+                setLocale("vi", language);
                 sessionManagerForLanguage.setIsClickedLanguage(true);
                 sessionManagerForLanguage.createLanguageSession(language);
                 break;
             case R.id.tvEnglish:
                 ApiClient.setLanguage("en");
                 language = "English";
-                setLocale("en",language);
+                setLocale("en", language);
                 sessionManagerForLanguage.setIsClickedLanguage(true);
                 sessionManagerForLanguage.createLanguageSession(language);
                 break;
         }
     }
-    private void setLocale(String lang,String language) {
+
+    private void setLocale(String lang, String language) {
         locale = new Locale(lang);
         Resources res = this.getResources();
         DisplayMetrics displayMetrics = res.getDisplayMetrics();
@@ -89,10 +111,11 @@ public class LanguageActivity extends AppCompatActivity implements View.OnClickL
         finish();
         overridePendingTransition(0, 0);
         Intent refresh = new Intent(this, this.getClass());
-        refresh.putExtra("language",language);
+        refresh.putExtra("language", language);
         startActivity(refresh);
         overridePendingTransition(0, 0);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

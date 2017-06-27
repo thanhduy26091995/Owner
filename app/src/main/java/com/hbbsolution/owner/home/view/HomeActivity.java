@@ -71,8 +71,8 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
             txt_work_management.setPadding(15, 0, 15, 5);
             txt_work_management_history.setPadding(5, 0, 5, 5);
         }
-//        mHomePresenter = new HomePresenter(this);
-//        mHomePresenter.requestCheckToken();
+        mHomePresenter = new HomePresenter(this);
+        mHomePresenter.requestCheckToken();
     }
 
     @Override

@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Bộ lọc"
+                android:text="@string/filter"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="10dp"
-                android:text="Tìm kiếm"
+                android:text="@string/search"
                 android:textColor="@color/home_background_history"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Khoảng cách"
+                android:text="@string/distance"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
@@ -161,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="Giá tiền"
+                    android:text="@string/price"
                     android:textColor="@color/colorBlack" />
 
                 <View
@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="Loại công việc"
+                    android:text="@string/types_of_work"
                     android:textColor="@color/colorBlack" />
 
                 <View
@@ -245,7 +245,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="Giới tính"
+                    android:text="@string/gender"
                     android:textColor="@color/colorBlack" />
 
                 <View
@@ -285,7 +285,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="Tuổi"
+                    android:text="@string/sign_up_age"
                     android:textColor="@color/colorBlack" />
             </LinearLayout>
         </LinearLayout>

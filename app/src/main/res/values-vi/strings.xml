@@ -58,7 +58,7 @@
     <string name="no_amount">Bạn vui lòng nhập số tiền cho công việc</string>
     <string name="check_address">Vui lòng kiểm tra lại địa chỉ nhà.</string>
     <string name="select_your_applicants">Chọn người giúp việc</string>
-
+    <string name="sent_directly">Gửi trực tiếp</string>
 
 
     <!--work_manager end-->
@@ -75,6 +75,18 @@
     <string name="pro_file_information">Thông tin</string>
     <!--profile end-->
 
+    <!--signup_screen start-->
+    <string name="sign_up_confirm_password">Xác nhận mật khẩu</string>
+    <string name="sign_up_next">Kế tiếp</string>
+    <string name="sign_up_email">Email</string>
+    <string name="sign_up_full_name">Tên đầy đủ</string>
+    <string name="sign_up_gender">Giới tính</string>
+
+    <string name="sign_up_age">Tuổi</string>
+    <string name="sign_up_phone_number">Số điện thoại</string>
+    <string name="sign_up_address">Địa chỉ</string>
+    <!--signup_screen end-->
+
     <!--signin_screen start-->
     <string name="sign_in_user_name">Tên đăng nhập</string>
     <string name="sign_in_password">Mật khẩu</string>
@@ -82,6 +94,7 @@
     <string name="sign_in_forget_password">Quên mật khẩu</string>
     <string name="sign_in_sign_now">Đăng ký ngay</string>
     <string name="sign_in_by">Đăng nhập bằng</string>
+    <string name="sign_up">Đăng ký</string>
     <!--signin_screen end-->
     <!--Page more activity start-->
     <string name="more_job_statistic">Thống kê công việc</string>
@@ -317,4 +330,14 @@
     <string name="reportfail">Báo cáo thất bại!</string>
     <string name="commentsuccess">Nhận xét thành công!</string>
     <string name="commentfail">Nhận xét thất bại!</string>
+    <string name="price">Giá tiền</string>
+    <string name="gender">Giới tính</string>
+    <string name="distance">Khoảng cách</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="filter">Bộ lọc</string>
+    <string name="work_ability">Năng lực làm việc</string>
+    <string name="send_direct">Gửi yêu cầu trực tiếp</string>
+    <string name="comment_upper">COMMENT</string>
+    <string name="information">Thông tin</string>
+    <string name="applicant_profile">Thông tin</string>
 </resources>

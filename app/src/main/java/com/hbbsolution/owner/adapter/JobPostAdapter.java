@@ -55,19 +55,22 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
             holder.txtExpired.setVisibility(View.VISIBLE);
             holder.lo_background.setVisibility(View.VISIBLE);
             holder.txtNumber_request_detail_post.setVisibility(View.GONE);
+            holder.txtRequestDirect.setVisibility(View.GONE);
             holder.txtType.setText(context.getResources().getString(R.string.qua_han_ung_tuyen));
         } else {
             holder.txtExpired.setVisibility(View.GONE);
             holder.lo_background.setVisibility(View.GONE);
             holder.txtType.setText(context.getResources().getString(R.string.jobs_for_applications));
-            holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+//            holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
             if(mDatum.getProcess().getId().equals("000000000000000000000006")){
                 holder.txtRequestDirect.setVisibility(View.VISIBLE);
+                holder.txtNumber_request_detail_post.setVisibility(View.GONE);
             }else {
                 holder.txtRequestDirect.setVisibility(View.GONE);
                 if (mDatum.getStakeholders().getRequest().size() == 0) {
                     holder.txtNumber_request_detail_post.setVisibility(View.GONE);
                 } else {
+                    holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
                     holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
                 }
             }

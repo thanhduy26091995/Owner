@@ -31,6 +31,7 @@
     <string name="sign_in_forget_password">Forgot password?</string>
     <string name="sign_in_sign_now">Sign up now</string>
     <string name="sign_in_by">Login with</string>
+    <string name="sign_up">Sign up</string>
     <!--signin_screen end-->
 
     <!--work_manager start-->
@@ -76,6 +77,7 @@
     <string name="vnd_hour">VND/hour</string>
     <string name="no_amount">You have not entered the amount</string>
     <string name="check_address">Please, double check your home address.</string>
+    <string name="sent_directly">Sent directly</string>
     <string name="select_your_applicants">Select your applicants</string>
     <!--work_manager end-->
 
@@ -336,4 +338,13 @@
     <string name="reportfail">Failed to send report!</string>
     <string name="commentsuccess">Comment sent successfully!</string>
     <string name="commentfail">Failed to send comment!</string>
+    <string name="price">Price</string>
+    <string name="gender">Gender</string>
+    <string name="distance">Distance</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="work_ability">Work ability</string>
+    <string name="send_direct">Gửi yêu cầu trực tiếp</string>
+    <string name="comment_upper">NHẬN XÉT</string>
+    <string name="applicant_profile">Applicant profile</string>
 </resources>
