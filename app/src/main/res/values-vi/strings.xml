@@ -9,7 +9,7 @@
     <string name="home_your_tasks">Quản lý công việc</string>
     <string name="home_history">Lịch sử công việc</string>
     <string name="home_copy_right">Niềm tin - Chất lượng</string>
-
+    <string name="auth">Tài khoản của bạn bị đăng nhập bởi một thiết bị khác</string>
     <!--home screen end-->
 
     <!--work_manager start-->
@@ -310,4 +310,6 @@
     <string name="chon_nguoi_giup_viec_thanh_cong">Bạn đã chọn người giúp việc thành công !</string>
     <string name="thanhtoanthanhcong">Thanh toán thành công</string>
     <string name="xoa_that_bai">Xóa thất bại</string>
+
+    <string name="request_sent_successfully">Gửi yêu cầu thành công!</string>
 </resources>

@@ -137,9 +137,9 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
         alertDialog.setTitle(getResources().getString(R.string.notification));
-        alertDialog.setMessage(getResources().getString(R.string.tk_da_dangnhap_noikhac));
+        alertDialog.setMessage(getResources().getString(R.string.auth));
         alertDialog.setCancelable(false);
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 SessionManagerUser sessionManagerUser = new SessionManagerUser(HomeActivity.this);

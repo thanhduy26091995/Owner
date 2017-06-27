@@ -107,11 +107,15 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.management_compose_toothbar:
-                if (mQuantityJobPost < 10) {
-                    Intent intent = new Intent(WorkManagementActivity.this, JobPostActivity.class);
-                    startActivity(intent);
-                } else {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), WorkManagementActivity.this);
+                try {
+                    if (mQuantityJobPost < 10) {
+                        Intent intent = new Intent(WorkManagementActivity.this, JobPostActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), WorkManagementActivity.this);
+                    }
+                }catch (Exception e){
+                    ShowAlertDialog.showAlert("Loading...", WorkManagementActivity.this);
                 }
                 break;
         }

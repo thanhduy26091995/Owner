@@ -434,7 +434,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         timePickerDialog.show();
-
     }
 
     private void getDatePicker() {
@@ -466,7 +465,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     }
 
     private boolean CompareDays(String dateStartWork) {
-
         Date date1 = null;
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
@@ -497,19 +495,16 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     }
 
     private boolean CompareTime(String start, String end) {
-
         String startTime = start;
         String endTime = end;
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         Date d1 = null, d2 = null;
-
         try {
             d1 = sdf.parse(startTime);
             d2 = sdf.parse(endTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         long elapsed = d2.getTime() - d1.getTime();
         if (elapsed > 0) {
             return true;
@@ -518,35 +513,13 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         return false;
     }
 
-    private boolean validateTimeWork() {
-
-        if (CompareTime(txtTime_start.getText().toString(), txtTime_end.getText().toString())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private String getTimeWork(String mTimeWork) {
-
-        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
-        String _TimeWork = txtDate_start_work.getText().toString() + " " + mTimeWork;
-        Date mTimeAt = null;
-        try {
-            mTimeAt = mCreateTime.parse(_TimeWork);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return new DateTime(mTimeAt).toString();
-    }
-
     private void checkLocaltionOfOwner() {
         mAddressPost = edtAddressPost.getText().toString();
         if (!mAddressPost.isEmpty()) {
             mJobPostPresenter.getLocaltionAddress(mAddressPost);
         } else {
             progressBar.setVisibility(View.GONE);
-
+            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_address), JobPostActivity.this);
         }
     }
@@ -563,4 +536,25 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         return simpleDateFormat.format(date);
     }
+
+    private String getTimeWork(String mTimeWork) {
+        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
+        String _TimeWork = txtDate_start_work.getText().toString() + " " + mTimeWork;
+        Date mTimeAt = null;
+        try {
+            mTimeAt = mCreateTime.parse(_TimeWork);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new DateTime(mTimeAt).toString();
+    }
+
+    private boolean validateTimeWork() {
+        if (CompareTime(txtTime_start.getText().toString(), txtTime_end.getText().toString())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
