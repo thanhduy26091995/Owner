@@ -286,7 +286,7 @@
     <string name="add_comment">Vui lòng nhập bình luận</string>
 
     <!--chua sua-->
-    <string name="hotline">Hotline:</string>
+    <string name="hotline">Đường dây nóng:</string>
     <string name="chon_ngay_bat_dau">Chọn ngày bắt đầu</string>
     <string name="chon_ngay_ket_thuc">Chọn ngày kết thúc</string>
     <string name="boqua">Bỏ qua</string>
@@ -302,7 +302,7 @@
     <string name="khoangtienlamviec">Khoán tiền công theo thời gian</string>
     <string name="baocao">Báo cáo</string>
     <string name="noi_dung_bao_cao">Nội dung báo cáo</string>
-    <string name="locationisnotfound">Location not found!</string>
+    <string name="locationisnotfound">Không tìm thấy vị trí!</string>
     <string name="k_timthaykq">Không tìm thấy kết quả</string>
     <string name="checkoutthanhcong">Check out thành công</string>
     <string name="dang_xacthuc">Đang xác thực...Việc này có thể mất khá nhiều thời gian</string>
