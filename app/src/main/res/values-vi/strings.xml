@@ -82,6 +82,7 @@
     <string name="sign_in_forget_password">Quên mật khẩu</string>
     <string name="sign_in_sign_now">Đăng ký ngay</string>
     <string name="sign_in_by">Đăng nhập bằng</string>
+    <string name="sign_up">Đăng ký</string>
     <!--signin_screen end-->
     <!--Page more activity start-->
     <string name="more_job_statistic">Thống kê công việc</string>

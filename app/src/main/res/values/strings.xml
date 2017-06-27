@@ -31,6 +31,7 @@
     <string name="sign_in_forget_password">Forgot password?</string>
     <string name="sign_in_sign_now">Sign up now</string>
     <string name="sign_in_by">Login with</string>
+    <string name="sign_up">Sign up</string>
     <!--signin_screen end-->
 
     <!--work_manager start-->
