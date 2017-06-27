@@ -75,6 +75,17 @@
     <string name="pro_file_information">Thông tin</string>
     <!--profile end-->
 
+    <!--signup_screen start-->
+    <string name="sign_up_confirm_password">Xác nhận mật khẩu</string>
+    <string name="sign_up_next">Kế tiếp</string>
+    <string name="sign_up_email">Email</string>
+    <string name="sign_up_full_name">Tên đầy đủ</string>
+    <string name="sign_up_gender">Giới tính</string>
+    <string name="sign_up_age">Tuổi</string>
+    <string name="sign_up_phone_number">Số điện thoại</string>
+    <string name="sign_up_address">Địa chỉ</string>
+    <!--signup_screen end-->
+
     <!--signin_screen start-->
     <string name="sign_in_user_name">Tên đăng nhập</string>
     <string name="sign_in_password">Mật khẩu</string>
