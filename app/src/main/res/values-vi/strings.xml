@@ -109,7 +109,7 @@
 
 
     <!--history_screen start-->
-    <string name="completedjob">Công việc hoàn thành</string>
+    <string name="completedjob">Hoàn thành</string>
     <string name="completedhelpler">Giúp việc đã làm</string>
     <string name="liabilities">Công nợ</string>
     <string name="before">%s trước</string>
