@@ -1,7 +1,6 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,15 +26,10 @@ import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -243,7 +235,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
             alertDialog.show();
         } else {
-            ShowAlertDialog.showAlert("Thất bại", DetailJobPostActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), DetailJobPostActivity.this);
         }
 
     }

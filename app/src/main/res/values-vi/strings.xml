@@ -284,4 +284,30 @@
     <string name="old">tuổi</string>
     <string name="no_result_found">Không tìm thấy kết quả</string>
     <string name="add_comment">Vui lòng nhập bình luận</string>
+
+    <!--chua sua-->
+    <string name="hotline">Hotline:</string>
+    <string name="chon_ngay_bat_dau">Chọn ngày bắt đầu</string>
+    <string name="chon_ngay_ket_thuc">Chọn ngày kết thúc</string>
+    <string name="boqua">Bỏ qua</string>
+    <string name="tk_da_dangnhap_noikhac">Tài khoản của bạn đã được đăng nhập từ một thiết bị khác!</string>
+    <string name="thatbai">Thất bại</string>
+    <string name="saingay">Sai ngày</string>
+    <string name="gui_yeu_cau_that_bai">Gửi yêu cầu thất bại</string>
+    <string name="gui_yeu_cau_thanh_cong">Gửi yêu cầu thành công</string>
+    <string name="loi_thu_lai">Có lỗi, vui lòng thử lại</string>
+    <string name="tieude">Tiêu đề</string>
+    <string name="diachi_lamviec">Địa chỉ làm việc</string>
+    <string name="mang_theo_dung_cu">Mang theo dụng cụ làm việc</string>
+    <string name="khoangtienlamviec">Khoán tiền công theo thời gian</string>
+    <string name="baocao">Báo cáo</string>
+    <string name="noi_dung_bao_cao">Nội dung báo cáo</string>
+    <string name="locationisnotfound">Location not found!</string>
+    <string name="k_timthaykq">Không tìm thấy kết quả</string>
+    <string name="checkoutthanhcong">Check out thành công</string>
+    <string name="dang_xacthuc">Đang xác thực...Việc này có thể mất khá nhiều thời gian</string>
+    <string name="xacnhannguoigiupviec">Xác nhận người giúp việc</string>
+    <string name="chon_nguoi_giup_viec_thanh_cong">Bạn đã chọn người giúp việc thành công !</string>
+    <string name="thanhtoanthanhcong">Thanh toán thành công</string>
+    <string name="xoa_that_bai">Xóa thất bại</string>
 </resources>

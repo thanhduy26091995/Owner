@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.more.phuc_tran.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +31,7 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
     @BindView(R.id.btn_send_require)
     Button btn_send_require;
 
+    private ProgressDialog mProgressDialog;
     ForgotPasswordPresenter forgotPasswordPresenter;
 
     @Override
@@ -46,6 +48,7 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txt_forgot_pass_toolbar.setText(getResources().getString(R.string.forgot_password));
 
+        mProgressDialog = new ProgressDialog(this);
         forgotPasswordPresenter = new ForgotPasswordPresenter(this);
 
         btn_send_require.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +56,8 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
             public void onClick(View v) {
                 if (isValidMail(edt_email.getText().toString())) {
 
-                    forgotPasswordPresenter.forgotPassword(edt_email.getText().toString(),edt_username.getText().toString());
+                    forgotPasswordPresenter.forgotPassword(edt_email.getText().toString(), edt_username.getText().toString());
+                    showProgress();
 
                 } else if (edt_username.getText().toString().equals("")) {
                     edt_username.setError(getResources().getString(R.string.usename_empty));
@@ -82,18 +86,31 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
 
     @Override
     public void getForgotPass(ForgotPassResponse forgotPassResponse) {
-
+        hideProgress();
         if (forgotPassResponse.getStatus()) {
             ShowAlertDialog.showAlert(getResources().getString(R.string.forgot_password_success), ForgotPassActivity.this);
-        }
-        else {
+        } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.forgot_password_failed), ForgotPassActivity.this);
         }
     }
 
     @Override
     public void getErrorForgotPass(String error) {
+        hideProgress();
         ShowAlertDialog.showAlert(error, ForgotPassActivity.this);
+    }
+
+    private void showProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getResources().getString(R.string.loading));
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
 }

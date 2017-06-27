@@ -35,7 +35,6 @@ import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
-import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -136,7 +135,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
                 if (compareDay(txtDate_start_work.getText().toString())) {
-                    ShowAlertDialog.showAlert("Sai ngày", ChooseMaidActivity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.saingay), ChooseMaidActivity.this);
                 }
             }
         }, year, month, date);
@@ -344,7 +343,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     public void displayError(String error) {
         Log.d("ERROR", error);
         hideProgressDialog();
-        ShowAlertDialog.showAlert("Gửi yêu cầu thất bại", ChooseMaidActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.gui_yeu_cau_that_bai), ChooseMaidActivity.this);
     }
 
     @Override
@@ -407,7 +406,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         if (status) {
             try {
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChooseMaidActivity.this);
-                alertDialogBuilder.setMessage("Gửi yêu cầu thành công");
+                alertDialogBuilder.setMessage(getResources().getString(R.string.gui_yeu_cau_thanh_cong));
                 alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
                         new DialogInterface.OnClickListener() {
 
@@ -428,7 +427,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
 
             }
         } else {
-            ShowAlertDialog.showAlert("Có lỗi, vui lòng thử lại", ChooseMaidActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), ChooseMaidActivity.this);
         }
     }
 }

@@ -327,7 +327,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         if (billGv24Response.getStatus()) {
             PaymentSuccess();
         } else {
-            ShowAlertDialog.showAlert("Thất bại", PaymentActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), PaymentActivity.this);
         }
     }
 
@@ -335,7 +335,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     public void getErrorBill24h(String error) {
         progressPayment.setVisibility(View.GONE);
         txt_lo_payment.setVisibility(View.GONE);
-        Toast.makeText(PaymentActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PaymentActivity.this, getResources().getString(R.string.thatbai), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -345,7 +345,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         if (billGv24Response.getStatus()) {
             PaymentSuccess();
         } else {
-            ShowAlertDialog.showAlert("Thất bại", PaymentActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), PaymentActivity.this);
         }
     }
 
@@ -369,7 +369,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             itPaymentOnline.putExtra("idBillOrder",mDataBill.getId());
             startActivity(itPaymentOnline);
         }else {
-            ShowAlertDialog.showAlert("Thất bại", PaymentActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), PaymentActivity.this);
         }
     }
 
@@ -377,7 +377,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
         alertDialog.setTitle(getResources().getString(R.string.notification));
-        alertDialog.setMessage("Thanh toán thành công");
+        alertDialog.setMessage(getResources().getString(R.string.thanhtoanthanhcong));
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

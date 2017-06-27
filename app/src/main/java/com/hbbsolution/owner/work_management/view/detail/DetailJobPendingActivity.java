@@ -359,7 +359,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
     private void showProgress() {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Đang xác thực...Việc này có thể mất khá nhiều thời gian");
+        progressDialog.setMessage(getResources().getString(R.string.dang_xacthuc));
         progressDialog.setCancelable(false);
         progressDialog.show();
     }

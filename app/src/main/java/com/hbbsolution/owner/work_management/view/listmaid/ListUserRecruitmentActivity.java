@@ -14,19 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListUserRecruitmentAdapter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
-import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 import com.hbbsolution.owner.work_management.presenter.ListMaidPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
-import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +130,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
-            alertDialog.setMessage("Bạn đã chọn người giúp việc thành công !");
+            alertDialog.setMessage(getResources().getString(R.string.chon_nguoi_giup_viec_thanh_cong));
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -154,7 +151,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
 
             alertDialog.show();
         } else {
-            ShowAlertDialog.showAlert("Thất bại", ListUserRecruitmentActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), ListUserRecruitmentActivity.this);
         }
     }
 

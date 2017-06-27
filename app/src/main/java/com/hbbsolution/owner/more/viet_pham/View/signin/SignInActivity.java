@@ -256,8 +256,8 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     @Override
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
         btnSignIn.setEnabled(true);
+        hideProgress();
         if (bodyResponse.getStatus() == true) {
-            hideProgress();
             //save session
             sessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = sessionManagerUser.getUserDetails();

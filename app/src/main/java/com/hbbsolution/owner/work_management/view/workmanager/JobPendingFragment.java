@@ -165,7 +165,7 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
             alertDialog.show();
         }else {
-            Toast.makeText(getActivity(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.xoa_that_bai), Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -339,7 +339,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
                     showProgress();
                     presenter.getMaidNearBy(location.getLatitude(), location.getLongitude());
                 } else {
-                    Toast.makeText(MaidNearByActivity.this, "Location not found!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MaidNearByActivity.this, getResources().getString(R.string.locationisnotfound), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -486,7 +486,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         markerLoadImage.clear();
         maidInfoList = maidNearByResponse.getData();
         if (maidInfoList.size() == 0) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.activity), "Không tìm thấy kết quả", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.activity), getResources().getString(R.string.k_timthaykq), Snackbar.LENGTH_LONG);
             snackbar.show();
         }
         updateMap(googleMap);

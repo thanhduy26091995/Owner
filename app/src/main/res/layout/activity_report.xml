@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:text="Báo cáo"
+                android:text="@string/baocao"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -155,7 +155,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:gravity="top"
-            android:hint="Nội dung báo cáo"
+            android:hint="@string/noi_dung_bao_cao"
             android:padding="10dp" />
     </LinearLayout>
 
