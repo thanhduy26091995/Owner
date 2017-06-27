@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/gray"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:fitsSystemWindows="true">
 
     <android.support.v4.widget.NestedScrollView
@@ -35,7 +35,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="NHẬN XÉT" />
+                    android:text="@string/comment_upper" />
             </LinearLayout>
 
             <View
@@ -51,15 +51,15 @@
                 tools:listitem="@layout/item_comment">
 
             </android.support.v7.widget.RecyclerView>
-            
+
             <TextView
                 android:id="@+id/txtNoComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="Chưa có nhận xét"
                 android:gravity="center"
-                android:padding="20dp"/>
+                android:padding="20dp"
+                android:text="@string/khong_co_nhanxet"
+                android:visibility="gone" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
@@ -130,7 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Thông tin"
+                        android:text="@string/applicant_profile"
                         android:textColor="@color/colorBlack"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -161,7 +161,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="20dp"
                             android:src="@drawable/avatar"
-                            android:transitionName="icAvatar"/>
+                            android:transitionName="icAvatar" />
 
                         <TextView
                             android:id="@+id/txtNameInfoMaid"
@@ -314,12 +314,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Năng lực làm việc"
                     android:background="@color/more_background"
-                    android:textColor="@color/colorBlack"/>
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="20dp"
+                    android:text="@string/work_ability"
+                    android:textColor="@color/colorBlack" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -367,9 +367,8 @@
                     android:id="@+id/recy_listTypeJob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp">
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
 
                 <View
                     android:layout_width="match_parent"
@@ -380,16 +379,16 @@
                     android:id="@+id/linear_report_maid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/txt_chk"
-                        android:text="Báo cáo người giúp việc"
+                        android:text="@string/baocao"
                         android:textColor="@color/home_background_history"
                         android:textSize="@dimen/text_size_large" />
                 </LinearLayout>
@@ -413,7 +412,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/txt_chk"
-                        android:text="Chọn người giúp việc"
+                        android:text="@string/send_direct"
                         android:textColor="@color/home_background_history"
                         android:textSize="@dimen/text_size_large" />
 
