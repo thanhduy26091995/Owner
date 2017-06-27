@@ -312,4 +312,9 @@
     <string name="xoa_that_bai">Xóa thất bại</string>
 
     <string name="request_sent_successfully">Gửi yêu cầu thành công!</string>
+
+    <string name="reportsuccess">Báo cáo thành công!</string>
+    <string name="reportfail">Báo cáo thất bại!</string>
+    <string name="commentsuccess">Nhận xét thành công!</string>
+    <string name="commentfail">Nhận xét thất bại!</string>
 </resources>

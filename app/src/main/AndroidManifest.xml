@@ -29,7 +29,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
         </provider>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCD5w90Aa8k4ISQoPIcHQ-HsABUj2aAzns" />
@@ -72,11 +75,11 @@
         <activity android:name=".more.phuc_tran.view.TermActivity" />
         <activity android:name=".more.duy_nguyen.RechargeActivity" />
         <activity android:name=".more.duy_nguyen.InfoBankActivity" />
-        <activity android:name=".history.view.ListWorkActivity"/>
-        <activity android:name=".paymentonline.ui.activity.PaymentOnlineActivity"/>
-        <activity android:name=".more.viet_pham.View.update_google_face.UpdateGooAndFaceActivity"/>
-        <activity android:name=".paymentonline.ui.activity.CheckOutActivity"/>
-        <activity android:name=".paymentonline.ui.activity.CheckOrderActivity"/>
+        <activity android:name=".history.view.ListWorkActivity" />
+        <activity android:name=".paymentonline.ui.activity.PaymentOnlineActivity" />
+        <activity android:name=".more.viet_pham.View.update_google_face.UpdateGooAndFaceActivity" />
+        <activity android:name=".paymentonline.ui.activity.CheckOutActivity" />
+        <activity android:name=".paymentonline.ui.activity.CheckOrderActivity" />
 
         <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>
@@ -89,6 +92,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".history.view.DetailUnpaidWork"></activity>
     </application>
 
 </manifest>

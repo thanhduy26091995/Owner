@@ -104,8 +104,9 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
     private JobPostPresenter mJobPostPresenter;
-    private Date startTime,endTime,startTimeTemp,endTimeTemp;
+    private Date startTime,endTime,startTimeTemp,endTimeTemp, nowTime;
     private Calendar cal;
+    private int clicked;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,10 +120,16 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
         cal= Calendar.getInstance();
+        cal.set(0, 0, 0);
+        nowTime = cal.getTime();
         cal.set(0, 0, 0, 0, 0, 0);
         startTime= cal.getTime();
         endTime= cal.getTime();
+
+        clicked = 0;
 
         mJobPostPresenter = new JobPostPresenter(this);
         txt_post_complete.setEnabled(false);
@@ -433,13 +440,24 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(0, 0, 0, hourOfDay, minute, 0);
                 startTimeTemp = calendar.getTime();
-                if(endTime.getTime() - startTimeTemp.getTime() >= 0) {
-                    txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
-                    startTime=startTimeTemp;
+                if(clicked==1) {
+                    if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime()>nowTime.getTime()) {
+                        txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
+                        startTime = startTimeTemp;
+                    } else {
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
+                    }
                 }
                 else
                 {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
+                    if(startTimeTemp.getTime()>nowTime.getTime()) {
+                        txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
+                        clicked = 1;
+                    }
+                    else
+                    {
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
+                    }
                 }
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
@@ -453,13 +471,24 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(0, 0, 0, hourOfDay, minute, 0);
                 endTimeTemp=calendar.getTime();
-                if(endTimeTemp.getTime() - startTime.getTime() >= 0) {
-                    txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
-                    endTime=endTimeTemp;
+                if(clicked == 1) {
+                    if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime()>nowTime.getTime()) {
+                        txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
+                        endTime = endTimeTemp;
+                    } else {
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
+                    }
                 }
                 else
                 {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
+                    if (endTimeTemp.getTime()>nowTime.getTime()) {
+                        txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
+                        clicked = 1;
+                    }
+                    else
+                    {
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
+                    }
                 }
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);

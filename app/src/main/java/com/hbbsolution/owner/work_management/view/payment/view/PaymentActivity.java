@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
+import com.hbbsolution.owner.history.view.DetailUnpaidWork;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
 import com.hbbsolution.owner.paymentonline.ui.activity.CheckOrderView;
@@ -86,6 +87,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     LinearLayout lo_paymentbymoney;
     @BindView(R.id.txtSeriBill)
     TextView txtSeriBill;
+    @BindView(R.id.rlBill)
+    RelativeLayout rlBill;
 
     private LiabilitiesHistory mLiabilitiesHistory;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -266,6 +269,17 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.lo_paymentbymoney:
                 confirm(2);
+                break;
+            case R.id.rlBill:
+                intent = new Intent(PaymentActivity.this, DetailUnpaidWork.class);
+                if(mLiabilitiesHistory!=null) {
+                    intent.putExtra("liability", mLiabilitiesHistory);
+                }
+                else {
+                    intent.putExtra("mDatum", mDatum);
+                    intent.putExtra("datacheckout", mDataBill);
+                }
+                startActivity(intent);
                 break;
         }
     }

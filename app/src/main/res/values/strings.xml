@@ -76,7 +76,7 @@
     <string name="vnd_hour">VND/hour</string>
     <string name="no_amount">You have not entered the amount</string>
     <string name="check_address">Please, double check your home address.</string>
-<string name="select_your_applicants">Select your applicants</string>
+    <string name="select_your_applicants">Select your applicants</string>
     <!--work_manager end-->
 
 
@@ -331,4 +331,9 @@
     <string name="thanhtoanthanhcong">Payment successful!</string>
     <string name="xoa_that_bai">Failed to delete!</string>
     <string name="request_sent_successfully">Request sent successfully!</string>
+
+    <string name="reportsuccess">Report sent successfully!</string>
+    <string name="reportfail">Failed to send report!</string>
+    <string name="commentsuccess">Comment sent successfully!</string>
+    <string name="commentfail">Failed to send comment!</string>
 </resources>

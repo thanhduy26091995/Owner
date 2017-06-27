@@ -441,7 +441,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REPORT) {
             if (resultCode == Activity.RESULT_OK) {
-                ShowAlertDialog.showAlert(data.getStringExtra("message"), this);
+                ShowAlertDialog.showAlert(getResources().getString(R.string.reportsuccess), this);
             }
         }
     }
