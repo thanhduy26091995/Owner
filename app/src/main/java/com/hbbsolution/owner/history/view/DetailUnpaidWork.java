@@ -70,12 +70,8 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
 
         lo_infoMaid.setOnClickListener(this);
 
-
         Bundle extras = getIntent().getExtras();
         Bundle bdDataBill = getIntent().getBundleExtra("databill");
-
-
-
 
         if (extras!=null) {
             mLiabilitiesHistory = (LiabilitiesHistory) extras.getSerializable("liability");
