@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
+import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.history.view.DetailUnpaidWork;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
@@ -132,6 +133,13 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void setEventClick() {
+        rela_info.setOnClickListener(this);
+        lo_payment_online.setOnClickListener(this);
+        lo_Gv24.setOnClickListener(this);
+        lo_paymentbymoney.setOnClickListener(this);
+    }
+
     private void setData() {
         date = new Date();
         Bundle extras = getIntent().getExtras();
@@ -195,12 +203,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void setEventClick() {
-        rela_info.setOnClickListener(this);
-        lo_payment_online.setOnClickListener(this);
-        lo_Gv24.setOnClickListener(this);
-        lo_paymentbymoney.setOnClickListener(this);
-    }
 
     private String getTimeDoWork(String _timeDoWork) {
         try {
@@ -365,7 +367,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void checkOrderServerSuccess() {
-        Toast.makeText(PaymentActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PaymentActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -395,9 +397,22 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (mPaymentActivity != null) {
-                    PaymentActivity.mPaymentActivity.finish();
-                    try {
+//                if (mPaymentActivity != null) {
+//                    PaymentActivity.mPaymentActivity.finish();
+//                    try {
+//                        if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
+//                            DetailJobDoingActivity.mDetailJobDoingActivity.finish();
+//                        }
+//                        if (WorkManagementActivity.mWorkManagementActivity != null) {
+//                            WorkManagementActivity.mWorkManagementActivity.finish();
+//                        }
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
+                Intent itCommnet = new Intent(PaymentActivity.this, CommentActivity.class);
+                startActivity(itCommnet);
+                try {
                         if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
                             DetailJobDoingActivity.mDetailJobDoingActivity.finish();
                         }
@@ -407,7 +422,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                     } catch (Exception e) {
 
                     }
-                }
             }
         });
         alertDialog.show();

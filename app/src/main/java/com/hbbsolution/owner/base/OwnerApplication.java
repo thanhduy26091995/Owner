@@ -2,11 +2,13 @@ package com.hbbsolution.owner.base;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.utils.InternetConnectionReceiver;
@@ -30,6 +32,11 @@ public class OwnerApplication extends Application {
 
     public static OwnerApplication getInstance() {
         return instance;
+    }
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        MultiDex.install(this);
     }
 
     @Override

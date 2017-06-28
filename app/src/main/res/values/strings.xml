@@ -77,8 +77,9 @@
     <string name="vnd_hour">VND/hour</string>
     <string name="no_amount">You have not entered the amount</string>
     <string name="check_address">Please, double check your home address.</string>
-<string name="select_your_applicants">Select your applicants</string>
+    <string name="select_your_applicants">Select your applicants</string>
     <string name="sent_directly">Sent directly</string>
+    <string name="done">Just posted</string>
     <!--work_manager end-->
 
 

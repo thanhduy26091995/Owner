@@ -135,7 +135,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
             alertDialog.setMessage(getResources().getString(R.string.chon_nguoi_giup_viec_thanh_cong));
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);
