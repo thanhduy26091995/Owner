@@ -183,7 +183,7 @@
     <string name="waiting_work">Công việc đang xử lý</string>
     <string name="post_work">Công việc đã đăng</string>
     <string name="recharge">Nạp tiền vào tài khoản</string>
-    <string name="sodutaikhoan">Số dư tài khoản: </string>
+    <string name="sodutaikhoan">Số dư tài khoản:</string>
     <plurals name="million">
         <item quantity="one">triệu</item>
         <item quantity="other">triệu</item>

@@ -441,7 +441,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 calendar.set(0, 0, 0, hourOfDay, minute, 0);
                 startTimeTemp = calendar.getTime();
                 if(clicked==1) {
-                    if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime()>nowTime.getTime()) {
+                    if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime()>=nowTime.getTime()) {
                         txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                         startTime = startTimeTemp;
                     } else {
@@ -473,7 +473,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 calendar.set(0, 0, 0, hourOfDay, minute, 0);
                 endTimeTemp=calendar.getTime();
                 if(clicked == 1) {
-                    if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime()>nowTime.getTime()) {
+                    if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime()>=nowTime.getTime()) {
                         txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                         endTime = endTimeTemp;
                     } else {

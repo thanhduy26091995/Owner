@@ -71,11 +71,11 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
         Bundle extras = getIntent().getExtras();
         Bundle bdDataBill = getIntent().getBundleExtra("databill");
 
-        mLiabilitiesHistory = (LiabilitiesHistory) extras.getSerializable("liability");
-        mDatum = (DatumPending) bdDataBill.getSerializable("mDatum");
-        mDataBill = (DataBill) bdDataBill.getSerializable("datacheckout");
 
-        if (mLiabilitiesHistory!=null) {
+
+
+        if (extras!=null) {
+            mLiabilitiesHistory = (LiabilitiesHistory) extras.getSerializable("liability");
             txtNameInfoMaid.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
             txtAddressInfoMaid.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
             Glide.with(this).load(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage())
@@ -105,6 +105,8 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
         }
         else
         {
+            mDatum = (DatumPending) bdDataBill.getSerializable("mDatum");
+            mDataBill = (DataBill) bdDataBill.getSerializable("datacheckout");
             txtNameInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
             txtAddressInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
             Glide.with(this).load(mDatum.getStakeholders().getMadi().getInfo().getImage())
