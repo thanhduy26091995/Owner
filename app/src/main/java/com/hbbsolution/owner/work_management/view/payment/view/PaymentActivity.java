@@ -200,6 +200,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         lo_payment_online.setOnClickListener(this);
         lo_Gv24.setOnClickListener(this);
         lo_paymentbymoney.setOnClickListener(this);
+        rlBill.setOnClickListener(this);
     }
 
     private String getTimeDoWork(String _timeDoWork) {
