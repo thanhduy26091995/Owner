@@ -22,6 +22,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.history.CommentView;
 import com.hbbsolution.owner.history.presenter.CommentPresenter;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.ShowSnackbar;
 
@@ -99,6 +100,12 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.txtNext:
                 if (DetailWorkHistoryActivity.detailWorkHistory != null) {
+                    finish();
+                }
+                else
+                {
+                    Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
+                    startActivity(intent);
                     finish();
                 }
                 break;

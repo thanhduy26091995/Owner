@@ -133,13 +133,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void setEventClick() {
-        rela_info.setOnClickListener(this);
-        lo_payment_online.setOnClickListener(this);
-        lo_Gv24.setOnClickListener(this);
-        lo_paymentbymoney.setOnClickListener(this);
-    }
-
     private void setData() {
         date = new Date();
         Bundle extras = getIntent().getExtras();
@@ -203,6 +196,13 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void setEventClick() {
+        rela_info.setOnClickListener(this);
+        lo_payment_online.setOnClickListener(this);
+        lo_Gv24.setOnClickListener(this);
+        lo_paymentbymoney.setOnClickListener(this);
+        rlBill.setOnClickListener(this);
+    }
 
     private String getTimeDoWork(String _timeDoWork) {
         try {
@@ -367,7 +367,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void checkOrderServerSuccess() {
-        Toast.makeText(PaymentActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PaymentActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -410,18 +410,30 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //
 //                    }
 //                }
+
                 Intent itCommnet = new Intent(PaymentActivity.this, CommentActivity.class);
+
+//                idTask = extras.getString("idTask");
+//                idHelper = extras.getString("idHelper");
+//                imgHelper = extras.getString("imgHelper");
+//                nameHelper = extras.getString("nameHelper");
+//                addressHelper = extras.getString("addressHelper");
+                itCommnet.putExtra("idTask", mDatum.getId());
+                itCommnet.putExtra("idHelper", mDatum.getStakeholders().getMadi().getId());
+                itCommnet.putExtra("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
+                itCommnet.putExtra("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
+                itCommnet.putExtra("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress());
                 startActivity(itCommnet);
                 try {
-                        if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
-                            DetailJobDoingActivity.mDetailJobDoingActivity.finish();
-                        }
-                        if (WorkManagementActivity.mWorkManagementActivity != null) {
-                            WorkManagementActivity.mWorkManagementActivity.finish();
-                        }
-                    } catch (Exception e) {
-
+                    if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
+                        DetailJobDoingActivity.mDetailJobDoingActivity.finish();
                     }
+                    if (WorkManagementActivity.mWorkManagementActivity != null) {
+                        WorkManagementActivity.mWorkManagementActivity.finish();
+                    }
+                } catch (Exception e) {
+
+                }
             }
         });
         alertDialog.show();

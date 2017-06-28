@@ -185,7 +185,7 @@
     <string name="waiting_work">Work-in-process</string>
     <string name="post_work">Posted work</string>
     <string name="recharge">Recharge</string>
-    <string name="sodutaikhoan">Account balance</string>
+    <string name="sodutaikhoan">Account balance:</string>
     <plurals name="million">
         <item quantity="one">million</item>
         <item quantity="other">millions</item>
