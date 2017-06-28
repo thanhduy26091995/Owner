@@ -143,6 +143,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             setResult(Activity.RESULT_OK, intent);
             finish();
         }
+        else {
+            Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
