@@ -115,7 +115,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
                         ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), WorkManagementActivity.this);
                     }
                 }catch (Exception e){
-                    ShowAlertDialog.showAlert("Loading...", WorkManagementActivity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), WorkManagementActivity.this);
                 }
                 break;
         }

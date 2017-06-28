@@ -186,18 +186,19 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
             // from Bitmap
             Glide.with(MaidProfileActivity.this)
-                    .load(mMaidInfo.getInfo().getImage())
+                    .load(R.drawable.bg_app_720)
                     .asBitmap()
                     .error(R.drawable.avatar)
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            Blurry.with(MaidProfileActivity.this)
-                                    .radius(15)
-                                    .from(resource)
-                                    .into(imgBlurImage);
-                        }
-                    });
+                    .into(imgBlurImage);
+//                    .into(new SimpleTarget<Bitmap>() {
+//                        @Override
+//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                            Blurry.with(MaidProfileActivity.this)
+//                                    .radius(15)
+//                                    .from(resource)
+//                                    .into(imgBlurImage);
+//                        }
+//                    });
             if (mMaidInfo.getWorkInfo().getAbility() != null) {
                 typeJobAdapter = new TypeJobAdapter(this, mMaidInfo.getWorkInfo().getAbility());
                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
@@ -229,18 +230,23 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                     .dontAnimate()
                     .into(img_avatarMaid);
             Glide.with(MaidProfileActivity.this)
-                    .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+                    .load(R.drawable.bg_app_720)
                     .asBitmap()
                     .error(R.drawable.avatar)
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            Blurry.with(MaidProfileActivity.this)
-                                    .radius(15)
-                                    .from(resource)
-                                    .into(imgBlurImage);
-                        }
-                    });
+                    .into(imgBlurImage);
+//            Glide.with(MaidProfileActivity.this)
+//                    .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
+//                    .asBitmap()
+//                    .error(R.drawable.avatar)
+//                    .into(new SimpleTarget<Bitmap>() {
+//                        @Override
+//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                            Blurry.with(MaidProfileActivity.this)
+//                                    .radius(15)
+//                                    .from(resource)
+//                                    .into(imgBlurImage);
+//                        }
+//                    });
 //            lo_ChosenMaidInfo.setVisibility(View.GONE);
             if (workHistory.getStakeholders().getReceived().getWorkInfo().getAbility() != null) {
                 typeJobAdapter = new TypeJobAdapter(this, workHistory.getStakeholders().getReceived().getWorkInfo().getAbility());
@@ -403,9 +409,9 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         if (isResponseChosenMaid) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
-            alertDialog.setTitle("Thông báo");
-            alertDialog.setMessage("Bạn đã chọn người giúp việc thành công !");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage(getResources().getString(R.string.chon_nguoi_giup_viec_thanh_cong));
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     EventBus.getDefault().postSticky(true);
@@ -428,7 +434,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
             alertDialog.show();
         } else {
-            ShowAlertDialog.showAlert("Thất bại", MaidProfileActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.cancel), MaidProfileActivity.this);
         }
     }
 

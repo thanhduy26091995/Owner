@@ -27,11 +27,18 @@
         android:id="@+id/activity_checkorder_txtData"
         style="@style/CaptionTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/activity_checkorder_top"
         android:padding="10dp"
         android:textColor="@color/colorBlack" />
 
+    <com.rey.material.widget.Button
+        android:id="@+id/btnCheckOrderOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="OK"/>
     <com.rey.material.widget.ProgressView
         android:id="@+id/activity_checkorder_progressView"
         android:layout_width="40dp"

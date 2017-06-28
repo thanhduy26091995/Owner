@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/txtSendOrder"
+            android:text="@string/txtSendOrderTitle"
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>
@@ -140,7 +140,7 @@
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="24dp"
                 android:background="@color/colorToolBar"
-                android:text="@string/txtSendOrder"
+                android:text="@string/thanhtoan"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite" />
 

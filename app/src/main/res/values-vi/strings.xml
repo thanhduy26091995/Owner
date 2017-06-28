@@ -232,7 +232,8 @@
     <string name="dialog_close">Đóng</string>
 
     <string name="session_timeout">Session timeout</string>
-    <string name="txtSendOrder">SendOrder</string>
+    <string name="txtSendOrder">Thanh toán online</string>
+    <string name="thanhtoan">Thanh toán</string>
     <string name="txtCheckOrder">CheckOrder</string>
 
     <string name="txtNameOrder">Họ tên người thanh toán</string>
@@ -336,7 +337,7 @@
     <string name="search">Tìm kiếm</string>
     <string name="filter">Bộ lọc</string>
     <string name="work_ability">Năng lực làm việc</string>
-    <string name="send_direct">Gửi yêu cầu trực tiếp</string>
+    <string name="send_direct_maid">Gửi yêu cầu trực tiếp</string>
     <string name="comment_upper">COMMENT</string>
     <string name="information">Thông tin</string>
     <string name="applicant_profile">Thông tin</string>

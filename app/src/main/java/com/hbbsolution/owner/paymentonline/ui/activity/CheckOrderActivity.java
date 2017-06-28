@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.paymentonline.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,17 +12,20 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
+import com.hbbsolution.owner.history.view.DetailUnpaidWork;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderRequest;
 import com.hbbsolution.owner.paymentonline.bean.CheckOrderBean;
 import com.hbbsolution.owner.utils.Commons;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
+import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
+import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 import com.rey.material.app.Dialog;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.ProgressView;
 
 import org.json.JSONObject;
-
 
 
 /**
@@ -37,12 +41,14 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     private String mTokenCode = "";
     private String idBillOrder = "";
     private CheckOrderPresenter checkOrderPresenter;
+    private Button btnCheckOrderOk;
+    private Activity mCheckOrderActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
-
+        mCheckOrderActivity = this;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mTokenCode = extras.getString(TOKEN_CODE, "");
@@ -54,12 +60,47 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     }
 
     private void initView() {
+        btnCheckOrderOk = (Button) findViewById(R.id.btnCheckOrderOk);
         txtData = (TextView) findViewById(R.id.activity_checkorder_txtData);
         txtData.setMovementMethod(new ScrollingMovementMethod());
 
         mProgressView = (ProgressView) findViewById(R.id.activity_checkorder_progressView);
 
         checkOrderObject();
+
+        btnCheckOrderOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mCheckOrderActivity != null) {
+                    mCheckOrderActivity.finish();
+                }
+                try {
+                    if (PaymentOnlineActivity.mPaymentOnlineActivity != null) {
+                        PaymentOnlineActivity.mPaymentOnlineActivity.finish();
+                    }
+                    if (PaymentActivity.mPaymentActivity != null) {
+                        PaymentActivity.mPaymentActivity.finish();
+                    }
+                    if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
+                        DetailJobDoingActivity.mDetailJobDoingActivity.finish();
+                    }
+                    if (WorkManagementActivity.mWorkManagementActivity != null) {
+                        WorkManagementActivity.mWorkManagementActivity.finish();
+                    }
+                } catch (Exception e) {
+
+                }
+//              Intent  intent = new Intent(CheckOrderActivity.this, DetailUnpaidWork.class);
+//                if (mLiabilitiesHistory != null) {
+//                    intent.putExtra("liability", mLiabilitiesHistory);
+//                } else {
+//                    intent.putExtra("mDatum", mDatum);
+//                    intent.putExtra("datacheckout", mDataBill);
+//                }
+//                startActivity(intent);
+            }
+        });
     }
 
     private void checkOrderObject() {
@@ -183,7 +224,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     @Override
     public void checkOrderServerSuccess() {
         mProgressView.setVisibility(View.GONE);
-        Toast.makeText(CheckOrderActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(CheckOrderActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
     }
 
     @Override

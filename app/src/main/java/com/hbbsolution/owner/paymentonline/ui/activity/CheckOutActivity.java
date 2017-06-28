@@ -26,12 +26,13 @@ public class CheckOutActivity extends Activity {
     private String mTokenCode = "";
     private String mCheckoutUrl = "";
     private String idBillOrder = "";
+    public static Activity mCheckOuActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-
+        mCheckOuActivity = this;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mTokenCode = extras.getString(TOKEN_CODE, "");

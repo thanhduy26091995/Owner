@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.paymentonline.ui.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -34,12 +35,13 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     private ScrollView scrollView;
     private ProgressView progressView;
     private String idBillOrder = "";
+    public static Activity mPaymentOnlineActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_online);
-
+        mPaymentOnlineActivity = this;
         initView();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

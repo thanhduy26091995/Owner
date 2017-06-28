@@ -105,7 +105,7 @@ public class WorkTimeValidate {
         } else if (!mWorkTimeHistory[1].equals("0")) {
             txtTimePostHistory.setText(mWorkTimeHistory[1] + " "+ context.getResources().getString(R.string.before,context.getResources().getQuantityString(R.plurals.minute,Integer.parseInt(mWorkTimeHistory[0]))));
         } else if (!mWorkTimeHistory[0].equals("0")) {
-            txtTimePostHistory.setText(context.getResources().getString(R.string.default_language));
+            txtTimePostHistory.setText(context.getResources().getString(R.string.done));
         }
     }
 }
