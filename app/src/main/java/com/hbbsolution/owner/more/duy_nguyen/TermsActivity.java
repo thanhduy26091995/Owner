@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.more.duy_nguyen;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,12 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.home.view.HomeActivity;
+import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
+import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
+import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +42,9 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
     private double mLng;
     private String mUserName,mPassword,mEmail,mFullName,mPhoneName,mFilePath,mFileContentResolver,mLocation;
     private int mGender;
-
+    private SessionManagerUser sessionManagerUser;
+    private HashMap<String, String> hashDataUser = new HashMap<>();
+    private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +74,9 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
         mFilePath = bTerms.getString("filepath");
         mFileContentResolver = bTerms.getString("filecontent");
 
+        sessionManagerUser = new SessionManagerUser(this);
+        mProgressDialog = new ProgressDialog(this);
+
         mRegisterPresenter = new RegisterPresenter(this);
         mRegisterPresenter.getLocaltionAddress(mLocation);
     }
@@ -84,6 +94,8 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnOK.setEnabled(false);
+                showProgress();
                 mRegisterPresenter.createAccount(mUserName, mPassword, mEmail, mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, mGender, mFileContentResolver);
 
             }
@@ -100,9 +112,14 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
 
     @Override
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
+        btnOK.setEnabled(true);
+        hideProgress();
         if (bodyResponse.getStatus() == true)
         {
-            Intent intent = new Intent(TermsActivity.this, HomeActivity.class);
+            sessionManagerUser.createLoginSession(bodyResponse.getData());
+            hashDataUser = sessionManagerUser.getUserDetails();
+            ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
+            Intent intent = new Intent(TermsActivity.this, SignInActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -134,5 +151,17 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
 
     }
 
+    private void showProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getResources().getString(R.string.loading));
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
 
 }

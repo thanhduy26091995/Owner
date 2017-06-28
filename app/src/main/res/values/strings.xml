@@ -345,7 +345,7 @@
     <string name="search">Search</string>
     <string name="filter">Filter</string>
     <string name="work_ability">Work ability</string>
-    <string name="send_direct">Gửi yêu cầu trực tiếp</string>
-    <string name="comment_upper">NHẬN XÉT</string>
+    <string name="send_direct">Make a request directly</string>
+    <string name="comment_upper">COMMENT</string>
     <string name="applicant_profile">Applicant profile</string>
 </resources>
