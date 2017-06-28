@@ -453,6 +453,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 {
                     if(startTimeTemp.getTime()>nowTime.getTime()) {
                         txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
+                        startTime = startTimeTemp;
                         clicked = 1;
                     }
                     else
@@ -484,6 +485,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 {
                     if (endTimeTemp.getTime()>nowTime.getTime()) {
                         txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
+                        endTime = endTimeTemp;
                         clicked = 1;
                     }
                     else

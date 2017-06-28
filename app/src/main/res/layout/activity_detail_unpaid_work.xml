@@ -163,6 +163,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="5dp">
 
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_job_type"
                         android:layout_width="64dp"

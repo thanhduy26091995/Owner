@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
+import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.history.view.DetailUnpaidWork;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
@@ -396,18 +397,42 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (mPaymentActivity != null) {
-                    PaymentActivity.mPaymentActivity.finish();
-                    try {
-                        if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
-                            DetailJobDoingActivity.mDetailJobDoingActivity.finish();
-                        }
-                        if (WorkManagementActivity.mWorkManagementActivity != null) {
-                            WorkManagementActivity.mWorkManagementActivity.finish();
-                        }
-                    } catch (Exception e) {
+//                if (mPaymentActivity != null) {
+//                    PaymentActivity.mPaymentActivity.finish();
+//                    try {
+//                        if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
+//                            DetailJobDoingActivity.mDetailJobDoingActivity.finish();
+//                        }
+//                        if (WorkManagementActivity.mWorkManagementActivity != null) {
+//                            WorkManagementActivity.mWorkManagementActivity.finish();
+//                        }
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
 
+                Intent itCommnet = new Intent(PaymentActivity.this, CommentActivity.class);
+
+//                idTask = extras.getString("idTask");
+//                idHelper = extras.getString("idHelper");
+//                imgHelper = extras.getString("imgHelper");
+//                nameHelper = extras.getString("nameHelper");
+//                addressHelper = extras.getString("addressHelper");
+                itCommnet.putExtra("idTask", mDatum.getId());
+                itCommnet.putExtra("idHelper", mDatum.getStakeholders().getMadi().getId());
+                itCommnet.putExtra("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
+                itCommnet.putExtra("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
+                itCommnet.putExtra("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress());
+                startActivity(itCommnet);
+                try {
+                    if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
+                        DetailJobDoingActivity.mDetailJobDoingActivity.finish();
                     }
+                    if (WorkManagementActivity.mWorkManagementActivity != null) {
+                        WorkManagementActivity.mWorkManagementActivity.finish();
+                    }
+                } catch (Exception e) {
+
                 }
             }
         });
