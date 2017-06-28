@@ -62,7 +62,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     TextView payment_helper_address;
     @BindView(R.id.payment_money)
     TextView payment_money;
-//    @BindView(R.id.payment_timework)
+    //    @BindView(R.id.payment_timework)
 //    TextView payment_timework;
     @BindView(R.id.payment_date)
     TextView payment_date;
@@ -145,7 +145,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             txtSeriBill.setText(mLiabilitiesHistory.getId());
             payment_helper_name.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
             payment_helper_address.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
-            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice())+" ");
+            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getWorkInfo().getPrice()) + " ");
             payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
 //            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mLiabilitiesHistory.getPeriod()));
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
@@ -174,7 +174,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             tvTypeJob.setText(mDatum.getInfo().getWork().getName());
             payment_helper_name.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
             payment_helper_address.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
-            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getStakeholders().getMadi().getWorkInfo().getPrice())+" ");
+            payment_money.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getStakeholders().getMadi().getWorkInfo().getPrice()) + " ");
             payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
             txtSeriBill.setText(mDataBill.getId());
 //            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mDataBill.getPeriod()));
@@ -274,10 +274,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.rlBill:
                 intent = new Intent(PaymentActivity.this, DetailUnpaidWork.class);
-                if(mLiabilitiesHistory!=null) {
+                if (mLiabilitiesHistory != null) {
                     intent.putExtra("liability", mLiabilitiesHistory);
-                }
-                else {
+                } else {
                     intent.putExtra("mDatum", mDatum);
                     intent.putExtra("datacheckout", mDataBill);
                 }
@@ -306,13 +305,25 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 txt_lo_payment.setVisibility(View.VISIBLE);
                 switch (formPayment) {
                     case 1:
-                        mPaymentPresenter.getInfoPaymentBill24h(mDataBill.getId());
+                        if (mDataBill != null) {
+                            mPaymentPresenter.getInfoPaymentBill24h(mDataBill.getId());
+                        } else {
+                            mPaymentPresenter.getInfoPaymentBill24h(mLiabilitiesHistory.getId());
+                        }
                         break;
                     case 2:
-                        mPaymentPresenter.getInfoPaymnetByMoney(mDataBill.getId());
+                        if (mDataBill != null) {
+                            mPaymentPresenter.getInfoPaymnetByMoney(mDataBill.getId());
+                        } else {
+                            mPaymentPresenter.getInfoPaymnetByMoney(mLiabilitiesHistory.getId());
+                        }
                         break;
                     case 3:
-                        mPaymentPresenter.getInfoPaymnetByOnline(mDataBill.getId());
+                        if (mDataBill != null) {
+                            mPaymentPresenter.getInfoPaymnetByOnline(mDataBill.getId());
+                        } else {
+                            mPaymentPresenter.getInfoPaymnetByOnline(mLiabilitiesHistory.getId());
+                        }
                         break;
                 }
             }
@@ -329,7 +340,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getWalletSuccess(int wallet) {
-        payment_money_account.setText(getResources().getString(R.string.accountbalance)+": " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
+        payment_money_account.setText(getResources().getString(R.string.accountbalance) + ": " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
     }
 
     @Override
@@ -379,12 +390,16 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     public void getInfoPaymentByOnline(BillGv24Response billGv24Response) {
         progressPayment.setVisibility(View.GONE);
         txt_lo_payment.setVisibility(View.GONE);
-        if(billGv24Response.getStatus()){
+        if (billGv24Response.getStatus()) {
 //            checkOrderPresenter.getInfoPaymnetByOnline(mDataBill.getId());
             Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
-            itPaymentOnline.putExtra("idBillOrder",mDataBill.getId());
+            if (mDataBill != null) {
+                itPaymentOnline.putExtra("idBillOrder", mDataBill.getId());
+            } else {
+                itPaymentOnline.putExtra("idBillOrder", mLiabilitiesHistory.getId());
+            }
             startActivity(itPaymentOnline);
-        }else {
+        } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), PaymentActivity.this);
         }
     }
@@ -418,11 +433,19 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //                imgHelper = extras.getString("imgHelper");
 //                nameHelper = extras.getString("nameHelper");
 //                addressHelper = extras.getString("addressHelper");
-                itCommnet.putExtra("idTask", mDatum.getId());
-                itCommnet.putExtra("idHelper", mDatum.getStakeholders().getMadi().getId());
-                itCommnet.putExtra("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
-                itCommnet.putExtra("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
-                itCommnet.putExtra("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress());
+                if (mDataBill != null) {
+                    itCommnet.putExtra("idTask", mDatum.getId());
+                    itCommnet.putExtra("idHelper", mDatum.getStakeholders().getMadi().getId());
+                    itCommnet.putExtra("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
+                    itCommnet.putExtra("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
+                    itCommnet.putExtra("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress());
+                } else {
+                    itCommnet.putExtra("idTask", mLiabilitiesHistory.getId());
+                    itCommnet.putExtra("idHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getId());
+                    itCommnet.putExtra("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
+                    itCommnet.putExtra("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
+                    itCommnet.putExtra("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress());
+                }
                 startActivity(itCommnet);
                 try {
                     if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
@@ -434,6 +457,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 } catch (Exception e) {
 
                 }
+
             }
         });
         alertDialog.show();

@@ -163,4 +163,5 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
             mProgressDialog.dismiss();
         }
     }
+
 }
