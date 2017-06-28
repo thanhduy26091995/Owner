@@ -20,6 +20,7 @@ import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import java.text.DateFormatSymbols;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -113,7 +114,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
             tvJob.setText(doc.getInfo().getTitle());
             tvWork.setText(doc.getInfo().getWork().getName());
             tvContent.setText(doc.getInfo().getDescription());
-            tvSalary.setText(String.valueOf(doc.getInfo().getPrice()));
+            tvSalary.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(doc.getInfo().getPrice()) +" VND");
 
             tvAddress.setText(doc.getInfo().getAddress().getName());
 
