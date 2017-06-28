@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.history.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -52,7 +53,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     RelativeLayout rlComment;
     private CommentPresenter commentPresenter;
     private String idHelper, nameHelper, imgHelper, addressHelper, idTask;
-
+    private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +88,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         txtNext.setOnClickListener(this);
         lnCheck.setOnClickListener(this);
         edtComment.setOnClickListener(this);
-
+        mProgressDialog = new ProgressDialog(this);
         //check internet
         if (!InternetConnection.getInstance().isOnline(CommentActivity.this)) {
             ShowSnackbar.showSnack(CommentActivity.this, getResources().getString(R.string.no_internet));
@@ -118,6 +119,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 if (edtComment.getText().toString().length() > 0) {
                     commentPresenter.postComment(idTask, idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
+                    showProgress();
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.add_comment), CommentActivity.this);
 
@@ -137,6 +139,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void commentSuccess(String message) {
+        hideProgress();
         if (DetailWorkHistoryActivity.detailWorkHistory != null) {
             Intent intent = new Intent();
             intent.putExtra("message", message);
@@ -153,6 +156,8 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void commentFail(String message) {
         lnCheck.setVisibility(View.VISIBLE);
+        hideProgress();
+        ShowAlertDialog.showAlert(getResources().getString(R.string.commentfail),this);
     }
 
     @Override
@@ -170,5 +175,18 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    private void showProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getResources().getString(R.string.loading));
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }

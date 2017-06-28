@@ -122,8 +122,8 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         setSupportActionBar(toolbar);
         mProgressDialog = new ProgressDialog(this);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addEvents();
 
         mSignInGooAndFacePresenter = new SignInGooAndFacePresenter(this);

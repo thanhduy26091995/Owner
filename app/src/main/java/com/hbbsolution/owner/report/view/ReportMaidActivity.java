@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.report.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -55,8 +56,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
     private MaidHistory datum;
     private ReportPresenter reportPresenter;
     private String idHelper;
-    private int flat;
-
+    private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +66,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         reportPresenter = new ReportPresenter(this);
+        mProgressDialog = new ProgressDialog(this);
         //get intent
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
         workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
@@ -119,7 +120,6 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
                         .into(imgAvatar);
             }
         }
-        flat = 1;
     }
 
     @Override
@@ -140,10 +140,8 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 if (edtReport.getText().toString().length() > 0) {
-                    if (flat == 1) {
-                        reportPresenter.reportMaid(idHelper, edtReport.getText().toString().trim());
-                        flat = 0;
-                    }
+                    showProgress();
+                    reportPresenter.reportMaid(idHelper, edtReport.getText().toString().trim());
                 } else {
                     Toast.makeText(this, "Vui lòng nhập bình luận", Toast.LENGTH_LONG).show();
                 }
@@ -156,6 +154,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void reportSuccess(String message) {
+        hideProgress();
         Intent intent = new Intent();
         intent.putExtra("message", message);
         setResult(Activity.RESULT_OK, intent);
@@ -165,7 +164,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void reportFail() {
         ShowAlertDialog.showAlert(getResources().getString(R.string.reportfail), this);
-        flat = 1;
+        hideProgress();
         edtReport.getText().clear();
     }
 
@@ -190,5 +189,18 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    private void showProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getResources().getString(R.string.loading));
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }
