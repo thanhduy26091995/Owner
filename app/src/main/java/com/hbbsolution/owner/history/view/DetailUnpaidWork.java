@@ -18,6 +18,9 @@ import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.chekout.DataBill;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -89,7 +92,7 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
             txtTitle.setText(mLiabilitiesHistory.getTask().getInfo().getTitle());
             txtType.setText(mLiabilitiesHistory.getTask().getInfo().getWork().getName());
             txtContent.setText(mLiabilitiesHistory.getTask().getInfo().getDescription());
-            txtPrice.setText(String.valueOf(mLiabilitiesHistory.getTask().getInfo().getPrice()));
+            txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getInfo().getPrice()) + " VND");
             txtAddress.setText(mLiabilitiesHistory.getTask().getInfo().getAddress().getName());
             txtDate.setText(WorkTimeValidate.getDatePostHistory(mLiabilitiesHistory.getTask().getHistory().getUpdateAt()));
             String mStartTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getStartAt());
@@ -120,7 +123,7 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
             txtTitle.setText(mDatum.getInfo().getTitle());
             txtType.setText(mDatum.getInfo().getWork().getName());
             txtContent.setText(mDatum.getInfo().getDescription());
-            txtPrice.setText(String.valueOf(mDatum.getInfo().getPrice()));
+            txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice()) + " VND");
             txtAddress.setText(mDatum.getInfo().getAddress().getName());
             txtDate.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
             String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
