@@ -210,7 +210,7 @@
     <string name="emai_empty">Vui lòng điền email</string>
     <string name="email_wrong">Email nhập không đúng</string>
     <string name="forgot_password_success">Đã gửi thành công link đặt lại mật khẩu về email của bạn.</string>
-    <string name="forgot_password_failed">Thất bại, hảy kiểm tra lại email và tài khoản của bạn.</string>
+    <string name="forgot_password_failed">Thất bại, hãy kiểm tra lại email và tài khoản của bạn.</string>
     <!--forgot password screen end-->
 
     <!--payment screen start-->
