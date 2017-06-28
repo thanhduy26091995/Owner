@@ -218,7 +218,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
         {
             if(resultCode== Activity.RESULT_OK)
             {
-                ShowAlertDialog.showAlert(data.getStringExtra("message"),this);
+                ShowAlertDialog.showAlert(getResources().getString(R.string.commentsuccess),this);
                 commentHistoryPresenter.checkComment(doc.getId());
             }
         }
