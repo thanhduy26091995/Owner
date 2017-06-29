@@ -246,6 +246,7 @@ public interface ApiInterface {
     @POST("maid/onAnnouncement")
     Call<AnnouncementResponse> onAnnouncement(String deviceToken);
 
+
     @POST("maid/offAnnouncement")
     Call<AnnouncementResponse> offAnnouncement();
 
