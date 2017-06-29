@@ -172,8 +172,8 @@
     <string name="about">Về chúng tôi</string>
     <string name="btnCall">Gọi điện</string>
     <string name="btnEmail">Email</string>
-    <string name="no_email_client">Chưa thiết lập Email người dùng."</string>
-    <string name="enter_phonenumber">Nhập có số điện thoại</string>
+    <string name="no_email_client">Thiết bị chưa được cài đặt trình duyệt email.</string>
+    <string name="enter_phonenumber">Nhập số điện thoại</string>
     <string name="address_title">Địa chỉ:</string>
     <!--contact and about screen end-->
 
