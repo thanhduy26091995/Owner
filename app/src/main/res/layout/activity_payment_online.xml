@@ -5,28 +5,38 @@
     android:background="@color/colorBackgroundLight"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/activity_main_layoutTop"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorToolBar"
-        android:gravity="center">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <TextView
-            style="@style/TitleTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/txtSendOrderTitle"
-            android:textColor="@color/colorWhite" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_payment"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/toolbar_theme">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/recruitment_title_toothbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/txtSendOrderTitle"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:id="@+id/activity_main_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/activity_main_layoutTop"
+        android:layout_below="@+id/appbar"
         android:scrollbars="none">
 
         <LinearLayout
@@ -39,6 +49,7 @@
                 style="@style/CaptionTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:text="@string/txtNameOrder"
                 android:textColor="@color/colorBlack" />
 
@@ -47,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_layout_white_stroke"
+
                 android:lines="1"
                 android:paddingLeft="8dp"
                 android:singleLine="true"
@@ -67,7 +78,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_layout_white_stroke"
                 android:inputType="number"
                 android:lines="1"
                 android:paddingLeft="8dp"
@@ -87,7 +97,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_layout_white_stroke"
                 android:inputType="textEmailAddress"
                 android:lines="1"
                 android:paddingLeft="8dp"
@@ -107,7 +116,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_layout_white_stroke"
                 android:inputType="phone"
                 android:lines="1"
                 android:paddingLeft="8dp"
@@ -127,7 +135,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/bg_layout_white_stroke"
                 android:lines="1"
                 android:paddingLeft="8dp"
                 android:singleLine="true"
@@ -139,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="24dp"
-                android:background="@color/colorToolBar"
+                android:background="@color/home_background_history"
                 android:text="@string/thanhtoan"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite" />

@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ import org.json.JSONObject;
 
 public class PaymentOnlineActivity extends AppCompatActivity implements View.OnClickListener, SendOrderRequest.SendOrderRequestOnResult {
 
+    private Toolbar toolbar;
     private EditText editFullName;
     private EditText editAmount;
     private EditText editEmail;
@@ -52,6 +55,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     }
 
     private void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar_payment);
         editFullName = (EditText) findViewById(R.id.activity_main_editFullName);
         editAmount = (EditText) findViewById(R.id.activity_main_editAmount);
         editEmail = (EditText) findViewById(R.id.activity_main_editEmail);
@@ -62,11 +66,26 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         scrollView = (ScrollView) findViewById(R.id.activity_main_scrollView);
         progressView = (ProgressView) findViewById(R.id.activity_main_progressView);
 
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         if (!Commons.checkInternetConnection(getApplicationContext())) {
             showErrorDialog(getString(R.string.error_disconnect), true);
         }
 
         btnSendOrder.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

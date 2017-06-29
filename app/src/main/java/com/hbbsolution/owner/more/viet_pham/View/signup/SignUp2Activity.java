@@ -4,17 +4,20 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -38,7 +41,10 @@ import com.hbbsolution.owner.utils.EmailValidate;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +83,9 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
     private String mUserName, mPassword, mEmail, mFullName, mPhoneName, mLocation, mGender;
     private int permissionCheck;
     private static final int REQUEST_READ_EXTERNAL_PERMISSION = 1;
+    private static final int CAMERA_REQUEST = 100;
     private Intent iChooseImage;
+    private Uri fileUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -188,16 +196,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iChooseImage = new Intent();
-                iChooseImage.setType("image/*");
-                iChooseImage.setAction(Intent.ACTION_GET_CONTENT);
-                permissionCheck = ContextCompat.checkSelfPermission(SignUp2Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
-                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(SignUp2Activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_PERMISSION);
-                } else {
-                    startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
-                }
-
+                selectImage();
             }
         });
     }
@@ -227,6 +226,11 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
+        {
+            ivAvatar.setImageURI(fileUri);
+            mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(),fileUri);
+            mFileContentResolver = getContentResolver().getType(fileUri);
         }
     }
 
@@ -303,5 +307,79 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             }
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    public void takePhoto(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        fileUri = Uri.fromFile(getOutputMediaFile());
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+
+        startActivityForResult(intent, CAMERA_REQUEST);
+    }
+    public void openGallery()
+    {
+        iChooseImage = new Intent();
+        iChooseImage.setType("image/*");
+        iChooseImage.setAction(Intent.ACTION_GET_CONTENT);
+        permissionCheck = ContextCompat.checkSelfPermission(SignUp2Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SignUp2Activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_PERMISSION);
+        } else {
+            startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
+        }
+    }
+
+    public void selectImage()
+    {
+        final CharSequence[] options = {"Máy ảnh","Thư viện ảnh","Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(SignUp2Activity.this);
+        builder.setTitle("Lựa chọn");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if(options[item].equals("Máy ảnh"))
+                {
+                    if(verifyCamerapermission()){
+                        takePhoto();
+                    }else {
+                        return;
+                    }
+                }else if(options[item].equals("Thư viện ảnh")){
+                    if(verifyCamerapermission()){
+                        openGallery();
+                    }else {
+                        return;
+                    }
+                }
+            }
+        });
+        builder.show();
+    }
+
+    public boolean verifyCamerapermission()
+    {
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},CAMERA_REQUEST);
+            return false;
+        }
+        return  true;
+    }
+
+
+
+
+    private static File getOutputMediaFile(){
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "CameraDemo");
+
+        if (!mediaStorageDir.exists()){
+            if (!mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_"+ timeStamp + ".jpg");
     }
 }

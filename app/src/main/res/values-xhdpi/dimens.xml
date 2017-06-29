@@ -9,5 +9,6 @@
     <dimen name="TEXT_SIZE_LARGE">18dp</dimen>
     <dimen name="HEIGHT_EDIT_TEXT">48dp</dimen>
 
-    <dimen name="home_margin">22dp</dimen>
+    <dimen name="home_margin">25dp</dimen>
+    <dimen name="home_margin_work">17dp</dimen>
 </resources>

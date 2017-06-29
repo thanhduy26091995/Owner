@@ -46,6 +46,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     private SessionManagerForLanguage sessionManagerForLanguage;
     private boolean isPause = false;
     private HomePresenter mHomePresenter;
+    private SessionManagerUser sessionManagerUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
             txt_work_management_history.setPadding(5, 0, 5, 5);
         }
         mHomePresenter = new HomePresenter(this);
+        sessionManagerUser = new SessionManagerUser(HomeActivity.this);
         mHomePresenter.requestCheckToken();
     }
 
@@ -143,7 +145,6 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
             alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    SessionManagerUser sessionManagerUser = new SessionManagerUser(HomeActivity.this);
                     sessionManagerUser.logoutUser();
                     Intent itBackSignIn = new Intent(HomeActivity.this, SignInActivity.class);
                     startActivity(itBackSignIn);

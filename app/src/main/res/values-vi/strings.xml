@@ -233,7 +233,7 @@
 
     <string name="session_timeout">Session timeout</string>
     <string name="txtSendOrder">Thanh toán online</string>
-    <string name="thanhtoan">Thanh toán</string>
+    <string name="thanhtoan">Gửi yêu cầu</string>
     <string name="txtCheckOrder">CheckOrder</string>
 
     <string name="txtNameOrder">Họ tên người thanh toán</string>
@@ -241,7 +241,7 @@
     <string name="txtEmail">Email người thanh toán</string>
     <string name="txtMobile">Số điện thoại người thanh toán</string>
     <string name="txtAddress">Địa chỉ người thanh toán</string>
-    <string name="txtAmount">Tổng số tiền đơn hàng cần thanh toán</string>
+    <string name="txtAmount">Tổng số tiền cần thanh toán</string>
 
     <string name="error_disconnect">Bạn cần kết nối internet</string>
     <string name="error_name_order">Bạn cần nhập họ tên người thanh toán</string>
@@ -341,6 +341,10 @@
     <string name="comment_upper">COMMENT</string>
     <string name="information">Thông tin</string>
     <string name="applicant_profile">Thông tin</string>
+    <string name="confirm_failed">Xác thực không thành công, vui lòng thử lại</string>
+    <string name="confirm_success">Xác nhận người giúp việc thành công</string>
+
+    <string name="choose_age">Chọn tuổi</string>
 
     <string name="error">Có lỗi xảy ra! Vui lòng thử lại sau!</string>
 </resources>

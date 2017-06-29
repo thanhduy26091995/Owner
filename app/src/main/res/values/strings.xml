@@ -246,15 +246,15 @@
 
     <string name="session_timeout">Session timeout</string>
     <string name="txtSendOrderTitle">Online payment</string>
-    <string name="thanhtoan">Payment</string>
+    <string name="thanhtoan">Send</string>
     <string name="txtCheckOrder">CheckOrder</string>
 
-    <string name="txtNameOrder">Họ tên người thanh toán</string>
-    <string name="txtDescription">Mô tả</string>
-    <string name="txtEmail">Email người thanh toán</string>
-    <string name="txtMobile">Số điện thoại người thanh toán</string>
-    <string name="txtAddress">Địa chỉ người thanh toán</string>
-    <string name="txtAmount">Tổng số tiền đơn hàng cần thanh toán</string>
+    <string name="txtNameOrder">Payer is full-name</string>
+    <string name="txtDescription">Total amount</string>
+    <string name="txtEmail">Email</string>
+    <string name="txtMobile">Phone number</string>
+    <string name="txtAddress">Address</string>
+    <string name="txtAmount">Tổng số tiền cần thanh toán</string>
 
     <string name="error_disconnect">Bạn cần kết nối internet</string>
     <string name="error_name_order">Bạn cần nhập họ tên người thanh toán</string>
@@ -351,6 +351,11 @@
     <string name="send_direct_maid">Make a request directly</string>
     <string name="comment_upper">COMMENT</string>
     <string name="applicant_profile">Applicant profile</string>
+    <string name="confirm_failed">Failed to confirm. Please try again!</string>
+    <string name="confirm_success">Partner identified successfully!</string>
+
+    <string name="from">From</string>
+    <string name="choose_age">Choose age</string>
 
     <string name="error">Error! Please try again!</string>
 </resources>

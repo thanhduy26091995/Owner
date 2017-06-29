@@ -39,7 +39,6 @@ import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
-import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -432,7 +431,13 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
 
             }
         } else {
-            ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), ChooseMaidActivity.this);
+            if (sendRequestResponse.getMessage().equals("TASK_OUT_OF_LIMIT")){
+                ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), ChooseMaidActivity.this);
+            }
+            else{
+                ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), ChooseMaidActivity.this);
+            }
+
         }
     }
     @Override

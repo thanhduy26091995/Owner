@@ -389,7 +389,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
             alertDialog.show();
         } else {
-            ShowAlertDialog.showAlert("Thất bại", DetailJobPendingActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), DetailJobPendingActivity.this);
         }
     }
 
@@ -409,7 +409,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
             // if (isIdentical) {
             try {
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailJobPendingActivity.this);
-                alertDialogBuilder.setMessage("Xác thực thành công");
+                alertDialogBuilder.setMessage(getResources().getString(R.string.confirm_success));
                 alertDialogBuilder.setCancelable(false);
                 alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
                         new DialogInterface.OnClickListener() {
@@ -432,7 +432,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
 
             }
         } else {
-            ShowAlertDialog.showAlert("Xác thực không thành công, vui lòng thử lại", DetailJobPendingActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.confirm_failed), DetailJobPendingActivity.this);
         }
         // }
     }
@@ -441,6 +441,6 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     public void checkInFail(String error) {
         Log.d("ERROR", error);
         hideProgress();
-        ShowAlertDialog.showAlert("Xác thực không thành công, vui lòng thử lại", DetailJobPendingActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.confirm_failed), DetailJobPendingActivity.this);
     }
 }
