@@ -38,7 +38,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
     private HistoryHelperAdapter historyHelperAdapter;
     private TextView tvStartDate, tvEndDate;
     private Calendar cal;
-    private Date startDate, endDate;
+    private Date startDate, endDate,startDateTemp,endDateTemp;
     private String strStartDate, strEndDate;
     private HelperHistoryPresenter helperHistoryPresenter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -128,8 +128,9 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 //Lưu vết lại biến ngày hoàn thành
 
                 cal.set(year, monthOfYear, dayOfMonth);
-                startDate = cal.getTime();
-                if (endDate.getTime() - startDate.getTime() >= 0) {
+                startDateTemp = cal.getTime();
+                if (endDate.getTime() - startDateTemp.getTime() >= 0) {
+                    startDate=startDateTemp;
                     progressBar.setVisibility(View.VISIBLE);
                     helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                 } else {
@@ -172,9 +173,10 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                 //Lưu vết lại biến ngày hoàn thành
 
                 cal.set(year, monthOfYear, dayOfMonth);
-                endDate = cal.getTime();
+                endDateTemp = cal.getTime();
                 if (startDate != null) {
-                    if (endDate.getTime() - startDate.getTime() >= 0) {
+                    if (endDateTemp.getTime() - startDate.getTime() >= 0) {
+                        endDate=endDateTemp;
                         progressBar.setVisibility(View.VISIBLE);
                         helperHistoryPresenter.getInfoHelperHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                     } else {

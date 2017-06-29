@@ -44,7 +44,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
     private WorkHistoryPresenter workHistoryPresenter;
     private TextView tvStartDate, tvEndDate;
     private Calendar cal;
-    private Date startDate, endDate;
+    private Date startDate, endDate,startDateTemp,endDateTemp;
     private String strStartDate, strEndDate;
     private int currentPage, currentPageTime;
     private EndlessRecyclerViewScrollListener scrollListener;
@@ -235,9 +235,10 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                 //Lưu vết lại biến ngày hoàn thành
 
                 cal.set(year, monthOfYear, dayOfMonth);
-                startDate = cal.getTime();
+                startDateTemp = cal.getTime();
                 currentPageTime = 1;
-                if (endDate.getTime() - startDate.getTime() >= 0) {
+                if (endDate.getTime() - startDateTemp.getTime() >= 0) {
+                    startDate = startDateTemp;
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);
@@ -281,10 +282,11 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
 
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
-                endDate = cal.getTime();
+                endDateTemp = cal.getTime();
                 currentPageTime = 1;
                 if (startDate != null) {
-                    if (endDate.getTime() - startDate.getTime() >= 0) {
+                    if (endDateTemp.getTime() - startDate.getTime() >= 0) {
+                        endDate = endDateTemp;
                         view.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
                         workHistoryPresenter.getInfoWorkHistoryTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate), currentPageTime);

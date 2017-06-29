@@ -39,7 +39,6 @@ public class StatisticPresenter {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<StatisticResponse> call, Throwable t) {
                 statisticView.getStatisticFail();

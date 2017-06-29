@@ -224,7 +224,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:gravity="center_horizontal"
                             android:text="@string/post_work"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -252,7 +252,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:gravity="center_horizontal"
                             android:text="@string/waiting_work"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -280,7 +280,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:gravity="center_horizontal"
                             android:text="@string/history_work"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -342,19 +342,6 @@
                                         android:textColor="@android:color/black"
                                         android:textSize="@dimen/text_size_large"
                                         android:textStyle="bold" />
-
-                                    <com.hbbsolution.owner.base.IconTextView
-                                        android:id="@+id/txt_right"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentEnd="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_centerVertical="true"
-                                        android:layout_marginEnd="10dp"
-                                        android:layout_marginRight="10dp"
-                                        android:text="@string/ion_chevron_right"
-                                        android:textColor="@android:color/darker_gray"
-                                        android:textSize="@dimen/icon_size_normal" />
                                 </RelativeLayout>
 
                                 <LinearLayout

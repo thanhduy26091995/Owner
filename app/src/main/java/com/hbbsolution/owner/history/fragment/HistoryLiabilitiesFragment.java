@@ -41,7 +41,7 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
     private HistoryLiabilitiesAdapter historyLiabilitiesAdapter;
     private TextView tvStartDate, tvEndDate;
     private Calendar cal;
-    private Date startDate, endDate;
+    private Date startDate, endDate,startDateTemp,endDateTemp;
     private String strStartDate, strEndDate;
     private LiabilitiesPresenter liabilitiesPresenter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -145,8 +145,9 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
-                startDate = cal.getTime();
-                if (endDate.getTime() - startDate.getTime() >= 0) {
+                startDateTemp = cal.getTime();
+                if (endDate.getTime() - startDateTemp.getTime() >= 0) {
+                    startDate=startDateTemp;
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     liabilitiesPresenter.getInfoLiabilitiesTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
@@ -190,9 +191,10 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
 
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
-                endDate = cal.getTime();
+                endDateTemp = cal.getTime();
                 if (startDate != null) {
-                    if (endDate.getTime() - startDate.getTime() >= 0) {
+                    if (endDateTemp.getTime() - startDate.getTime() >= 0) {
+                        endDate= endDateTemp;
                         view.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
                         liabilitiesPresenter.getInfoLiabilitiesTime(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));

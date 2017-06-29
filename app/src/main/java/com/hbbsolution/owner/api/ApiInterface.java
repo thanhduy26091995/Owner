@@ -12,6 +12,7 @@ import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.ContactResponse;
+import com.hbbsolution.owner.more.duy_nguyen.model.RechargeOnlineFiResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
 import com.hbbsolution.owner.more.phuc_tran.model.AboutResponse;
 import com.hbbsolution.owner.more.phuc_tran.model.ForgotPassResponse;
@@ -249,5 +250,9 @@ public interface ApiInterface {
     @POST("owner/offAnnouncement")
     Call<AnnouncementResponse> offAnnouncement();
 
+
+    @FormUrlEncoded
+    @POST("payment/chargeOnlineFiConfirm")
+    Call<RechargeOnlineFiResponse> getRechargeOnlineFi(@Field("price") double price);
 
 }

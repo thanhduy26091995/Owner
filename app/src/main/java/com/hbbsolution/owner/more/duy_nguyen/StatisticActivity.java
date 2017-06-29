@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.model.Task;
 import com.hbbsolution.owner.more.duy_nguyen.presenter.StatisticPresenter;
-import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 
@@ -65,7 +64,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     CircleImageView imgAvatar;
 
     private Calendar cal;
-    private Date startDate, endDate;
+    private Date startDate, endDate,startDateTemp,endDateTemp;
     private String strStartDate, strEndDate;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
@@ -109,7 +108,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         tvStartDate.setOnClickListener(this);
         tvEndDate.setOnClickListener(this);
         tvPayment.setOnClickListener(this);
-        rela_info.setOnClickListener(this);
+ //       rela_info.setOnClickListener(this);
     }
 
     public void setNumber() {
@@ -151,9 +150,10 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
-                startDate = cal.getTime();
-                if (endDate.getTime() - startDate.getTime() >= 0) {
+                startDateTemp = cal.getTime();
+                if (endDate.getTime() - startDateTemp.getTime() >= 0) {
                     setNumber();
+                    startDate = startDateTemp;
                     statisticPresenter.getStatistic(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), StatisticActivity.this);
@@ -194,10 +194,11 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                         day + "/" + month + "/" + year);
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
-                endDate = cal.getTime();
+                endDateTemp = cal.getTime();
                 if (startDate != null) {
-                    if (endDate.getTime() - startDate.getTime() >= 0) {
+                    if (endDateTemp.getTime() - startDate.getTime() >= 0) {
                         setNumber();
+                        endDate = endDateTemp;
                         statisticPresenter.getStatistic(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), StatisticActivity.this);
@@ -242,10 +243,10 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
             case R.id.tvEndDate:
                 showDatePickerDialog2();
                 break;
-            case R.id.rela_info:
-                intent = new Intent(StatisticActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.rela_info:
+//                intent = new Intent(StatisticActivity.this, ProfileActivity.class);
+//                startActivity(intent);
+//                break;
             case R.id.txt_statistic_payment:
                 intent = new Intent(StatisticActivity.this, RechargeActivity.class);
                 startActivity(intent);
@@ -303,7 +304,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void getStatisticFail() {
-        ShowAlertDialog.showAlert("ERROR",StatisticActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.error),StatisticActivity.this);
         progressBar.setVisibility(View.GONE);
     }
 

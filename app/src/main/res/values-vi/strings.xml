@@ -106,7 +106,7 @@
     <string name="gender_men">Nam</string>
     <string name="gender_women">Nữ</string>
     <string name="signout">Đăng xuất</string>
-    <string name="signoutContent">Bạn thực sự muốn Log out?</string>
+    <string name="signoutContent">Bạn thực sự muốn đăng xuất?</string>
     <!--Page more activity end-->
 
 
@@ -345,4 +345,6 @@
     <string name="confirm_success">Xác nhận người giúp việc thành công</string>
 
     <string name="choose_age">Chọn tuổi</string>
+
+    <string name="error">Có lỗi xảy ra! Vui lòng thử lại sau!</string>
 </resources>
