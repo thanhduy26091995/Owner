@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -172,9 +173,11 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), SignInActivity.this);
                 } else {
                     String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                    String realToken = String.format("%s@//@android", deviceToken);
+                    Log.d("DEVICE_TOKEN", realToken);
                     btnSignIn.setEnabled(false);
                     showProgress();
-                    mSignInPresenter.signIn(username, password, deviceToken);
+                    mSignInPresenter.signIn(username, password, realToken);
                 }
 
             }
@@ -222,7 +225,8 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
                                     nameGoogleOrFace = object.getString("name");
                                     emailGoogleOrFace = object.getString("email");
                                     imageGoogleOrFace = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                                    DeviceToken = FirebaseInstanceId.getInstance().getToken();
+                                    DeviceToken = String.format("%s@//@android", FirebaseInstanceId.getInstance().getToken());
+                                    Log.d("DEVICE_TOKEN", DeviceToken);
                                     mSignInGooAndFacePresenter.signInGooAndFace(IdUser, TokenID, DeviceToken);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -360,7 +364,8 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
                 GoogleSignInAccount googleSignInAccount = googleSignInResult.getSignInAccount();
                 TokenID = googleSignInAccount.getIdToken();
                 IdUser = googleSignInAccount.getId();
-                DeviceToken = FirebaseInstanceId.getInstance().getToken();
+                DeviceToken = String.format("%s@//@android", FirebaseInstanceId.getInstance().getToken());
+                Log.d("DEVICE_TOKEN", DeviceToken);
                 emailGoogleOrFace = googleSignInAccount.getEmail();
                 nameGoogleOrFace = googleSignInAccount.getDisplayName();
                 imageGoogleOrFace = googleSignInAccount.getPhotoUrl().toString();

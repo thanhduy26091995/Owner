@@ -134,23 +134,24 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
 
     @Override
     public void responseCheckToken() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setCancelable(false);
-        alertDialog.setTitle(getResources().getString(R.string.notification));
-        alertDialog.setMessage(getResources().getString(R.string.auth));
-        alertDialog.setCancelable(false);
-        alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                SessionManagerUser sessionManagerUser = new SessionManagerUser(HomeActivity.this);
-                sessionManagerUser.logoutUser();
-                Intent itBackSignIn = new Intent(HomeActivity.this, SignInActivity.class);
-                startActivity(itBackSignIn);
-                finish();
-            }
-        });
-
-        alertDialog.show();
+        if (HomeActivity.this != null) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage(getResources().getString(R.string.auth));
+            alertDialog.setCancelable(false);
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    SessionManagerUser sessionManagerUser = new SessionManagerUser(HomeActivity.this);
+                    sessionManagerUser.logoutUser();
+                    Intent itBackSignIn = new Intent(HomeActivity.this, SignInActivity.class);
+                    startActivity(itBackSignIn);
+                    finish();
+                }
+            });
+            alertDialog.show();
+        }
     }
 
     @Override
@@ -167,10 +168,10 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        if(isPause) {
+        if (isPause) {
             SessionManagerForLanguage sessionManagerForLanguage = new SessionManagerForLanguage(HomeActivity.this);
             boolean isChangeLanguage = sessionManagerForLanguage.changeLanguage();
-            if(isChangeLanguage) {
+            if (isChangeLanguage) {
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(this.getIntent());
