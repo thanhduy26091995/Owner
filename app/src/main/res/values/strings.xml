@@ -358,5 +358,6 @@
     <string name="choose_age">Choose age</string>
 
     <string name="error">Error! Please try again!</string>
+    <string name="search_location">Search location</string>
 
 </resources>

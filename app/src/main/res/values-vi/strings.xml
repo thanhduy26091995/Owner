@@ -348,6 +348,5 @@
 
     <string name="error">Có lỗi xảy ra! Vui lòng thử lại sau!</string>
 
-    <string name="choose_start_date">Chọn ngày bắt đầu</string>
-    <string name="choose_end_date">Chọn ngày kết thúc</string>
+    <string name="search_location">Tìm vị trí</string>
 </resources>

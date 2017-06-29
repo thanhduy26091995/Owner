@@ -123,6 +123,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
             ShowSnackbar.showSnack(MaidNearByActivity.this, getResources().getString(R.string.no_internet));
         }
         //  searchView.setIconified(false);
+        searchView.setQueryHint(getResources().getString(R.string.search_location));
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
