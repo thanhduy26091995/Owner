@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.phuc_tran.model.ForgotPassResponse;
 import com.hbbsolution.owner.more.phuc_tran.presenter.ForgotPasswordPresenter;
+import com.hbbsolution.owner.utils.EmailValidate;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import butterknife.BindView;
@@ -38,6 +39,7 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
     private ProgressDialog mProgressDialog;
     ForgotPasswordPresenter forgotPasswordPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,7 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
         btn_send_require.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isValidMail(edt_email.getText().toString())) {
+                if (EmailValidate.IsOk(edt_email.getText().toString())) {
 
                     forgotPasswordPresenter.forgotPassword(edt_email.getText().toString(), edt_username.getText().toString());
                     showProgress();
@@ -82,11 +84,6 @@ public class ForgotPassActivity extends AppCompatActivity implements ForgotPassV
         return super.onOptionsItemSelected(item);
     }
 
-
-    //hàm check mail
-    private boolean isValidMail(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
 
     @Override
     public void getForgotPass(ForgotPassResponse forgotPassResponse) {
