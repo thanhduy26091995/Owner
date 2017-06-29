@@ -250,7 +250,6 @@ public interface ApiInterface {
     @POST("owner/offAnnouncement")
     Call<AnnouncementResponse> offAnnouncement();
 
-
     @FormUrlEncoded
     @POST("payment/chargeOnlineFiConfirm")
     Call<RechargeOnlineFiResponse> getRechargeOnlineFi(@Field("price") double price);
