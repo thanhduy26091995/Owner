@@ -47,7 +47,7 @@ public class MorePresenter {
             @Override
             public void onResponse(Call<AnnouncementResponse> call, Response<AnnouncementResponse> response) {
                 if (response.isSuccessful()) {
-                    mView.onAnnouncement(response.body());
+                    mView.offAnnouncement(response.body());
                 } else {
                     mView.getError(response.message());
                 }

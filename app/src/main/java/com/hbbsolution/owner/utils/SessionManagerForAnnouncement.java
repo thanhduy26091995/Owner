@@ -36,7 +36,7 @@ public class SessionManagerForAnnouncement {
     }
 
     public boolean getStateAnnouncement() {
-        return pref.getBoolean(KEY_IS_HAS_ANNOUNCEMENT, false);
+        return pref.getBoolean(KEY_IS_HAS_ANNOUNCEMENT, true);
     }
 
 }
