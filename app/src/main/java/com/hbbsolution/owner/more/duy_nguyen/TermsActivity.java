@@ -97,7 +97,7 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
                 btnOK.setEnabled(false);
                 showProgress();
                 mRegisterPresenter.createAccount(mUserName, mPassword, mEmail, mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, mGender, mFileContentResolver);
-
+                btnOK.setEnabled(false);
             }
         });
     }
