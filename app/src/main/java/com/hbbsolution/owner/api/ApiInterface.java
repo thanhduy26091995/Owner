@@ -246,13 +246,11 @@ public interface ApiInterface {
 
 
     @FormUrlEncoded
-    @POST("maid/onAnnouncement")
-    Call<AnnouncementResponse> onAnnouncement(String deviceToken);
+    @POST("owner/onAnnouncement")
+    Call<AnnouncementResponse> onAnnouncement(@Field("device_token") String deviceToken);
 
-
-    @POST("maid/offAnnouncement")
+    @POST("owner/offAnnouncement")
     Call<AnnouncementResponse> offAnnouncement();
-
 
     @FormUrlEncoded
     @POST("payment/chargeOnlineFiConfirm")
