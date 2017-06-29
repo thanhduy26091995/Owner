@@ -226,12 +226,12 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
-        {
-            ivAvatar.setImageURI(fileUri);
-            mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(),fileUri);
-            mFileContentResolver = getContentResolver().getType(fileUri);
         }
+//        }else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+//            ivAvatar.setImageURI(fileUri);
+//            mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), fileUri);
+//            mFileContentResolver = getApplicationContext().getContentResolver().getType(fileUri);
+//        }
     }
 
     @Override
@@ -313,7 +313,6 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         fileUri = Uri.fromFile(getOutputMediaFile());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-
         startActivityForResult(intent, CAMERA_REQUEST);
     }
     public void openGallery()
@@ -340,7 +339,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
                 if(options[item].equals("Máy ảnh"))
                 {
                     if(verifyCamerapermission()){
-                        takePhoto();
+                       // takePhoto();
                     }else {
                         return;
                     }

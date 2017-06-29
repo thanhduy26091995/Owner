@@ -208,7 +208,6 @@
                     android:layout_centerInParent="true"
                     android:text="@string/ic_home"
                     android:textSize="20sp" />
-
                 <EditText
                     android:id="@+id/edit_location"
                     android:layout_width="match_parent"
@@ -218,6 +217,7 @@
                     android:backgroundTint="@android:color/transparent"
                     android:fontFamily="@string/font_family_thin"
                     android:hint="@string/sign_up_address"
+                    android:inputType="textImeMultiLine"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
