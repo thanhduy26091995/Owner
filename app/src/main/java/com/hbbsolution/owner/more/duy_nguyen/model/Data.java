@@ -10,19 +10,19 @@ public class Data {
 
     @SerializedName("totalPrice")
     @Expose
-    private Integer totalPrice;
+    private long totalPrice;
     @SerializedName("task")
     @Expose
     private List<Task> task = null;
     @SerializedName("wallet")
     @Expose
-    private Integer wallet;
+    private long wallet;
 
-    public Integer getTotalPrice() {
+    public long getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Integer totalPrice) {
+    public void setTotalPrice(long totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -34,11 +34,11 @@ public class Data {
         this.task = task;
     }
 
-    public Integer getWallet() {
+    public long getWallet() {
         return wallet;
     }
 
-    public void setWallet(Integer wallet) {
+    public void setWallet(long wallet) {
         this.wallet = wallet;
     }
 

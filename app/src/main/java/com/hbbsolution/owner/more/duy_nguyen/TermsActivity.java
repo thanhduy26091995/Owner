@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.api.ApiClient;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
-import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
@@ -119,7 +119,7 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
             sessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = sessionManagerUser.getUserDetails();
             ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
-            Intent intent = new Intent(TermsActivity.this, SignInActivity.class);
+            Intent intent = new Intent(TermsActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
