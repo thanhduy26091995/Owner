@@ -351,4 +351,6 @@
     <string name="send_direct_maid">Make a request directly</string>
     <string name="comment_upper">COMMENT</string>
     <string name="applicant_profile">Applicant profile</string>
+    <string name="confirm_failed">Failed to confirm. Please try again!</string>
+    <string name="confirm_success">Partner identified successfully!</string>
 </resources>
