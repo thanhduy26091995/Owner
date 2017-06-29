@@ -343,4 +343,6 @@
     <string name="applicant_profile">Thông tin</string>
     <string name="confirm_failed">Xác thực không thành công, vui lòng thử lại</string>
     <string name="confirm_success">Xác nhận người giúp việc thành công</string>
+
+    <string name="choose_age">Chọn tuổi</string>
 </resources>

@@ -353,4 +353,7 @@
     <string name="applicant_profile">Applicant profile</string>
     <string name="confirm_failed">Failed to confirm. Please try again!</string>
     <string name="confirm_success">Partner identified successfully!</string>
+
+    <string name="from">From</string>
+    <string name="choose_age">Choose age</string>
 </resources>

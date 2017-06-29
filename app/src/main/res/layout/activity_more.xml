@@ -177,6 +177,7 @@
 
                         <android.support.v7.widget.SwitchCompat
                             android:layout_width="wrap_content"
+                            android:id="@+id/switch_announcement"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:theme="@style/SCBSwitch" />

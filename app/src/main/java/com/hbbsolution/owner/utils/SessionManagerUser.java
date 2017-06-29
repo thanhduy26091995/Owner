@@ -76,8 +76,7 @@ public class SessionManagerUser {
     }
 
     // Remove value whose key
-    public void removeValue()
-    {
+    public void removeValue() {
         editor.remove(KEY_TOKEN);
         editor.remove(KEY_ID);
         editor.remove(KEY_USERNAME);

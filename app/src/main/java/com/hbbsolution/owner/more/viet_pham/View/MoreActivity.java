@@ -7,24 +7,30 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
+import com.hbbsolution.owner.model.AnnouncementResponse;
 import com.hbbsolution.owner.more.duy_nguyen.LanguageActivity;
 import com.hbbsolution.owner.more.duy_nguyen.StatisticActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.AboutActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.ContactActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.TermActivity;
+import com.hbbsolution.owner.more.viet_pham.Presenter.MorePresenter;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
+import com.hbbsolution.owner.utils.SessionManagerForAnnouncement;
 import com.hbbsolution.owner.utils.SessionManagerForLanguage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 
@@ -37,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 04/05/2017.
  */
 
-public class MoreActivity extends AppCompatActivity implements View.OnClickListener {
+public class MoreActivity extends AppCompatActivity implements View.OnClickListener, MoreForAnnouncementView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -67,9 +73,13 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout lo_terms;
     @BindView(R.id.lo_share_app)
     LinearLayout lo_share_app;
+    @BindView(R.id.switch_announcement)
+    SwitchCompat switch_announcement;
     private SessionManagerUser sessionManagerUser;
+    private SessionManagerForAnnouncement sessionManagerForAnnouncement;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private boolean isPause = false;
+    private MorePresenter morePresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,6 +87,8 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_more);
         ButterKnife.bind(this);
         sessionManagerUser = new SessionManagerUser(this);
+        sessionManagerForAnnouncement = new SessionManagerForAnnouncement(this);
+        morePresenter = new MorePresenter(this);
         initData();
         //config toolbar
         toolbar.setTitle("");
@@ -87,6 +99,25 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
 
         lo_share_app.setOnClickListener(this);
         addEvents();
+        //event for switch
+        switch_announcement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    if (sessionManagerUser.isLoggedIn()) {
+                        sessionManagerForAnnouncement.createStateAnnouncement(true);
+                        //call api to save deviceToken
+                        String deviceToken = String.format("%s@//@android", FirebaseInstanceId.getInstance().getToken());
+                        morePresenter.onAnnouncement(deviceToken);
+                    }
+                } else {
+                    if (sessionManagerUser.isLoggedIn()) {
+                        sessionManagerForAnnouncement.createStateAnnouncement(false);
+                        morePresenter.offAnnouncement();
+                    }
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -96,6 +127,12 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
         txtAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
         ImageLoader.getInstance().loadImageAvatar(MoreActivity.this, hashDataUser.get(SessionManagerUser.KEY_IMAGE),
                 imgAvatar);
+        //check state of announcement
+        if (sessionManagerForAnnouncement.getStateAnnouncement()) {
+            switch_announcement.setChecked(true);
+        } else {
+            switch_announcement.setChecked(false);
+        }
     }
 
     @Override
@@ -230,5 +267,20 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
         }
+    }
+
+    @Override
+    public void onAnnouncement(AnnouncementResponse announcementResponse) {
+
+    }
+
+    @Override
+    public void offAnnouncement(AnnouncementResponse announcementResponse) {
+
+    }
+
+    @Override
+    public void getError(String error) {
+
     }
 }

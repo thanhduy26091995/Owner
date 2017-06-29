@@ -7,6 +7,7 @@ import com.hbbsolution.owner.history.model.workhistory.CommentResponse;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.home.model.ResponseRequest;
 import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
+import com.hbbsolution.owner.model.AnnouncementResponse;
 import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
@@ -239,5 +240,14 @@ public interface ApiInterface {
     @POST("more/ownerForgotPassword")
     Call<ForgotPassResponse> forgotPassword(@Field("email") String email,
                                             @Field("username") String username);
+
+
+    @FormUrlEncoded
+    @POST("maid/onAnnouncement")
+    Call<AnnouncementResponse> onAnnouncement(String deviceToken);
+
+    @POST("maid/offAnnouncement")
+    Call<AnnouncementResponse> offAnnouncement();
+
 
 }
