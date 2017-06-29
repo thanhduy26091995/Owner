@@ -233,7 +233,7 @@
 
     <string name="session_timeout">Session timeout</string>
     <string name="txtSendOrder">Thanh toán online</string>
-    <string name="thanhtoan">Thanh toán</string>
+    <string name="thanhtoan">Gửi yêu cầu</string>
     <string name="txtCheckOrder">CheckOrder</string>
 
     <string name="txtNameOrder">Họ tên người thanh toán</string>
@@ -241,7 +241,7 @@
     <string name="txtEmail">Email người thanh toán</string>
     <string name="txtMobile">Số điện thoại người thanh toán</string>
     <string name="txtAddress">Địa chỉ người thanh toán</string>
-    <string name="txtAmount">Tổng số tiền đơn hàng cần thanh toán</string>
+    <string name="txtAmount">Tổng số tiền cần thanh toán</string>
 
     <string name="error_disconnect">Bạn cần kết nối internet</string>
     <string name="error_name_order">Bạn cần nhập họ tên người thanh toán</string>

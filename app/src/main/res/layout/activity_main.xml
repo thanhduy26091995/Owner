@@ -122,8 +122,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:maxLines="2"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="@dimen/home_margin_work"
+                        android:layout_marginRight="@dimen/home_margin_work"
                         android:text="@string/home_your_tasks"
                         android:textAlignment="center"
                         android:textColor="@color/colorWhite" />
