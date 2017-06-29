@@ -203,6 +203,7 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
                         tvEndDate.setText(tempEndDate);
                     }
                 } else {
+                    endDate= endDateTemp;
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     liabilitiesPresenter.getInfoLiabilitiesTime("", simpleDateFormat.format(endDate));

@@ -206,6 +206,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                     }
                 } else {
                     setNumber();
+                    endDate = endDateTemp;
                     statisticPresenter.getStatistic("", simpleDateFormat.format(endDate));
                 }
             }

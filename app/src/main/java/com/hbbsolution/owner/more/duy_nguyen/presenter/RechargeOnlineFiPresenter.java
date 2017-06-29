@@ -5,7 +5,7 @@ import android.util.Log;
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
 import com.hbbsolution.owner.more.duy_nguyen.model.RechargeOnlineFiResponse;
-import com.hbbsolution.owner.more.duy_nguyen.model.RechargeOnlineFiView;
+import com.hbbsolution.owner.more.duy_nguyen.RechargeOnlineFiView;
 
 import retrofit2.Call;
 import retrofit2.Callback;

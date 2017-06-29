@@ -295,6 +295,7 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
                         tvEndDate.setText(tempEndDate);
                     }
                 } else {
+                    endDate = endDateTemp;
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     workHistoryPresenter.getInfoWorkHistoryTime("", simpleDateFormat.format(endDate), currentPageTime);

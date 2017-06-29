@@ -184,6 +184,7 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
                         tvEndDate.setText(tempEndDate);
                     }
                 } else {
+                    endDate=endDateTemp;
                     view.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     helperHistoryPresenter.getInfoHelperHistory(simpleDateFormat.format(endDate));

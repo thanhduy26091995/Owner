@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.more.duy_nguyen.model;
+package com.hbbsolution.owner.more.duy_nguyen;
 
 /**
  * Created by Administrator on 29/06/2017.

@@ -16,6 +16,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.more.duy_nguyen.RechargeOnlineFiView;
+import com.hbbsolution.owner.more.duy_nguyen.presenter.RechargeOnlineFiPresenter;
 import com.hbbsolution.owner.paymentonline.api.SendOrderRequest;
 import com.hbbsolution.owner.paymentonline.bean.SendOrderBean;
 import com.hbbsolution.owner.utils.Commons;
@@ -25,7 +27,7 @@ import com.rey.material.widget.ProgressView;
 import org.json.JSONObject;
 
 
-public class PaymentOnlineActivity extends AppCompatActivity implements View.OnClickListener, SendOrderRequest.SendOrderRequestOnResult {
+public class PaymentOnlineActivity extends AppCompatActivity implements View.OnClickListener, SendOrderRequest.SendOrderRequestOnResult, RechargeOnlineFiView {
 
     private Toolbar toolbar;
     private EditText editFullName;
@@ -39,7 +41,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     private ProgressView progressView;
     private String idBillOrder = "";
     public static Activity mPaymentOnlineActivity;
-
+    private RechargeOnlineFiPresenter rechargeOnlineFiPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         mPaymentOnlineActivity = this;
         initView();
         Bundle extras = getIntent().getExtras();
+        rechargeOnlineFiPresenter = new RechargeOnlineFiPresenter(this);
         if (extras != null) {
             idBillOrder = extras.getString("idBillOrder", "");
 
@@ -104,6 +107,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                         if (!email.equalsIgnoreCase("")) {
                             if (!phoneNumber.equalsIgnoreCase("")) {
                                 if (!address.equalsIgnoreCase("")) {
+                                    rechargeOnlineFiPresenter.getRechargeOnlineFi(Double.parseDouble(amount));
                                     sendOrderObject(fullName, amount, email, phoneNumber, address);
                                 } else {
                                     showErrorDialog(getString(R.string.error_address), false);
@@ -223,5 +227,15 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         });
 
         mSuccessDialog.show();
+    }
+
+    @Override
+    public void fiSuccess(String bill, String key) {
+
+    }
+
+    @Override
+    public void fiFail() {
+
     }
 }
