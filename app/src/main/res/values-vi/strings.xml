@@ -347,4 +347,7 @@
     <string name="choose_age">Chọn tuổi</string>
 
     <string name="error">Có lỗi xảy ra! Vui lòng thử lại sau!</string>
+
+    <string name="choose_start_date">Chọn ngày bắt đầu</string>
+    <string name="choose_end_date">Chọn ngày kết thúc</string>
 </resources>

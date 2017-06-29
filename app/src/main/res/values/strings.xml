@@ -313,8 +313,8 @@
 
     <!--chua sua-->
     <string name="hotline">Hotline:</string>
-    <string name="chon_ngay_bat_dau">Please choose the start date!</string>
-    <string name="chon_ngay_ket_thuc">Please choose the end date!</string>
+    <string name="chon_ngay_bat_dau">Choose the start date</string>
+    <string name="chon_ngay_ket_thuc">Choose the end date</string>
     <string name="boqua">Skip</string>
     <string name="tk_da_dangnhap_noikhac">Your account was accessed from another device!</string>
     <string name="thatbai">Failed!</string>
@@ -358,4 +358,5 @@
     <string name="choose_age">Choose age</string>
 
     <string name="error">Error! Please try again!</string>
+
 </resources>
