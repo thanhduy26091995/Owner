@@ -200,7 +200,7 @@
     <string name="about">About us</string>
     <string name="btnCall">Call</string>
     <string name="btnEmail">Email</string>
-    <string name="no_email_client">There are no email clients installed."</string>
+    <string name="no_email_client">There are no email clients installed.</string>
     <string name="enter_phonenumber">Enter a phone number</string>
     <string name="okAlert">Ok</string>
     <string name="address_title">Address:</string>
