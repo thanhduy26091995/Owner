@@ -43,14 +43,14 @@ public class RegisterPresenter {
     }
 
     public void createAccount(String username, String password, String email, String phone, String name, String filePath, String location, double lat, double lng, int gender
-            , String fileContentResolver) {
-        if ((filePath.trim().length() != 0) && (fileContentResolver.trim().length() != 0)) {
+            ) {
+        if ((filePath.trim().length() != 0)) {
             mFile = new File(filePath);
-            requestBody = RequestBody.create(MediaType.parse(fileContentResolver), mFile);
+            requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
             fileImage = MultipartBody.Part.createFormData("image", mFile.getName(), requestBody);
         } else {
             mFile = new File(filePath);
-            requestBody = RequestBody.create(MediaType.parse(fileContentResolver), mFile);
+            requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
             fileImage = null;
         }
         requestBodyUserName = RequestBody.create(MediaType.parse("text"), username);

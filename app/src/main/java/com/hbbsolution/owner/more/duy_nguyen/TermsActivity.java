@@ -40,7 +40,7 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
     private RegisterPresenter mRegisterPresenter;
     private double mLat;
     private double mLng;
-    private String mUserName,mPassword,mEmail,mFullName,mPhoneName,mFilePath,mFileContentResolver,mLocation;
+    private String mUserName,mPassword,mEmail,mFullName,mPhoneName,mFilePath,mLocation;
     private int mGender;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
@@ -72,7 +72,6 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
         mLat = bTerms.getDouble("lat");
         mLng = bTerms.getDouble("lng");
         mFilePath = bTerms.getString("filepath");
-        mFileContentResolver = bTerms.getString("filecontent");
 
         sessionManagerUser = new SessionManagerUser(this);
         mProgressDialog = new ProgressDialog(this);
@@ -96,7 +95,7 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
             public void onClick(View view) {
                 btnOK.setEnabled(false);
                 showProgress();
-                mRegisterPresenter.createAccount(mUserName, mPassword, mEmail, mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, mGender, mFileContentResolver);
+                mRegisterPresenter.createAccount(mUserName, mPassword, mEmail, mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, mGender);
                 btnOK.setEnabled(false);
             }
         });

@@ -40,14 +40,14 @@ public class UpdateUserPresenter {
     }
 
     public void updateUserInfo(String phone, String name, String filePath, String location, double lat, double lng, int gender
-            , String fileContentResolver) {
-        if ((filePath.trim().length() != 0) && (fileContentResolver.trim().length() != 0)) {
+    ) {
+        if ((filePath.trim().length() != 0)) {
             mFile = new File(filePath);
-            requestBody = RequestBody.create(MediaType.parse(fileContentResolver), mFile);
+            requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
             fileImage = MultipartBody.Part.createFormData("image", mFile.getName(), requestBody);
         } else {
             mFile = new File(filePath);
-            requestBody = RequestBody.create(MediaType.parse(fileContentResolver), mFile);
+            requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
             fileImage = null;
         }
         requestBodyPhone = RequestBody.create(MediaType.parse("text"), phone);
@@ -56,7 +56,7 @@ public class UpdateUserPresenter {
         requestBodyGender = RequestBody.create(MediaType.parse("text"), String.valueOf(gender));
         requestBodyLat = RequestBody.create(MediaType.parse("text"), String.valueOf(lat));
         requestBodyLng = RequestBody.create(MediaType.parse("text"), String.valueOf(lng));
-        mApiService.updateOwner(requestBodyPhone,requestBodyName,requestBodyLocation,requestBodyLat,requestBodyLng,requestBodyGender,fileImage).enqueue(new Callback<DataUpdateResponse>() {
+        mApiService.updateOwner(requestBodyPhone, requestBodyName, requestBodyLocation, requestBodyLat, requestBodyLng, requestBodyGender, fileImage).enqueue(new Callback<DataUpdateResponse>() {
             @Override
             public void onResponse(Call<DataUpdateResponse> call, Response<DataUpdateResponse> response) {
                 DataUpdateResponse dataUpdateResponse = response.body();
