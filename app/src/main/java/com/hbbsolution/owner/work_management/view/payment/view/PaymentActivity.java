@@ -102,7 +102,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     private CheckOrderPresenter checkOrderPresenter;
     public static Activity mPaymentActivity = null;
-
+    private long walletOwner;
+    private long totalPrice;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +148,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             payment_date.setText(getResources().getString(R.string.payment_date) + " " + formatDate.format(date));
 //            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mLiabilitiesHistory.getPeriod()));
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getPrice()) + " VND");
+            totalPrice = (long) mLiabilitiesHistory.getPrice();
             if (!mLiabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
                 Glide.with(PaymentActivity.this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
                         .thumbnail(0.5f)
@@ -177,6 +179,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             txtSeriBill.setText(mDataBill.getId());
 //            payment_timework.setText(getResources().getString(R.string.timework) + " " + getTimeDoWork(mDataBill.getPeriod()));
             payment_total.setText(getResources().getString(R.string.totalprice) + " " + NumberFormat.getNumberInstance(Locale.GERMANY).format(mDataBill.getPrice()) + " VND");
+            totalPrice = (long) mDataBill.getPrice();
             Glide.with(PaymentActivity.this).load(mDatum.getInfo().getWork().getImage())
                     .thumbnail(0.5f)
                     .placeholder(R.drawable.no_image)
@@ -244,7 +247,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent;
         switch (view.getId()) {
             case R.id.lo_Gv24:
-                if (Long.parseLong(payment_money_account.getText().toString()) >= Long.parseLong(payment_total.getText().toString())) {
+                if (walletOwner >= totalPrice) {
                     confirm(1);
                 }
                 else {
@@ -317,6 +320,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getWalletSuccess(long wallet) {
+        walletOwner=wallet;
         payment_money_account.setText(getResources().getString(R.string.accountbalance) + ": " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
     }
 
