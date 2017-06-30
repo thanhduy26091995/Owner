@@ -280,7 +280,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
+                        android:paddingTop="10dp"
                         android:gravity="top"
                         android:text="@string/manager_ic_home"
                         android:textColor="@color/home_background_history"

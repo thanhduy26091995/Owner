@@ -45,7 +45,7 @@
                         android:id="@+id/txtTitleJobPost"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
+                        android:layout_weight="2.8"
                         android:layout_marginRight="5dp"
                         android:ellipsize="end"
                         android:maxLines="1"
@@ -57,7 +57,7 @@
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2">
+                        android:layout_weight="2.2">
 
                         <TextView
                             android:id="@+id/txtExpired_request_detail_post"
@@ -86,7 +86,7 @@
                             android:background="@drawable/circle"
                             android:gravity="center"
                             android:visibility="gone"
-                            android:text="2"
+
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/icon_size_normal" />
 

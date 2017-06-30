@@ -20,6 +20,7 @@
     <string name="check_number_job_post">Số lượng bài đăng không được vượt quá 10 bài!</string>
     <string name="notification_del_job_post">Bạn có muốn xóa công việc này?</string>
     <string name="notification__pass_del_job_post">Bạn đã xóa công việc này!</string>
+    <string name="evaluate">Đánh giá</string>
 
     <string name="post_your_work">Đăng công việc</string>
     <string name="title_job_post">Tiêu đề</string>
@@ -29,7 +30,7 @@
     <string name="enter_the_salary">Nhập số tiền công</string>
     <string name="hourly_pay">Tính tiền theo thời gian</string>
     <string name="hour">/giờ</string>
-    <string name="the_start_date">Ngày bặt đầu</string>
+    <string name="the_start_date">Ngày bắt đầu</string>
     <string name="time_of_working">Thời gian làm việc</string>
     <string name="to_job_post">to</string>
     <string name="jobs_for_applications">Đang chờ ứng tuyển</string>
@@ -45,7 +46,7 @@
     <string name="check_your_home_address">Vui lòng kiểm tra lại địa chỉ nhà.</string>
     <string name="check_complete_all_information">Vui lòng điền đầy đủ thông tin.</string>
     <string name="check_working_time">Thời gian làm việc không phù hợp.</string>
-    <string name="detail_posted">Đã đăng</string>
+    <string name="detail_posted">Đăng bài</string>
     <string name="check_date_post">Ngày bạn chọn không phù hợp.</string>
     <string name="delete_work_post">Bạn có muốn xóa công việc này không?</string>
     <string name="ok">Chấp nhận</string>
@@ -348,5 +349,6 @@
 
     <string name="error">Có lỗi xảy ra! Vui lòng thử lại sau!</string>
 
+    <string name="search_location">Tìm vị trí</string>
     <string name="naptienthanhcong">Nạp tiền thành công!</string>
 </resources>

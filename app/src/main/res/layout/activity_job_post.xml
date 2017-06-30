@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
-    android:orientation="vertical">
+    android:background="@color/gray">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -52,10 +52,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/appbar"
         android:layout_marginTop="20dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -386,17 +382,14 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <EditText
-                android:id="@+id/lo_job_post"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                android:enabled="false">
-            </EditText>
-        </FrameLayout>
-
     </android.support.v4.widget.NestedScrollView>
+    <EditText
+        android:id="@+id/lo_job_post"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:enabled="false">
+    </EditText>
 
     <ProgressBar
         android:id="@+id/progressPostJob"

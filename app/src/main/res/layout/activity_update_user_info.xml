@@ -221,6 +221,7 @@
                     android:backgroundTint="@android:color/transparent"
                     android:fontFamily="@string/font_family_thin"
                     android:hint="@string/sign_up_address"
+                    android:inputType="textImeMultiLine"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 

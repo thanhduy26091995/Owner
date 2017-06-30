@@ -42,6 +42,7 @@
     <string name="checknumberjobpost">Your posts would be within ten!</string>
     <string name="notification_del_job_post">Are you sure you want to delete this work?</string>
     <string name="notification__pass_del_job_post">Your post deleted!</string>
+    <string name="evaluate">Evaluate</string>
 
     <string name="check_number_job_post">Your posts would be within ten!</string>
 
@@ -358,6 +359,7 @@
     <string name="choose_age">Choose age</string>
 
     <string name="error">Error! Please try again!</string>
+    <string name="search_location">Search location</string>
 
     <string name="naptienthanhcong">Recharge successful!</string>
 </resources>

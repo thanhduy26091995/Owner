@@ -23,7 +23,7 @@
         android:padding="10dp"
         android:textColor="@color/colorBlack"
         android:textStyle="bold"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <!--<LinearLayout-->

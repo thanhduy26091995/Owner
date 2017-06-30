@@ -100,6 +100,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     NestedScrollView nestedScrollView;
     @BindView(R.id.txtNoComment)
     TextView txtNoComment;
+    @BindView(R.id.txtrequest_directly)
+    TextView txtrequest_directly;
 
     private MaidProfilePresenter mMaidProfilePresenter;
     private List<Doc> commentList = new ArrayList<>();
@@ -145,17 +147,6 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
         txtBackInfoMaid.setOnClickListener(this);
         linearReportMaid.setOnClickListener(this);
 
-//        list = new ArrayList<>();
-//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
-//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
-//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
-//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
-//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
-//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
-//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818997/nau_an_copy_ogjsu6.png");
-//        list.add("http://res.cloudinary.com/einzweidrei2/image/upload/v1494818990/don_dep_nha_z2lny1.png");
-
-
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
         datum = (MaidHistory) getIntent().getSerializableExtra("helper");
         workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
@@ -185,11 +176,11 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), currentPage);
 
             // from Bitmap
-            Glide.with(MaidProfileActivity.this)
-                    .load(R.drawable.bg_app_720)
-                    .asBitmap()
-                    .error(R.drawable.avatar)
-                    .into(imgBlurImage);
+//            Glide.with(MaidProfileActivity.this)
+//                    .load(R.drawable.bg_app_720)
+//                    .asBitmap()
+//                    .error(R.drawable.avatar)
+//                    .into(imgBlurImage);
 //                    .into(new SimpleTarget<Bitmap>() {
 //                        @Override
 //                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -450,5 +441,12 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                 ShowAlertDialog.showAlert(getResources().getString(R.string.reportsuccess), this);
             }
         }
+    }
+
+    private void hideTextRequestDirectly(String idTaskProcess) {
+       if(idTaskProcess.equals("000000000000000000000003") || idTaskProcess.equals("000000000000000000000004") ||
+               idTaskProcess.equals("000000000000000000000005") || idTaskProcess.equals("000000000000000000000006")) {
+
+       }
     }
 }
