@@ -237,6 +237,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
 
     @Override
     public void checkOrderServerSuccess() {
+
         mProgressView.setVisibility(View.GONE);
 //        Toast.makeText(CheckOrderActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
     }
@@ -248,6 +249,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
 
     @Override
     public void secSuccess(String keyNumber) {
+
         rechargeOnlineThiPresenter.getRechargeOnlineThi(keyNumber,idBillOrder);
     }
 
@@ -259,10 +261,14 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     @Override
     public void thiSuccess() {
         ShowAlertDialog.showAlert(getResources().getString(R.string.naptienthanhcong),CheckOrderActivity.this);
+        mProgressView.setVisibility(View.GONE);
+        txtData.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void thiFail() {
         ShowAlertDialog.showAlert(getResources().getString(R.string.error),CheckOrderActivity.this);
+        mProgressView.setVisibility(View.GONE);
+        txtData.setVisibility(View.VISIBLE);
     }
 }

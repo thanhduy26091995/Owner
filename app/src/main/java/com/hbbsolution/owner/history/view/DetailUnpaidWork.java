@@ -57,6 +57,7 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
     private LiabilitiesHistory mLiabilitiesHistory;
     private DatumPending mDatum;
     private DataBill mDataBill;
+    private int type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +72,8 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
         lo_infoMaid.setOnClickListener(this);
 
         Bundle extras = getIntent().getExtras();
-        Bundle bdDataBill = getIntent().getBundleExtra("databill");
-
-        if (extras!=null) {
+        type = extras.getInt("type");
+        if (type==0) {
             mLiabilitiesHistory = (LiabilitiesHistory) extras.getSerializable("liability");
             txtNameInfoMaid.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
             txtAddressInfoMaid.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
@@ -104,8 +104,7 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
         }
         else
         {
-            mDatum = (DatumPending) bdDataBill.getSerializable("mDatum");
-            mDataBill = (DataBill) bdDataBill.getSerializable("datacheckout");
+            mDatum = (DatumPending) extras.getSerializable("mDatum");
             txtNameInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
             txtAddressInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
             Glide.with(this).load(mDatum.getStakeholders().getMadi().getInfo().getImage())
@@ -141,7 +140,13 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.lo_infoMaid:
                 intent = new Intent(DetailUnpaidWork.this, MaidProfileActivity.class);
-                intent.putExtra("work", mLiabilitiesHistory.getTask());
+                if(type == 0) {
+                    intent.putExtra("work", mLiabilitiesHistory.getTask());
+                }
+                else
+                {
+                    intent.putExtra("mData", mDatum);
+                }
                 startActivity(intent);
                 break;
         }

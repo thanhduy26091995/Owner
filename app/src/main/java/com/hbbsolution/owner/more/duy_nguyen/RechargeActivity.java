@@ -59,6 +59,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.rlRecharge:
                 intent = new Intent(RechargeActivity.this,PaymentOnlineActivity.class);
+                intent.putExtra("recharge",true);
                 startActivity(intent);
                 break;
             case R.id.rlInfoBank:

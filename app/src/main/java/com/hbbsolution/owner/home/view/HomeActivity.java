@@ -81,7 +81,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
             txt_work_maid_around.setText(changeCharInPosition(setTitle(txt_work_maid_around.getText().toString(),2),'\n',txt_work_maid_around.getText().toString()));
             txt_work_management.setText(changeCharInPosition(setTitle(txt_work_management.getText().toString(),2),'\n',txt_work_management.getText().toString()));
             txt_work_management_history.setText(changeCharInPosition(setTitle(txt_work_management_history.getText().toString(),2),'\n',txt_work_management_history.getText().toString()));
-        } else if (lang.equals("English")) {
+        } else{
             txt_work_maid_around.setText(changeCharInPosition(setTitle(txt_work_maid_around.getText().toString(),1),'\n',txt_work_maid_around.getText().toString()));
             txt_work_management.setText(changeCharInPosition(setTitle(txt_work_management.getText().toString(),1),'\n',txt_work_management.getText().toString()));
             txt_work_management_history.setText(changeCharInPosition(setTitle(txt_work_management_history.getText().toString(),1),'\n',txt_work_management_history.getText().toString()));

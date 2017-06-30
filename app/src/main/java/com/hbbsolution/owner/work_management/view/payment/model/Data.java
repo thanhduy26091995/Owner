@@ -11,7 +11,7 @@ public class Data {
     private String id;
     @SerializedName("wallet")
     @Expose
-    private Integer wallet;
+    private long wallet;
 
     public String getId() {
         return id;
@@ -21,11 +21,11 @@ public class Data {
         this.id = id;
     }
 
-    public Integer getWallet() {
+    public long getWallet() {
         return wallet;
     }
 
-    public void setWallet(Integer wallet) {
+    public void setWallet(long wallet) {
         this.wallet = wallet;
     }
 

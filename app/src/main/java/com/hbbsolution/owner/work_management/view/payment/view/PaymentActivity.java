@@ -20,8 +20,6 @@ import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
 import com.hbbsolution.owner.history.view.CommentActivity;
-import com.hbbsolution.owner.history.view.DetailUnpaidWork;
-import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
 import com.hbbsolution.owner.paymentonline.ui.activity.CheckOrderView;
 import com.hbbsolution.owner.paymentonline.ui.activity.PaymentOnlineActivity;
@@ -197,11 +195,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setEventClick() {
-        rela_info.setOnClickListener(this);
         lo_payment_online.setOnClickListener(this);
         lo_Gv24.setOnClickListener(this);
         lo_paymentbymoney.setOnClickListener(this);
-        rlBill.setOnClickListener(this);
     }
 
     private String getTimeDoWork(String _timeDoWork) {
@@ -248,21 +244,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent;
         switch (view.getId()) {
             case R.id.lo_Gv24:
-                confirm(1);
-                break;
-            case R.id.rela_info:
-                intent = new Intent(PaymentActivity.this, MaidProfileActivity.class);
-                intent.putExtra("work", mLiabilitiesHistory.getTask());
-//                ActivityOptionsCompat historyOption =
-//                        ActivityOptionsCompat
-//                                .makeSceneTransitionAnimation(PaymentActivity.this, (View)findViewById(R.id.payment_avatar), "icAvatar");
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//                    startActivity(intent, historyOption.toBundle());
-//                }
-//                else {
-                startActivity(intent);
-//                }
+                if (Long.parseLong(payment_money_account.getText().toString()) >= Long.parseLong(payment_total.getText().toString())) {
+                    confirm(1);
+                }
+                else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.taikhoankhongdu),PaymentActivity.this);
+                }
                 break;
             case R.id.lo_payment_online:
                 confirm(3);
@@ -271,16 +258,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.lo_paymentbymoney:
                 confirm(2);
-                break;
-            case R.id.rlBill:
-                intent = new Intent(PaymentActivity.this, DetailUnpaidWork.class);
-                if (mLiabilitiesHistory != null) {
-                    intent.putExtra("liability", mLiabilitiesHistory);
-                } else {
-                    intent.putExtra("mDatum", mDatum);
-                    intent.putExtra("datacheckout", mDataBill);
-                }
-                startActivity(intent);
                 break;
         }
     }
@@ -339,7 +316,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
 
     @Override
-    public void getWalletSuccess(int wallet) {
+    public void getWalletSuccess(long wallet) {
         payment_money_account.setText(getResources().getString(R.string.accountbalance) + ": " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
     }
 

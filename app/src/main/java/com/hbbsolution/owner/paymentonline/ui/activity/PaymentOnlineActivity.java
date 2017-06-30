@@ -43,7 +43,8 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     public static Activity mPaymentOnlineActivity;
     private RechargeOnlineFiPresenter rechargeOnlineFiPresenter;
     private String fullName,amount,email,phoneNumber,address;
-    private String key;
+    private String key="";
+    private boolean recharge = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         rechargeOnlineFiPresenter = new RechargeOnlineFiPresenter(this);
         if (extras != null) {
             idBillOrder = extras.getString("idBillOrder", "");
-
+            recharge = extras.getBoolean("recharge",false);
         }
 //        idBillOrder = getIntent().getStringExtra("idBillOrder");
     }
@@ -109,7 +110,12 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                         if (!email.equalsIgnoreCase("")) {
                             if (!phoneNumber.equalsIgnoreCase("")) {
                                 if (!address.equalsIgnoreCase("")) {
-                                    rechargeOnlineFiPresenter.getRechargeOnlineFi(Double.parseDouble(amount));
+                                    if(recharge) {
+                                        rechargeOnlineFiPresenter.getRechargeOnlineFi(Double.parseDouble(amount));
+                                    }
+                                    else {
+                                        sendOrderObject(fullName, amount, email, phoneNumber, address);
+                                    }
                                 } else {
                                     showErrorDialog(getString(R.string.error_address), false);
                                 }
