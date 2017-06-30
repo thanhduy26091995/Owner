@@ -53,6 +53,7 @@
         <activity android:name=".more.viet_pham.View.update.UpdateUserInfoActivity" />
         <activity android:name=".work_management.view.workmanager.WorkManagementActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPostActivity" />
+        <activity android:name=".work_management.view.detail.DetailJobSentRequestActivity"/>
         <activity android:name=".work_management.view.detail.DetailJobPendingActivity" />
         <activity android:name=".work_management.view.detail.DetailJobDoingActivity" />
         <activity android:name=".work_management.view.jobpost.JobPostActivity" />

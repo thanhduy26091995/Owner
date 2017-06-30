@@ -447,17 +447,19 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                     itCommnet.putExtra("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress());
                 }
                 startActivity(itCommnet);
-                try {
-                    if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
-                        DetailJobDoingActivity.mDetailJobDoingActivity.finish();
-                    }
-                    if (WorkManagementActivity.mWorkManagementActivity != null) {
-                        WorkManagementActivity.mWorkManagementActivity.finish();
-                    }
-                } catch (Exception e) {
+                if (mPaymentActivity != null) {
+                    PaymentActivity.mPaymentActivity.finish();
+                    try {
+                        if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
+                            DetailJobDoingActivity.mDetailJobDoingActivity.finish();
+                        }
+                        if (WorkManagementActivity.mWorkManagementActivity != null) {
+                            WorkManagementActivity.mWorkManagementActivity.finish();
+                        }
+                    } catch (Exception e) {
 
+                    }
                 }
-
             }
         });
         alertDialog.show();

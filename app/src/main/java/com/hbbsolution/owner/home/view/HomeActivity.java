@@ -65,13 +65,16 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         mLayout_History.setOnClickListener(this);
         sessionManagerForLanguage = new SessionManagerForLanguage(this);
         String lang = sessionManagerForLanguage.getLanguage();
-        if (lang.equals("Tiếng Việt")) {
-            txt_work_management.setPadding(20, 0, 20, 5);
-            txt_work_management_history.setPadding(15, 0, 15, 5);
-        } else if (lang.equals("English")) {
-            txt_work_management.setPadding(15, 0, 15, 5);
-            txt_work_management_history.setPadding(5, 0, 5, 5);
-        }
+//        if (lang.equals("Tiếng Việt")) {
+////            RelativeLayout.LayoutParams  parameter =  (RelativeLayout.LayoutParams) txt_work_management.getLayoutParams();
+////            parameter.setMargins(getResources().geti(R.dimen.home_margin_work), parameter.topMargin, parameter.rightMargin, parameter.bottomMargin); // left, top, right, bottom
+////            txtField.setLayoutParams(parameter);
+//            txt_work_management.setPadding(20, 0, 20, 5);
+//            txt_work_management_history.setPadding(15, 0, 15, 5);
+//        } else if (lang.equals("English")) {
+//            txt_work_management.setPadding(15, 0, 15, 5);
+//            txt_work_management_history.setPadding(5, 0, 5, 5);
+//        }
         mHomePresenter = new HomePresenter(this);
         sessionManagerUser = new SessionManagerUser(HomeActivity.this);
         mHomePresenter.requestCheckToken();
@@ -141,7 +144,6 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
             alertDialog.setMessage(getResources().getString(R.string.auth));
-            alertDialog.setCancelable(false);
             alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

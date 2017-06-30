@@ -3,9 +3,12 @@ package com.hbbsolution.owner.work_management.view.jobpost;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -17,7 +20,9 @@ import android.text.Editable;
 import android.text.Selection;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,10 +34,12 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.maid_profile.choose_maid.view.ChooseMaidActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
@@ -93,6 +100,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
 
     public static Activity mJobPostActivity = null;
+    private ProgressDialog progressDialog;
 
     private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId,
             mDateStartWork, mTimeStartWork, mTimeEndWork, mIdTask, mPrice, mHours;
@@ -193,7 +201,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         } else {
             isPost = true;
-            txt_post_complete.setText(getResources().getString(R.string.dang_bai));
+            txt_post_complete.setText(getResources().getString(R.string.detail_posted));
         }
 
 
@@ -252,8 +260,9 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                 break;
 
             case R.id.txtPostJob:
-                progressBar.setVisibility(View.VISIBLE);
-                lo_job_post.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.VISIBLE);
+//                lo_job_post.setVisibility(View.VISIBLE);
+                showProgressDialog();
                 checkLocaltionOfOwner();
                 break;
 
@@ -279,11 +288,12 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     }
 
     @Override
-    public void displayNotifyJobPost(boolean isJobPost) {
+    public void displayNotifyJobPost(JobPostResponse isJobPost) {
         txt_post_complete.setEnabled(true);
-        lo_job_post.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
-        if (isJobPost) {
+//        lo_job_post.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
+        hideProgressDialog();
+        if (isJobPost.getStatus()) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
@@ -308,16 +318,22 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
             alertDialog.show();
         } else {
-            lo_job_post.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert(getResources().getString(R.string.post_unsuccessfully), JobPostActivity.this);
+            if (isJobPost.getMessage().equals("TASK_OUT_OF_LIMIT")){
+                ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), JobPostActivity.this);
+            }else {
+//            hideProgressDialog();
+//            lo_job_post.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
+                ShowAlertDialog.showAlert(getResources().getString(R.string.post_unsuccessfully), JobPostActivity.this);
+            }
         }
     }
 
     @Override
     public void displayNotFoundLocaltion() {
-        lo_job_post.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
+        hideProgressDialog();
+//        lo_job_post.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
         ShowAlertDialog.showAlert(getResources().getString(R.string.check_your_home_address), JobPostActivity.this);
     }
 
@@ -386,7 +402,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         }
 
         txt_post_complete.setEnabled(false);
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
 
         if (isPost) {
             mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
@@ -402,28 +418,32 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
                 edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
-            progressBar.setVisibility(View.GONE);
-            lo_job_post.setVisibility(View.GONE);
+            hideProgressDialog();
+//            progressBar.setVisibility(View.GONE);
+//            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
             return false;
         }
 
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
-            progressBar.setVisibility(View.GONE);
-            lo_job_post.setVisibility(View.GONE);
+            hideProgressDialog();
+//            progressBar.setVisibility(View.GONE);
+//            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), JobPostActivity.this);
             return false;
         }
         if (CompareTimeStart(getTimeWork(txtTime_start.getText().toString()))) {
-            progressBar.setVisibility(View.GONE);
-            lo_job_post.setVisibility(View.GONE);
+            hideProgressDialog();
+//            progressBar.setVisibility(View.GONE);
+//            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
             return false;
         }
 
         if (!validateTimeWork()) {
-            progressBar.setVisibility(View.GONE);
-            lo_job_post.setVisibility(View.GONE);
+            hideProgressDialog();
+//            progressBar.setVisibility(View.GONE);
+//            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
             return false;
 
@@ -611,8 +631,9 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         if (!mAddressPost.isEmpty()) {
             mJobPostPresenter.getLocaltionAddress(mAddressPost);
         } else {
-            progressBar.setVisibility(View.GONE);
-            lo_job_post.setVisibility(View.GONE);
+            hideProgressDialog();
+//            progressBar.setVisibility(View.GONE);
+//            lo_job_post.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_address), JobPostActivity.this);
         }
     }
@@ -650,4 +671,32 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         }
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(JobPostActivity.this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (progressDialog.isShowing() && progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
 }

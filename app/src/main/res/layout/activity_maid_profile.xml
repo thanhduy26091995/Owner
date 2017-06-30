@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Đánh giá"
+            android:text="@string/evaluate"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -409,8 +409,10 @@
                     android:paddingTop="10dp">
 
                     <TextView
+                        android:id="@+id/txtrequest_directly"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:layout_toLeftOf="@+id/txt_chk"
                         android:text="@string/send_direct_maid"
                         android:textColor="@color/home_background_history"

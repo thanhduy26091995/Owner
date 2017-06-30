@@ -90,10 +90,8 @@ public class JobPostPresenter {
 
                 if (response.isSuccessful()) {
 
-                    Log.d("onResponse", response.body().getMessage() + "");
-
-                    Boolean isJbPost = response.body().getStatus();
-                    mJobPostView.displayNotifyJobPost(isJbPost);
+//                    Boolean isJbPost = response.body().getStatus();
+                    mJobPostView.displayNotifyJobPost(response.body());
                 }
             }
 
@@ -116,10 +114,8 @@ public class JobPostPresenter {
                 try{
                     if (response.isSuccessful()) {
 
-                        Log.d("onResponse", response.body() + "");
-
-                        Boolean isJbPost = response.body().getStatus();
-                        mJobPostView.displayNotifyJobPost(isJbPost);
+//                        Boolean isJbPost = response.body().getStatus();
+                        mJobPostView.displayNotifyJobPost(response.body());
                     }
                 }catch (Exception e){
                     Log.d("Exception", e.toString());

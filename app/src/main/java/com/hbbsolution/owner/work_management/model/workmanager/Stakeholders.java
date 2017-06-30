@@ -2,6 +2,8 @@ package com.hbbsolution.owner.work_management.model.workmanager;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.hbbsolution.owner.model.Maid;
+import com.hbbsolution.owner.work_management.model.workmanagerpending.ReceivedPending;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +19,17 @@ public class Stakeholders implements Serializable{
     @SerializedName("request")
     @Expose
     private List<Object> request = null;
+    @SerializedName("received")
+    @Expose
+    private Maid maid;
+
+    public Maid getMaid() {
+        return maid;
+    }
+
+    public void setMaid(Maid maid) {
+        this.maid = maid;
+    }
 
     public String getOwner() {
         return owner;

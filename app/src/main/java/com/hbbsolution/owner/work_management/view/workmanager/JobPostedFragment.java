@@ -25,6 +25,7 @@ import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerRespon
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 import com.hbbsolution.owner.work_management.presenter.WorkManagerPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
+import com.hbbsolution.owner.work_management.view.detail.DetailJobSentRequestActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,9 +101,18 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             mJobPostAdapter.setCallback(new ManageJobAdapter.Callback() {
                 @Override
                 public void onItemClick(Datum mDatum) {
-                    Intent itDetailJobPost = new Intent(getActivity(), DetailJobPostActivity.class);
-                    itDetailJobPost.putExtra("mDatum", mDatum);
-                    startActivity(itDetailJobPost);
+                    switch (mDatum.getProcess().getId()){
+                        case "000000000000000000000006":
+                            Intent itDetailJobSentRequest = new Intent(getActivity(), DetailJobSentRequestActivity.class);
+                            itDetailJobSentRequest.putExtra("mDatum", mDatum);
+                            startActivity(itDetailJobSentRequest);
+                            break;
+                        default:
+                            Intent itDetailJobPost = new Intent(getActivity(), DetailJobPostActivity.class);
+                            itDetailJobPost.putExtra("mDatum", mDatum);
+                            startActivity(itDetailJobPost);
+                            break;
+                    }
                 }
 
                 @Override
