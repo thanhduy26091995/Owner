@@ -74,7 +74,6 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
     private int PICK_IMAGE_FROM_GALLERY_REQUEST = 1;
     private Uri mUriChooseImage;
     private String mFilePath = "";
-    private String mFileContentResolver = "";
     private int iGender;
     private RegisterPresenter mRegisterPresenter;
     private ProgressDialog mProgressDialog;
@@ -222,16 +221,13 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mUriChooseImage);
                 ivAvatar.setImageBitmap(bitmap);
                 mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), mUriChooseImage);
-                mFileContentResolver = getContentResolver().getType(mUriChooseImage);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            ivAvatar.setImageURI(fileUri);
+            mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(),fileUri);
         }
-//        }else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-//            ivAvatar.setImageURI(fileUri);
-//            mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), fileUri);
-//            mFileContentResolver = getApplicationContext().getContentResolver().getType(fileUri);
-//        }
     }
 
     @Override
@@ -280,7 +276,6 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             bSignUp2.putDouble("lat", mLat);
             bSignUp2.putDouble("lng", mLng);
             bSignUp2.putString("filepath", mFilePath);
-            bSignUp2.putString("filecontent", mFileContentResolver);
             iSignUp2.putExtra("bSignUp2", bSignUp2);
             startActivity(iSignUp2);
             mProgressDialog.dismiss();
@@ -309,14 +304,14 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         return super.dispatchTouchEvent(event);
     }
 
-    public void takePhoto(){
+    public void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         fileUri = Uri.fromFile(getOutputMediaFile());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, CAMERA_REQUEST);
     }
-    public void openGallery()
-    {
+
+    public void openGallery() {
         iChooseImage = new Intent();
         iChooseImage.setType("image/*");
         iChooseImage.setAction(Intent.ACTION_GET_CONTENT);
@@ -328,25 +323,23 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         }
     }
 
-    public void selectImage()
-    {
-        final CharSequence[] options = {"Máy ảnh","Thư viện ảnh","Cancel"};
+    public void selectImage() {
+        final CharSequence[] options = {getResources().getString(R.string.sign_up_camera),getResources().getString(R.string.sign_up_libary_image),getResources().getString(R.string.sign_up_cancel)};
         AlertDialog.Builder builder = new AlertDialog.Builder(SignUp2Activity.this);
-        builder.setTitle("Lựa chọn");
+        builder.setTitle(getResources().getString(R.string.sign_up_choice));
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if(options[item].equals("Máy ảnh"))
-                {
-                    if(verifyCamerapermission()){
-                       // takePhoto();
-                    }else {
+                if (options[item].equals("Máy ảnh") || options[item].equals("Camera")) {
+                    if (verifyCamerapermission()) {
+                         takePhoto();
+                    } else {
                         return;
                     }
-                }else if(options[item].equals("Thư viện ảnh")){
-                    if(verifyCamerapermission()){
+                } else if (options[item].equals("Thư viện ảnh") || options[item].equals("Photo libary")) {
+                    if (verifyCamerapermission()) {
                         openGallery();
-                    }else {
+                    } else {
                         return;
                     }
                 }
@@ -355,30 +348,27 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         builder.show();
     }
 
-    public boolean verifyCamerapermission()
-    {
-        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},CAMERA_REQUEST);
+    public boolean verifyCamerapermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_REQUEST);
             return false;
         }
-        return  true;
+        return true;
     }
 
 
-
-
-    private static File getOutputMediaFile(){
+    private static File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "CameraDemo");
 
-        if (!mediaStorageDir.exists()){
-            if (!mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
                 return null;
             }
         }
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         return new File(mediaStorageDir.getPath() + File.separator +
-                "IMG_"+ timeStamp + ".jpg");
+                "IMG_" + timeStamp + ".jpg");
     }
 }

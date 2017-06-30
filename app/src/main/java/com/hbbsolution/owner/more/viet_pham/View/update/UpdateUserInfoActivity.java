@@ -4,17 +4,20 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -40,7 +43,10 @@ import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -83,6 +89,8 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     private UpdateUserPresenter mUpdateUserPresenter;
     private double mLat;
     private double mLng;
+    private static final int CAMERA_REQUEST = 100;
+    private Uri fileUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -195,16 +203,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iChooseImage = new Intent();
-                iChooseImage.setType("image/*");
-                iChooseImage.setAction(Intent.ACTION_GET_CONTENT);
-                permissionCheck = ContextCompat.checkSelfPermission(UpdateUserInfoActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
-                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(UpdateUserInfoActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_PERMISSION);
-                } else {
-                    startActivityForResult(Intent.createChooser(iChooseImage, "Select image"), PICK_IMAGE_FROM_GALLERY_REQUEST);
-                }
-
+                selectImage();
             }
         });
     }
@@ -234,6 +233,9 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            ivAvatar.setImageURI(fileUri);
+            mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(),fileUri);
         }
     }
 
@@ -280,7 +282,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
 //        token = mDataHashUser.get(SessionManagerUser.KEY_TOKEN);
         if (mLat != 0 && mLng != 0) {
 
-            mUpdateUserPresenter.updateUserInfo(mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, iGender, mFileContentResolver);
+            mUpdateUserPresenter.updateUserInfo(mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, iGender);
 
         }
     }
@@ -305,5 +307,73 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
             }
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    public void selectImage() {
+        final CharSequence[] options = {getResources().getString(R.string.sign_up_camera),getResources().getString(R.string.sign_up_libary_image),getResources().getString(R.string.sign_up_cancel)};
+        AlertDialog.Builder builder = new AlertDialog.Builder(UpdateUserInfoActivity.this);
+        builder.setTitle(getResources().getString(R.string.sign_up_choice));
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Máy ảnh") || options[item].equals("Camera")) {
+                    if (verifyCamerapermission()) {
+                        takePhoto();
+                    } else {
+                        return;
+                    }
+                } else if (options[item].equals("Thư viện ảnh") || options[item].equals("Photo libary")) {
+                    if (verifyCamerapermission()) {
+                        openGallery();
+                    } else {
+                        return;
+                    }
+                }
+            }
+        });
+        builder.show();
+    }
+
+    public void takePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        fileUri = Uri.fromFile(getOutputMediaFile());
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        startActivityForResult(intent, CAMERA_REQUEST);
+    }
+
+    public void openGallery() {
+        iChooseImage = new Intent();
+        iChooseImage.setType("image/*");
+        iChooseImage.setAction(Intent.ACTION_GET_CONTENT);
+        permissionCheck = ContextCompat.checkSelfPermission(UpdateUserInfoActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(UpdateUserInfoActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_PERMISSION);
+        } else {
+            startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
+        }
+    }
+
+    public boolean verifyCamerapermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_REQUEST);
+            return false;
+        }
+        return true;
+    }
+
+
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "CameraDemo");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
     }
 }

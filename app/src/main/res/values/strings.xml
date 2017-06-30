@@ -95,6 +95,10 @@
     <string name="sign_up_age">Age</string>
     <string name="sign_up_phone_number">Phone number</string>
     <string name="sign_up_address">Address</string>
+    <string name="sign_up_camera">Camera</string>
+    <string name="sign_up_libary_image">Photo libary</string>
+    <string name="sign_up_cancel">Cancel</string>
+    <string name="sign_up_choice">Choice</string>
     <!--signup_screen end-->
 
     <!--profile  start-->
