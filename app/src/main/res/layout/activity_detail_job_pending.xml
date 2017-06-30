@@ -270,7 +270,6 @@
                             android:gravity="center_vertical"
                             android:paddingBottom="10dp"
                             android:paddingTop="10dp"
-                            android:text="500.000  VND"
                             android:textColor="@color/colorBlack" />
                         <TextView
                             android:layout_width="0dp"
@@ -279,6 +278,7 @@
                             android:layout_marginRight="20dp"
                             android:gravity="center_vertical|right"
                             android:text="@string/vnd"
+                            android:visibility="gone"
                             android:textColor="@color/colorBlack" />
 
 
