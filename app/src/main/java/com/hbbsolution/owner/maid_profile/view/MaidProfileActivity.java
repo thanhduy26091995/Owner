@@ -44,8 +44,10 @@ import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -161,7 +163,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             }
             idTaskProcess = getIntent().getStringExtra("idTaskProcess");
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
-            txtPriceInfoMaid.setText(String.valueOf(mMaidInfo.getWorkInfo().getPrice()));
+            txtPriceInfoMaid.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mMaidInfo.getWorkInfo().getPrice())));
             txtGenderInfoMaid.setText(getGenderMaid(mMaidInfo.getInfo().getGender()));
             txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
@@ -203,7 +205,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         if (workHistory != null) {
             txtNameInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getName());
-            txtPriceInfoMaid.setText(String.valueOf(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice()));
+            txtPriceInfoMaid.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice())));
             txtGenderInfoMaid.setText(getGenderMaid(workHistory.getStakeholders().getReceived().getInfo().getGender()));
             txtPhoneInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getPhone());
             txtAddressInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
@@ -251,11 +253,11 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         if (datum != null) {
             txtNameInfoMaid.setText(datum.getId().getInfo().getName());
-            //       txtPriceInfoMaid.setText(String.valueOf(datum.getId().getWorkInfo().getPrice()));
+            txtPriceInfoMaid.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(datum.getId().getWorkInfo().getPrice())));
             txtGenderInfoMaid.setText(getGenderMaid(datum.getId().getInfo().getGender()));
             txtPhoneInfoMaid.setText(datum.getId().getInfo().getPhone());
             txtAddressInfoMaid.setText(datum.getId().getInfo().getAddress().getName());
-            //       ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
+            ratingInfoMaid.setRating(datum.getId().getWorkInfo().getEvaluationPoint());
             mMaidProfilePresenter.getInfoListMaid(datum.getId().getId(), 1);
 //            Picasso.with(this).load(datum.getId().getInfo().getImage())
 //                    .placeholder(R.drawable.avatar)
