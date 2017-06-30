@@ -340,9 +340,9 @@
     <string name="distance">Khoảng cách</string>
     <string name="search">Tìm kiếm</string>
     <string name="filter">Bộ lọc</string>
-    <string name="work_ability">Năng lực làm việc</string>
+    <string name="work_ability">NĂNG LỰC LÀM VIỆC</string>
     <string name="send_direct_maid">Gửi yêu cầu trực tiếp</string>
-    <string name="comment_upper">COMMENT</string>
+    <string name="comment_upper">NHẬN XÉT</string>
     <string name="information">Thông tin</string>
     <string name="applicant_profile">Thông tin</string>
     <string name="confirm_failed">Xác thực không thành công, vui lòng thử lại</string>

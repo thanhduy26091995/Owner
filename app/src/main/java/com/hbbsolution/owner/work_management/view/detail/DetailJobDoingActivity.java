@@ -191,6 +191,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
                     bdPayment.putSerializable("mDatum", mDatum);
                     itPayment.putExtra("databill", bdPayment);
                     startActivity(itPayment);
+                    finish();
                 }
             });
 

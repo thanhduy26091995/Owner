@@ -10,7 +10,7 @@
     <!--<string name="home_history">History</string>-->
     <!--<string name="home_copy_right">Copyright(c).HBB Solution. All right reserved</string>-->
     <string name="home_home">Home</string>
-    <string name="home_maid_around">Maid around here</string>
+    <string name="home_maid_around">Nearby workers</string>
     <string name="home_your_tasks">Work management</string>
     <string name="home_history">Work history</string>
     <string name="home_copy_right">Trust - Quality </string>
@@ -36,9 +36,9 @@
 
     <!--work_manager start-->
     <string name="work_management">Work management</string>
-    <string name="posted_work">Posted work</string>
+    <string name="posted_work">Posted</string>
     <string name="assigned">Assigned</string>
-    <string name="running_work">Running work</string>
+    <string name="running_work">Running</string>
     <string name="checknumberjobpost">Your posts would be within ten!</string>
     <string name="notification_del_job_post">Are you sure you want to delete this work?</string>
     <string name="notification__pass_del_job_post">Your post deleted!</string>
@@ -58,10 +58,10 @@
     <string name="time_of_working">Time of working</string>
     <string name="to_job_post">to</string>
     <string name="jobs_for_applications">Jobs for applications</string>
-    <string name="qua_han_ung_tuyen">Exceeded</string>
+    <string name="qua_han_ung_tuyen">Expired to apply</string>
     <string name="dang_cho_xac_nhan">Jobs for applications</string>
-    <string name="qua_han_xac_nhan">Exceeded</string>
-    <string name="qua_han">Exceeded</string>
+    <string name="qua_han_xac_nhan">Expired to confirm</string>
+    <string name="qua_han">Expired</string>
     <string name="dang_bai">Post</string>
     <string name="update_job_post">Update</string>
     <string name="notification">Notification</string>
@@ -352,7 +352,7 @@
     <string name="distance">Distance</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
-    <string name="work_ability">Work ability</string>
+    <string name="work_ability">WORK ABILITY</string>
     <string name="send_direct_maid">Make a request directly</string>
     <string name="comment_upper">COMMENT</string>
     <string name="applicant_profile">Applicant profile</string>

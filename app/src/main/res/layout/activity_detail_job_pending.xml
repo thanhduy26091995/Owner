@@ -264,7 +264,7 @@
 
                         <TextView
                             android:id="@+id/txtPriceJobPending"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
                             android:gravity="center_vertical"
@@ -272,6 +272,15 @@
                             android:paddingTop="10dp"
                             android:text="500.000  VND"
                             android:textColor="@color/colorBlack" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginRight="20dp"
+                            android:gravity="center_vertical|right"
+                            android:text="@string/vnd"
+                            android:textColor="@color/colorBlack" />
+
 
                     </LinearLayout>
 
@@ -337,9 +346,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="15dp"
-                            android:paddingTop="10dp"
-
                             android:gravity="top"
+
+                            android:paddingTop="10dp"
                             android:text="@string/manager_ic_home"
                             android:textColor="@color/home_background_history"
                             android:textSize="@dimen/icon_size" />

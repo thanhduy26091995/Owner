@@ -615,13 +615,14 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         try {
             d1 = sdf.parse(startTime);
             d2 = sdf.parse(endTime);
+            long elapsed = d2.getTime() - d1.getTime();
+            if (elapsed > 0) {
+                return true;
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        long elapsed = d2.getTime() - d1.getTime();
-        if (elapsed > 0) {
-            return true;
-        }
+
 
         return false;
     }
