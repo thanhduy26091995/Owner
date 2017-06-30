@@ -40,8 +40,10 @@ import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,7 +135,7 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         txtTitleJobPending.setText(mDatum.getInfo().getTitle());
         txtTypeJobPending.setText(mDatum.getInfo().getWork().getName());
         txtContentJobPending.setText(mDatum.getInfo().getDescription());
-        txtPriceJobPending.setText(String.valueOf(mDatum.getInfo().getPrice()));
+        txtPriceJobPending.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
         txtAddressJobPending.setText(mDatum.getInfo().getAddress().getName());
         txtDateJobPending.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
         String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());

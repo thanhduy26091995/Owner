@@ -105,6 +105,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 else
                 {
                     Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
                 }

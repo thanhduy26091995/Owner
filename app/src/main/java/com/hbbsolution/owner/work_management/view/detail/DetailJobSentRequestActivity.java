@@ -1,11 +1,9 @@
 package com.hbbsolution.owner.work_management.view.detail;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -17,14 +15,12 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
-import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
-import com.hbbsolution.owner.work_management.model.chekout.CheckOutResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
-import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
-import com.hbbsolution.owner.work_management.presenter.CheckOutAndBillPresenter;
-import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
 import com.squareup.picasso.Picasso;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,7 +96,7 @@ public class DetailJobSentRequestActivity extends AppCompatActivity implements V
         txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
         txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());
         txtContentJobDoing.setText(mDatum.getInfo().getDescription());
-        txtPriceJobDoing.setText(String.valueOf(mDatum.getInfo().getPrice()));
+        txtPriceJobDoing.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
         txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
         txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
         String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());

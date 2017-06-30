@@ -25,6 +25,9 @@ import com.hbbsolution.owner.work_management.presenter.CheckOutAndBillPresenter;
 import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
@@ -104,7 +107,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
         txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());
         txtContentJobDoing.setText(mDatum.getInfo().getDescription());
-        txtPriceJobDoing.setText(String.valueOf(mDatum.getInfo().getPrice()));
+        txtPriceJobDoing.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
         txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
         txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
         String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
