@@ -43,11 +43,12 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
     TextView txt_work_management;
     @BindView(R.id.txt_work_management_history)
     TextView txt_work_management_history;
+    @BindView(R.id.txt_work_maid_around)
+    TextView txt_work_maid_around;
     private SessionManagerForLanguage sessionManagerForLanguage;
     private boolean isPause = false;
     private HomePresenter mHomePresenter;
     private SessionManagerUser sessionManagerUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +67,13 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         sessionManagerForLanguage = new SessionManagerForLanguage(this);
         String lang = sessionManagerForLanguage.getLanguage();
         if (lang.equals("Tiếng Việt")) {
-            txt_work_management.setPadding(20, 0, 20, 5);
-            txt_work_management_history.setPadding(15, 0, 15, 5);
+            txt_work_maid_around.setText(changeCharInPosition(setTitle(txt_work_maid_around.getText().toString(),2),'\n',txt_work_maid_around.getText().toString()));
+            txt_work_management.setText(changeCharInPosition(setTitle(txt_work_management.getText().toString(),2),'\n',txt_work_management.getText().toString()));
+            txt_work_management_history.setText(changeCharInPosition(setTitle(txt_work_management_history.getText().toString(),2),'\n',txt_work_management_history.getText().toString()));
         } else if (lang.equals("English")) {
-            txt_work_management.setPadding(15, 0, 15, 5);
-            txt_work_management_history.setPadding(5, 0, 5, 5);
+            txt_work_maid_around.setText(changeCharInPosition(setTitle(txt_work_maid_around.getText().toString(),1),'\n',txt_work_maid_around.getText().toString()));
+            txt_work_management.setText(changeCharInPosition(setTitle(txt_work_management.getText().toString(),1),'\n',txt_work_management.getText().toString()));
+            txt_work_management_history.setText(changeCharInPosition(setTitle(txt_work_management_history.getText().toString(),1),'\n',txt_work_management_history.getText().toString()));
         }
         mHomePresenter = new HomePresenter(this);
         sessionManagerUser = new SessionManagerUser(HomeActivity.this);
@@ -179,5 +182,23 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
                 overridePendingTransition(0, 0);
             }
         }
+    }
+
+    private int setTitle(String title,int positionSpace)
+    {
+        int i = 0,spaceCount = 0;
+        while( i < title.length() && spaceCount <positionSpace ){
+            if( title.charAt(i) == ' ' ) {
+                spaceCount++;
+            }
+            i++;
+        }
+        return i-1;
+    }
+
+    public String changeCharInPosition(int position, char ch, String str){
+        char[] charArray = str.toCharArray();
+        charArray[position] = ch;
+        return new String(charArray);
     }
 }

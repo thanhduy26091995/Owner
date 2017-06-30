@@ -26,6 +26,7 @@ public class CheckOutActivity extends Activity {
     private String mTokenCode = "";
     private String mCheckoutUrl = "";
     private String idBillOrder = "";
+    private String key = "";
     public static Activity mCheckOuActivity;
 
     @Override
@@ -38,6 +39,7 @@ public class CheckOutActivity extends Activity {
             mTokenCode = extras.getString(TOKEN_CODE, "");
             mCheckoutUrl = extras.getString(CHECKOUT_URL, "");
             idBillOrder = extras.getString("idOderBill", "");
+            key = extras.getString("key", "");
         }
 
         initView();
@@ -56,7 +58,8 @@ public class CheckOutActivity extends Activity {
                 if (url.equalsIgnoreCase(Constants.RETURN_URL)) {
                     Intent intentCheckOut = new Intent(getApplicationContext(), CheckOrderActivity.class);
                     intentCheckOut.putExtra(CheckOrderActivity.TOKEN_CODE, mTokenCode);
-                    intentCheckOut.putExtra("idBillOrder",idBillOrder );
+                    intentCheckOut.putExtra("idBillOrder", idBillOrder);
+                    intentCheckOut.putExtra("key", key);
                     startActivity(intentCheckOut);
                     finish();
                 }

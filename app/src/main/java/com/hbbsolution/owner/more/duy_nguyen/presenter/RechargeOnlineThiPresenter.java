@@ -23,9 +23,9 @@ public class RechargeOnlineThiPresenter {
         this.rechargeOnlineThiView = rechargeOnlineThiView;
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
-    public void getRechargeOnlineThi(String billId)
+    public void getRechargeOnlineThi(String key,String billId)
     {
-        Call<RechargeOnlineThiResponse> call = apiService.getRechargeOnlineThi(billId);
+        Call<RechargeOnlineThiResponse> call = apiService.getRechargeOnlineThi(key,billId);
         call.enqueue(new Callback<RechargeOnlineThiResponse>() {
             @Override
             public void onResponse(Call<RechargeOnlineThiResponse> call, Response<RechargeOnlineThiResponse> response) {

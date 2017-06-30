@@ -23,9 +23,9 @@ public class RechargeOnlineSecPresenter {
         this.rechargeOnlineSecView = rechargeOnlineSecView;
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
-    public void getRechargeOnlineSec(String billId)
+    public void getRechargeOnlineSec(String key,String billId)
     {
-        Call<RechargeOnlineSecResponse> call = apiService.getRechargeOnlineSec(billId);
+        Call<RechargeOnlineSecResponse> call = apiService.getRechargeOnlineSec(key, billId);
         call.enqueue(new Callback<RechargeOnlineSecResponse>() {
             @Override
             public void onResponse(Call<RechargeOnlineSecResponse> call, Response<RechargeOnlineSecResponse> response) {

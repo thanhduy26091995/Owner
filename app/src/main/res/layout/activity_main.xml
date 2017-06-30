@@ -74,12 +74,12 @@
                         android:src="@mipmap/ic_congviecquanhday" />
 
                     <TextView
+                        android:id="@+id/txt_work_maid_around"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:paddingBottom="5dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:maxLines="2"

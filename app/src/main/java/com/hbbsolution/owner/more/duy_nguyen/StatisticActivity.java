@@ -63,8 +63,11 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     @BindView(R.id.img_history_avatar)
     CircleImageView imgAvatar;
 
+    @BindView(R.id.postedWork)
+    TextView tvPostedWork;
+
     private Calendar cal;
-    private Date startDate, endDate,startDateTemp,endDateTemp;
+    private Date startDate, endDate, startDateTemp, endDateTemp;
     private String strStartDate, strEndDate;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
@@ -73,7 +76,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     private ProgressBar progressBar;
     private int onCreate, pending, reserved, onDoing, done, immediate;
     private String tempStartDate, tempEndDate;
-
+    private boolean resume;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,11 +85,10 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         lnStatistic.setVisibility(View.INVISIBLE);
         progressBar = (ProgressBar) findViewById(R.id.progressPost);
         progressBar.setVisibility(View.VISIBLE);
-
+        resume = false;
         sessionManagerUser = new SessionManagerUser(this);
         hashDataUser = sessionManagerUser.getUserDetails();
         statisticPresenter = new StatisticPresenter(this);
-
         setToolbar();
         cal = Calendar.getInstance();
         getTime();
@@ -108,7 +110,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         tvStartDate.setOnClickListener(this);
         tvEndDate.setOnClickListener(this);
         tvPayment.setOnClickListener(this);
- //       rela_info.setOnClickListener(this);
+        //       rela_info.setOnClickListener(this);
     }
 
     public void setNumber() {
@@ -130,6 +132,11 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
                 .into(imgAvatar);
         tvOwnerName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
         statisticPresenter.getStatistic("", simpleDateFormat.format(endDate));
+
+        if(tvPostedWork.getText().toString().equals("Công việc đã đăng"))
+        {
+            tvPostedWork.setText("Công việc\nđã đăng");
+        }
     }
 
     public void showDatePickerDialog1() {
@@ -249,6 +256,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
 //                startActivity(intent);
 //                break;
             case R.id.txt_statistic_payment:
+                resume = true;
                 intent = new Intent(StatisticActivity.this, RechargeActivity.class);
                 startActivity(intent);
                 break;
@@ -290,12 +298,10 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
         numberPostedTask.setText(String.valueOf(onCreate));
         numberDoingTask.setText(String.valueOf(reserved + onDoing + immediate));
         numberDoneTask.setText(String.valueOf(done));
-        float ftotal= (float) (total /100000 *0.1);
-        if(total!=0) {
-            totalPrice.setText(String.valueOf(ftotal) + " " + getResources().getQuantityString(R.plurals.million, (int)ftotal));
-        }
-        else
-        {
+        float ftotal = (float) (total / 100000 * 0.1);
+        if (total != 0) {
+            totalPrice.setText(String.valueOf(ftotal) + " " + getResources().getQuantityString(R.plurals.million, (int) ftotal));
+        } else {
             totalPrice.setText(String.valueOf(ftotal) + " " + getResources().getString(R.string.million_zero));
         }
         tvWallet.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND ");
@@ -305,7 +311,7 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void getStatisticFail() {
-        ShowAlertDialog.showAlert(getResources().getString(R.string.error),StatisticActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.error), StatisticActivity.this);
         progressBar.setVisibility(View.GONE);
     }
 
@@ -313,5 +319,14 @@ public class StatisticActivity extends AppCompatActivity implements View.OnClick
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (resume) {
+            statisticPresenter.getStatistic("", simpleDateFormat.format(endDate));
+            resume = false;
+        }
     }
 }

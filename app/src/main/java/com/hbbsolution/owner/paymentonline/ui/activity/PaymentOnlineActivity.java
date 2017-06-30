@@ -22,6 +22,7 @@ import com.hbbsolution.owner.paymentonline.api.SendOrderRequest;
 import com.hbbsolution.owner.paymentonline.bean.SendOrderBean;
 import com.hbbsolution.owner.utils.Commons;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.rey.material.widget.ProgressView;
 
 import org.json.JSONObject;
@@ -36,12 +37,13 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     private EditText editPhoneNumber;
     private EditText editAddress;
     private Button btnSendOrder;
-
     private ScrollView scrollView;
     private ProgressView progressView;
     private String idBillOrder = "";
     public static Activity mPaymentOnlineActivity;
     private RechargeOnlineFiPresenter rechargeOnlineFiPresenter;
+    private String fullName,amount,email,phoneNumber,address;
+    private String key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,11 +98,11 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         int id = v.getId();
         switch (id) {
             case R.id.activity_main_btnSendOrder:
-                String fullName = editFullName.getText().toString();
-                String amount = editAmount.getText().toString();
-                String email = editEmail.getText().toString();
-                String phoneNumber = editPhoneNumber.getText().toString();
-                String address = editAddress.getText().toString();
+                fullName = editFullName.getText().toString();
+                amount = editAmount.getText().toString();
+                email = editEmail.getText().toString();
+                phoneNumber = editPhoneNumber.getText().toString();
+                address = editAddress.getText().toString();
 
                 if (!fullName.equalsIgnoreCase("")) {
                     if (!amount.equalsIgnoreCase("") && Integer.valueOf(amount) >= 2000) {
@@ -108,7 +110,6 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                             if (!phoneNumber.equalsIgnoreCase("")) {
                                 if (!address.equalsIgnoreCase("")) {
                                     rechargeOnlineFiPresenter.getRechargeOnlineFi(Double.parseDouble(amount));
-                                    sendOrderObject(fullName, amount, email, phoneNumber, address);
                                 } else {
                                     showErrorDialog(getString(R.string.error_address), false);
                                 }
@@ -193,6 +194,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                     intentCheckout.putExtra(CheckOutActivity.TOKEN_CODE, tokenCode);
                     intentCheckout.putExtra(CheckOutActivity.CHECKOUT_URL, checkoutUrl);
                     intentCheckout.putExtra("idOderBill", idBillOrder);
+                    intentCheckout.putExtra("key",key);
                     startActivity(intentCheckout);
                     finish();
                 } else {
@@ -230,12 +232,14 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    public void fiSuccess(String bill, String key) {
-
+    public void fiSuccess(String billId, String keyNumber) {
+        idBillOrder=billId;
+        key=keyNumber;
+        sendOrderObject(fullName, amount, email, phoneNumber, address);
     }
 
     @Override
     public void fiFail() {
-
+        ShowAlertDialog.showAlert(getResources().getString(R.string.error),PaymentOnlineActivity.this);
     }
 }

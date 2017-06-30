@@ -67,7 +67,6 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             nameHelper = extras.getString("nameHelper");
             addressHelper = extras.getString("addressHelper");
             commentPresenter = new CommentPresenter(this);
-            lnCheck.setVisibility(View.VISIBLE);
             toolbar.setTitle("");
             setSupportActionBar(toolbar);
 
@@ -111,7 +110,6 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.lnCheck:
-                lnCheck.setVisibility(View.INVISIBLE);
                 View view = this.getCurrentFocus();
                 if (view != null) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -155,7 +153,6 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void commentFail(String message) {
-        lnCheck.setVisibility(View.VISIBLE);
         hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.commentfail),this);
     }

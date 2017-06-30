@@ -38,6 +38,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -258,10 +259,10 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("payment/chargeOnlineSecConfirm")
-    Call<RechargeOnlineSecResponse> getRechargeOnlineSec(@Field("billId") String billId);
+    Call<RechargeOnlineSecResponse> getRechargeOnlineSec(@Header("hbbgv_accesskey") String key,@Field("billId") String billId);
 
     @FormUrlEncoded
     @POST("payment/chargeOnlineThiConfirm")
-    Call<RechargeOnlineThiResponse> getRechargeOnlineThi(@Field("billId") String billId);
+    Call<RechargeOnlineThiResponse> getRechargeOnlineThi(@Header("hbbgv_accesskey") String key,@Field("billId") String billId);
 
 }

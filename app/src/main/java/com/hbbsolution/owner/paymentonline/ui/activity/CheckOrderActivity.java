@@ -8,16 +8,19 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
-import com.hbbsolution.owner.history.view.DetailUnpaidWork;
+import com.hbbsolution.owner.more.duy_nguyen.RechargeOnlineSecView;
+import com.hbbsolution.owner.more.duy_nguyen.RechargeOnlineThiView;
+import com.hbbsolution.owner.more.duy_nguyen.presenter.RechargeOnlineSecPresenter;
+import com.hbbsolution.owner.more.duy_nguyen.presenter.RechargeOnlineThiPresenter;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderRequest;
 import com.hbbsolution.owner.paymentonline.bean.CheckOrderBean;
 import com.hbbsolution.owner.utils.Commons;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
 import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
@@ -31,7 +34,7 @@ import org.json.JSONObject;
 /**
  * Created by DucChinh on 6/14/2016.
  */
-public class CheckOrderActivity extends BaseActivity implements CheckOrderRequest.CheckOrderRequestOnResult, CheckOrderView {
+public class CheckOrderActivity extends BaseActivity implements CheckOrderRequest.CheckOrderRequestOnResult, CheckOrderView, RechargeOnlineSecView, RechargeOnlineThiView {
 
     public static final String TOKEN_CODE = "token_code";
 
@@ -43,7 +46,9 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     private CheckOrderPresenter checkOrderPresenter;
     private Button btnCheckOrderOk;
     private Activity mCheckOrderActivity;
-
+    private String key = "";
+    private RechargeOnlineSecPresenter rechargeOnlineSecPresenter;
+    private RechargeOnlineThiPresenter rechargeOnlineThiPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +58,18 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         if (extras != null) {
             mTokenCode = extras.getString(TOKEN_CODE, "");
             idBillOrder = extras.getString("idBillOrder", "");
+            key =extras.getString("key", "");
         }
         checkOrderPresenter = new CheckOrderPresenter(this);
-        checkOrderPresenter.getInfoPaymnetByOnline(idBillOrder);
+        rechargeOnlineSecPresenter = new RechargeOnlineSecPresenter(this);
+        rechargeOnlineThiPresenter = new RechargeOnlineThiPresenter(this);
+        if(key.equals("")) {
+            checkOrderPresenter.getInfoPaymnetByOnline(idBillOrder);
+        }
+        else
+        {
+            rechargeOnlineSecPresenter.getRechargeOnlineSec(key, idBillOrder);
+        }
         initView();
     }
 
@@ -230,5 +244,25 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     @Override
     public void getErrorPaymentBymoney(String error) {
         mProgressView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void secSuccess(String keyNumber) {
+        rechargeOnlineThiPresenter.getRechargeOnlineThi(keyNumber,idBillOrder);
+    }
+
+    @Override
+    public void secFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.error),CheckOrderActivity.this);
+    }
+
+    @Override
+    public void thiSuccess() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.naptienthanhcong),CheckOrderActivity.this);
+    }
+
+    @Override
+    public void thiFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.error),CheckOrderActivity.this);
     }
 }
