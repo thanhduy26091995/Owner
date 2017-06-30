@@ -12,14 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
+import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
 
-import java.text.DateFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Administrator on 26/05/2017.
@@ -34,6 +30,7 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
     private String date;
     private String startTime, endTime;
     private int p;
+
     @Override
     public HistoryLiabilitiesAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_liabilities, parent, false);
@@ -42,14 +39,15 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
 
     public HistoryLiabilitiesAdapter(Context context, List<LiabilitiesHistory> listData) {
         this.context = context;
-        this.listData=listData;
+        this.listData = listData;
 
     }
+
     @Override
     public void onBindViewHolder(HistoryLiabilitiesAdapter.RecyclerViewHolder holder, int position) {
         liabilitiesHistory = listData.get(position);
         holder.tvJob.setText(liabilitiesHistory.getTask().getInfo().getTitle());
-        if(!liabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
+        if (!liabilitiesHistory.getTask().getInfo().getWork().getImage().equals("")) {
             Glide.with(context).load(liabilitiesHistory.getTask().getInfo().getWork().getImage())
                     .thumbnail(0.5f)
                     .placeholder(R.drawable.no_image)
@@ -58,35 +56,9 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
                     .dontAnimate()
                     .into(holder.imgType);
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
-        DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
-        // OVERRIDE SOME symbols WHILE RETAINING OTHERS
-        symbols.setAmPmStrings(new String[]{"am", "pm"});
-        time.setDateFormatSymbols(symbols);
-        try {
-            Date endDate = simpleDateFormat.parse(liabilitiesHistory.getTask().getInfo().getTime().getEndAt());
-            Date nowDate = new Date();
-            Date startDate = simpleDateFormat.parse(liabilitiesHistory.getTask().getInfo().getTime().getStartAt());
-            date = dates.format(endDate);
-            startTime = time.format(startDate);
-            endTime = time.format(endDate);
-            printDifference(endDate, nowDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if (elapsedDays != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedDays) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.day, (int) elapsedDays)));
-        } else if (elapsedHours != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedHours) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.hour, (int) elapsedHours)));
-        } else if (elapsedMinutes != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedMinutes) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.minute, (int) elapsedMinutes)));
-        } else if (elapsedSeconds != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedSeconds) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.second, (int) elapsedSeconds)));
-        }
-        holder.tvDate.setText(date);
-        holder.tvDeitalTime.setText(startTime.replace(":", "h") + " - " + endTime.replace(":", "h"));
+        WorkTimeValidate.setWorkTimeRegister(context, holder.tvTime, liabilitiesHistory.getTask().getInfo().getTime().getEndAt());
+        holder.tvDate.setText(WorkTimeValidate.getDatePostHistory(liabilitiesHistory.getTask().getInfo().getTime().getEndAt()));
+        holder.tvDeitalTime.setText(WorkTimeValidate.getTimeWork(liabilitiesHistory.getTask().getInfo().getTime().getStartAt()).replace(":", "h") + " - " + WorkTimeValidate.getTimeWork(liabilitiesHistory.getTask().getInfo().getTime().getEndAt()).replace(":", "h"));
     }
 
     @Override
@@ -122,7 +94,7 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
 //                context.startActivity(intent, historyOption.toBundle());
 //            }
 //            else {
-                context.startActivity(intent);
+            context.startActivity(intent);
 //            }
         }
 
@@ -131,28 +103,6 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
             return false;
         }
     }
-    public void printDifference(Date startDate, Date endDate) {
 
-        //milliseconds
-        long different = endDate.getTime() - startDate.getTime();
-
-
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        elapsedDays = different / daysInMilli;
-        different = different % daysInMilli;
-
-        elapsedHours = different / hoursInMilli;
-        different = different % hoursInMilli;
-
-        elapsedMinutes = different / minutesInMilli;
-        different = different % minutesInMilli;
-
-        elapsedSeconds = different / secondsInMilli;
-
-    }
 }
 

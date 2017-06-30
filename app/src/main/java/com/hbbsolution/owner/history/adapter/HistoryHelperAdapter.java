@@ -15,9 +15,8 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.helper.MaidHistory;
 import com.hbbsolution.owner.history.view.ListWorkActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
+import com.hbbsolution.owner.utils.WorkTimeValidate;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +33,7 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
     private boolean isHis;
     private String time;
     private Date date;
+
     @Override
     public HistoryHelperAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_helpler, parent, false);
@@ -48,18 +48,10 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
     @Override
     public void onBindViewHolder(HistoryHelperAdapter.RecyclerViewHolder holder, int position) {
         maidHistory = datumList.get(position);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
         holder.ratingBar.setRating(maidHistory.getId().getWorkInfo().getEvaluationPoint());
-        try {
-            date = simpleDateFormat.parse(maidHistory.getTimes().get(0));
-            time = dates.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         holder.tvName.setText(maidHistory.getId().getInfo().getName());
-        holder.tvDate.setText(time);
-        if(!maidHistory.getId().getInfo().getImage().equals("")) {
+        holder.tvDate.setText(WorkTimeValidate.getDatePostHistory(maidHistory.getTimes().get(0)));
+        if (!maidHistory.getId().getInfo().getImage().equals("")) {
             Glide.with(context).load(maidHistory.getId().getInfo().getImage())
                     .thumbnail(0.5f)
                     .placeholder(R.drawable.avatar)
@@ -84,7 +76,7 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            lo_info_user = (RelativeLayout)itemView.findViewById(R.id.rela_info) ;
+            lo_info_user = (RelativeLayout) itemView.findViewById(R.id.rela_info);
             tvName = (TextView) itemView.findViewById(R.id.txt_history_name);
             tvDate = (TextView) itemView.findViewById(R.id.txt_history_date);
             tvListWork = (TextView) itemView.findViewById(R.id.txt_history_list_work);
@@ -97,10 +89,10 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
         @Override
         public void onClick(View v) {
             Intent intent;
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.rela_info:
                     intent = new Intent(context, MaidProfileActivity.class);
-                    intent.putExtra("helper",datumList.get(getAdapterPosition()));
+                    intent.putExtra("helper", datumList.get(getAdapterPosition()));
 //                    ActivityOptionsCompat historyOption =
 //                            ActivityOptionsCompat
 //                                    .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_history_avatar), "icAvatar");
@@ -109,12 +101,12 @@ public class HistoryHelperAdapter extends RecyclerView.Adapter<HistoryHelperAdap
 //                        context.startActivity(intent, historyOption.toBundle());
 //                    }
 //                    else {
-                        context.startActivity(intent);
+                    context.startActivity(intent);
 //                    }
                     break;
                 case R.id.txt_history_list_work:
                     intent = new Intent(context, ListWorkActivity.class);
-                    intent.putExtra("idMaid",datumList.get(getAdapterPosition()).getId().getId());
+                    intent.putExtra("idMaid", datumList.get(getAdapterPosition()).getId().getId());
                     context.startActivity(intent);
                     break;
             }

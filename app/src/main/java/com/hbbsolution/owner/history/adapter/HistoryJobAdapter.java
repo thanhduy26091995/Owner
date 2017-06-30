@@ -13,13 +13,9 @@ import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.view.DetailWorkHistoryActivity;
+import com.hbbsolution.owner.utils.WorkTimeValidate;
 
-import java.text.DateFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 /**
@@ -59,35 +55,9 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
                     .dontAnimate()
                     .into(holder.imgType);
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat time = new SimpleDateFormat("H:mm a", Locale.US);
-        DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
-        // OVERRIDE SOME symbols WHILE RETAINING OTHERS
-        symbols.setAmPmStrings(new String[]{"am", "pm"});
-        time.setDateFormatSymbols(symbols);
-        try {
-            Date endDate = simpleDateFormat.parse(workHistory.getInfo().getTime().getEndAt());
-            Date nowDate = new Date();
-            Date startDate = simpleDateFormat.parse(workHistory.getInfo().getTime().getStartAt());
-            date = dates.format(endDate);
-            startTime = time.format(startDate);
-            endTime = time.format(endDate);
-            printDifference(endDate, nowDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if (elapsedDays != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedDays) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.day, (int) elapsedDays)));
-        } else if (elapsedHours != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedHours) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.hour, (int) elapsedHours)));
-        } else if (elapsedMinutes != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedMinutes) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.minute, (int) elapsedMinutes)));
-        } else if (elapsedSeconds != 0) {
-            holder.tvTime.setText(String.valueOf(elapsedSeconds) + " " + context.getResources().getString(R.string.before, context.getResources().getQuantityString(R.plurals.second, (int) elapsedSeconds)));
-        }
-        holder.tvDate.setText(date);
-        holder.tvDeitalTime.setText(startTime.replace(":", "h") + " - " + endTime.replace(":", "h"));
+        WorkTimeValidate.setWorkTimeRegister(context, holder.tvTime, workHistory.getInfo().getTime().getEndAt());
+        holder.tvDate.setText(WorkTimeValidate.getDatePostHistory(workHistory.getInfo().getTime().getEndAt()));
+        holder.tvDeitalTime.setText(WorkTimeValidate.getTimeWork(workHistory.getInfo().getTime().getStartAt()).replace(":", "h") + " - " + WorkTimeValidate.getTimeWork(workHistory.getInfo().getTime().getEndAt()).replace(":", "h"));
     }
 
     @Override
@@ -121,7 +91,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 //                context.startActivity(intent, historyOption.toBundle());
 //            } else {
-                context.startActivity(intent);
+            context.startActivity(intent);
 //            }
         }
 
@@ -131,27 +101,4 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         }
     }
 
-    public void printDifference(Date startDate, Date endDate) {
-
-        //milliseconds
-        long different = endDate.getTime() - startDate.getTime();
-
-
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        elapsedDays = different / daysInMilli;
-        different = different % daysInMilli;
-
-        elapsedHours = different / hoursInMilli;
-        different = different % hoursInMilli;
-
-        elapsedMinutes = different / minutesInMilli;
-        different = different % minutesInMilli;
-
-        elapsedSeconds = different / secondsInMilli;
-
-    }
 }

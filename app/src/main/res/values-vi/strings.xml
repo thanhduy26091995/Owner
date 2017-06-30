@@ -224,7 +224,7 @@
     <string name="accountbalance">Số dư tài khoản: </string>
     <string name="invoicemumber">Mã số hóa đơn</string>
     <string name="paymentmethods">PHƯƠNG THỨC THANH TOÁN</string>
-    <string name="thanhtoanonline">Thanh toán cnline</string>
+    <string name="thanhtoanonline">Thanh toán online</string>
     <string name="thanhtoantienmat">Thanh toán tiền mặt</string>
     <string name="taikhoanGV24">Tài khoản Gv24</string>
     <!--payment screen end-->
