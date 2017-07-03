@@ -138,7 +138,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
                 mPhoneName = edtNumber.getText().toString();
                 mLocation = edtLocation.getText().toString();
                 mFullName = "gm"+idUser;
-                if (mGender.equals("Nam")) {
+                if (mGender.equals(getResources().getString(R.string.pro_file_gender_male))) {
                     iGender = 0;
                 } else {
                     iGender = 1;
@@ -146,7 +146,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
 
                 if (nameGoogle.trim().length() == 0 || mGender.length() == 0 || mPhoneName.trim().length() == 0 ||
                         mLocation.trim().length() == 0) {
-                    ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin", UpdateGooAndFaceActivity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), UpdateGooAndFaceActivity.this);
                 } else {
                     mProgressDialog.show();
                     mProgressDialog.setCanceledOnTouchOutside(false);
@@ -194,7 +194,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
     @Override
     public void displayNotFoundLocaltion() {
         mProgressDialog.dismiss();
-        ShowAlertDialog.showAlert("Địa chỉ không tìm thấy", UpdateGooAndFaceActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.dia_chi_khong_tim_thay), UpdateGooAndFaceActivity.this);
     }
 
     @Override
@@ -222,7 +222,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
             startActivity(intent);
             finish();
         }else {
-            ShowAlertDialog.showAlert("Cập nhật thông tin không thành công. Email đã tồn tại",UpdateGooAndFaceActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.cap_nhat_thong_tin),UpdateGooAndFaceActivity.this);
         }
     }
 }

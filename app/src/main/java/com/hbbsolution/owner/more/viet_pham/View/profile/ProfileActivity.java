@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.more.viet_pham.View.profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import jp.wasabeef.blurry.Blurry;
  * Created by buivu on 29/05/2017.
  */
 
-public class ProfileActivity extends AppCompatActivity  {
+public class ProfileActivity extends AppCompatActivity {
 
     @BindView(R.id.info_user_appbar)
     AppBarLayout appBarLayout;
@@ -53,13 +54,14 @@ public class ProfileActivity extends AppCompatActivity  {
 
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
+    public static Activity profileActivity;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)  {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-
+        profileActivity = this;
 //        appBarLayout.addOnOffsetChangedListener(this);
         //set up toolbar
         setSupportActionBar(toolbarHeader);
@@ -102,8 +104,7 @@ public class ProfileActivity extends AppCompatActivity  {
 
     }
 
-    private void addEvent()
-    {
+    private void addEvent() {
         txtUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +113,7 @@ public class ProfileActivity extends AppCompatActivity  {
             }
         });
     }
-    
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

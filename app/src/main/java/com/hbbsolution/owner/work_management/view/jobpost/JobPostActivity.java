@@ -34,7 +34,6 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
-import com.hbbsolution.owner.maid_profile.choose_maid.view.ChooseMaidActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -198,6 +197,16 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             txtDate_start_work.setText(getDatePostHistory(infoJob.getInfo().getTime().getStartAt()));
             txtTime_start.setText(getTimeDoingPost(infoJob.getInfo().getTime().getStartAt()));
             txtTime_end.setText(getTimeDoingPost(infoJob.getInfo().getTime().getEndAt()));
+
+            SimpleDateFormat  editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            try {
+                startTime = editTime.parse(infoJob.getInfo().getTime().getStartAt());
+                endTime = editTime.parse(infoJob.getInfo().getTime().getEndAt());
+                choseDate =editTime.parse(infoJob.getInfo().getTime().getStartAt());
+                clicked=1;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
         } else {
             isPost = true;

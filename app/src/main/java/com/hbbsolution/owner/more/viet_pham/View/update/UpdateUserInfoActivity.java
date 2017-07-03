@@ -254,6 +254,10 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         mSessionManagerUser.createLoginSession(data);
         mProgressDialog.dismiss();
         if (dataUpdateResponse.isStatus() == true) {
+            if (ProfileActivity.profileActivity !=null)
+            {
+                ProfileActivity.profileActivity.finish();
+            }
             Intent iProfile = new Intent(UpdateUserInfoActivity.this, ProfileActivity.class);
             startActivity(iProfile);
             finish();

@@ -117,11 +117,16 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 if (edtComment.getText().toString().length() > 0) {
-                    commentPresenter.postComment(idTask, idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
+                    if(ratingBar.getRating()!=0) {
+                        commentPresenter.postComment(idTask, idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
+                    }
+                    else
+                    {
+
+                    }
                     showProgress();
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.add_comment), CommentActivity.this);
-
                 }
                 break;
             case R.id.edtComment:
