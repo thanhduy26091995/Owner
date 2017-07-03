@@ -188,9 +188,10 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
 
                 if (mFullName.trim().length() == 0 || mGender.length() == 0 || mPhoneName.trim().length() == 0 ||
                         mLocation.trim().length() == 0) {
-                    ShowAlertDialog.showAlert("Vui lòng nhập đầy đủ thông tin", UpdateUserInfoActivity.this);
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), UpdateUserInfoActivity.this);
                 } else {
                     mProgressDialog.show();
+                    mProgressDialog.setMessage(getResources().getString(R.string.loading));
                     mProgressDialog.setCanceledOnTouchOutside(false);
                     mUpdateUserPresenter.getLocaltionAddress(mLocation);
                 }
@@ -214,7 +215,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         switch (requestCode) {
             case REQUEST_READ_EXTERNAL_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(Intent.createChooser(iChooseImage, "Select image"), PICK_IMAGE_FROM_GALLERY_REQUEST);
+                    startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
                 }
                 break;
         }
@@ -320,13 +321,13 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Máy ảnh") || options[item].equals("Camera")) {
+                if (options[item].equals(getResources().getString(R.string.sign_up_camera))) {
                     if (verifyCamerapermission()) {
                         takePhoto();
                     } else {
                         return;
                     }
-                } else if (options[item].equals("Thư viện ảnh") || options[item].equals("Photo libary")) {
+                } else if (options[item].equals(getResources().getString(R.string.sign_up_libary_image))) {
                     if (verifyCamerapermission()) {
                         openGallery();
                     } else {

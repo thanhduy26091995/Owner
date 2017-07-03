@@ -10,6 +10,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import java.util.List;
@@ -88,12 +89,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra("tabMore", 1);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-        }
-        else if (data.get("status").equals("0")) {
+        } else if (data.get("status").equals("0")) {
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 0);
             EventBus.getDefault().postSticky(false);
             EventBus.getDefault().postSticky("0");
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        } else if (data.get("status").equals("10")) {
+            Intent intent = new Intent(this, HistoryActivity.class);
+            intent.putExtra("tab", 0);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        } else if (data.get("status").equals("11")) {
+            Intent intent = new Intent(this, HistoryActivity.class);
+            intent.putExtra("tab", 2);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         }
