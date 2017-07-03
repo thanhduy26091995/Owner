@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.more.phuc_tran.view;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class ContactActivity extends AppCompatActivity implements ContactView {
     private ContactPresenter mContactPresenter;
     private String phoneNo;
     private String mail;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class ContactActivity extends AppCompatActivity implements ContactView {
         txt_contact_title_toolbar.setText(getResources().getString(R.string.contact));
 
         mContactPresenter = new ContactPresenter(this);
-
+        showProgress();
         mContactPresenter.getContact();
 
         addEvents();
@@ -109,6 +110,19 @@ public class ContactActivity extends AppCompatActivity implements ContactView {
         }
     }
 
+    private void showProgress() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
     private void clickCall(String phoneNo) {
         if (!TextUtils.isEmpty(phoneNo)) {
             String dial = "tel:" + phoneNo;
@@ -120,6 +134,7 @@ public class ContactActivity extends AppCompatActivity implements ContactView {
 
     @Override
     public void getContactSuccess(DataContact dataContact) {
+        hideProgress();
         mail = dataContact.getEmail();
         phoneNo = dataContact.getPhone();
         txt_name.setText(dataContact.getName());
@@ -128,5 +143,6 @@ public class ContactActivity extends AppCompatActivity implements ContactView {
 
     @Override
     public void getContactFail() {
+        hideProgress();
     }
 }

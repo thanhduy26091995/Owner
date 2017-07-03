@@ -51,6 +51,7 @@ import com.hbbsolution.owner.more.viet_pham.Presenter.SignInPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp1Activity;
 import com.hbbsolution.owner.more.viet_pham.View.update_google_face.UpdateGooAndFaceActivity;
+import com.hbbsolution.owner.more.viet_pham.base.GoogleAuthController;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -69,7 +70,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 5/9/2017.
  */
 
-public class SignInActivity extends AppCompatActivity implements MoreView, FirebaseAuth.AuthStateListener {
+public class SignInActivity extends AppCompatActivity implements MoreView, FirebaseAuth.AuthStateListener, GoogleApiClient.OnConnectionFailedListener {
     @BindView(R.id.toobar)
     Toolbar toolbar;
     @BindView(R.id.bt_work_around_here)
@@ -108,6 +109,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     private String nameGoogleOrFace;
     private String imageGoogleOrFace;
     private List<String> listPermissonFacebook = Arrays.asList("email", "public_profile");
+    private GoogleAuthController googleAuthController;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,7 +131,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
 
         mSignInGooAndFacePresenter = new SignInGooAndFacePresenter(this);
         mSignInPresenter = new SignInPresenter(this);
-        loginGoogle();
+        // loginGoogle();
 
     }
 
@@ -145,6 +147,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
             mProgressDialog.dismiss();
         }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -200,7 +203,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         imbGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mGoogleApiClient = GoogleAuthController.getInstance().getGoogleApiClient();
 //                mProgressDialog.show();
 //                mProgressDialog.setCanceledOnTouchOutside(false);
                 signInGoogle(mGoogleApiClient);
@@ -393,6 +396,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     protected void onStart() {
         super.onStart();
         mFirebaseAuth.addAuthStateListener(this);
+        GoogleAuthController.install(this, this);
     }
 
     @Override
@@ -426,4 +430,8 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         return super.dispatchTouchEvent(event);
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }

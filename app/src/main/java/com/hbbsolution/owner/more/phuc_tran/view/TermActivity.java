@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.more.phuc_tran.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +14,7 @@ import com.hbbsolution.owner.more.phuc_tran.presenter.AboutPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TermActivity extends AppCompatActivity implements AboutView{
+public class TermActivity extends AppCompatActivity implements AboutView {
 
     @BindView(R.id.term_toolbar)
     Toolbar toolbar;
@@ -23,6 +24,7 @@ public class TermActivity extends AppCompatActivity implements AboutView{
     WebView wbv_content_term;
 
     private AboutPresenter mAboutPresenter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,23 @@ public class TermActivity extends AppCompatActivity implements AboutView{
         txt_term_pass_toolbar.setText(getResources().getString(R.string.term_title));
 
         mAboutPresenter = new AboutPresenter(this);
-
+        showProgress();
         mAboutPresenter.getTerm();
 
 
+    }
+
+    private void showProgress() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
     @Override
@@ -56,8 +71,9 @@ public class TermActivity extends AppCompatActivity implements AboutView{
 
     @Override
     public void getAbout(String content) {
-        if (content.equals("")){
-            content=getResources().getString(R.string.content_null);
+        hideProgress();
+        if (content.equals("")) {
+            content = getResources().getString(R.string.content_null);
         }
         wbv_content_term.getSettings().setJavaScriptEnabled(true);
         wbv_content_term.loadDataWithBaseURL(null,

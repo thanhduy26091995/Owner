@@ -3,12 +3,14 @@ package com.hbbsolution.owner.more.viet_pham.View;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -18,6 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
@@ -30,6 +38,7 @@ import com.hbbsolution.owner.more.phuc_tran.view.TermActivity;
 import com.hbbsolution.owner.more.viet_pham.Presenter.MorePresenter;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
+import com.hbbsolution.owner.more.viet_pham.base.GoogleAuthController;
 import com.hbbsolution.owner.utils.SessionManagerForAnnouncement;
 import com.hbbsolution.owner.utils.SessionManagerForLanguage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
@@ -43,7 +52,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 04/05/2017.
  */
 
-public class MoreActivity extends AppCompatActivity implements View.OnClickListener, MoreForAnnouncementView {
+public class MoreActivity extends AppCompatActivity implements View.OnClickListener, MoreForAnnouncementView, GoogleApiClient.OnConnectionFailedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -80,6 +89,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private boolean isPause = false;
     private MorePresenter morePresenter;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -145,6 +155,12 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAuthController.install(this, this);
+    }
+
     public void addEvents() {
         cvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,7 +208,30 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
+                                FirebaseAuth.getInstance().signOut();
                                 sessionManagerUser.logoutUser();
+                                mGoogleApiClient = GoogleAuthController.getInstance().getGoogleApiClient();
+                                if (mGoogleApiClient != null) {
+                                    GoogleAuthController.getInstance().signOut(new GoogleApiClient.ConnectionCallbacks() {
+                                        @Override
+                                        public void onConnected(@Nullable Bundle bundle) {
+                                            if (mGoogleApiClient.isConnected()) {
+                                                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                                                    @Override
+                                                    public void onResult(@NonNull Status status) {
+                                                        if (status.isSuccess()) {
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onConnectionSuspended(int i) {
+                                            Log.d("Error", "GoogleSubmitter API Client Connection Suspended");
+                                        }
+                                    });
+                                }
                                 Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -281,6 +320,11 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void getError(String error) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 }
