@@ -143,6 +143,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
                 } else {
                     if (EmailValidate.IsOk(mEmail)) {
                         mProgressDialog.show();
+                        mProgressDialog.setMessage(getResources().getString(R.string.loading));
                         mProgressDialog.setCanceledOnTouchOutside(false);
                         mRegisterPresenter.getLocaltionAddress(mLocation);
                     } else {
@@ -330,13 +331,13 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Máy ảnh") || options[item].equals("Camera")) {
+                if (options[item].equals(getResources().getString(R.string.sign_up_camera))) {
                     if (verifyCamerapermission()) {
                          takePhoto();
                     } else {
                         return;
                     }
-                } else if (options[item].equals("Thư viện ảnh") || options[item].equals("Photo libary")) {
+                } else if (options[item].equals(getResources().getString(R.string.sign_up_libary_image))) {
                     if (verifyCamerapermission()) {
                         openGallery();
                     } else {
