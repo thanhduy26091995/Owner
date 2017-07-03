@@ -27,20 +27,25 @@ public class HistoryActivity extends AppCompatActivity {
     TextView txtNumber_Liabilities;
     private HistoryViewPagerFragment historyViewPagerFragment;
 
+    private Integer tab = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
         setToolbar();
-        historyViewPagerFragment= new HistoryViewPagerFragment(getSupportFragmentManager(),this,3);
+        historyViewPagerFragment = new HistoryViewPagerFragment(getSupportFragmentManager(), this, 3);
         viewPagerHistory.setAdapter(historyViewPagerFragment);
         viewPagerHistory.setOffscreenPageLimit(3);
         tabLayoutHistory.setupWithViewPager(viewPagerHistory);
-
+        tab = getIntent().getIntExtra("tab", 0);
+        if (tab != null) {
+            viewPagerHistory.setCurrentItem(tab);
+        }
     }
-    public void setToolbar()
-    {
+
+    public void setToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -54,6 +59,7 @@ public class HistoryActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -61,20 +67,20 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     public void onEvent(Integer numberLiabilities) {
-        if(numberLiabilities>0) {
+        if (numberLiabilities > 0) {
             txtNumber_Liabilities.setVisibility(View.VISIBLE);
             txtNumber_Liabilities.setText(String.valueOf(numberLiabilities));
-        }
-        else
-        {
+        } else {
             txtNumber_Liabilities.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
+
     @Override
     public void onStop() {
         super.onStop();

@@ -1,7 +1,6 @@
 package com.hbbsolution.owner.more.viet_pham.View.profile;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -12,9 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.more.viet_pham.View.update.UpdateUserInfoActivity;
@@ -24,7 +20,6 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.blurry.Blurry;
 
 /**
  * Created by buivu on 29/05/2017.
@@ -85,20 +80,20 @@ public class ProfileActivity extends AppCompatActivity  {
         ImageLoader.getInstance().loadImageAvatar(ProfileActivity.this, hashDataUser.get(SessionManagerUser.KEY_IMAGE),
                 imgAvatar);
 
-        // from Bitmap
-        Glide.with(ProfileActivity.this)
-                .load(hashDataUser.get(SessionManagerUser.KEY_IMAGE))
-                .asBitmap()
-                .error(R.drawable.avatar)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Blurry.with(ProfileActivity.this)
-                                .radius(10)
-                                .from(resource)
-                                .into(imgBlurImage);
-                    }
-                });
+//        // from Bitmap
+//        Glide.with(ProfileActivity.this)
+//                .load(hashDataUser.get(SessionManagerUser.KEY_IMAGE))
+//                .asBitmap()
+//                .error(R.drawable.avatar)
+//                .into(new SimpleTarget<Bitmap>() {
+//                    @Override
+//                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                        Blurry.with(ProfileActivity.this)
+//                                .radius(10)
+//                                .from(resource)
+//                                .into(imgBlurImage);
+//                    }
+//                });
 
     }
 
