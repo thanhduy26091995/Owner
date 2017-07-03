@@ -69,7 +69,7 @@ public class ChooseMaidPresenter {
 
             @Override
             public void onFailure(Call<GeoCodeMapResponse> call, Throwable t) {
-                view.displayError("LOcation" + t.getMessage());
+                view.displayError("Location" + t.getMessage());
             }
         });
     }
