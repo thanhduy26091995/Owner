@@ -217,6 +217,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/edt_monney_work"
@@ -229,6 +234,16 @@
                         android:padding="10dp"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/vnd"
+                            android:textColor="@color/colorBlack" />
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"

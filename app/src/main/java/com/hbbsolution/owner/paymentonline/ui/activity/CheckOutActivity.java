@@ -28,6 +28,7 @@ public class CheckOutActivity extends Activity {
     private String idBillOrder = "";
     private String key = "";
     public static Activity mCheckOuActivity;
+    private Bundle infoMaid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class CheckOutActivity extends Activity {
         setContentView(R.layout.activity_checkout);
         mCheckOuActivity = this;
         Bundle extras = getIntent().getExtras();
+        infoMaid = getIntent().getBundleExtra("infoMaid");
         if (extras != null) {
             mTokenCode = extras.getString(TOKEN_CODE, "");
             mCheckoutUrl = extras.getString(CHECKOUT_URL, "");
@@ -60,6 +62,7 @@ public class CheckOutActivity extends Activity {
                     intentCheckOut.putExtra(CheckOrderActivity.TOKEN_CODE, mTokenCode);
                     intentCheckOut.putExtra("idBillOrder", idBillOrder);
                     intentCheckOut.putExtra("key", key);
+                    intentCheckOut.putExtra("infoMaid", infoMaid );
                     startActivity(intentCheckOut);
                     finish();
                 }

@@ -30,6 +30,7 @@ import com.rey.material.widget.ProgressView;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
@@ -55,6 +56,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private TextView titleTongSoTien;
+    private Bundle infoMaid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         mPaymentOnlineActivity = this;
         initView();
         recharge = getIntent().getBooleanExtra("recharge", false);
-        Bundle infoMaid = getIntent().getBundleExtra("infoMaid");
+        infoMaid = getIntent().getBundleExtra("infoMaid");
         rechargeOnlineFiPresenter = new RechargeOnlineFiPresenter(this);
         if (recharge) {
             editAmount.setEnabled(true);
@@ -95,6 +97,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
             });
         }
         if (infoMaid != null) {
+            editAmount.setEnabled(false);
             idBillOrder = infoMaid.getString("idBillOrder", "");
             editAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0)));
         }
@@ -249,6 +252,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                     intentCheckout.putExtra(CheckOutActivity.TOKEN_CODE, tokenCode);
                     intentCheckout.putExtra(CheckOutActivity.CHECKOUT_URL, checkoutUrl);
                     intentCheckout.putExtra("idOderBill", idBillOrder);
+                    intentCheckout.putExtra("infoMaid", infoMaid );
                     intentCheckout.putExtra("key", key);
                     startActivity(intentCheckout);
                     finish();

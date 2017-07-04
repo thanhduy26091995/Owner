@@ -60,7 +60,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_comment);
         ButterKnife.bind(this);
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+        Bundle mbundleComment = getIntent().getBundleExtra("mbundleComment");
+        Bundle infoMaid = getIntent().getBundleExtra("infoMaid");
+        if (mbundleComment != null) {
             idTask = extras.getString("idTask");
             idHelper = extras.getString("idHelper");
             imgHelper = extras.getString("imgHelper");
@@ -83,6 +85,12 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                         .into(imgAvatar);
             }
 
+        } else if(infoMaid != null) {
+            idTask = infoMaid.getString("idTask");
+            idHelper = infoMaid.getString("idHelper");
+            imgHelper = infoMaid.getString("imgHelper");
+            nameHelper = infoMaid.getString("nameHelper");
+            addressHelper = infoMaid.getString("addressHelper");
         }
         txtNext.setOnClickListener(this);
         lnCheck.setOnClickListener(this);

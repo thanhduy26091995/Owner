@@ -104,6 +104,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     public static Activity mPaymentActivity = null;
     private long walletOwner;
     private long totalPrice;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,10 +249,11 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.lo_Gv24:
                 if (walletOwner >= totalPrice) {
+//                    progressPayment.setVisibility(View.VISIBLE);
+//                    txt_lo_payment.setVisibility(View.VISIBLE);
                     confirm(1);
-                }
-                else {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.taikhoankhongdu),PaymentActivity.this);
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.taikhoankhongdu), PaymentActivity.this);
                 }
                 break;
             case R.id.lo_payment_online:
@@ -320,7 +322,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getWalletSuccess(long wallet) {
-        walletOwner=wallet;
+        walletOwner = wallet;
         payment_money_account.setText(getResources().getString(R.string.accountbalance) + ": " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
     }
 
@@ -359,7 +361,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void checkOrderServerSuccess() {
-        Toast.makeText(PaymentActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(PaymentActivity.this, "Thành công rồi đó", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -408,40 +410,28 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-//                if (mPaymentActivity != null) {
-//                    PaymentActivity.mPaymentActivity.finish();
-//                    try {
-//                        if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
-//                            DetailJobDoingActivity.mDetailJobDoingActivity.finish();
-//                        }
-//                        if (WorkManagementActivity.mWorkManagementActivity != null) {
-//                            WorkManagementActivity.mWorkManagementActivity.finish();
-//                        }
-//                    } catch (Exception e) {
-//
-//                    }
-//                }
 
                 Intent itCommnet = new Intent(PaymentActivity.this, CommentActivity.class);
-
-//                idTask = extras.getString("idTask");
-//                idHelper = extras.getString("idHelper");
-//                imgHelper = extras.getString("imgHelper");
-//                nameHelper = extras.getString("nameHelper");
-//                addressHelper = extras.getString("addressHelper");
+                Bundle mbundleComment = new Bundle();
                 if (mDataBill != null) {
-                    itCommnet.putExtra("idTask", mDatum.getId());
-                    itCommnet.putExtra("idHelper", mDatum.getStakeholders().getMadi().getId());
-                    itCommnet.putExtra("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
-                    itCommnet.putExtra("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
-                    itCommnet.putExtra("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress());
+//                    itCommnet.putExtra("idTask", mDatum.getId());
+//                    itCommnet.putExtra("idHelper", mDatum.getStakeholders().getMadi().getId());
+//                    itCommnet.putExtra("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
+//                    itCommnet.putExtra("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
+//                    itCommnet.putExtra("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress());
+                    mbundleComment.putString("idTask", mDatum.getId());
+                    mbundleComment.putString("idHelper", mDatum.getStakeholders().getMadi().getId());
+                    mbundleComment.putString("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
+                    mbundleComment.putString("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
+                    mbundleComment.putString("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
                 } else {
-                    itCommnet.putExtra("idTask", mLiabilitiesHistory.getId());
-                    itCommnet.putExtra("idHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getId());
-                    itCommnet.putExtra("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
-                    itCommnet.putExtra("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
-                    itCommnet.putExtra("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress());
+                    mbundleComment.putString("idTask", mLiabilitiesHistory.getId());
+                    mbundleComment.putString("idHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getId());
+                    mbundleComment.putString("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
+                    mbundleComment.putString("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
+                    mbundleComment.putString("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
                 }
+                itCommnet.putExtra("mbundleComment", mbundleComment);
                 startActivity(itCommnet);
                 if (mPaymentActivity != null) {
                     PaymentActivity.mPaymentActivity.finish();

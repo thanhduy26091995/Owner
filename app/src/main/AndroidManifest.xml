@@ -47,6 +47,7 @@
         <activity android:name=".home.view.HomeActivity" />
         <activity android:name=".more.viet_pham.View.MoreActivity" />
         <activity android:name=".more.duy_nguyen.TermsActivity" />
+        <activity android:name=".more.viet_pham.View.shareapp.ShareCodeActivity"/>
         <activity android:name=".more.viet_pham.View.signin.SignInActivity" />
         <activity android:name=".more.viet_pham.View.signup.SignUp1Activity" />
         <activity android:name=".more.viet_pham.View.signup.SignUp2Activity" />

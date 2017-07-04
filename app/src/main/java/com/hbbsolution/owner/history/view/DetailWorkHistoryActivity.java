@@ -146,11 +146,13 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
         switch (v.getId()) {
             case R.id.txt_history_comment:
                 intent = new Intent(this, CommentActivity.class);
-                intent.putExtra("idTask", doc.getId());
-                intent.putExtra("idHelper", doc.getStakeholders().getReceived().getId());
-                intent.putExtra("imgHelper", doc.getStakeholders().getReceived().getInfo().getImage());
-                intent.putExtra("nameHelper", doc.getStakeholders().getReceived().getInfo().getName());
-                intent.putExtra("addressHelper", doc.getStakeholders().getReceived().getInfo().getAddress());
+                Bundle mbundleComment = new Bundle();
+                mbundleComment.putString("idTask", doc.getId());
+                mbundleComment.putString("idHelper", doc.getStakeholders().getReceived().getId());
+                mbundleComment.putString("imgHelper", doc.getStakeholders().getReceived().getInfo().getImage());
+                mbundleComment.putString("nameHelper", doc.getStakeholders().getReceived().getInfo().getName());
+                mbundleComment.putString("addressHelper", doc.getStakeholders().getReceived().getInfo().getAddress().getName());
+                intent.putExtra("mbundleComment", mbundleComment);
                 startActivityForResult(intent,COMMENT);
                 break;
             case R.id.rela_info:

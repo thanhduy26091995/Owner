@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
-import com.hbbsolution.owner.history.view.CommentActivity;
 import com.hbbsolution.owner.more.duy_nguyen.RechargeOnlineSecView;
 import com.hbbsolution.owner.more.duy_nguyen.RechargeOnlineThiView;
 import com.hbbsolution.owner.more.duy_nguyen.presenter.RechargeOnlineSecPresenter;
@@ -21,7 +21,6 @@ import com.hbbsolution.owner.paymentonline.api.CheckOrderRequest;
 import com.hbbsolution.owner.paymentonline.bean.CheckOrderBean;
 import com.hbbsolution.owner.utils.Commons;
 import com.hbbsolution.owner.utils.Constants;
-import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
 import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
@@ -32,21 +31,15 @@ import com.rey.material.widget.ProgressView;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
-
-import java.text.NumberFormat;
-import java.util.Locale;
-
-
 /**
- * Created by DucChinh on 6/14/2016.
+ * Created by tantr on 7/3/2017.
  */
-public class CheckOrderActivity extends BaseActivity implements CheckOrderRequest.CheckOrderRequestOnResult, CheckOrderView, RechargeOnlineSecView, RechargeOnlineThiView {
+
+public class CheckOrder2Activity extends BaseActivity implements CheckOrderRequest.CheckOrderRequestOnResult, CheckOrderView, RechargeOnlineSecView, RechargeOnlineThiView {
 
     public static final String TOKEN_CODE = "token_code";
 
-    //    private TextView txtData;
-    private TextView txtFullName, txtAmount, txtEmail, txtPhoneNumber, txttAddress;
+    private TextView txtData;
     private ProgressView mProgressView;
 
     private String mTokenCode = "";
@@ -57,19 +50,13 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     private String key = "";
     private RechargeOnlineSecPresenter rechargeOnlineSecPresenter;
     private RechargeOnlineThiPresenter rechargeOnlineThiPresenter;
-    private SessionManagerUser sessionManagerUser;
-    private HashMap<String, String> hashDataUser = new HashMap<>();
-    private Bundle infoMaid;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.check_order_activity);
+        setContentView(R.layout.activity_checkorder);
         mCheckOrderActivity = this;
-        sessionManagerUser = new SessionManagerUser(this);
-        hashDataUser = sessionManagerUser.getUserDetails();
         Bundle extras = getIntent().getExtras();
-        infoMaid = getIntent().getBundleExtra("infoMaid");
         if (extras != null) {
             mTokenCode = extras.getString(TOKEN_CODE, "");
             idBillOrder = extras.getString("idBillOrder", "");
@@ -87,13 +74,11 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     }
 
     private void initView() {
-        btnCheckOrderOk = (Button) findViewById(R.id.activity_main_btnSendOrder);
-        txtFullName = (TextView) findViewById(R.id.activity_main_editFullName);
-        txtAmount = (TextView) findViewById(R.id.activity_main_editAmount);
-        txtEmail = (TextView) findViewById(R.id.activity_main_editEmail);
-        txtPhoneNumber = (TextView) findViewById(R.id.activity_main_editPhoneNumber);
-        txttAddress = (TextView) findViewById(R.id.activity_main_editAddress);
-        mProgressView = (ProgressView) findViewById(R.id.activity_main_progressView);
+        btnCheckOrderOk = (Button) findViewById(R.id.btnCheckOrderOk);
+        txtData = (TextView) findViewById(R.id.activity_checkorder_txtData);
+        txtData.setMovementMethod(new ScrollingMovementMethod());
+
+        mProgressView = (ProgressView) findViewById(R.id.activity_checkorder_progressView);
 
         checkOrderObject();
 
@@ -114,26 +99,16 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
                     if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
                         DetailJobDoingActivity.mDetailJobDoingActivity.finish();
                     }
-//                    if (WorkManagementActivity.mWorkManagementActivity != null) {
-//                        WorkManagementActivity.mWorkManagementActivity.finish();
-//                    }
+                    if (WorkManagementActivity.mWorkManagementActivity != null) {
+                        WorkManagementActivity.mWorkManagementActivity.finish();
+                    }
                 } catch (Exception e) {
 
                 }
-                Intent itCommnet = new Intent(CheckOrderActivity.this, CommentActivity.class);
-                itCommnet.putExtra("infoMaid", infoMaid);
-                startActivity(itCommnet);
             }
         });
     }
 
-    private void getInfoBill() {
-        txtFullName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
-        txtEmail.setText(hashDataUser.get(SessionManagerUser.KEY_EMAIL));
-        txtPhoneNumber.setText(hashDataUser.get(SessionManagerUser.KEY_PHONE));
-        txttAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
-        txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0)));
-    }
     private void checkOrderObject() {
         CheckOrderBean checkOrderBean = new CheckOrderBean();
         checkOrderBean.setFunc("checkOrder");
@@ -147,6 +122,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         CheckOrderRequest checkOrderRequest = new CheckOrderRequest();
         checkOrderRequest.execute(getApplicationContext(), checkOrderBean);
         checkOrderRequest.getCheckOrderRequestOnResult(this);
+        txtData.setVisibility(View.GONE);
         mProgressView.setVisibility(View.VISIBLE);
     }
 
@@ -215,7 +191,8 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
                                     "transaction_currency:  " + transaction_currency + "\n\n" +
                                     "transaction_escrow:  " + transaction_escrow + "\n\n";
 
-                    getInfoBill();
+                    txtData.setText(dataCheckOrder);
+                    txtData.setVisibility(View.VISIBLE);
 //                    mProgressView.setVisibility(View.GONE);
                 } else {
                     mProgressView.setVisibility(View.GONE);
@@ -228,7 +205,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     }
 
     private void showErrorDialog(String message, final boolean isExit) {
-        final Dialog mSuccessDialog = new Dialog(CheckOrderActivity.this);
+        final Dialog mSuccessDialog = new Dialog(CheckOrder2Activity.this);
         mSuccessDialog.setContentView(R.layout.dialog_success);
         mSuccessDialog.setCancelable(false);
         mSuccessDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -265,27 +242,25 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     @Override
     public void secSuccess(String keyNumber) {
 
-        rechargeOnlineThiPresenter.getRechargeOnlineThi(keyNumber, idBillOrder);
+        rechargeOnlineThiPresenter.getRechargeOnlineThi(keyNumber,idBillOrder);
     }
 
     @Override
     public void secFail() {
-        ShowAlertDialog.showAlert(getResources().getString(R.string.error), CheckOrderActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.error),CheckOrder2Activity.this);
     }
 
     @Override
     public void thiSuccess() {
-        ShowAlertDialog.showAlert(getResources().getString(R.string.naptienthanhcong), CheckOrderActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.naptienthanhcong),CheckOrder2Activity.this);
         mProgressView.setVisibility(View.GONE);
-//        txtData.setVisibility(View.VISIBLE);
-        getInfoBill();
+        txtData.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void thiFail() {
-        ShowAlertDialog.showAlert(getResources().getString(R.string.error), CheckOrderActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.error),CheckOrder2Activity.this);
         mProgressView.setVisibility(View.GONE);
-//        txtData.setVisibility(View.VISIBLE);
-        getInfoBill();
+        txtData.setVisibility(View.VISIBLE);
     }
 }

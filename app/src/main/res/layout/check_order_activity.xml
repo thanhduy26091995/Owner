@@ -1,0 +1,176 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundLight"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_payment"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/toolbar_theme">
+
+            <TextView
+                android:id="@+id/recruitment_title_toothbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/txtCheckOrder"                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/activity_main_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                style="@style/CaptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/txtNameOrder"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/activity_main_editFullName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
+                android:layout_marginTop="4dp"
+                android:lines="1"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                style="@style/CaptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/txtAmount"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/activity_main_editAmount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
+                android:layout_marginTop="4dp"
+                android:inputType="number"
+                android:lines="1"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                style="@style/CaptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/txtEmail"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/activity_main_editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
+                android:layout_marginTop="4dp"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                style="@style/CaptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/txtMobile"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/activity_main_editPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
+                android:layout_marginTop="4dp"
+                android:inputType="phone"
+                android:lines="1"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                style="@style/CaptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/txtAddress"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/activity_main_editAddress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
+                android:layout_marginTop="4dp"
+                android:lines="1"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
+                android:layout_marginTop="4dp"
+                android:lines="1"
+                android:paddingLeft="8dp"
+                android:text="Đã thanh toán  hãy nhấn OK"
+                android:textColor="@color/colorBlack" />
+
+            <com.rey.material.widget.Button
+                android:id="@+id/activity_main_btnSendOrder"
+                style="@style/WaveButtonRippleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
+                android:layout_marginTop="24dp"
+                android:background="@color/home_background_history"
+                android:text="@string/thanhtoan"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.rey.material.widget.ProgressView
+        android:id="@+id/activity_main_progressView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:pv_autostart="true"
+        app:pv_circular="true"
+        app:pv_progressMode="indeterminate"
+        app:pv_progressStyle="@style/CircularProgressDrawableStyle" />
+
+</RelativeLayout>

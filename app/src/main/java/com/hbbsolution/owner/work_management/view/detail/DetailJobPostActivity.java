@@ -139,9 +139,9 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
         txtTitle_job_detail_post.setText(mDatum.getInfo().getTitle());
         txtType_job_detail_post.setText(mDatum.getInfo().getWork().getName());
         txtContent_job_detail_psot.setText(mDatum.getInfo().getDescription());
-        txtPrice_job_detail_post.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
+        txtPrice_job_detail_post.setText(formatPrice(mDatum.getInfo().getPrice()));
         txtAddress_detail_post.setText(mDatum.getInfo().getAddress().getName());
-        txtDate_job_detail_post.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
+        txtDate_job_detail_post.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
         String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
         String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
         txtTime_work_doing_detail_post.setText( mStartTime + " - " + mEndTime);
@@ -272,8 +272,7 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
     private String formatPrice(Integer _Price) {
         String mOutputPrice = null;
         if (_Price != null && _Price != 0) {
-            DecimalFormat myFormatter = new DecimalFormat("#,###,##0");
-            mOutputPrice  = myFormatter.format(_Price);
+            mOutputPrice =  String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
         } else if(_Price == 0){
             mOutputPrice = getResources().getString(R.string.hourly_pay);
         }

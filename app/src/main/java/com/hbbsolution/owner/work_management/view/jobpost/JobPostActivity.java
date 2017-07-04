@@ -298,8 +298,12 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             case R.id.txtPostJob:
 //                progressBar.setVisibility(View.VISIBLE);
 //                lo_job_post.setVisibility(View.VISIBLE);
+//                showProgressDialog();
+//                checkLocaltionOfOwner();
                 showProgressDialog();
-                checkLocaltionOfOwner();
+                if(checkDataComplete()){
+                    mJobPostPresenter.getLocaltionAddress(edtAddressPost.getText().toString());
+                }
                 break;
 
         }
@@ -317,10 +321,36 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
     @Override
     public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
-
-        if (checkDataComplete()) {
-            posData(geoCodeMapResponse);
+        double lat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
+        double lng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+        mAddressPost = edtAddressPost.getText().toString();
+        mTitlePost = edtTitlePost.getText().toString();
+        mDescriptionPost = edtDescriptionPost.getText().toString();
+        mTimeStartWork = getTimeWork(txtTime_start.getText().toString());
+        mTimeEndWork = getTimeWork(txtTime_end.getText().toString());
+        if (!edt_monney_work.getText().toString().isEmpty()) {
+            mPrice = edt_monney_work.getText().toString();
+        } else {
+            mPrice = "0";
         }
+
+        if (chb_tools_work.isChecked()) {
+            mChosenTools = true;
+        }
+
+        txt_post_complete.setEnabled(false);
+//        progressBar.setVisibility(View.VISIBLE);
+
+        if (isPost) {
+            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        } else {
+            mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        }
+//        if (checkDataComplete()) {
+//            posData(geoCodeMapResponse);
+//        }
     }
 
     @Override
@@ -419,36 +449,36 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         });
     }
 
-    private void posData(GeoCodeMapResponse _geoCodeMapResponse) {
-
-        double lat = _geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
-        double lng = _geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
-        mTitlePost = edtTitlePost.getText().toString();
-        mDescriptionPost = edtDescriptionPost.getText().toString();
-        mTimeStartWork = getTimeWork(txtTime_start.getText().toString());
-        mTimeEndWork = getTimeWork(txtTime_end.getText().toString());
-        if (!edt_monney_work.getText().toString().isEmpty()) {
-            mPrice = edt_monney_work.getText().toString();
-        } else {
-            mPrice = "0";
-        }
-
-        if (chb_tools_work.isChecked()) {
-            mChosenTools = true;
-        }
-
-        txt_post_complete.setEnabled(false);
-//        progressBar.setVisibility(View.VISIBLE);
-
-        if (isPost) {
-            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-        } else {
-            mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-        }
-
-    }
+//    private void posData(GeoCodeMapResponse _geoCodeMapResponse) {
+//
+//        double lat = _geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
+//        double lng = _geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+//        mTitlePost = edtTitlePost.getText().toString();
+//        mDescriptionPost = edtDescriptionPost.getText().toString();
+//        mTimeStartWork = getTimeWork(txtTime_start.getText().toString());
+//        mTimeEndWork = getTimeWork(txtTime_end.getText().toString());
+//        if (!edt_monney_work.getText().toString().isEmpty()) {
+//            mPrice = edt_monney_work.getText().toString();
+//        } else {
+//            mPrice = "0";
+//        }
+//
+//        if (chb_tools_work.isChecked()) {
+//            mChosenTools = true;
+//        }
+//
+//        txt_post_complete.setEnabled(false);
+////        progressBar.setVisibility(View.VISIBLE);
+//
+//        if (isPost) {
+//            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+//                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+//        } else {
+//            mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+//                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+//        }
+//
+//    }
 
     private boolean checkDataComplete() {
 
