@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -31,6 +32,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,6 +49,7 @@ import com.hbbsolution.owner.maid_near_by.presenter.MaidNearByPresenter;
 import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.model.MaidNearByResponse;
+import com.hbbsolution.owner.more.viet_pham.base.GoogleAuthController;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.ShowSnackbar;
@@ -64,7 +68,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 18/05/2017.
  */
 
-public class MaidNearByActivity extends AppCompatActivity implements MaidNearByView, OnMapReadyCallback, LocationListener {
+public class MaidNearByActivity extends AppCompatActivity implements MaidNearByView, OnMapReadyCallback, LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -94,7 +98,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
     private Double latitude; // latitude
     private Double longitude; // longitude
     private ProgressDialog mProgressDialog;
-
+    private GoogleAuthController googleAuthController;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,6 +154,12 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAuthController.install(this, this);
     }
 
     private void showProgress() {
@@ -340,7 +351,35 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
                     showProgress();
                     presenter.getMaidNearBy(location.getLatitude(), location.getLongitude());
                 } else {
+//                    mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                            .addConnectionCallbacks(this)
+//                            .addOnConnectionFailedListener(this)
+//                            .addApi(LocationServices.API)
+//                            .build();
+//                    mGoogleApiClient.connect();
+//                    if (mGoogleApiClient != null) {
+//                        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                            // TODO: Consider calling
+//                            //    ActivityCompat#requestPermissions
+//                            // here to request the missing permissions, and then overriding
+//                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                            //                                          int[] grantResults)
+//                            // to handle the case where the user grants the permission. See the documentation
+//                            // for ActivityCompat#requestPermissions for more details.
+//                            return;
+//                        }
+//                        Location mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+//                        if (mLocation != null) {
+//                            Log.d("LATLNG_HIHI", "" + mLocation.getLatitude() + "/" + mLocation.getLongitude());
+//                            latitude = mLocation.getLatitude();
+//                            longitude = mLocation.getLongitude();
+//                            presenter.getMaidNearBy(latitude, longitude);
+//                        }
+//                    } else {
                     Toast.makeText(MaidNearByActivity.this, getResources().getString(R.string.locationisnotfound), Toast.LENGTH_LONG).show();
+                    //}
+
+
                 }
             }
 
@@ -474,6 +513,11 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
     public void displayError(String error) {
         hideKeyboard();
         hideProgress();
+        if (latitude != null && longitude != null){
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.activity), getResources().getString(R.string.k_timthaykq), Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
         Log.d("ERROR", error);
     }
 
@@ -548,6 +592,21 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
 
     @Override
     public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
 
     }
 }

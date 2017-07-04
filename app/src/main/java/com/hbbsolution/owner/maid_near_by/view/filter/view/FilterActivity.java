@@ -341,7 +341,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void displayError(String error) {
-
+        hideProgressDialog();
+        Log.d("ERROR", error);
     }
 
     @Override

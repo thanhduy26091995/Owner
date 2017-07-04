@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.OwnerApplication;
 
@@ -25,6 +26,7 @@ public class GoogleAuthController {
                 .build();
         builder = new GoogleApiClient.Builder(OwnerApplication.getInstance())
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+                .addApi(LocationServices.API)
                 .enableAutoManage(fragmentActivity, onConnectionFailedListener);
         mGoogleApiClient = builder.build();
 
