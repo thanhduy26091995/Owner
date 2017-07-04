@@ -329,7 +329,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         mTimeStartWork = getTimeWork(txtTime_start.getText().toString());
         mTimeEndWork = getTimeWork(txtTime_end.getText().toString());
         if (!edt_monney_work.getText().toString().isEmpty()) {
-            mPrice = edt_monney_work.getText().toString();
+            mPrice = edt_monney_work.getText().toString().replace(".","");
         } else {
             mPrice = "0";
         }
