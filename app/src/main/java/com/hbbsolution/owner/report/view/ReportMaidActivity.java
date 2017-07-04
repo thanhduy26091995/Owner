@@ -57,6 +57,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
     private ReportPresenter reportPresenter;
     private String idHelper;
     private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +80,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
 
     private void loadData() {
         if (mMaidInfo != null) {
-            mTextMaidName.setText(mMaidInfo.getInfo().getUsername());
+            mTextMaidName.setText(mMaidInfo.getInfo().getName());
             mTextMaidAddress.setText(mMaidInfo.getInfo().getAddress().getName());
             idHelper = mMaidInfo.getId();
             if (!mMaidInfo.getInfo().getImage().equals("")) {

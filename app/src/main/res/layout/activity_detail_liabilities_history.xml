@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/gray"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -44,10 +44,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@color/color_line_view" />
+
             <RelativeLayout
                 android:id="@+id/lo_infoMaid"
                 android:layout_width="match_parent"
@@ -146,10 +148,12 @@
                     android:textSize="20sp" />
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@color/color_line_view" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,27 +179,30 @@
                             android:text="MÔ TẢ"
                             android:textStyle="bold" />
                     </RelativeLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
                         android:background="@color/color_line_view" />
+
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        >
+                        android:layout_weight="2">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/colorWhite"
                             android:padding="10dp">
+
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_TypeJob"
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
                                 android:layout_alignParentLeft="true"
-                                android:layout_centerVertical="true"
+                                android:layout_alignParentTop="true"
+
                                 android:src="@drawable/dondepnha" />
 
                             <LinearLayout
@@ -211,7 +218,7 @@
                                     android:id="@+id/txtTitleHistory"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Lau dọn phòng khách"
+                                    android:text="dasmlda"
                                     android:textAppearance="?android:attr/textAppearanceMedium"
                                     android:textColor="@color/colorBlack"
                                     android:textStyle="bold" />
@@ -366,6 +373,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"

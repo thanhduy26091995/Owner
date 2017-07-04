@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -176,6 +177,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             Integer ageMin = null, ageMax = null;
             //filter project
             workId = hashMapTypeJob.get(txtTypeJob.getText().toString());
+            Log.d("WORK_FILTER", txtTypeJob.getText().toString() + "/" + workId);
             if (txtGender.getText().toString().equals("Nam") || txtGender.getText().toString().equals("Male")) {
                 gender = 0;
             } else if (txtGender.getText().toString().equals("Nữ") || txtGender.getText().toString().equals("Female")) {

@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/gray"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -48,9 +48,9 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,9 +91,10 @@
                         android:id="@+id/imgType_job_detail_post"
                         android:layout_width="64dp"
                         android:layout_height="64dp"
+                        android:src="@drawable/dondepnha"
+                        android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/dondepnha" />
+                        android:layout_alignParentStart="true" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -114,9 +115,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                android:text="Lau dọn phòng khách"
+                                android:text="Dọn dẹp nhà Dọn dẹp nhà"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:textColor="@color/colorBlack"
                                 android:textStyle="bold" />
@@ -125,17 +124,17 @@
                                 android:id="@+id/txtExpired_request_detail_post"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_alignParentRight="true"
-                                android:visibility="gone"
                                 android:layout_gravity="center"
-                                android:gravity="center"
                                 android:layout_marginLeft="5dp"
-                                android:padding="2dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/background_text_expired"
+                                android:gravity="center"
+                                android:padding="2dp"
                                 android:text="@string/qua_han"
                                 android:textColor="@color/colorWhite"
-                                android:textSize="@dimen/icon_size_normal" />
+                                android:textSize="@dimen/icon_size_normal"
+                                android:visibility="gone" />
 
                         </LinearLayout>
 
@@ -168,11 +167,11 @@
                     android:id="@+id/txtIsTools"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
+                    android:background="@color/colorWhite"
                     android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
                     android:text="@string/mang_theo_dung_cu"
-                    android:textColor="@color/home_background_your_tasks"
-                    android:background="@color/colorWhite" />
+                    android:textColor="@color/home_background_your_tasks" />
 
             </LinearLayout>
 
@@ -218,12 +217,12 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:layout_marginRight="20dp"
+                        android:layout_weight="1"
                         android:gravity="center_vertical|right"
                         android:text="@string/vnd"
-                        android:visibility="gone"
-                        android:textColor="@color/colorBlack" />
+                        android:textColor="@color/colorBlack"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -265,8 +264,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="right|center_vertical"
-                        android:paddingRight="20dp"
                         android:paddingBottom="5dp"
+                        android:paddingRight="20dp"
                         android:paddingTop="5dp"
                         android:text="9h00 am - 12h00 pm" />
 
@@ -289,8 +288,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
-                        android:paddingTop="10dp"
                         android:gravity="top"
+                        android:paddingTop="10dp"
                         android:text="@string/manager_ic_home"
                         android:textColor="@color/home_background_history"
                         android:textSize="@dimen/icon_size" />
@@ -339,14 +338,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="15dp"
-                    android:visibility="gone"
                     android:background="@drawable/circle"
+                    android:gravity="center"
                     android:text="2"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/icon_size_normal" />
+                    android:textSize="@dimen/icon_size_normal"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

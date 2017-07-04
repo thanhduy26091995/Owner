@@ -201,7 +201,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
+                        android:layout_alignParentTop="true"
                         android:src="@drawable/dondepnha" />
 
                     <LinearLayout
@@ -217,7 +217,7 @@
                             android:id="@+id/txtTitleJobDoing"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lau dọn phòng khách"
+                            android:text="Lau dọn phòng khách "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold" />

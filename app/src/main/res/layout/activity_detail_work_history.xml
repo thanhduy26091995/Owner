@@ -88,19 +88,19 @@
                             android:id="@+id/detail_work_history_type"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
                             android:layout_gravity="center"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/no_image"
-                            android:transitionName="icJobType" />
+                            android:src="@drawable/dondepnha"
+                            android:transitionName="icJobType"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
 
 
                         <LinearLayout
                             android:id="@+id/ln1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/detail_work_history_type"
                             android:layout_alignTop="@id/detail_work_history_type"
                             android:layout_marginLeft="10dp"
                             android:layout_toRightOf="@id/detail_work_history_type"
@@ -108,6 +108,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:text="dsandksandkjasndjksandjkdasdasdasdadasdasdasdasdasdaansdkjansdkjanskdjnaskjdnaksjndkjasndkjasndkjasndkjandnask"
                                 android:id="@+id/detail_work_history_tvJob"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -116,6 +117,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:text="dsamdlmaslkdmaslkdmlk"
                                 android:id="@+id/detail_work_history_tvWork"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
