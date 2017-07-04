@@ -29,7 +29,7 @@
     <string name="work_description">Mô tả công việc</string>
     <string name="enter_the_salary">Nhập số tiền công</string>
     <string name="hourly_pay">Tính tiền theo thời gian</string>
-    <string name="hour">/giờ</string>
+    <string name="hour">/ 1 giờ</string>
     <string name="the_start_date">Ngày bắt đầu</string>
     <string name="time_of_working">Thời gian làm việc</string>
     <string name="to_job_post">to</string>

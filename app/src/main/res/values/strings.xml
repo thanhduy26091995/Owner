@@ -53,7 +53,7 @@
     <string name="address_job_post">Address</string>
     <string name="enter_the_salary">Enter the salary</string>
     <string name="hourly_pay">Hourly pay</string>
-    <string name="hour">/hour</string>
+    <string name="hour">/ 1 hour</string>
     <string name="the_start_date">The start date</string>
     <string name="time_of_working">Time of working</string>
     <string name="to_job_post">to</string>

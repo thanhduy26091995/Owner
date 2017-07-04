@@ -85,7 +85,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
             }
         }
         txtName.setText(maidInfo.getInfo().getUsername());
-        txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(maidInfo.getWorkInfo().getPrice()) + " VND / 1 " + mActivity.getResources().getString(R.string.hour));
+        txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(maidInfo.getWorkInfo().getPrice()) + " VND" + mActivity.getResources().getString(R.string.hour));
         // Setting up the infoWindow with current's marker info
         return view;
     }
