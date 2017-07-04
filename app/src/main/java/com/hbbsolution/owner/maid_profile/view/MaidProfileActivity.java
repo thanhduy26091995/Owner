@@ -104,6 +104,8 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     TextView txtNoComment;
     @BindView(R.id.txtrequest_directly)
     TextView txtrequest_directly;
+    @BindView(R.id.txtAgeInfoMaid)
+    TextView txtAgeInfoMaid;
 
     private MaidProfilePresenter mMaidProfilePresenter;
     private List<Doc> commentList = new ArrayList<>();
@@ -163,8 +165,9 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             }
             idTaskProcess = getIntent().getStringExtra("idTaskProcess");
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
-            txtPriceInfoMaid.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mMaidInfo.getWorkInfo().getPrice())+ " VND" + getResources().getString(R.string.hour));
+            txtPriceInfoMaid.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mMaidInfo.getWorkInfo().getPrice()) + " VND" + getResources().getString(R.string.hour));
             txtGenderInfoMaid.setText(getGenderMaid(mMaidInfo.getInfo().getGender()));
+            txtAgeInfoMaid.setText(String.valueOf(mMaidInfo.getInfo().getAge()));
             txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());
             ratingInfoMaid.setRating(mMaidInfo.getWorkInfo().getEvaluationPoint());
@@ -207,6 +210,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtNameInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getName());
             txtPriceInfoMaid.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice())));
             txtGenderInfoMaid.setText(getGenderMaid(workHistory.getStakeholders().getReceived().getInfo().getGender()));
+            txtAgeInfoMaid.setText(String.valueOf(workHistory.getStakeholders().getReceived().getInfo().getAge()));
             txtPhoneInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getPhone());
             txtAddressInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getAddress().getName());
             ratingInfoMaid.setRating(workHistory.getStakeholders().getReceived().getWorkInfo().getEvaluationPoint());
@@ -255,6 +259,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             txtNameInfoMaid.setText(datum.getId().getInfo().getName());
             txtPriceInfoMaid.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(datum.getId().getWorkInfo().getPrice())));
             txtGenderInfoMaid.setText(getGenderMaid(datum.getId().getInfo().getGender()));
+            txtAgeInfoMaid.setText(String.valueOf(datum.getId().getInfo().getAge()));
             txtPhoneInfoMaid.setText(datum.getId().getInfo().getPhone());
             txtAddressInfoMaid.setText(datum.getId().getInfo().getAddress().getName());
             ratingInfoMaid.setRating(datum.getId().getWorkInfo().getEvaluationPoint());
@@ -446,9 +451,9 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
     }
 
     private void hideTextRequestDirectly(String idTaskProcess) {
-       if(idTaskProcess.equals("000000000000000000000003") || idTaskProcess.equals("000000000000000000000004") ||
-               idTaskProcess.equals("000000000000000000000005") || idTaskProcess.equals("000000000000000000000006")) {
+        if (idTaskProcess.equals("000000000000000000000003") || idTaskProcess.equals("000000000000000000000004") ||
+                idTaskProcess.equals("000000000000000000000005") || idTaskProcess.equals("000000000000000000000006")) {
 
-       }
+        }
     }
 }
