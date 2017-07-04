@@ -97,6 +97,22 @@ public class WorkTimeValidate {
         return true;
     }
 
+    public static String getTimeWorkLanguage(Context context, String _TimeWork) {
+        String mTimeWork = null;
+        Date date = new DateTime(_TimeWork).toDate();
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a", Locale.US);
+        DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
+        // OVERRIDE SOME symbols WHILE RETAINING OTHERS
+        symbols.setAmPmStrings(new String[] { context.getResources().getString(R.string.am), context.getResources().getString(R.string.pm) });
+        time.setDateFormatSymbols(symbols);
+        try{
+            mTimeWork = time.format(date);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mTimeWork;
+    }
+
     public static void setWorkTimeRegister(Context context, TextView txtTimePostHistory, String _timePostHistory) {
         String[] mWorkTimeHistory = workTimeValidate(_timePostHistory);
         if (!mWorkTimeHistory[3].equals("0")) {

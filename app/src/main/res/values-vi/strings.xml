@@ -117,6 +117,8 @@
 
 
     <!--khác-->
+    <string name="am">SA</string>
+    <string name="pm">CH</string>
     <string name="default_language">Mặc định</string>
     <string name="more">Thêm</string>
     <string name="rate">Đánh giá</string>

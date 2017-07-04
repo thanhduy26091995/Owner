@@ -60,8 +60,8 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
         holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
         holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
         WorkTimeValidate.setWorkTimeRegister(context, holder.txtTimePostHistory,  mDatum.getHistory().getUpdateAt());
-        String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getStartAt());
+        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getEndAt());
         holder.txtTimeDoingPost.setText( mStartTime + " - " + mEndTime);
 
         if(tabJob == 2){

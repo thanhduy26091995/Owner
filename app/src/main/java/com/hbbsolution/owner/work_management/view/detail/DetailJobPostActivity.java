@@ -142,8 +142,8 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
         txtPrice_job_detail_post.setText(formatPrice(mDatum.getInfo().getPrice()));
         txtAddress_detail_post.setText(mDatum.getInfo().getAddress().getName());
         txtDate_job_detail_post.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
-        String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
+        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
         txtTime_work_doing_detail_post.setText( mStartTime + " - " + mEndTime);
         Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
                 .error(R.drawable.no_image)

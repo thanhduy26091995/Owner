@@ -110,8 +110,8 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         txtPriceJobDoing.setText(formatPrice(mDatum.getInfo().getPrice()));
         txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
         txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
-        String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
+        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
         txtTimeDoWrokJobDoing.setText( mStartTime + " - " + mEndTime);
 //        txtTimeDoWrokJobDoing.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
         Picasso.with(this).load(mDatum.getInfo().getWork().getImage())

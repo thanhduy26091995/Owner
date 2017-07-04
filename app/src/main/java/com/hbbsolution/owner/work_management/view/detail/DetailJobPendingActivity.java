@@ -138,8 +138,8 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         txtPriceJobPending.setText(formatPrice(mDatum.getInfo().getPrice()));
         txtAddressJobPending.setText(mDatum.getInfo().getAddress().getName());
         txtDateJobPending.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
-        String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
+        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
         txtTimeDoWrokJobPending.setText(mStartTime + " - " + mEndTime);
 //        txtTimeDoWrokJobPending.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
         Picasso.with(this).load(mDatum.getInfo().getWork().getImage())

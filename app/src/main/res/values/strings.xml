@@ -126,6 +126,8 @@
 
 
     <!--khác-->
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
     <string name="default_language">Default</string>
     <string name="more">More</string>
 
@@ -140,7 +142,7 @@
     <string name="completedjob">Work history</string>
     <string name="completedhelpler">Former partners</string>
     <string name="liabilities">Unpaid work</string>
-    <string name="before">%s before</string>
+    <string name="before">%s ago</string>
     <plurals name="day">
         <item quantity="one">day</item>
         <item quantity="other">days</item>
