@@ -356,4 +356,7 @@
     <string name="naptienthanhcong">Nạp tiền thành công!</string>
 
     <string name="taikhoankhongdu">Tài khoản bạn không đủ để thanh toán.</string>
+
+    <string name="congviecdahoanthanh">Công việc đã hoàn thành</string>\
+    <string name="sotiennaptaikhoan">Số tiền nạp vào tài khoản</string>
 </resources>

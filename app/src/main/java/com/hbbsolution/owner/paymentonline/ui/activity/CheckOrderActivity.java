@@ -68,6 +68,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         }
         else
         {
+            btnCheckOrderOk.setVisibility(View.GONE);
             rechargeOnlineSecPresenter.getRechargeOnlineSec(key, idBillOrder);
         }
         initView();
@@ -256,6 +257,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     @Override
     public void secFail() {
         ShowAlertDialog.showAlert(getResources().getString(R.string.error),CheckOrderActivity.this);
+        btnCheckOrderOk.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -263,6 +265,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         ShowAlertDialog.showAlert(getResources().getString(R.string.naptienthanhcong),CheckOrderActivity.this);
         mProgressView.setVisibility(View.GONE);
         txtData.setVisibility(View.VISIBLE);
+        btnCheckOrderOk.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -270,5 +273,6 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         ShowAlertDialog.showAlert(getResources().getString(R.string.error),CheckOrderActivity.this);
         mProgressView.setVisibility(View.GONE);
         txtData.setVisibility(View.VISIBLE);
+        btnCheckOrderOk.setVisibility(View.VISIBLE);
     }
 }

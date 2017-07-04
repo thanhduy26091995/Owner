@@ -22,10 +22,15 @@ import com.hbbsolution.owner.paymentonline.api.SendOrderRequest;
 import com.hbbsolution.owner.paymentonline.bean.SendOrderBean;
 import com.hbbsolution.owner.utils.Commons;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.rey.material.widget.ProgressView;
 
 import org.json.JSONObject;
+
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Locale;
 
 
 public class PaymentOnlineActivity extends AppCompatActivity implements View.OnClickListener, SendOrderRequest.SendOrderRequestOnResult, RechargeOnlineFiView {
@@ -42,22 +47,31 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     private String idBillOrder = "";
     public static Activity mPaymentOnlineActivity;
     private RechargeOnlineFiPresenter rechargeOnlineFiPresenter;
-    private String fullName,amount,email,phoneNumber,address;
-    private String key="";
+    private String fullName, amount, email, phoneNumber, address;
+    private String key = "";
     private boolean recharge = false;
+    private SessionManagerUser sessionManagerUser;
+    private HashMap<String, String> hashDataUser = new HashMap<>();
+    private TextView titleTongSoTien;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_online);
         mPaymentOnlineActivity = this;
         initView();
-        Bundle extras = getIntent().getExtras();
+        recharge = getIntent().getBooleanExtra("recharge", false);
+        Bundle infoMaid = getIntent().getBundleExtra("infoMaid");
         rechargeOnlineFiPresenter = new RechargeOnlineFiPresenter(this);
-        if (extras != null) {
-            idBillOrder = extras.getString("idBillOrder", "");
-            recharge = extras.getBoolean("recharge",false);
+        if (recharge) {
+            editAmount.setEnabled(true);
+            titleTongSoTien.setText(getResources().getString(R.string.sotiennaptaikhoan));
         }
-//        idBillOrder = getIntent().getStringExtra("idBillOrder");
+        if (infoMaid != null) {
+            idBillOrder = infoMaid.getString("idBillOrder", "");
+            editAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0)));
+        }
+        setData();
     }
 
     private void initView() {
@@ -71,7 +85,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
 
         scrollView = (ScrollView) findViewById(R.id.activity_main_scrollView);
         progressView = (ProgressView) findViewById(R.id.activity_main_progressView);
-
+        titleTongSoTien = (TextView) findViewById(R.id.titleTongSoTien);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -83,6 +97,15 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         }
 
         btnSendOrder.setOnClickListener(this);
+    }
+
+    public void setData() {
+        sessionManagerUser = new SessionManagerUser(this);
+        hashDataUser = sessionManagerUser.getUserDetails();
+        editFullName.setText(hashDataUser.get(SessionManagerUser.KEY_NAME));
+        editAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
+        editEmail.setText(hashDataUser.get(SessionManagerUser.KEY_EMAIL));
+        editPhoneNumber.setText(hashDataUser.get(SessionManagerUser.KEY_PHONE));
     }
 
     @Override
@@ -110,10 +133,9 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                         if (!email.equalsIgnoreCase("")) {
                             if (!phoneNumber.equalsIgnoreCase("")) {
                                 if (!address.equalsIgnoreCase("")) {
-                                    if(recharge) {
+                                    if (recharge) {
                                         rechargeOnlineFiPresenter.getRechargeOnlineFi(Double.parseDouble(amount));
-                                    }
-                                    else {
+                                    } else {
                                         sendOrderObject(fullName, amount, email, phoneNumber, address);
                                     }
                                 } else {
@@ -200,7 +222,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                     intentCheckout.putExtra(CheckOutActivity.TOKEN_CODE, tokenCode);
                     intentCheckout.putExtra(CheckOutActivity.CHECKOUT_URL, checkoutUrl);
                     intentCheckout.putExtra("idOderBill", idBillOrder);
-                    intentCheckout.putExtra("key",key);
+                    intentCheckout.putExtra("key", key);
                     startActivity(intentCheckout);
                     finish();
                 } else {
@@ -239,13 +261,13 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void fiSuccess(String billId, String keyNumber) {
-        idBillOrder=billId;
-        key=keyNumber;
+        idBillOrder = billId;
+        key = keyNumber;
         sendOrderObject(fullName, amount, email, phoneNumber, address);
     }
 
     @Override
     public void fiFail() {
-        ShowAlertDialog.showAlert(getResources().getString(R.string.error),PaymentOnlineActivity.this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.error), PaymentOnlineActivity.this);
     }
 }

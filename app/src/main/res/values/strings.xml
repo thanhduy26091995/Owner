@@ -367,4 +367,7 @@
 
     <string name="naptienthanhcong">Recharge successful!</string>
     <string name="taikhoankhongdu">There are not enough funds in your account to make this payment.</string>
+
+    <string name="congviecdahoanthanh">Work completed</string>
+    <string name="sotiennaptaikhoan">Recharge amount</string>
 </resources>

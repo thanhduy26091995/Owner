@@ -374,10 +374,25 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         if (billGv24Response.getStatus()) {
 //            checkOrderPresenter.getInfoPaymnetByOnline(mDataBill.getId());
             Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
+            Bundle extras = new Bundle();
             if (mDataBill != null) {
-                itPaymentOnline.putExtra("idBillOrder", mDataBill.getId());
+                extras.putString("idBillOrder", mDataBill.getId());
+                extras.putString("idTask", mDatum.getId());
+                extras.putString("idHelper", mDatum.getStakeholders().getMadi().getId());
+                extras.putString("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
+                extras.putString("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
+                extras.putString("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
+                extras.putInt("total",mDataBill.getPrice());
+                itPaymentOnline.putExtra("infoMaid",extras);
             } else {
-                itPaymentOnline.putExtra("idBillOrder", mLiabilitiesHistory.getId());
+                extras.putString("idBillOrder", mLiabilitiesHistory.getId());
+                extras.putString("idTask", mLiabilitiesHistory.getId());
+                extras.putString("idHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getId());
+                extras.putString("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
+                extras.putString("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
+                extras.putString("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
+                extras.putInt("total",mLiabilitiesHistory.getPrice());
+                itPaymentOnline.putExtra("infoMaid",extras);
             }
             startActivity(itPaymentOnline);
         } else {
