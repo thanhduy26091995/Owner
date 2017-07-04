@@ -158,31 +158,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
-            edt_monney_work.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    try {
-                        edt_monney_work.removeTextChangedListener(this);
-                        String titleString = edt_monney_work.getText().toString().replace(".","");
-                        edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(Long.parseLong(titleString)));
-                        edt_monney_work.setSelection(edt_monney_work.getText().toString().length());
-                        edt_monney_work.addTextChangedListener(this);
-                    }
-                    catch (Exception e){
-                        edt_monney_work.addTextChangedListener(this);
-                    }
-                }
-            });
             mPackageId = "000000000000000000000001";
         } else if (rad_type_money_khoan.isChecked()) {
             edt_monney_work.setEnabled(false);
@@ -241,7 +216,31 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             txt_post_complete.setText(getResources().getString(R.string.detail_posted));
         }
 
+        edt_monney_work.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    edt_monney_work.removeTextChangedListener(this);
+                    String titleString = edt_monney_work.getText().toString().replace(".","");
+                    edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(Long.parseLong(titleString)));
+                    edt_monney_work.setSelection(edt_monney_work.getText().toString().length());
+                    edt_monney_work.addTextChangedListener(this);
+                }
+                catch (Exception e){
+                    edt_monney_work.addTextChangedListener(this);
+                }
+            }
+        });
     }
 
     @Override
