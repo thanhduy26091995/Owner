@@ -71,6 +71,8 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             imgHelper = extras.getString("imgHelper");
             nameHelper = extras.getString("nameHelper");
             addressHelper = extras.getString("addressHelper");
+
+
             //       setBackgroundRatingBar();
             tvNameHelper.setText(nameHelper);
             tvAddress.setText(addressHelper);
@@ -90,6 +92,19 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             imgHelper = infoMaid.getString("imgHelper");
             nameHelper = infoMaid.getString("nameHelper");
             addressHelper = infoMaid.getString("addressHelper");
+
+            //       setBackgroundRatingBar();
+            tvNameHelper.setText(nameHelper);
+            tvAddress.setText(addressHelper);
+            if (!imgHelper.equals("")) {
+                Glide.with(this).load(imgHelper)
+                        .thumbnail(0.5f)
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .centerCrop()
+                        .dontAnimate()
+                        .into(imgAvatar);
+            }
         }
         txtNext.setOnClickListener(this);
         lnCheck.setOnClickListener(this);

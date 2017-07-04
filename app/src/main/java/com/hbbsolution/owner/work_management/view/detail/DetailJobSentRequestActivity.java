@@ -98,7 +98,7 @@ public class DetailJobSentRequestActivity extends AppCompatActivity implements V
         txtContentJobDoing.setText(mDatum.getInfo().getDescription());
         txtPriceJobDoing.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
         txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
-        txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
+        txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
         String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
         String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
         txtTimeDoWrokJobDoing.setText( mStartTime + " - " + mEndTime);
