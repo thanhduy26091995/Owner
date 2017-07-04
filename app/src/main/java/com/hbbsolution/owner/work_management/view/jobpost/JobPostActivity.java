@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Selection;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -48,6 +49,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,6 +57,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -155,6 +158,31 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
+            edt_monney_work.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        edt_monney_work.removeTextChangedListener(this);
+                        String titleString = edt_monney_work.getText().toString().replace(".","");
+                        edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(Long.parseLong(titleString)));
+                        edt_monney_work.setSelection(edt_monney_work.getText().toString().length());
+                        edt_monney_work.addTextChangedListener(this);
+                    }
+                    catch (Exception e){
+                        edt_monney_work.addTextChangedListener(this);
+                    }
+                }
+            });
             mPackageId = "000000000000000000000001";
         } else if (rad_type_money_khoan.isChecked()) {
             edt_monney_work.setEnabled(false);

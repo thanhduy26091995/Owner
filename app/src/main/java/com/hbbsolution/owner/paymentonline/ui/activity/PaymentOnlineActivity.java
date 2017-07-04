@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +68,31 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         if (recharge) {
             editAmount.setEnabled(true);
             titleTongSoTien.setText(getResources().getString(R.string.sotiennaptaikhoan));
+            editAmount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        editAmount.removeTextChangedListener(this);
+                        String titleString = editAmount.getText().toString().replace(".","");
+                        editAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(Long.parseLong(titleString)));
+                        editAmount.setSelection(editAmount.getText().toString().length());
+                        editAmount.addTextChangedListener(this);
+                    }
+                    catch (Exception e){
+                        editAmount.addTextChangedListener(this);
+                    }
+                }
+            });
         }
         if (infoMaid != null) {
             idBillOrder = infoMaid.getString("idBillOrder", "");
@@ -123,7 +150,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         switch (id) {
             case R.id.activity_main_btnSendOrder:
                 fullName = editFullName.getText().toString();
-                amount = editAmount.getText().toString();
+                amount = editAmount.getText().toString().replace(".","");
                 email = editEmail.getText().toString();
                 phoneNumber = editPhoneNumber.getText().toString();
                 address = editAddress.getText().toString();
