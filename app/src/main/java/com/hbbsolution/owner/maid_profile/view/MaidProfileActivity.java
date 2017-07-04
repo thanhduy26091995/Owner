@@ -163,7 +163,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
             }
             idTaskProcess = getIntent().getStringExtra("idTaskProcess");
             txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
-            txtPriceInfoMaid.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mMaidInfo.getWorkInfo().getPrice())));
+            txtPriceInfoMaid.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mMaidInfo.getWorkInfo().getPrice())+ " VND / 1" + getResources().getString(R.string.hour));
             txtGenderInfoMaid.setText(getGenderMaid(mMaidInfo.getInfo().getGender()));
             txtPhoneInfoMaid.setText(mMaidInfo.getInfo().getPhone());
             txtAddressInfoMaid.setText(mMaidInfo.getInfo().getAddress().getName());

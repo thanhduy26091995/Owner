@@ -16,7 +16,9 @@ import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by buivu on 18/05/2017.
@@ -83,7 +85,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
             }
         }
         txtName.setText(maidInfo.getInfo().getUsername());
-        txtPrice.setText(String.valueOf(maidInfo.getWorkInfo().getPrice()));
+        txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(maidInfo.getWorkInfo().getPrice()) + " VND / 1 " + mActivity.getResources().getString(R.string.hour));
         // Setting up the infoWindow with current's marker info
         return view;
     }

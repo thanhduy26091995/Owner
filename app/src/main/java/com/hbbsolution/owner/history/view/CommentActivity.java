@@ -59,6 +59,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         ButterKnife.bind(this);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        commentPresenter = new CommentPresenter(this);
         Bundle extras = getIntent().getExtras();
         Bundle mbundleComment = getIntent().getBundleExtra("mbundleComment");
         Bundle infoMaid = getIntent().getBundleExtra("infoMaid");
@@ -68,10 +71,6 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             imgHelper = extras.getString("imgHelper");
             nameHelper = extras.getString("nameHelper");
             addressHelper = extras.getString("addressHelper");
-            commentPresenter = new CommentPresenter(this);
-            toolbar.setTitle("");
-            setSupportActionBar(toolbar);
-
             //       setBackgroundRatingBar();
             tvNameHelper.setText(nameHelper);
             tvAddress.setText(addressHelper);
