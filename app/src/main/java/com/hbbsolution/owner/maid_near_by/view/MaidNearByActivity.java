@@ -500,6 +500,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         Double lat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
         Double lng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
 
+        latitude = lat;
+        longitude = lng;
         if (lat != 0 && lng != 0) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15));
             presenter.searchMaid(lat, lng);
