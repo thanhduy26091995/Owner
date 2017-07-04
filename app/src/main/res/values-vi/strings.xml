@@ -104,13 +104,14 @@
     <string name="more_job_statistic">Thống kê công việc</string>
     <string name="more_notification">Thông báo</string>
     <string name="more_languge">Ngôn ngữ</string>
-    <string name="more_share_app_Gv24">Chia sẻ ứng dụng Gv24</string>
-    <string name="more_follow_Gv24_on_facebook">Theo dõi Gv24 trên Facebook</string>
+    <string name="more_share_app_Gv24">Chia sẻ ứng dụng NGV247</string>
+    <string name="more_follow_Gv24_on_facebook">Theo dõi NGV247 trên Facebook</string>
     <string name="more_contact">Liên hệ</string>
     <string name="gender_men">Nam</string>
     <string name="gender_women">Nữ</string>
     <string name="signout">Đăng xuất</string>
     <string name="signoutContent">Bạn thực sự muốn đăng xuất?</string>
+    <string name="share">Chia sẻ</string>
     <!--Page more activity end-->
 
 
@@ -238,6 +239,7 @@
     <string name="session_timeout">Session timeout</string>
     <string name="txtSendOrder">Thanh toán online</string>
     <string name="thanhtoan">Gửi yêu cầu</string>
+    <string name="complete">Hoàn tất</string>
     <string name="txtCheckOrder">CheckOrder</string>
 
     <string name="txtNameOrder">Họ tên người thanh toán</string>

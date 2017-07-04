@@ -35,6 +35,26 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <TextView
+        android:id="@+id/txtContentVoucher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_marginTop="20dp"
+        android:padding="10dp" />
 
+    <Button
+        android:id="@+id/btnShareCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/home_background_history"
+        android:gravity="center"
+        android:text="@string/share"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
 
 </RelativeLayout>

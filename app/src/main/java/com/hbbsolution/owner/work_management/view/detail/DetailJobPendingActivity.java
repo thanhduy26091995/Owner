@@ -135,9 +135,9 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         txtTitleJobPending.setText(mDatum.getInfo().getTitle());
         txtTypeJobPending.setText(mDatum.getInfo().getWork().getName());
         txtContentJobPending.setText(mDatum.getInfo().getDescription());
-        txtPriceJobPending.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
+        txtPriceJobPending.setText(formatPrice(mDatum.getInfo().getPrice()));
         txtAddressJobPending.setText(mDatum.getInfo().getAddress().getName());
-        txtDateJobPending.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
+        txtDateJobPending.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
         String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
         String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
         txtTimeDoWrokJobPending.setText(mStartTime + " - " + mEndTime);
@@ -444,5 +444,14 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         Log.d("ERROR", error);
         hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.confirm_failed), DetailJobPendingActivity.this);
+    }
+    private String formatPrice(Integer _Price) {
+        String mOutputPrice = null;
+        if (_Price != null && _Price != 0) {
+            mOutputPrice =  String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
+        } else if(_Price == 0){
+            mOutputPrice = getResources().getString(R.string.hourly_pay);
+        }
+        return mOutputPrice;
     }
 }

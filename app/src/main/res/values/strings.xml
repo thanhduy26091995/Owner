@@ -59,7 +59,7 @@
     <string name="to_job_post">to</string>
     <string name="jobs_for_applications">Jobs for applications</string>
     <string name="qua_han_ung_tuyen">Expired to apply</string>
-    <string name="dang_cho_xac_nhan">Jobs for applications</string>
+    <string name="dang_cho_xac_nhan">Awaiting confirmation</string>
     <string name="qua_han_xac_nhan">Expired to confirm</string>
     <string name="qua_han">Expired</string>
     <string name="dang_bai">Post</string>
@@ -74,7 +74,7 @@
     <string name="check_date_post">The date chosen is unsuitable.</string>
     <string name="delete_work_post">Are you sure you want to delete this work?</string>
     <string name="list_recruitment">Applicant list</string>
-    <string name="delete_this_work">Delete this work</string>
+    <string name="delete_this_work">Delete work</string>
     <string name="work_complete">Complete</string>
     <string name="vnd">VND</string>
     <string name="vnd_hour">VND/hour</string>
@@ -121,6 +121,7 @@
     <string name="signoutContent">Are you sure to sign out?</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
+    <string name="share">Share</string>
     <!--Page more activity end-->
 
 
@@ -252,6 +253,7 @@
     <string name="session_timeout">Session timeout</string>
     <string name="txtSendOrderTitle">Online payment</string>
     <string name="thanhtoan">Send</string>
+    <string name="complete">Complete</string>
     <string name="txtCheckOrder">CheckOrder</string>
 
     <string name="txtNameOrder">Payer is full-name</string>
@@ -259,7 +261,7 @@
     <string name="txtEmail">Email</string>
     <string name="txtMobile">Phone number</string>
     <string name="txtAddress">Address</string>
-    <string name="txtAmount">Tổng số tiền cần thanh toán</string>
+    <string name="txtAmount">Total amount</string>
 
     <string name="error_disconnect">Bạn cần kết nối internet</string>
     <string name="error_name_order">Bạn cần nhập họ tên người thanh toán</string>

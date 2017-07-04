@@ -37,6 +37,7 @@ import com.hbbsolution.owner.more.phuc_tran.view.ContactActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.TermActivity;
 import com.hbbsolution.owner.more.viet_pham.Presenter.MorePresenter;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
+import com.hbbsolution.owner.more.viet_pham.View.shareapp.ShareCodeActivity;
 import com.hbbsolution.owner.more.viet_pham.View.signin.SignInActivity;
 import com.hbbsolution.owner.more.viet_pham.base.GoogleAuthController;
 import com.hbbsolution.owner.utils.SessionManagerForAnnouncement;
@@ -303,7 +304,8 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lo_share_app:
-
+                Intent itShareCode = new Intent(this, ShareCodeActivity.class);
+                startActivity(itShareCode);
                 break;
         }
     }

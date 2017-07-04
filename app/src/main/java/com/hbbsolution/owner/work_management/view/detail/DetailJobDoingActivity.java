@@ -107,9 +107,9 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
         txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());
         txtContentJobDoing.setText(mDatum.getInfo().getDescription());
-        txtPriceJobDoing.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
+        txtPriceJobDoing.setText(formatPrice(mDatum.getInfo().getPrice()));
         txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
-        txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
+        txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
         String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
         String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
         txtTimeDoWrokJobDoing.setText( mStartTime + " - " + mEndTime);
@@ -130,18 +130,6 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
 
         return super.onOptionsItemSelected(item);
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        EventBus.getDefault().registerSticky(this);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        EventBus.getDefault().unregister(this);
-//    }
 
     @Override
     protected void onDestroy() {
@@ -207,5 +195,15 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         progressDetailJobDoing.setVisibility(View.GONE);
         txt_lo_infoMail.setVisibility(View.GONE);
         ShowAlertDialog.showAlert(error, DetailJobDoingActivity.this);
+    }
+
+    private String formatPrice(Integer _Price) {
+        String mOutputPrice = null;
+        if (_Price != null && _Price != 0) {
+            mOutputPrice =  String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
+        } else if(_Price == 0){
+            mOutputPrice = getResources().getString(R.string.hourly_pay);
+        }
+        return mOutputPrice;
     }
 }
