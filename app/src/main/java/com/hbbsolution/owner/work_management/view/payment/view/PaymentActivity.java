@@ -376,26 +376,28 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         if (billGv24Response.getStatus()) {
 //            checkOrderPresenter.getInfoPaymnetByOnline(mDataBill.getId());
             Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
-            Bundle extras = new Bundle();
+//            Bundle extras = new Bundle();
+            Bundle mbundleComment = new Bundle();
             if (mDataBill != null) {
-                extras.putString("idBillOrder", mDataBill.getId());
-                extras.putString("idTask", mDatum.getId());
-                extras.putString("idHelper", mDatum.getStakeholders().getMadi().getId());
-                extras.putString("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
-                extras.putString("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
-                extras.putString("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
-                extras.putInt("total",mDataBill.getPrice());
-                itPaymentOnline.putExtra("infoMaid",extras);
+                mbundleComment.putString("idBillOrder", mDataBill.getId());
+                mbundleComment.putString("idTask", mDatum.getId());
+                mbundleComment.putString("idHelper", mDatum.getStakeholders().getMadi().getId());
+                mbundleComment.putString("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
+                mbundleComment.putString("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
+                mbundleComment.putString("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
+                mbundleComment.putInt("total",mDataBill.getPrice());
+//                itPaymentOnline.putExtra("mbundleComment",mbundleComment);
             } else {
-                extras.putString("idBillOrder", mLiabilitiesHistory.getId());
-                extras.putString("idTask", mLiabilitiesHistory.getId());
-                extras.putString("idHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getId());
-                extras.putString("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
-                extras.putString("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
-                extras.putString("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
-                extras.putInt("total",mLiabilitiesHistory.getPrice());
-                itPaymentOnline.putExtra("infoMaid",extras);
+                mbundleComment.putString("idBillOrder", mLiabilitiesHistory.getId());
+                mbundleComment.putString("idTask", mLiabilitiesHistory.getId());
+                mbundleComment.putString("idHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getId());
+                mbundleComment.putString("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
+                mbundleComment.putString("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
+                mbundleComment.putString("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
+                mbundleComment.putInt("total",mLiabilitiesHistory.getPrice());
+//                itPaymentOnline.putExtra("mbundleComment",mbundleComment);
             }
+            itPaymentOnline.putExtra("mbundleComment",mbundleComment);
             startActivity(itPaymentOnline);
         } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), PaymentActivity.this);

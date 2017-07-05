@@ -66,11 +66,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         Bundle mbundleComment = getIntent().getBundleExtra("mbundleComment");
         Bundle infoMaid = getIntent().getBundleExtra("infoMaid");
         if (mbundleComment != null) {
-            idTask = extras.getString("idTask");
-            idHelper = extras.getString("idHelper");
-            imgHelper = extras.getString("imgHelper");
-            nameHelper = extras.getString("nameHelper");
-            addressHelper = extras.getString("addressHelper");
+            idTask = mbundleComment.getString("idTask");
+            idHelper = mbundleComment.getString("idHelper");
+            imgHelper = mbundleComment.getString("imgHelper");
+            nameHelper = mbundleComment.getString("nameHelper");
+            addressHelper = mbundleComment.getString("addressHelper");
 
 
             //       setBackgroundRatingBar();
