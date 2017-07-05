@@ -276,19 +276,19 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
                     .centerCrop()
                     .dontAnimate()
                     .into(img_avatarMaid);
-            Glide.with(MaidProfileActivity.this)
-                    .load(datum.getId().getInfo().getImage())
-                    .asBitmap()
-                    .error(R.drawable.avatar)
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            Blurry.with(MaidProfileActivity.this)
-                                    .radius(15)
-                                    .from(resource)
-                                    .into(imgBlurImage);
-                        }
-                    });
+//            Glide.with(MaidProfileActivity.this)
+//                    .load(datum.getId().getInfo().getImage())
+//                    .asBitmap()
+//                    .error(R.drawable.avatar)
+//                    .into(new SimpleTarget<Bitmap>() {
+//                        @Override
+//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                            Blurry.with(MaidProfileActivity.this)
+//                                    .radius(15)
+//                                    .from(resource)
+//                                    .into(imgBlurImage);
+//                        }
+//                    });
 
 //            lo_ChosenMaidInfo.setVisibility(View.GONE);
             if (datum.getId().getWorkInfo().getAbility() != null) {
