@@ -258,9 +258,7 @@
     <string name="complete">Complete</string>
     <string name="txtCheckOrder">CheckOrder</string>
 
-    <string name="txtNameOrder">Payer's full-name</string>
-    <string name="txtNameOrderSecond"></string>
-    <string name="txtNameOrderThird">s full-name</string>
+    <string name="txtNameOrder">Full name</string>
     <string name="txtDescription">Total amount</string>
     <string name="txtEmail">Email</string>
     <string name="txtMobile">Phone number</string>
