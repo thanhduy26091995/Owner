@@ -162,8 +162,7 @@
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
-                                android:src="@color/colorWhite"
-                                android:transitionName="icAvatar" />
+                                android:src="@color/colorWhite" />
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_avatarMaid"
                                 android:layout_width="93dp"
