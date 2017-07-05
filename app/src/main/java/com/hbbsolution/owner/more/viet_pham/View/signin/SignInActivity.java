@@ -268,17 +268,22 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
         btnSignIn.setEnabled(true);
         hideProgress();
+
+
         if (bodyResponse.getStatus() == true) {
-            //save session
-            sessionManagerUser.createLoginSession(bodyResponse.getData());
-            hashDataUser = sessionManagerUser.getUserDetails();
-            ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
-            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+                //save session
+                sessionManagerUser.createLoginSession(bodyResponse.getData());
+                hashDataUser = sessionManagerUser.getUserDetails();
+                ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
+                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
         } else {
-            ShowAlertDialog.showAlert(bodyResponse.getMessage().toString(), SignInActivity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.forgot_password_failed), SignInActivity.this);
+//            if(bodyResponse.getMessage().equals("DATA_NOT_EXISTS")|| bodyResponse.getMessage().equals("INVALID_PASSWORD")){
+////                ShowAlertDialog.showAlert(getResources().getString(R.string.forgot_password_failed), SignInActivity.this);
+//            }
         }
     }
 

@@ -142,9 +142,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="4dp"
-                android:lines="1"
                 android:paddingLeft="8dp"
-                android:text="Đã thanh toán  hãy nhấn OK"
+                android:text="@string/checkInfoPayment"
                 android:textColor="@color/colorBlack" />
 
             <com.rey.material.widget.Button
@@ -154,7 +153,7 @@
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="24dp"
                 android:background="@color/home_background_history"
-                android:text="@string/thanhtoan"
+                android:text="@string/ok"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite" />
 
