@@ -60,7 +60,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private Bundle infoMaid;
-
+    private int amount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
             mTokenCode = extras.getString(TOKEN_CODE, "");
             idBillOrder = extras.getString("idBillOrder", "");
             key = extras.getString("key", "");
+            amount = extras.getInt("amount",0);
         }
         checkOrderPresenter = new CheckOrderPresenter(this);
         rechargeOnlineSecPresenter = new RechargeOnlineSecPresenter(this);
@@ -132,7 +133,11 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         txtEmail.setText(hashDataUser.get(SessionManagerUser.KEY_EMAIL));
         txtPhoneNumber.setText(hashDataUser.get(SessionManagerUser.KEY_PHONE));
         txttAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
-        txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0)));
+        if(infoMaid != null){
+            txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0)));
+        }else {
+            txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(amount));
+        }
     }
     private void checkOrderObject() {
         CheckOrderBean checkOrderBean = new CheckOrderBean();

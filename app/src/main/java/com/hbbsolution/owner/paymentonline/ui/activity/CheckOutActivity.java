@@ -29,7 +29,7 @@ public class CheckOutActivity extends Activity {
     private String key = "";
     public static Activity mCheckOuActivity;
     private Bundle infoMaid;
-
+    private int amount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class CheckOutActivity extends Activity {
             mCheckoutUrl = extras.getString(CHECKOUT_URL, "");
             idBillOrder = extras.getString("idOderBill", "");
             key = extras.getString("key", "");
+            amount = extras.getInt("amount",0);
         }
 
         initView();
@@ -63,6 +64,7 @@ public class CheckOutActivity extends Activity {
                     intentCheckOut.putExtra("idBillOrder", idBillOrder);
                     intentCheckOut.putExtra("key", key);
                     intentCheckOut.putExtra("infoMaid", infoMaid );
+                    intentCheckOut.putExtra("amount",amount);
                     startActivity(intentCheckOut);
                     finish();
                 }

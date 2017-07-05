@@ -254,6 +254,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                     intentCheckout.putExtra("idOderBill", idBillOrder);
                     intentCheckout.putExtra("infoMaid", infoMaid );
                     intentCheckout.putExtra("key", key);
+                    intentCheckout.putExtra("amount",amount);
                     startActivity(intentCheckout);
                     finish();
                 } else {
