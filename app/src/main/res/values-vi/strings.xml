@@ -132,6 +132,7 @@
     <string name="completedjob">Hoàn thành</string>
     <string name="completedhelpler">Giúp việc đã làm</string>
     <string name="liabilities">Công nợ</string>
+    <string name="unpayalbe">Công nợ</string>
     <string name="before">%s trước</string>
     <plurals name="day">
         <item quantity="other">ngày</item>
@@ -155,7 +156,7 @@
     <string name="payment">Thanh toán</string>
     <string name="description">MÔ TẢ</string>
     <string name="yourcomment">Nhận xét của bạn</string>
-    <string name="doer">Người thực hiện</string>
+    <string name="doer">NGƯỜI THỰC HIỆN</string>
     <!--detail_work_history_screen end-->
 
     <!--comment_screen start-->

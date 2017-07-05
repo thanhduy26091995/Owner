@@ -161,6 +161,7 @@
     </plurals>
 
     <string name="unpayalbe">Unpaid</string>
+    <string name="notpayment">Unpaid</string>
     <string name="rangetime">Please double check time chosen!</string>
     <string name="worklist">Worklist</string>
     <string name="confirm_the_task_completed">Click "Ok" to confirm the task completed</string>

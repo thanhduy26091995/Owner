@@ -88,13 +88,13 @@
                             android:id="@+id/detail_work_history_type"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
                             android:layout_gravity="center"
                             android:scaleType="centerCrop"
                             android:src="@drawable/dondepnha"
-                            android:transitionName="icJobType"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
+                            android:transitionName="icJobType" />
 
 
                         <LinearLayout
@@ -108,20 +108,20 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:text="dsandksandkjasndjksandjkdasdasdasdadasdasdasdasdasdaansdkjansdkjanskdjnaskjdnaksjndkjasndkjasndkjasndkjandnask"
                                 android:id="@+id/detail_work_history_tvJob"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="dsandksandkjasndjksandjkdasdasdasdadasdasdasdasdasdaansdkjansdkjanskdjnaskjdnaksjndkjasndkjasndkjasndkjandnask"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="@dimen/text_size_large"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:text="dsamdlmaslkdmaslkdmlk"
                                 android:id="@+id/detail_work_history_tvWork"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
+                                android:text="dsamdlmaslkdmaslkdmlk"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </RelativeLayout>

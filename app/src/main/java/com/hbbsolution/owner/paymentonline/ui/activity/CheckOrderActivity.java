@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.history.view.CommentActivity;
+import com.hbbsolution.owner.more.duy_nguyen.RechargeActivity;
 import com.hbbsolution.owner.more.duy_nguyen.RechargeOnlineSecView;
 import com.hbbsolution.owner.more.duy_nguyen.RechargeOnlineThiView;
 import com.hbbsolution.owner.more.duy_nguyen.presenter.RechargeOnlineSecPresenter;
@@ -25,16 +25,14 @@ import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
 import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
-import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 import com.rey.material.app.Dialog;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.ProgressView;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
-
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -121,9 +119,21 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
                 } catch (Exception e) {
 
                 }
-                Intent itCommnet = new Intent(CheckOrderActivity.this, CommentActivity.class);
-                itCommnet.putExtra("infoMaid", infoMaid);
-                startActivity(itCommnet);
+                if(!key.equals("")) {
+                    Intent itCommnet = new Intent(CheckOrderActivity.this, CommentActivity.class);
+                    itCommnet.putExtra("infoMaid", infoMaid);
+                    startActivity(itCommnet);
+                }
+                else
+                {
+                    try{
+                        if(RechargeActivity.mRechargeActivity!=null)
+                        {
+                            RechargeActivity.mRechargeActivity.finish();
+                        }
+                    }
+                    catch (Exception e){}
+                }
             }
         });
     }
@@ -134,9 +144,9 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         txtPhoneNumber.setText(hashDataUser.get(SessionManagerUser.KEY_PHONE));
         txttAddress.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
         if(infoMaid != null){
-            txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0)));
+            txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0))+ " VND");
         }else {
-            txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(amount));
+            txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(amount)+ " VND");
         }
     }
     private void checkOrderObject() {

@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.more.duy_nguyen;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,11 +31,13 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     TextView tvPhoneRecharge;
     private ContactPresenter contactPresenter;
     private String mNote;
+    public static Activity mRechargeActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
         ButterKnife.bind(this);
+        mRechargeActivity=this;
         contactPresenter = new ContactPresenter(this);
         setToolbar();
         contactPresenter.getContact();
