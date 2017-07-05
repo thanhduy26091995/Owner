@@ -58,7 +58,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private Bundle infoMaid;
-    private int amount;
+    private String amount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +72,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
             mTokenCode = extras.getString(TOKEN_CODE, "");
             idBillOrder = extras.getString("idBillOrder", "");
             key = extras.getString("key", "");
-            amount = extras.getInt("amount",0);
+            amount = extras.getString("amount","");
         }
         checkOrderPresenter = new CheckOrderPresenter(this);
         rechargeOnlineSecPresenter = new RechargeOnlineSecPresenter(this);
@@ -119,7 +119,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
                 } catch (Exception e) {
 
                 }
-                if(!key.equals("")) {
+                if(key.equals("")) {
                     Intent itCommnet = new Intent(CheckOrderActivity.this, CommentActivity.class);
                     itCommnet.putExtra("infoMaid", infoMaid);
                     startActivity(itCommnet);
@@ -146,7 +146,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         if(infoMaid != null){
             txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0))+ " VND");
         }else {
-            txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(amount)+ " VND");
+            txtAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(Integer.parseInt(amount))+ " VND");
         }
     }
     private void checkOrderObject() {

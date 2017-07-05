@@ -29,7 +29,7 @@ public class CheckOutActivity extends Activity {
     private String key = "";
     public static Activity mCheckOuActivity;
     private Bundle infoMaid;
-    private int amount;
+    private String amount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class CheckOutActivity extends Activity {
             mCheckoutUrl = extras.getString(CHECKOUT_URL, "");
             idBillOrder = extras.getString("idOderBill", "");
             key = extras.getString("key", "");
-            amount = extras.getInt("amount",0);
+            amount = extras.getString("amount","");
         }
 
         initView();

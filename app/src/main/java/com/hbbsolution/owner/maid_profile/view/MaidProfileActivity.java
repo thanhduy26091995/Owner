@@ -208,7 +208,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         if (workHistory != null) {
             txtNameInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getName());
-            txtPriceInfoMaid.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice())));
+            txtPriceInfoMaid.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(workHistory.getStakeholders().getReceived().getWorkInfo().getPrice())+ " VND" + getResources().getString(R.string.hour));
             txtGenderInfoMaid.setText(getGenderMaid(workHistory.getStakeholders().getReceived().getInfo().getGender()));
             txtAgeInfoMaid.setText(String.valueOf(workHistory.getStakeholders().getReceived().getInfo().getAge()));
             txtPhoneInfoMaid.setText(workHistory.getStakeholders().getReceived().getInfo().getPhone());
@@ -257,7 +257,7 @@ public class MaidProfileActivity extends AppCompatActivity implements MaidProfil
 
         if (datum != null) {
             txtNameInfoMaid.setText(datum.getId().getInfo().getName());
-            txtPriceInfoMaid.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(datum.getId().getWorkInfo().getPrice())));
+            txtPriceInfoMaid.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(datum.getId().getWorkInfo().getPrice())+ " VND" + getResources().getString(R.string.hour));
             txtGenderInfoMaid.setText(getGenderMaid(datum.getId().getInfo().getGender()));
             txtAgeInfoMaid.setText(String.valueOf(datum.getId().getInfo().getAge()));
             txtPhoneInfoMaid.setText(datum.getId().getInfo().getPhone());

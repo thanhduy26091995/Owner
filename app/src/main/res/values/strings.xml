@@ -375,4 +375,6 @@
 
     <string name="congviecdahoanthanh">Work completed</string>
     <string name="sotiennaptaikhoan">Recharge amount</string>
+
+    <string name="back">Back</string>
 </resources>

@@ -144,7 +144,7 @@
                 android:layout_marginTop="4dp"
                 android:lines="1"
                 android:paddingLeft="8dp"
-                android:text="Đã thanh toán  hãy nhấn OK"
+                android:text="Đã thanh toán hãy nhấn OK"
                 android:textColor="@color/colorBlack" />
 
             <com.rey.material.widget.Button

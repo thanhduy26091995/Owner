@@ -30,7 +30,6 @@ import com.rey.material.widget.ProgressView;
 
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
@@ -57,7 +56,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private TextView titleTongSoTien;
     private Bundle infoMaid;
-
+    private TextView recruitment_title_toothbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +67,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         infoMaid = getIntent().getBundleExtra("mbundleComment");
         rechargeOnlineFiPresenter = new RechargeOnlineFiPresenter(this);
         if (recharge) {
+            recruitment_title_toothbar.setText(getResources().getString(R.string.naptientructuyen));
             editAmount.setEnabled(true);
             titleTongSoTien.setText(getResources().getString(R.string.sotiennaptaikhoan));
             editAmount.addTextChangedListener(new TextWatcher() {
@@ -122,6 +122,8 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        recruitment_title_toothbar = (TextView)findViewById(R.id.recruitment_title_toothbar);
 
         if (!Commons.checkInternetConnection(getApplicationContext())) {
             showErrorDialog(getString(R.string.error_disconnect), true);
