@@ -251,6 +251,7 @@
     <string name="txtMobile">Số điện thoại người thanh toán</string>
     <string name="txtAddress">Địa chỉ người thanh toán</string>
     <string name="txtAmount">Tổng số tiền cần thanh toán</string>
+    <string name="checkInfoPayment">Thanh toán thành công. Bạn có thể xem lại thông tin thanh toán.</string>
 
     <string name="error_disconnect">Bạn cần kết nối internet</string>
     <string name="error_name_order">Bạn cần nhập họ tên người thanh toán</string>

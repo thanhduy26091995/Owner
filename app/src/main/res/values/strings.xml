@@ -265,6 +265,7 @@
     <string name="txtMobile">Phone number</string>
     <string name="txtAddress">Address</string>
     <string name="txtAmount">Total amount</string>
+    <string name="checkInfoPayment">Payment successful! You can review the payment history.</string>
 
     <string name="error_disconnect">Bạn cần kết nối internet</string>
     <string name="error_name_order">Bạn cần nhập họ tên người thanh toán</string>
