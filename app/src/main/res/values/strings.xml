@@ -258,7 +258,7 @@
     <string name="complete">Complete</string>
     <string name="txtCheckOrder">CheckOrder</string>
 
-    <string name="txtNameOrder">Full name</string>
+    <string name="txtNameOrder">Full-name</string>
     <string name="txtDescription">Total amount</string>
     <string name="txtEmail">Email</string>
     <string name="txtMobile">Phone number</string>
@@ -373,8 +373,5 @@
     <string name="taikhoankhongdu">There are not enough funds in your account to make this payment.</string>
 
     <string name="congviecdahoanthanh">Work completed</string>
-    <sring name="sotiennaptaikhoan">Recharge amount</sring>
-
-    <string name="chiaseungdung">Share App</string>
-    <string name="back">Back</string>
+    <string name="sotiennaptaikhoan">Recharge amount</string>
 </resources>
