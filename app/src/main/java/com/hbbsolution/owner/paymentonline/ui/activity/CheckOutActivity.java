@@ -37,6 +37,7 @@ public class CheckOutActivity extends Activity {
         mCheckOuActivity = this;
         Bundle extras = getIntent().getExtras();
         infoMaid = getIntent().getBundleExtra("infoMaid");
+
         if (extras != null) {
             mTokenCode = extras.getString(TOKEN_CODE, "");
             mCheckoutUrl = extras.getString(CHECKOUT_URL, "");
