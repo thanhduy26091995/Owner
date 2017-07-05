@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -45,6 +47,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +55,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,6 +102,9 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     private Maid mMaidInfo;
     private boolean mChosenTools = false;
     private ProgressDialog progressDialog;
+    private Date startTime, endTime, startTimeTemp, endTimeTemp, nowTime, nowDate, choseDate;
+    private Calendar cal;
+    private int clicked;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,6 +118,16 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+
+        cal = Calendar.getInstance();
+        cal.set(0, 0, 0);
+        nowTime = cal.getTime();
+        cal.set(0, 0, 0, 0, 0, 0);
+        startTime = cal.getTime();
+        endTime = cal.getTime();
+
+        clicked = 0;
+
         getDateCurrent();
         //event click
         edtType_job.setOnClickListener(this);
@@ -123,11 +140,37 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         mPackageId = "000000000000000000000001";
         //get data
         presenter.getAllTypeJob();
+
+        edt_monney_work.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    edt_monney_work.removeTextChangedListener(this);
+                    String titleString = edt_monney_work.getText().toString().replace(".", "");
+                    edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(Long.parseLong(titleString)));
+                    edt_monney_work.setSelection(edt_monney_work.getText().toString().length());
+                    edt_monney_work.addTextChangedListener(this);
+                } catch (Exception e) {
+                    edt_monney_work.addTextChangedListener(this);
+                }
+            }
+        });
+
+
     }
 
     //show dialog to choose date
     private void getDatePicker() {
-
         final Calendar calendar = Calendar.getInstance();
         int date = calendar.get(Calendar.DATE);
         int month = calendar.get(Calendar.MONTH);
@@ -135,11 +178,14 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         DatePickerDialog mDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                calendar.set(i, i1, i2);
+                calendar.set(i, i1, i2, 0, 0, 0);
+                choseDate = calendar.getTime();
+//                DateTime dateTime = new DateTime(calendar);
+//                mDateStartWork = dateTime.toString();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
-                if (compareDay(txtDate_start_work.getText().toString())) {
-                    ShowAlertDialog.showAlert(getResources().getString(R.string.saingay), ChooseMaidActivity.this);
+                if (CompareDays(txtDate_start_work.getText().toString())) {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_date_post), ChooseMaidActivity.this);
                 }
             }
         }, year, month, date);
@@ -147,23 +193,105 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     }
 
     //show timepicker
-    private void getTimePicker(final TextView txtTime) {
-
+    private void getTimePicker() {
         final Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(0, 0, 0, hourOfDay, minute, 0);
-                txtTime.setText(simpleDateFormat.format(calendar.getTime()));
+                compareTimeStart(calendar, simpleDateFormat);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         timePickerDialog.show();
-
     }
 
-    private boolean compareDay(String dateStartWork) {
+    private void getTimePicker2() {
+        final Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(0, 0, 0, hourOfDay, minute, 0);
+                compareTimeEnd(calendar, simpleDateFormat);
+            }
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        timePickerDialog.show();
+    }
 
+    public void compareTimeStart(Calendar calendar, SimpleDateFormat simpleDateFormat) {
+        startTimeTemp = calendar.getTime();
+        if (choseDate.getTime() == nowDate.getTime()) {
+            if (clicked == 1) {
+                if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime() >= nowTime.getTime()) {
+                    txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
+                    startTime = startTimeTemp;
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), ChooseMaidActivity.this);
+
+                }
+            } else {
+                if (startTimeTemp.getTime() >= nowTime.getTime()) {
+                    txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
+                    startTime = startTimeTemp;
+                    clicked = 1;
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), ChooseMaidActivity.this);
+                }
+            }
+        } else {
+            if (clicked == 1) {
+                if (endTime.getTime() - startTimeTemp.getTime() >= 0) {
+                    txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
+                    startTime = startTimeTemp;
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), ChooseMaidActivity.this);
+
+                }
+            } else {
+                txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
+                startTime = startTimeTemp;
+                clicked = 1;
+            }
+        }
+    }
+
+    public void compareTimeEnd(Calendar calendar, SimpleDateFormat simpleDateFormat) {
+        endTimeTemp = calendar.getTime();
+        if (choseDate.getTime() == nowDate.getTime()) {
+            if (clicked == 1) {
+                if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime() >= nowTime.getTime()) {
+                    txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
+                    endTime = endTimeTemp;
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), ChooseMaidActivity.this);
+                }
+            } else {
+                if (endTimeTemp.getTime() >= nowTime.getTime()) {
+                    txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
+                    endTime = endTimeTemp;
+                    clicked = 1;
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), ChooseMaidActivity.this);
+                }
+            }
+        } else {
+            if (clicked == 1) {
+                if (endTimeTemp.getTime() - startTime.getTime() >= 0) {
+                    txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
+                    endTime = endTimeTemp;
+                } else {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), ChooseMaidActivity.this);
+                }
+            } else {
+                txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
+                endTime = endTimeTemp;
+                clicked = 1;
+            }
+        }
+    }
+
+    private boolean CompareDays(String dateStartWork) {
         Date date1 = null;
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
@@ -185,8 +313,15 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     //get current date
     private void getDateCurrent() {
         Calendar calendar = Calendar.getInstance();
+        int date = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        calendar.set(year, month, date, 0, 0, 0);
+        nowDate = calendar.getTime();
+        choseDate = calendar.getTime();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
+
     }
 
     @Override
@@ -217,9 +352,9 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         } else if (v == txtDate_start_work) {
             getDatePicker();
         } else if (v == txtTime_start) {
-            getTimePicker(txtTime_start);
+            getTimePicker();
         } else if (v == txtTime_end) {
-            getTimePicker(txtTime_end);
+            getTimePicker2();
         } else if (v == rad_type_money_work) {
             mPackageId = "000000000000000000000001";
             edt_monney_work.setEnabled(true);
@@ -243,7 +378,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
             return false;
         }
 
-        if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
+        if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().replace(".", "").isEmpty()) {
             progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), ChooseMaidActivity.this);
             return false;
@@ -362,7 +497,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
             mChosenTools = true;
         }
         if (rad_type_money_work.isChecked()) {
-            price = Double.parseDouble(edt_monney_work.getText().toString());
+            price = Double.parseDouble(edt_monney_work.getText().toString().replace(".", ""));
         } else {
             // hour = Double.parseDouble(edtHourWork.getText().toString());
         }
@@ -394,6 +529,26 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         if (elapsed > 0) {
             return true;
         }
+        return false;
+    }
+
+    private boolean CompareTime(String start, String end) {
+        String startTime = start;
+        String endTime = end;
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        Date d1 = null, d2 = null;
+        try {
+            d1 = sdf.parse(startTime);
+            d2 = sdf.parse(endTime);
+            long elapsed = d2.getTime() - d1.getTime();
+            if (elapsed > 0) {
+                return true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         return false;
     }
 
@@ -431,15 +586,15 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
 
             }
         } else {
-            if (sendRequestResponse.getMessage().equals("TASK_OUT_OF_LIMIT")){
+            if (sendRequestResponse.getMessage().equals("TASK_OUT_OF_LIMIT")) {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), ChooseMaidActivity.this);
-            }
-            else{
+            } else {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), ChooseMaidActivity.this);
             }
 
         }
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

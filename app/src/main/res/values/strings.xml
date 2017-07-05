@@ -373,5 +373,8 @@
     <string name="taikhoankhongdu">There are not enough funds in your account to make this payment.</string>
 
     <string name="congviecdahoanthanh">Work completed</string>
-    <string name="sotiennaptaikhoan">Recharge amount</string>
+    <sring name="sotiennaptaikhoan">Recharge amount</sring>
+
+    <string name="chiaseungdung">Share App</string>
+    <string name="back">Back</string>
 </resources>

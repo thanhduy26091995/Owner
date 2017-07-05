@@ -11,7 +11,6 @@ import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -72,7 +71,7 @@ public class WorkTimeValidate {
     public static String getTimeWork(String _TimeWork) {
         String mTimeWork = null;
         Date date = new DateTime(_TimeWork).toDate();
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a", Locale.US);
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
         DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
         // OVERRIDE SOME symbols WHILE RETAINING OTHERS
         symbols.setAmPmStrings(new String[] { "am", "pm" });

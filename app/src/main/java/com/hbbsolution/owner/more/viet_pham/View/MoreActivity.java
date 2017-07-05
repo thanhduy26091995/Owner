@@ -234,6 +234,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                                     });
                                 }
                                 Intent intent = new Intent(MoreActivity.this, SignInActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
                             }
