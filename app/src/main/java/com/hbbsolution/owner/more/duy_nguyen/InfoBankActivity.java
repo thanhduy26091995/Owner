@@ -1,9 +1,11 @@
 package com.hbbsolution.owner.more.duy_nguyen;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
@@ -16,6 +18,8 @@ public class InfoBankActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.tv_note_infobank)
     TextView tvNote;
+    @BindView(R.id.wbvInfo)
+    WebView wbvInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,8 @@ public class InfoBankActivity extends AppCompatActivity {
         if(extras!=null)
         {
             tvNote.setText(extras.getString("note"));
+            wbvInfo.loadData(extras.getString("bank"), "text/html; charset=UTF-8", null);
+            wbvInfo.setBackgroundColor(Color.TRANSPARENT);
         }
     }
     public void setToolbar() {

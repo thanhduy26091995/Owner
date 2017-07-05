@@ -273,7 +273,7 @@
     <string name="error_email">Bạn cần nhập email người thanh toán</string>
     <string name="error_mobile">Bạn cần nhập số điện thoại người thanh toán</string>
     <string name="error_address">Bạn cần nhập địa chỉ người thanh toán</string>
-    <string name="error_amount">Bạn cần nhập số tiền đơn hàng cần thanh toán. Số tiền phải lớn hơn 2000VND</string>
+    <string name="error_amount">The amount must be more than 2000 VND</string>
 
     <string name="error_01">Lỗi không xác định</string>
     <string name="error_02">merchant_id không tồn tại</string>

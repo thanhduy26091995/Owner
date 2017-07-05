@@ -15,6 +15,9 @@ public class DataContact {
     @SerializedName("phone")
     @Expose
     private String phone;
+    @SerializedName("bank")
+    @Expose
+    private String bank;
     @SerializedName("note")
     @Expose
     private String note;
@@ -47,6 +50,14 @@ public class DataContact {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
     }
 
     public String getNote() {

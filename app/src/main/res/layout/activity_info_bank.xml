@@ -67,44 +67,15 @@
             android:layout_weight="9"
             android:orientation="vertical">
 
-            <LinearLayout
+            <WebView
+                android:id="@+id/wbvInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:padding="15dp">
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+            </WebView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vietcombank"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Số tài khoản: 123456789"
-                    android:textColor="@color/colorBlack" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tên người hưởng: Nguyễn Văn B"
-                    android:textColor="@color/colorBlack" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chi nhánh Hồ Chí Minh"
-                    android:textColor="@color/colorBlack" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nội dung: NAP NGUYENVANB@GMAIL.COM"
-                    android:textColor="@color/colorBlack" />
-            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"

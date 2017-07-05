@@ -30,7 +30,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.phone_recharge)
     TextView tvPhoneRecharge;
     private ContactPresenter contactPresenter;
-    private String mNote;
+    private String mNote,mBank;
     public static Activity mRechargeActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
             case R.id.rlInfoBank:
                 intent = new Intent(RechargeActivity.this,InfoBankActivity.class);
                 intent.putExtra("note",mNote);
+                intent.putExtra("bank",mBank);
                 startActivity(intent);
                 break;
         }
@@ -91,6 +92,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         tvAddressRecharge.setText(dataContact.getAddress());
         tvPhoneRecharge.setText(dataContact.getPhone());
         mNote = dataContact.getNote();
+        mBank = dataContact.getBank();
     }
 
     @Override
