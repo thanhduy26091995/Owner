@@ -65,7 +65,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
         mPaymentOnlineActivity = this;
         initView();
         recharge = getIntent().getBooleanExtra("recharge", false);
-        infoMaid = getIntent().getBundleExtra("infoMaid");
+        infoMaid = getIntent().getBundleExtra("mbundleComment");
         rechargeOnlineFiPresenter = new RechargeOnlineFiPresenter(this);
         if (recharge) {
             editAmount.setEnabled(true);
@@ -97,6 +97,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
             });
         }
         if (infoMaid != null) {
+
             editAmount.setEnabled(false);
             idBillOrder = infoMaid.getString("idBillOrder", "");
             editAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0)));

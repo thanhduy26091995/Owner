@@ -176,6 +176,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mFullName = edtFullName.getText().toString();
                 mGender = edtGender.getText().toString();
                 mPhoneName = edtNumber.getText().toString();
