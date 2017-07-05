@@ -116,7 +116,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
             tvAddress.setText(doc.getInfo().getAddress().getName());
 
             tvDate.setText(WorkTimeValidate.getDatePostHistory(doc.getInfo().getTime().getEndAt()));
-            tvTime.setText(WorkTimeValidate.getTimeWork(doc.getInfo().getTime().getStartAt()).replace(":", "h") + " - " + WorkTimeValidate.getTimeWork(doc.getInfo().getTime().getEndAt()).replace(":", "h"));
+            tvTime.setText(WorkTimeValidate.getTimeWorkLanguage(DetailWorkHistoryActivity.this,doc.getInfo().getTime().getStartAt()) + " - " + WorkTimeValidate.getTimeWorkLanguage(DetailWorkHistoryActivity.this,doc.getInfo().getTime().getEndAt()));
 
             if(!doc.getStakeholders().getReceived().getInfo().getImage().equals("")) {
                 Glide.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())

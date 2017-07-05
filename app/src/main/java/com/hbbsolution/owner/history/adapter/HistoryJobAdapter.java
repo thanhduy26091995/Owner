@@ -57,7 +57,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
         }
         WorkTimeValidate.setWorkTimeRegister(context, holder.tvTime, workHistory.getInfo().getTime().getEndAt());
         holder.tvDate.setText(WorkTimeValidate.getDatePostHistory(workHistory.getInfo().getTime().getEndAt()));
-        holder.tvDeitalTime.setText(WorkTimeValidate.getTimeWork(workHistory.getInfo().getTime().getStartAt()).replace(":", "h") + " - " + WorkTimeValidate.getTimeWork(workHistory.getInfo().getTime().getEndAt()).replace(":", "h"));
+        holder.tvDeitalTime.setText(WorkTimeValidate.getTimeWorkLanguage(context,workHistory.getInfo().getTime().getStartAt()) + " - " + WorkTimeValidate.getTimeWorkLanguage(context,workHistory.getInfo().getTime().getEndAt()));
     }
 
     @Override

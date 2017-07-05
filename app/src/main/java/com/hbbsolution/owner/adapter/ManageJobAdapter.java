@@ -2,7 +2,6 @@ package com.hbbsolution.owner.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,17 +13,7 @@ import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by tantr on 5/10/2017.
@@ -60,8 +49,8 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
         holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
         WorkTimeValidate.setWorkTimeRegister(context, holder.txtTimePostHistory,  mDatum.getHistory().getUpdateAt());
 
-        String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(context,mDatum.getInfo().getTime().getStartAt());
+        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(context,mDatum.getInfo().getTime().getEndAt());
         holder.txtTimeDoingPost.setText( mStartTime + " - " + mEndTime);
 
         if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {

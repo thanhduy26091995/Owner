@@ -32,7 +32,7 @@
     <string name="hour">/ 1 giờ</string>
     <string name="the_start_date">Ngày bắt đầu</string>
     <string name="time_of_working">Thời gian làm việc</string>
-    <string name="to_job_post">to</string>
+    <string name="to_job_post">đến</string>
     <string name="jobs_for_applications">Đang chờ ứng tuyển</string>
     <string name="qua_han_ung_tuyen">Quá hạn ứng tuyển</string>
     <string name="dang_cho_xac_nhan">Đang chờ xác nhận</string>
@@ -78,7 +78,7 @@
 
     <!--signup_screen start-->
     <string name="sign_up_confirm_password">Xác nhận mật khẩu</string>
-    <string name="sign_up_next">Kế tiếp</string>
+    <string name="sign_up_next">Tiếp theo</string>
     <string name="sign_up_email">Email</string>
     <string name="sign_up_full_name">Tên đầy đủ</string>
     <string name="sign_up_gender">Giới tính</string>
@@ -213,7 +213,7 @@
     <string name="send_require">Gửi yêu cầu</string>
     <string name="forgot_password">Quên mật khẩu</string>
     <string name="term_title">Điều khoản sử dụng</string>
-    <string name="usename_empty">Vui lòng điền username</string>
+    <string name="usename_empty">Vui lòng điền tên đăng nhập</string>
     <string name="emai_empty">Vui lòng điền email</string>
     <string name="email_wrong">Email nhập không đúng</string>
     <string name="forgot_password_success">Đã gửi thành công link đặt lại mật khẩu về email của bạn.</string>
@@ -363,4 +363,9 @@
 
     <string name="congviecdahoanthanh">Công việc đã hoàn thành</string>\
     <string name="sotiennaptaikhoan">Số tiền nạp vào tài khoản</string>
+
+    <string name="more_sign_in">Đăng nhập</string>
+    <string name="chiaseungdung">Chia sẻ ứng dụng</string>
+
+    <string name="back">Trở lại</string>
 </resources>

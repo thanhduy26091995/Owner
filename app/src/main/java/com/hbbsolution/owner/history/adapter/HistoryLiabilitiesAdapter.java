@@ -58,7 +58,7 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         }
         WorkTimeValidate.setWorkTimeRegister(context, holder.tvTime, liabilitiesHistory.getTask().getInfo().getTime().getEndAt());
         holder.tvDate.setText(WorkTimeValidate.getDatePostHistory(liabilitiesHistory.getTask().getInfo().getTime().getEndAt()));
-        holder.tvDeitalTime.setText(WorkTimeValidate.getTimeWork(liabilitiesHistory.getTask().getInfo().getTime().getStartAt()).replace(":", "h") + " - " + WorkTimeValidate.getTimeWork(liabilitiesHistory.getTask().getInfo().getTime().getEndAt()).replace(":", "h"));
+        holder.tvDeitalTime.setText(WorkTimeValidate.getTimeWorkLanguage(context,liabilitiesHistory.getTask().getInfo().getTime().getStartAt()) + " - " + WorkTimeValidate.getTimeWorkLanguage(context,liabilitiesHistory.getTask().getInfo().getTime().getEndAt()));
     }
 
     @Override
