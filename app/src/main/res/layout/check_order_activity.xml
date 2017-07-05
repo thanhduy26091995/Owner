@@ -139,11 +139,11 @@
                 android:textColor="@color/colorBlack" />
 
             <TextView
+                android:id="@+id/checkInfoPayment"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
                 android:layout_marginTop="4dp"
                 android:paddingLeft="8dp"
-                android:text="Đã thanh toán hãy nhấn OK"
                 android:text="@string/checkInfoPayment"
                 android:textColor="@color/colorBlack" />
 

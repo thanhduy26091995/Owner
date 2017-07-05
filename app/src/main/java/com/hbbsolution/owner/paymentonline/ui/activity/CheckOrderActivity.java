@@ -59,6 +59,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private Bundle infoMaid;
     private String amount;
+    private TextView checkInfoPayment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +82,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
             checkOrderPresenter.getInfoPaymnetByOnline(idBillOrder);
         } else {
             rechargeOnlineSecPresenter.getRechargeOnlineSec(key, idBillOrder);
+            checkInfoPayment.setVisibility(View.GONE);
         }
         initView();
     }
@@ -93,7 +95,7 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         txtPhoneNumber = (TextView) findViewById(R.id.activity_main_editPhoneNumber);
         txttAddress = (TextView) findViewById(R.id.activity_main_editAddress);
         mProgressView = (ProgressView) findViewById(R.id.activity_main_progressView);
-
+        checkInfoPayment = (TextView) findViewById(R.id.checkInfoPayment);
         checkOrderObject();
 
         btnCheckOrderOk.setOnClickListener(new View.OnClickListener() {
@@ -178,9 +180,40 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
 
     @Override
     public void onBackPressed() {
-        Intent intentMain = new Intent(getApplicationContext(), PaymentOnlineActivity.class);
-        startActivity(intentMain);
-        finish();
+        if (mCheckOrderActivity != null) {
+            mCheckOrderActivity.finish();
+        }
+        try {
+            if (PaymentOnlineActivity.mPaymentOnlineActivity != null) {
+                PaymentOnlineActivity.mPaymentOnlineActivity.finish();
+            }
+            if (PaymentActivity.mPaymentActivity != null) {
+                PaymentActivity.mPaymentActivity.finish();
+            }
+            if (DetailJobDoingActivity.mDetailJobDoingActivity != null) {
+                DetailJobDoingActivity.mDetailJobDoingActivity.finish();
+            }
+//                    if (WorkManagementActivity.mWorkManagementActivity != null) {
+//                        WorkManagementActivity.mWorkManagementActivity.finish();
+//                    }
+        } catch (Exception e) {
+
+        }
+        if(key.equals("")) {
+            Intent itCommnet = new Intent(CheckOrderActivity.this, CommentActivity.class);
+            itCommnet.putExtra("infoMaid", infoMaid);
+            startActivity(itCommnet);
+        }
+        else
+        {
+            try{
+                if(RechargeActivity.mRechargeActivity!=null)
+                {
+                    RechargeActivity.mRechargeActivity.finish();
+                }
+            }
+            catch (Exception e){}
+        }
     }
 
     @Override
@@ -303,4 +336,6 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
 //        txtData.setVisibility(View.VISIBLE);
         getInfoBill();
     }
+
+
 }
