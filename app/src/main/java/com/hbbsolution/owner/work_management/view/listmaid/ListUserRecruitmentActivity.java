@@ -14,20 +14,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListUserRecruitmentAdapter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
-import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.maid.Request;
 import com.hbbsolution.owner.work_management.presenter.ListMaidPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
-import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +152,13 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
 
             alertDialog.show();
         } else {
-            ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), ListUserRecruitmentActivity.this);
+            if (isResponseChosenMaid.getMessage().equals("SCHEDULE_DUPLICATED")){
+                ShowAlertDialog.showAlert(getResources().getString(R.string.schedule_duplicated), ListUserRecruitmentActivity.this);
+            }
+            else if (isResponseChosenMaid.getMessage().equals("DATA_NOT_EXIST")){
+                ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), ListUserRecruitmentActivity.this);
+            }
+
         }
     }
 

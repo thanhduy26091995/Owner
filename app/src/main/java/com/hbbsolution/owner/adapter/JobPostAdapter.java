@@ -8,10 +8,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -62,10 +62,10 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
             holder.lo_background.setVisibility(View.GONE);
             holder.txtType.setText(context.getResources().getString(R.string.jobs_for_applications));
 //            holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-            if(mDatum.getProcess().getId().equals("000000000000000000000006")){
+            if (mDatum.getProcess().getId().equals("000000000000000000000006")) {
                 holder.txtRequestDirect.setVisibility(View.VISIBLE);
                 holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-            }else {
+            } else {
                 holder.txtRequestDirect.setVisibility(View.GONE);
                 if (mDatum.getStakeholders().getRequest().size() == 0) {
                     holder.txtNumber_request_detail_post.setVisibility(View.GONE);
@@ -77,8 +77,10 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
         }
 
         if (mDatum.getInfo().getWork().getImage() != null) {
-            Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
+            Glide.with(context).load(mDatum.getInfo().getWork().getImage())
                     .placeholder(R.drawable.no_image)
+                    .thumbnail(0.5f)
+                    .dontAnimate()
                     .error(R.drawable.no_image)
                     .into(holder.imgTypeJobPost);
         }

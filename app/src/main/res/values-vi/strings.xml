@@ -375,4 +375,7 @@
 
     <string name="email_duplicated">Email đã bị trùng</string>
     <string name="waring">This work is expired, so you cannot see detais</string>
+
+    <string name="schedule_duplicated">Bạn đã chọn người giúp việc này</string>
+    <string name="data_not_exist">Data does not exist</string>
 </resources>

@@ -28,218 +28,228 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="5">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_avatar"
-            android:layout_width="100dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="25dp"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/camera_android"
-            android:layout_gravity="center"
-            app:civ_border_overlay="true" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:weightSum="5">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/linear_update"
+            android:layout_marginBottom="15dp"
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_avatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+
+                android:scaleType="centerCrop"
+                android:src="@drawable/camera_android"
+                app:civ_border_overlay="true" />
+
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_weight="1">
+                android:layout_height="wrap_content">
 
-                <com.hbbsolution.owner.base.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:text="@string/ic_mail"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/edit_email"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="50dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:fontFamily="@string/font_family_thin"
-                    android:hint="@string/sign_up_email"
-                    android:inputType="textEmailAddress"
-                    android:enabled="false"
-                    android:textColor="@android:color/black" />
-            </RelativeLayout>
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:background="@android:color/darker_gray" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1">
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="true"
+                            android:text="@string/ic_mail"
+                            android:textSize="20sp" />
 
-                <com.hbbsolution.owner.base.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:text="@string/ic_fullname"
-                    android:textSize="20sp" />
+                        <EditText
+                            android:id="@+id/edit_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="50dp"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:fontFamily="@string/font_family_thin"
+                            android:hint="@string/sign_up_email"
+                            android:inputType="textEmailAddress"
+                            android:textColor="@android:color/black" />
+                    </RelativeLayout>
 
-                <EditText
-                    android:id="@+id/edit_full_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="50dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:fontFamily="@string/font_family_thin"
-                    android:hint="@string/sign_up_full_name"
-                    android:textColor="@android:color/black" />
-            </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@android:color/darker_gray" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:background="@android:color/darker_gray" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginTop="15dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1">
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/ic_fullname"
+                            android:textSize="20sp" />
 
-                <com.hbbsolution.owner.base.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:text="@string/ic_gender"
-                    android:textSize="20sp" />
+                        <EditText
+                            android:id="@+id/edit_full_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="50dp"
+                            android:backgroundTint="@android:color/transparent"
+                            android:fontFamily="@string/font_family_thin"
+                            android:hint="@string/sign_up_full_name"
+                            android:text="Bùi Vũ Thadasdadasdasdasdasdasdadasdasdnh Duy"
+                            android:textColor="@android:color/black" />
+                    </RelativeLayout>
 
-                <EditText
-                    android:id="@+id/edit_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="50dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:focusable="false"
-                    android:fontFamily="@string/font_family_thin"
-                    android:hint="@string/sign_up_gender"
-                    android:textColor="@android:color/black" />
-            </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@android:color/darker_gray" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:background="@android:color/darker_gray" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginTop="15dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1">
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="true"
+                            android:text="@string/ic_gender"
+                            android:textSize="20sp" />
 
-                <com.hbbsolution.owner.base.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:text="@string/ic_phone_portr"
-                    android:textSize="20sp" />
+                        <EditText
+                            android:id="@+id/edit_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="50dp"
+                            android:backgroundTint="@android:color/transparent"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_thin"
+                            android:hint="@string/sign_up_gender"
+                            android:textColor="@android:color/black" />
+                    </RelativeLayout>
 
-                <EditText
-                    android:id="@+id/edit_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="50dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:fontFamily="@string/font_family_thin"
-                    android:hint="@string/sign_up_phone_number"
-                    android:inputType="number"
-                    android:textColor="@android:color/black" />
-            </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@android:color/darker_gray" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:background="@android:color/darker_gray" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginTop="15dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1">
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="true"
+                            android:text="@string/ic_phone_portr"
+                            android:textSize="20sp" />
 
-                <com.hbbsolution.owner.base.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:text="@string/ic_home"
-                    android:textSize="20sp" />
+                        <EditText
+                            android:id="@+id/edit_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="50dp"
+                            android:backgroundTint="@android:color/transparent"
+                            android:fontFamily="@string/font_family_thin"
+                            android:hint="@string/sign_up_phone_number"
+                            android:inputType="number"
+                            android:textColor="@android:color/black" />
+                    </RelativeLayout>
 
-                <EditText
-                    android:id="@+id/edit_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="50dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:fontFamily="@string/font_family_thin"
-                    android:hint="@string/sign_up_address"
-                    android:inputType="textImeMultiLine"
-                    android:textColor="@android:color/black" />
-            </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@android:color/darker_gray" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:background="@android:color/darker_gray" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginTop="15dp">
+
+                        <com.hbbsolution.owner.base.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/ic_home"
+                            android:textSize="20sp" />
+
+                        <EditText
+                            android:id="@+id/edit_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="50dp"
+                            android:backgroundTint="@android:color/transparent"
+                            android:fontFamily="@string/font_family_thin"
+                            android:hint="@string/sign_up_address"
+                            android:paddingBottom="10dp"
+                            android:text="dasdasd.,asd.,asd,.asd.asd.asd.sad.asd.ad..d,adasdasdasdadasdas.d.,a"
+                            android:textColor="@android:color/black" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@android:color/darker_gray" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_update"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical"
-            android:paddingBottom="20dp"
+            android:paddingBottom="15dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp">
 
@@ -253,5 +263,5 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
