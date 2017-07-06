@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
@@ -36,7 +37,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobDoingActivity extends AppCompatActivity implements View.OnClickListener, CheckOutView{
+public class DetailJobDoingActivity extends BaseActivity implements View.OnClickListener, CheckOutView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -78,6 +79,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
 
 
     private DatumPending mDatum;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +114,7 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
         txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
         String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
         String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
-        txtTimeDoWrokJobDoing.setText( mStartTime + " - " + mEndTime);
+        txtTimeDoWrokJobDoing.setText(mStartTime + " - " + mEndTime);
 //        txtTimeDoWrokJobDoing.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
         Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
                 .error(R.drawable.no_image)
@@ -139,17 +141,18 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.lo_ChosenCheckin:
                 checkOutAndBillPresenter.getInfoCheckOut(mDatum.getId());
-                progressDetailJobDoing.setVisibility(View.VISIBLE);
-                txt_lo_infoMail.setVisibility(View.VISIBLE);
+                showProgress();
+//                progressDetailJobDoing.setVisibility(View.VISIBLE);
+//                txt_lo_infoMail.setVisibility(View.VISIBLE);
 //                Intent itComment = new Intent(DetailJobDoingActivity.this, PaymentActivity.class);
 //                startActivity(itComment);
                 break;
             case R.id.lo_infoMaidDoing:
                 Intent itInfoUser = new Intent(DetailJobDoingActivity.this, MaidProfileActivity.class);
-                itInfoUser.putExtra("maid",mDatum.getStakeholders().getMadi());
+                itInfoUser.putExtra("maid", mDatum.getStakeholders().getMadi());
                 startActivity(itInfoUser);
                 break;
         }
@@ -164,11 +167,11 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
 
     @Override
     public void getInfoCheckOut(final CheckOutResponse checkOutResponse) {
-        progressDetailJobDoing.setVisibility(View.GONE);
-        txt_lo_infoMail.setVisibility(View.GONE);
-
+//        progressDetailJobDoing.setVisibility(View.GONE);
+//        txt_lo_infoMail.setVisibility(View.GONE);
+        hideProgress();
         boolean isCheckOut = checkOutResponse.getStatus();
-        if(isCheckOut) {
+        if (isCheckOut) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
@@ -192,16 +195,17 @@ public class DetailJobDoingActivity extends AppCompatActivity implements View.On
 
     @Override
     public void getErrorCheckOut(String error) {
-        progressDetailJobDoing.setVisibility(View.GONE);
-        txt_lo_infoMail.setVisibility(View.GONE);
+//        progressDetailJobDoing.setVisibility(View.GONE);
+//        txt_lo_infoMail.setVisibility(View.GONE);
+        hideProgress();
         ShowAlertDialog.showAlert(error, DetailJobDoingActivity.this);
     }
 
     private String formatPrice(Integer _Price) {
         String mOutputPrice = null;
         if (_Price != null && _Price != 0) {
-            mOutputPrice =  String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
-        } else if(_Price == 0){
+            mOutputPrice = String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
+        } else if (_Price == 0) {
             mOutputPrice = getResources().getString(R.string.hourly_pay);
         }
         return mOutputPrice;

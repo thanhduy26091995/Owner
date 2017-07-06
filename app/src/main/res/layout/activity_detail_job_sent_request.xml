@@ -181,14 +181,38 @@
                         android:layout_toRightOf="@+id/img_job_type"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/txtTitleJobDoing"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lau dọn nhà"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/colorBlack"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txtTitleJobDoing"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:text="Dọn dẹp nhà Dọn dẹp nhà"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtExpired_request_detail_post"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/background_text_expired"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="@string/qua_han"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/icon_size_normal"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/txtTypeJobDoing"
@@ -339,6 +363,39 @@
                         android:textColor="@color/colorBlack" />
 
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lo_clear_job_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtClearJob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/delete_this_work"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/home_background_maid_aound" />
+
+                <com.hbbsolution.owner.base.IconTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="@string/manager_ic_trash"
+                    android:textColor="@color/home_background_maid_aound"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.Constants;
@@ -53,7 +54,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobPendingActivity extends AppCompatActivity implements DetailJobPostView, View.OnClickListener {
+public class DetailJobPendingActivity extends BaseActivity implements DetailJobPostView, View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.lo_clear_job_pending)
@@ -177,9 +178,6 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lo_clear_job_pending:
-//                String id = mDatum.getId();
-//                String idOwner = mDatum.getStakeholders().getOwner();
-//                Log.d("idrequset", id + " - " + idOwner);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                 alertDialog.setCancelable(false);
                 alertDialog.setTitle(getResources().getString(R.string.notification));
@@ -187,7 +185,8 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
                 alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        progressBar.setVisibility(View.VISIBLE);
+//                        progressBar.setVisibility(View.VISIBLE);
+                        showProgress();
                         mDetailJobPostPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
                     }
                 });
@@ -359,22 +358,23 @@ public class DetailJobPendingActivity extends AppCompatActivity implements Detai
         return result;
     }
 
-    private void showProgress() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getResources().getString(R.string.dang_xacthuc));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
-
-    private void hideProgress() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
-    }
+//    private void showProgress() {
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage(getResources().getString(R.string.dang_xacthuc));
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
+//    }
+//
+//    private void hideProgress() {
+//        if (progressDialog != null && progressDialog.isShowing()) {
+//            progressDialog.dismiss();
+//        }
+//    }
 
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
-        progressBar.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
+        hideProgress();
         if (isJobPost) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
