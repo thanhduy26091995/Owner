@@ -268,8 +268,6 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
         btnSignIn.setEnabled(true);
         hideProgress();
-
-
         if (bodyResponse.getStatus() == true) {
                 //save session
                 sessionManagerUser.createLoginSession(bodyResponse.getData());
@@ -335,7 +333,7 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         Intent iUpdate = new Intent(SignInActivity.this, UpdateGooAndFaceActivity.class);
         iUpdate.putExtra("infoGoogle", bUpdate);
         startActivity(iUpdate);
-        finish();
+       // finish();
     }
 
     private void loginGoogle() {
@@ -376,7 +374,12 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
                 Log.d("DEVICE_TOKEN", DeviceToken);
                 emailGoogleOrFace = googleSignInAccount.getEmail();
                 nameGoogleOrFace = googleSignInAccount.getDisplayName();
-                imageGoogleOrFace = googleSignInAccount.getPhotoUrl().toString();
+                if (googleSignInAccount.getPhotoUrl() != null) {
+                    imageGoogleOrFace = googleSignInAccount.getPhotoUrl().toString();
+                }
+                else{
+                    imageGoogleOrFace = "";
+                }
                 mSignInGooAndFacePresenter.signInGooAndFace(IdUser, TokenID, DeviceToken);
                 confirmSignInFireBase(TokenID);
             }

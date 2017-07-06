@@ -1,19 +1,32 @@
 package com.hbbsolution.owner.base;
 
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import static com.hbbsolution.owner.base.OwnerApplication.receiver;
+import com.hbbsolution.owner.R;
 
 /**
  * Created by Administrator on 12/06/2017.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
     public static boolean isInternetConnect;
+    protected ProgressDialog progressDialog;
+
+    protected void showProgress() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    protected void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,14 +37,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        this.registerReceiver(receiver, intentFilter);
+//        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+//        this.registerReceiver(receiver, intentFilter);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        this.unregisterReceiver(receiver);
+        //this.unregisterReceiver(receiver);
     }
 
     @Override

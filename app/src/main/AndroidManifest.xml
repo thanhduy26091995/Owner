@@ -44,17 +44,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity android:name=".home.view.HomeActivity" />
         <activity android:name=".more.viet_pham.View.MoreActivity" />
         <activity android:name=".more.duy_nguyen.TermsActivity" />
-        <activity android:name=".more.viet_pham.View.shareapp.ShareCodeActivity"/>
+        <activity android:name=".more.viet_pham.View.shareapp.ShareCodeActivity" />
         <activity android:name=".more.viet_pham.View.signin.SignInActivity" />
         <activity android:name=".more.viet_pham.View.signup.SignUp1Activity" />
         <activity android:name=".more.viet_pham.View.signup.SignUp2Activity" />
         <activity android:name=".more.viet_pham.View.update.UpdateUserInfoActivity" />
         <activity android:name=".work_management.view.workmanager.WorkManagementActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPostActivity" />
-        <activity android:name=".work_management.view.detail.DetailJobSentRequestActivity"/>
+        <activity android:name=".work_management.view.detail.DetailJobSentRequestActivity" />
         <activity android:name=".work_management.view.detail.DetailJobPendingActivity" />
         <activity android:name=".work_management.view.detail.DetailJobDoingActivity" />
         <activity android:name=".work_management.view.jobpost.JobPostActivity" />
