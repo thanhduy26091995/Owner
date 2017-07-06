@@ -131,8 +131,7 @@
                         android:layout_marginRight="20dp"
                         android:background="@android:color/transparent"
                         android:hint="@string/address_job_post"
-                        android:inputType="text"
-                        android:padding="10dp"
+                        android:inputType="textPostalAddress"                        android:padding="10dp"
                         android:textSize="16sp" />
 
                     <View
