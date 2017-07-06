@@ -209,7 +209,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             }
             if (InternetConnection.getInstance().isOnline(FilterActivity.this)) {
                 //disable button
-                txtFilter.setEnabled(false);
+               // txtFilter.setEnabled(false);
                 showProgressDialog();
                 //save
                 presenter.filterMaid(lat, lng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax, workId);
@@ -342,12 +342,14 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void displayError(String error) {
         hideProgressDialog();
+    //    txtFilter.setEnabled(true);
+        finish();
         Log.d("ERROR", error);
     }
 
     @Override
     public void filterMaid(MaidNearByResponse maidNearByResponse) {
-        txtFilter.setEnabled(true);
+       // txtFilter.setEnabled(true);
         hideProgressDialog();
         if (maidNearByResponse.getData().size() >= 0) {
             Intent resultIntent = new Intent();
