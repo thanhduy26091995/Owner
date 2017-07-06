@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -42,7 +43,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobPostActivity extends AppCompatActivity implements DetailJobPostView, View.OnClickListener {
+public class DetailJobPostActivity extends BaseActivity implements DetailJobPostView, View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.manager_post_title_toothbar)
@@ -185,13 +186,13 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 break;
             case R.id.lo_list_recruitment:
                 if (mDatum.getStakeholders().getRequest().size() > 0) {
-//                    if(compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                    if(compareDays(mDatum.getInfo().getTime().getEndAt())) {
                         Intent itListRecruitment = new Intent(DetailJobPostActivity.this, ListUserRecruitmentActivity.class);
                         itListRecruitment.putExtra("idTaskProcess", mDatum.getId());
                         startActivity(itListRecruitment);
-//                    }else {
-//                        ShowAlertDialog.showAlert("Công việc này đã hết hạn, bạn không thể xem chi tiết được!", DetailJobPostActivity.this);
-//                    }
+                    }else {
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.waring), DetailJobPostActivity.this);
+                    }
                 }
                 break;
             case R.id.lo_clear_job:
@@ -202,7 +203,8 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
                 alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        progressBar.setVisibility(View.VISIBLE);
+//                        progressBar.setVisibility(View.VISIBLE);
+                        showProgress();
                         mDetailJobPostPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
                     }
                 });
@@ -220,7 +222,8 @@ public class DetailJobPostActivity extends AppCompatActivity implements DetailJo
 
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
-        progressBar.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
+        hideProgress();
         if (isJobPost) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);

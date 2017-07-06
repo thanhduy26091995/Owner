@@ -1,6 +1,7 @@
 package com.hbbsolution.owner.work_management.view.payment.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.hbbsolution.owner.work_management.model.billGv24.BillGv24Response;
 import com.hbbsolution.owner.work_management.model.chekout.DataBill;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
+import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 import com.hbbsolution.owner.work_management.view.payment.presenter.PaymentPresenter;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
@@ -104,6 +106,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     public static Activity mPaymentActivity = null;
     private long walletOwner;
     private long totalPrice;
+
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -283,8 +288,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                progressPayment.setVisibility(View.VISIBLE);
-                txt_lo_payment.setVisibility(View.VISIBLE);
+//                progressPayment.setVisibility(View.VISIBLE);
+//                txt_lo_payment.setVisibility(View.VISIBLE);
+                showProgressDialog();
                 switch (formPayment) {
                     case 1:
                         if (mDataBill != null) {
@@ -332,8 +338,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getInfoBill24h(BillGv24Response billGv24Response) {
-        progressPayment.setVisibility(View.GONE);
-        txt_lo_payment.setVisibility(View.GONE);
+//        progressPayment.setVisibility(View.GONE);
+//        txt_lo_payment.setVisibility(View.GONE);
+        hideProgressDialog();
         if (billGv24Response.getStatus()) {
             PaymentSuccess();
         } else {
@@ -343,15 +350,17 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getErrorBill24h(String error) {
-        progressPayment.setVisibility(View.GONE);
-        txt_lo_payment.setVisibility(View.GONE);
+//        progressPayment.setVisibility(View.GONE);
+//        txt_lo_payment.setVisibility(View.GONE);
+        hideProgressDialog();
         Toast.makeText(PaymentActivity.this, getResources().getString(R.string.thatbai), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void getInfoPaymentBymoney(BillGv24Response billGv24Response) {
-        progressPayment.setVisibility(View.GONE);
-        txt_lo_payment.setVisibility(View.GONE);
+        hideProgressDialog();
+//        progressPayment.setVisibility(View.GONE);
+//        txt_lo_payment.setVisibility(View.GONE);
         if (billGv24Response.getStatus()) {
             PaymentSuccess();
         } else {
@@ -371,8 +380,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getInfoPaymentByOnline(BillGv24Response billGv24Response) {
-        progressPayment.setVisibility(View.GONE);
-        txt_lo_payment.setVisibility(View.GONE);
+//        progressPayment.setVisibility(View.GONE);
+//        txt_lo_payment.setVisibility(View.GONE);
+        hideProgressDialog();
         if (billGv24Response.getStatus()) {
 //            checkOrderPresenter.getInfoPaymnetByOnline(mDataBill.getId());
             Intent itPaymentOnline = new Intent(PaymentActivity.this, PaymentOnlineActivity.class);
@@ -451,6 +461,19 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
         alertDialog.show();
+    }
+
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(PaymentActivity.this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (progressDialog.isShowing() && progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
 }
