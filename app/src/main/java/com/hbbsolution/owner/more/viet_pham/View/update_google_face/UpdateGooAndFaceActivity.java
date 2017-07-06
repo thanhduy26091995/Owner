@@ -59,16 +59,17 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
     private double mLat;
     private double mLng;
     private UpdateInfoGooAndFacePresenter mUpdateInfoGooAndFacePresenter;
-    private String emailGoogle ;
-    private String nameGoogle ;
-    private String idUser ;
-    private String TokenId ;
-    private String deviceToken ;
-    private String imageGoogle ;
-    private String mFullName,mPhoneName, mLocation, mGender;
+    private String emailGoogle;
+    private String nameGoogle;
+    private String idUser;
+    private String TokenId;
+    private String deviceToken;
+    private String imageGoogle;
+    private String mFullName, mPhoneName, mLocation, mGender;
     private int iGender;
     private SessionManagerUser mSessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +88,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -137,7 +137,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
                 mGender = edtGender.getText().toString();
                 mPhoneName = edtNumber.getText().toString();
                 mLocation = edtLocation.getText().toString();
-                mFullName = "gm"+idUser;
+                mFullName = "gm" + idUser;
                 if (mGender.equals(getResources().getString(R.string.pro_file_gender_male))) {
                     iGender = 0;
                 } else {
@@ -159,8 +159,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
 
     }
 
-    public void loadInfoFromGooAndFace()
-    {
+    public void loadInfoFromGooAndFace() {
         Intent iUpdate = getIntent();
         Bundle bUpdate = iUpdate.getBundleExtra("infoGoogle");
         emailGoogle = bUpdate.getString("emailGoogle");
@@ -169,7 +168,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
         TokenId = bUpdate.getString("TokenId");
         deviceToken = bUpdate.getString("deviceToken");
         imageGoogle = bUpdate.getString("imageGoogle");
-        ImageLoader.getInstance().loadImageAvatar(UpdateGooAndFaceActivity.this,imageGoogle,
+        ImageLoader.getInstance().loadImageAvatar(UpdateGooAndFaceActivity.this, imageGoogle,
                 ivAvatar);
         edtEmail.setText(emailGoogle);
         edtFullName.setText(nameGoogle);
@@ -203,8 +202,8 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
         mLng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
 //        token = mDataHashUser.get(SessionManagerUser.KEY_TOKEN);
         if (mLat != 0 && mLng != 0) {
-            mUpdateInfoGooAndFacePresenter.updateUserInfoGooAndFace(idUser,TokenId,deviceToken,emailGoogle,mFullName,mPhoneName
-            ,nameGoogle,mLocation,mLat,mLng,iGender,imageGoogle);
+            mUpdateInfoGooAndFacePresenter.updateUserInfoGooAndFace(idUser, TokenId, deviceToken, emailGoogle, mFullName, mPhoneName
+                    , nameGoogle, mLocation, mLat, mLng, iGender, imageGoogle);
         }
 
     }
@@ -212,8 +211,7 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
     @Override
     public void displaySignInGooAndFace(BodyResponse bodyResponse) {
         mProgressDialog.dismiss();
-        if (bodyResponse.isStatus() == true)
-        {
+        if (bodyResponse.isStatus() == true) {
             mSessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = mSessionManagerUser.getUserDetails();
             ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
@@ -221,8 +219,8 @@ public class UpdateGooAndFaceActivity extends AppCompatActivity implements MoreV
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
-        }else {
-            ShowAlertDialog.showAlert(getResources().getString(R.string.cap_nhat_thong_tin),UpdateGooAndFaceActivity.this);
+        } else {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.cap_nhat_thong_tin), UpdateGooAndFaceActivity.this);
         }
     }
 }
