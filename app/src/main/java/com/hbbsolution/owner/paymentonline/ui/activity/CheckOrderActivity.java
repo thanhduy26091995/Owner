@@ -78,13 +78,13 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
         checkOrderPresenter = new CheckOrderPresenter(this);
         rechargeOnlineSecPresenter = new RechargeOnlineSecPresenter(this);
         rechargeOnlineThiPresenter = new RechargeOnlineThiPresenter(this);
+        initView();
         if (key.equals("")) {
             checkOrderPresenter.getInfoPaymnetByOnline(idBillOrder);
         } else {
             rechargeOnlineSecPresenter.getRechargeOnlineSec(key, idBillOrder);
             checkInfoPayment.setVisibility(View.GONE);
         }
-        initView();
     }
 
     private void initView() {

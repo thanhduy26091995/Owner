@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
+import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
 
@@ -58,7 +59,7 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         }
         WorkTimeValidate.setWorkTimeRegister(context, holder.tvTime, liabilitiesHistory.getTask().getInfo().getTime().getEndAt());
         holder.tvDate.setText(WorkTimeValidate.getDatePostHistory(liabilitiesHistory.getTask().getInfo().getTime().getEndAt()));
-        holder.tvDeitalTime.setText(WorkTimeValidate.getTimeWorkLanguage(context,liabilitiesHistory.getTask().getInfo().getTime().getStartAt()) + " - " + WorkTimeValidate.getTimeWorkLanguage(context,liabilitiesHistory.getTask().getInfo().getTime().getEndAt()));
+        holder.tvDeitalTime.setText(WorkTimeValidate.getTimeWorkLanguage(context, liabilitiesHistory.getTask().getInfo().getTime().getStartAt()) + " - " + WorkTimeValidate.getTimeWorkLanguage(context, liabilitiesHistory.getTask().getInfo().getTime().getEndAt()));
     }
 
     @Override
@@ -86,6 +87,7 @@ public class HistoryLiabilitiesAdapter extends RecyclerView.Adapter<HistoryLiabi
         public void onClick(View v) {
             Intent intent = new Intent(context, PaymentActivity.class);
             intent.putExtra("liability", listData.get(getAdapterPosition()));
+            HistoryActivity.changeUnpaid = true;
 //            ActivityOptionsCompat historyOption =
 //                    ActivityOptionsCompat
 //                            .makeSceneTransitionAnimation((Activity)context, (View)v.findViewById(R.id.img_job_type), "icJobType");

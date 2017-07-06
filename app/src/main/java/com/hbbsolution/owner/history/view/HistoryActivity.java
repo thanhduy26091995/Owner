@@ -26,15 +26,18 @@ public class HistoryActivity extends AppCompatActivity {
     @BindView(R.id.txtNumber_Liabilities)
     TextView txtNumber_Liabilities;
     private HistoryViewPagerFragment historyViewPagerFragment;
-
     private Integer tab = null;
 
+    public static boolean changeUnpaid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
         setToolbar();
+
+        changeUnpaid =false;
+
         historyViewPagerFragment = new HistoryViewPagerFragment(getSupportFragmentManager(), this, 3);
         viewPagerHistory.setAdapter(historyViewPagerFragment);
         viewPagerHistory.setOffscreenPageLimit(3);
@@ -43,6 +46,7 @@ public class HistoryActivity extends AppCompatActivity {
         if (tab != null) {
             viewPagerHistory.setCurrentItem(tab);
         }
+
     }
 
     public void setToolbar() {
@@ -87,5 +91,17 @@ public class HistoryActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(changeUnpaid)
+        {
+            historyViewPagerFragment = new HistoryViewPagerFragment(getSupportFragmentManager(), this, 3);
+            viewPagerHistory.setAdapter(historyViewPagerFragment);
+            viewPagerHistory.setOffscreenPageLimit(3);
+            tabLayoutHistory.setupWithViewPager(viewPagerHistory);
+            viewPagerHistory.setCurrentItem(2);
+            changeUnpaid=false;
+        }
+    }
 }

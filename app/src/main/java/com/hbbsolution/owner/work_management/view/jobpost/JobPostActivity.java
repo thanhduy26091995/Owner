@@ -117,6 +117,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
     private Date startTime, endTime, startTimeTemp, endTimeTemp, nowTime, nowDate, choseDate;
     private Calendar cal;
     private int clicked;
+    private int date, month, year;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -201,12 +202,12 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             txtTime_start.setText(getTimeDoingPost(infoJob.getInfo().getTime().getStartAt()));
             txtTime_end.setText(getTimeDoingPost(infoJob.getInfo().getTime().getEndAt()));
 
-            SimpleDateFormat  editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             try {
                 startTime = editTime.parse(infoJob.getInfo().getTime().getStartAt());
                 endTime = editTime.parse(infoJob.getInfo().getTime().getEndAt());
-                choseDate =editTime.parse(infoJob.getInfo().getTime().getStartAt());
-                clicked=1;
+                choseDate = editTime.parse(infoJob.getInfo().getTime().getStartAt());
+                clicked = 1;
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -231,12 +232,11 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             public void afterTextChanged(Editable s) {
                 try {
                     edt_monney_work.removeTextChangedListener(this);
-                    String titleString = edt_monney_work.getText().toString().replace(".","");
+                    String titleString = edt_monney_work.getText().toString().replace(".", "");
                     edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(Long.parseLong(titleString)));
                     edt_monney_work.setSelection(edt_monney_work.getText().toString().length());
                     edt_monney_work.addTextChangedListener(this);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     edt_monney_work.addTextChangedListener(this);
                 }
             }
@@ -301,7 +301,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 //                showProgressDialog();
 //                checkLocaltionOfOwner();
                 showProgressDialog();
-                if(checkDataComplete()){
+                if (checkDataComplete()) {
                     mJobPostPresenter.getLocaltionAddress(edtAddressPost.getText().toString());
                 }
                 break;
@@ -329,7 +329,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         mTimeStartWork = getTimeWork(txtTime_start.getText().toString());
         mTimeEndWork = getTimeWork(txtTime_end.getText().toString());
         if (!edt_monney_work.getText().toString().isEmpty()) {
-            mPrice = edt_monney_work.getText().toString().replace(".","");
+            mPrice = edt_monney_work.getText().toString().replace(".", "");
         } else {
             mPrice = "0";
         }
@@ -384,9 +384,9 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
             alertDialog.show();
         } else {
-            if (isJobPost.getMessage().equals("TASK_OUT_OF_LIMIT")){
+            if (isJobPost.getMessage().equals("TASK_OUT_OF_LIMIT")) {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), JobPostActivity.this);
-            }else {
+            } else {
 //            hideProgressDialog();
 //            lo_job_post.setVisibility(View.GONE);
 //            progressBar.setVisibility(View.GONE);
@@ -546,14 +546,18 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
 
     private void getDatePicker() {
         final Calendar calendar = Calendar.getInstance();
-        int date = calendar.get(Calendar.DATE);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
+        final int chDate = calendar.get(Calendar.DATE);
+        final int chMonth = calendar.get(Calendar.MONTH);
+        final int chYear = calendar.get(Calendar.YEAR);
         DatePickerDialog mDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 calendar.set(i, i1, i2, 0, 0, 0);
                 choseDate = calendar.getTime();
+                if (date == i2 && month == i1 && year == i) {
+                    nowDate = choseDate;
+                    clicked=0;
+                }
 //                DateTime dateTime = new DateTime(calendar);
 //                mDateStartWork = dateTime.toString();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -562,15 +566,15 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_date_post), JobPostActivity.this);
                 }
             }
-        }, year, month, date);
+        }, chYear, chMonth, chDate);
         mDatePickerDialog.show();
     }
 
     private void getDateCurrent() {
         Calendar calendar = Calendar.getInstance();
-        int date = calendar.get(Calendar.DATE);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
+        date = calendar.get(Calendar.DATE);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
         calendar.set(year, month, date, 0, 0, 0);
         nowDate = calendar.getTime();
         choseDate = calendar.getTime();
@@ -578,6 +582,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
 
     }
+
     public void compareTimeStart(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         startTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
@@ -649,6 +654,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
             }
         }
     }
+
     private boolean CompareDays(String dateStartWork) {
         Date date1 = null;
         Calendar calendar = Calendar.getInstance();
@@ -760,6 +766,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         }
         return super.dispatchTouchEvent(event);
     }
+
     private void showProgressDialog() {
         progressDialog = new ProgressDialog(JobPostActivity.this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
