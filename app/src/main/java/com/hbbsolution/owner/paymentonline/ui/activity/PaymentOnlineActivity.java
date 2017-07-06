@@ -181,7 +181,8 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                             showErrorDialog(getString(R.string.error_email), false);
                         }
                     } else {
-                        showErrorDialog(getString(R.string.error_amount), false);
+                        ShowAlertDialog.showAlert(getString(R.string.error_amount), PaymentOnlineActivity.this);
+//                        showErrorDialog(getString(R.string.error_amount), false);
                     }
                 } else {
                     showErrorDialog(getString(R.string.error_name_order), false);
