@@ -105,6 +105,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     private Date startTime, endTime, startTimeTemp, endTimeTemp, nowTime, nowDate, choseDate;
     private Calendar cal;
     private int clicked;
+    private int date, month, year;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -172,14 +173,18 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     //show dialog to choose date
     private void getDatePicker() {
         final Calendar calendar = Calendar.getInstance();
-        int date = calendar.get(Calendar.DATE);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
+        int chDate = calendar.get(Calendar.DATE);
+        int chMonth = calendar.get(Calendar.MONTH);
+        int chYear = calendar.get(Calendar.YEAR);
         DatePickerDialog mDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 calendar.set(i, i1, i2, 0, 0, 0);
                 choseDate = calendar.getTime();
+                if (date == i2 && month == i1 && year == i) {
+                    nowDate = choseDate;
+                    clicked = 0;
+                }
 //                DateTime dateTime = new DateTime(calendar);
 //                mDateStartWork = dateTime.toString();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -188,7 +193,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_date_post), ChooseMaidActivity.this);
                 }
             }
-        }, year, month, date);
+        }, chYear, chMonth, chDate);
         mDatePickerDialog.show();
     }
 
@@ -313,9 +318,9 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     //get current date
     private void getDateCurrent() {
         Calendar calendar = Calendar.getInstance();
-        int date = calendar.get(Calendar.DATE);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
+        date = calendar.get(Calendar.DATE);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
         calendar.set(year, month, date, 0, 0, 0);
         nowDate = calendar.getTime();
         choseDate = calendar.getTime();
