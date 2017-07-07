@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -15,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import butterknife.BindView;
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 5/10/2017.
  */
 
-public class SignUp1Activity extends AppCompatActivity {
+public class SignUp1Activity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.button_next)
@@ -41,6 +41,9 @@ public class SignUp1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_1);
         ButterKnife.bind(this);
+
+        checkConnectionInterner();
+
         setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

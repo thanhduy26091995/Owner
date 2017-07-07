@@ -1,13 +1,11 @@
 package com.hbbsolution.owner.base;
 
 import android.app.ProgressDialog;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
 import com.hbbsolution.owner.utils.ShowSnackbar;
 
 /**

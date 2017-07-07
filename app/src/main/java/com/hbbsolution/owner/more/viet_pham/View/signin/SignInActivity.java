@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,6 +39,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.api.ApiClient;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.base.OwnerApplication;
 import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
@@ -70,7 +70,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 5/9/2017.
  */
 
-public class SignInActivity extends AppCompatActivity implements MoreView, FirebaseAuth.AuthStateListener, GoogleApiClient.OnConnectionFailedListener {
+public class SignInActivity extends BaseActivity implements MoreView, FirebaseAuth.AuthStateListener, GoogleApiClient.OnConnectionFailedListener {
     @BindView(R.id.toobar)
     Toolbar toolbar;
     @BindView(R.id.bt_work_around_here)
@@ -116,6 +116,9 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
+
+        checkConnectionInterner();
+
         mCallbackManager = CallbackManager.Factory.create();
         mLoginManager = LoginManager.getInstance();
         sessionManagerUser = new SessionManagerUser(this);
@@ -135,18 +138,6 @@ public class SignInActivity extends AppCompatActivity implements MoreView, Fireb
 
     }
 
-    private void showProgress() {
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage(getResources().getString(R.string.loading));
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
-    }
-
-    private void hideProgress() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
 
 
     @Override
