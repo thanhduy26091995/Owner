@@ -124,8 +124,6 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         cal.set(0, 0, 0);
         nowTime = cal.getTime();
         cal.set(0, 0, 0, 0, 0, 0);
-        startTime = cal.getTime();
-        endTime = cal.getTime();
 
         clicked = 0;
 
@@ -225,13 +223,15 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     public void compareTimeStart(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         startTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1) {
+            if (clicked == 1 && endTime!=null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
-                } else {
+                } else if (endTime.getTime() - startTimeTemp.getTime() < 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), ChooseMaidActivity.this);
-
+                }
+                else if (startTimeTemp.getTime() < nowTime.getTime()){
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), ChooseMaidActivity.this);
                 }
             } else {
                 if (startTimeTemp.getTime() >= nowTime.getTime()) {
@@ -243,7 +243,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         } else {
-            if (clicked == 1) {
+            if (clicked == 1 && endTime!=null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
@@ -262,12 +262,15 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
     public void compareTimeEnd(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         endTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1) {
+            if (clicked == 1 && startTime!=null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;
-                } else {
+                } else if(endTimeTemp.getTime() - startTime.getTime() < 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), ChooseMaidActivity.this);
+                }
+                else if (endTimeTemp.getTime() < nowTime.getTime()){
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), ChooseMaidActivity.this);
                 }
             } else {
                 if (endTimeTemp.getTime() >= nowTime.getTime()) {
@@ -279,7 +282,7 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         } else {
-            if (clicked == 1) {
+            if (clicked == 1 && startTime!=null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;

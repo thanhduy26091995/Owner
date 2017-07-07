@@ -12,7 +12,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -139,8 +138,6 @@ public class JobPostActivity extends BaseActivity implements JobPostView, View.O
         cal.set(0, 0, 0);
         nowTime = cal.getTime();
         cal.set(0, 0, 0, 0, 0, 0);
-        startTime = cal.getTime();
-        endTime = cal.getTime();
 
         clicked = 0;
 
@@ -558,13 +555,16 @@ public class JobPostActivity extends BaseActivity implements JobPostView, View.O
     public void compareTimeStart(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         startTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1) {
+            if (clicked == 1 && endTime!=null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
-                } else {
+                } else if (endTime.getTime() - startTimeTemp.getTime() < 0){
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
-
+                }
+                else if (startTimeTemp.getTime() < nowTime.getTime())
+                {
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
                 }
             } else {
                 if (startTimeTemp.getTime() >= nowTime.getTime()) {
@@ -576,7 +576,7 @@ public class JobPostActivity extends BaseActivity implements JobPostView, View.O
                 }
             }
         } else {
-            if (clicked == 1) {
+            if (clicked == 1 && endTime!=null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
@@ -595,12 +595,15 @@ public class JobPostActivity extends BaseActivity implements JobPostView, View.O
     public void compareTimeEnd(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         endTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1) {
+            if (clicked == 1 && startTime!=null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;
-                } else {
+                } else if(endTimeTemp.getTime() - startTime.getTime() < 0){
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
+                }
+                else if (endTimeTemp.getTime() < nowTime.getTime()){
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
                 }
             } else {
                 if (endTimeTemp.getTime() >= nowTime.getTime()) {
@@ -612,7 +615,7 @@ public class JobPostActivity extends BaseActivity implements JobPostView, View.O
                 }
             }
         } else {
-            if (clicked == 1) {
+            if (clicked == 1 && startTime!=null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;
