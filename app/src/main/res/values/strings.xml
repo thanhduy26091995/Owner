@@ -384,4 +384,9 @@
     <string name="share_with_friends">Share with Friends</string>
     <string name="share_app">Giao diện hiện đại, tính năng độc đáo, hoạt động cực kỳ hiệu quả là những gì bạn vừa trải nghiệm. Với phương châm “Chất lượng tạo niềm tin”, chúng tôi mong muốn mang đến cho khách hàng của mình những điều tốt nhất. Và giờ đây, hãy chia sẻ ứng dụng NGV247 với chúng tôi để cùng nhau phát triển những điều lợi ích nhất.</string>
     <string name="waring">This work is expired, so you cannot see detais</string>
+
+    <string name="schedule_duplicated">This person has been choosen</string>
+    <string name="data_not_exist">Data does not exist</string>
+    <string name="invalid">Invalid Username or Password</string>
+    <string name="invalid_pass">These passwords do not match. Please re-enter!</string>
 </resources>

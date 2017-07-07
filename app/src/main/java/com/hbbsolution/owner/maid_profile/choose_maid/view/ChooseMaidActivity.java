@@ -166,8 +166,6 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         });
-
-
     }
 
     //show dialog to choose date
@@ -429,7 +427,6 @@ public class ChooseMaidActivity extends AppCompatActivity implements View.OnClic
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
 
         return false;
     }

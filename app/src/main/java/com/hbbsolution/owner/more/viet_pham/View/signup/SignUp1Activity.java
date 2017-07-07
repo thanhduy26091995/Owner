@@ -78,8 +78,7 @@ public class SignUp1Activity extends BaseActivity {
                         iSignUp1.putExtra("bNextPage", bNextPage);
                         startActivity(iSignUp1);
                     } else {
-//                        Toast.makeText(SignUp1Activity.this,"Xác nhận mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                        ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong), SignUp1Activity.this);
+                        ShowAlertDialog.showAlert(getResources().getString(R.string.invalid_pass), SignUp1Activity.this);
                     }
                 }
             }

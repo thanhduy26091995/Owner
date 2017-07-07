@@ -376,6 +376,8 @@
     <string name="email_duplicated">Email đã bị trùng</string>
     <string name="waring">This work is expired, so you cannot see detais</string>
 
-    <string name="schedule_duplicated">This person has been choosen</string>
-    <string name="data_not_exist">Data does not exist</string>
+    <string name="schedule_duplicated">Bạn đã chọn người giúp việc này</string>
+    <string name="data_not_exist">Dữ liệu không tồn tại</string>
+    <string name="invalid">Tên đăng nhập hoặc Mật khẩu không đúng</string>
+    <string name="invalid_pass">Mật khẩu không khớp. Vui lòng nhập lại!</string>
 </resources>

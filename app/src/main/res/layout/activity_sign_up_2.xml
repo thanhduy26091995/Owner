@@ -208,7 +208,8 @@
                     android:layout_centerInParent="true"
                     android:text="@string/ic_home"
                     android:textSize="20sp" />
-                <EditText
+
+                <com.hbbsolution.owner.utils.CustomEditText
                     android:id="@+id/edit_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.multidex.MultiDex;
 
 import com.hbbsolution.owner.api.ApiClient;
+import com.hbbsolution.owner.utils.ConnectivityReceiver;
 import com.hbbsolution.owner.utils.InternetConnectionReceiver;
 import com.hbbsolution.owner.utils.SessionManagerForLanguage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
@@ -129,5 +130,9 @@ public class OwnerApplication extends Application {
                 break;
         }
         return new Locale(language);
+    }
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+        ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 }
