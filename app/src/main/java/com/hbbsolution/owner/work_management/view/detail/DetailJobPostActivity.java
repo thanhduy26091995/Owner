@@ -91,6 +91,7 @@ public class DetailJobPostActivity extends BaseActivity implements DetailJobPost
         setContentView(R.layout.activity_detail_job_post);
         mDetailJobPostActivity = this;
         ButterKnife.bind(this);
+        checkConnectionInterner();
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);

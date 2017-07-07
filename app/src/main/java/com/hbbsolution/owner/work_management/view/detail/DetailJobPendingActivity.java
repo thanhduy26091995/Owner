@@ -107,6 +107,7 @@ public class DetailJobPendingActivity extends BaseActivity implements DetailJobP
         setContentView(R.layout.activity_detail_job_pending);
         ButterKnife.bind(this);
 
+        checkConnectionInterner();
         sessionManagerUser = new SessionManagerUser(this);
         hashDataUser = sessionManagerUser.getUserDetails();
         toolbar.setTitle("");

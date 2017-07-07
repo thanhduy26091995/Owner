@@ -51,7 +51,7 @@
     <string name="types_of_work">Types of work</string>
     <string name="work_description">Work description</string>
     <string name="address_job_post">Address</string>
-    <string name="enter_the_salary">Enter the salary</string>
+    <string name="enter_the_salary">Please enter the amount</string>
     <string name="hourly_pay">Hourly pay</string>
     <string name="hour">/ 1 hour</string>
     <string name="the_start_date">The start date</string>

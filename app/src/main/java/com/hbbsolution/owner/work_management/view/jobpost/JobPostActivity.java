@@ -35,6 +35,7 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -67,7 +68,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class JobPostActivity extends AppCompatActivity implements JobPostView, View.OnClickListener {
+public class JobPostActivity extends BaseActivity implements JobPostView, View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -126,6 +127,7 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         mJobPostActivity = this;
         ButterKnife.bind(this);
 
+        checkConnectionInterner();
         //setup view
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -449,36 +451,6 @@ public class JobPostActivity extends AppCompatActivity implements JobPostView, V
         });
     }
 
-//    private void posData(GeoCodeMapResponse _geoCodeMapResponse) {
-//
-//        double lat = _geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
-//        double lng = _geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
-//        mTitlePost = edtTitlePost.getText().toString();
-//        mDescriptionPost = edtDescriptionPost.getText().toString();
-//        mTimeStartWork = getTimeWork(txtTime_start.getText().toString());
-//        mTimeEndWork = getTimeWork(txtTime_end.getText().toString());
-//        if (!edt_monney_work.getText().toString().isEmpty()) {
-//            mPrice = edt_monney_work.getText().toString();
-//        } else {
-//            mPrice = "0";
-//        }
-//
-//        if (chb_tools_work.isChecked()) {
-//            mChosenTools = true;
-//        }
-//
-//        txt_post_complete.setEnabled(false);
-////        progressBar.setVisibility(View.VISIBLE);
-//
-//        if (isPost) {
-//            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-//                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-//        } else {
-//            mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-//                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-//        }
-//
-//    }
 
     private boolean checkDataComplete() {
 

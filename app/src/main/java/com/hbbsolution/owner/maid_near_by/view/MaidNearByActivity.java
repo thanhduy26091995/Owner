@@ -115,7 +115,7 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
-        mTextTitle.setText(getResources().getString(R.string.maid_near_by));
+        mTextTitle.setText(getResources().getString(R.string.home_maid_around));
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (InternetConnection.getInstance().isOnline(MaidNearByActivity.this)) {

@@ -92,6 +92,7 @@ public class DetailJobDoingActivity extends BaseActivity implements View.OnClick
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        checkConnectionInterner();
         lo_ChosenCheckin.setOnClickListener(this);
         lo_infoMaidDoing.setOnClickListener(this);
         checkOutAndBillPresenter = new CheckOutAndBillPresenter(this);

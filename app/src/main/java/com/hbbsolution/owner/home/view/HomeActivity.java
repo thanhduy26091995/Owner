@@ -59,23 +59,13 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         txtHome_title_toothbar.setText(getResources().getString(R.string.home_home));
-
+        checkConnectionInterner();
         // on click
         mLayout_MaidAround.setOnClickListener(this);
         mLayout_YourTasks.setOnClickListener(this);
         mLayout_History.setOnClickListener(this);
         sessionManagerForLanguage = new SessionManagerForLanguage(this);
         String lang = sessionManagerForLanguage.getLanguage();
-//        if (lang.equals("Tiếng Việt")) {
-////            RelativeLayout.LayoutParams  parameter =  (RelativeLayout.LayoutParams) txt_work_management.getLayoutParams();
-////            parameter.setMargins(getResources().geti(R.dimen.home_margin_work), parameter.topMargin, parameter.rightMargin, parameter.bottomMargin); // left, top, right, bottom
-////            txtField.setLayoutParams(parameter);
-//            txt_work_management.setPadding(20, 0, 20, 5);
-//            txt_work_management_history.setPadding(15, 0, 15, 5);
-//        } else if (lang.equals("English")) {
-//            txt_work_management.setPadding(15, 0, 15, 5);
-//            txt_work_management_history.setPadding(5, 0, 5, 5);
-//        }
 
         if (lang.equals("Tiếng Việt")) {
             txt_work_maid_around.setText(changeCharInPosition(setTitle(txt_work_maid_around.getText().toString(),2),'\n',txt_work_maid_around.getText().toString()));
@@ -147,10 +137,6 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         startActivity(itTransActivity);
     }
 
-    private void ShowToast(String msg) {
-        Toast.makeText(HomeActivity.this, msg, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void responseCheckToken() {
         if (HomeActivity.this != null) {
@@ -173,7 +159,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
 
     @Override
     public void errorConnectService() {
-        ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), HomeActivity.this);
+//        ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet), HomeActivity.this);
     }
 
     @Override

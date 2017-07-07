@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
 import com.hbbsolution.owner.home.view.HomeActivity;
+import com.hbbsolution.owner.base.BaseActivity;
+import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
@@ -54,6 +56,7 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_work_management);
         mWorkManagementActivity = this;
         ButterKnife.bind(this);
+        checkConnectionInterner();
 
         //setupView
         toolbar.setTitle("");
