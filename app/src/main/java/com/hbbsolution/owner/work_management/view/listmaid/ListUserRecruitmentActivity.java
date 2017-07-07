@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListUserRecruitmentAdapter;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -37,7 +38,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/15/2017.
  */
 
-public class ListUserRecruitmentActivity extends AppCompatActivity implements ListMaidView {
+public class ListUserRecruitmentActivity extends BaseActivity implements ListMaidView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -60,6 +61,7 @@ public class ListUserRecruitmentActivity extends AppCompatActivity implements Li
         setContentView(R.layout.activity_list_user_recruitment);
         mListUserRecruitmentActivity = this;
         ButterKnife.bind(this);
+        checkConnectionInterner();
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);

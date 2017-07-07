@@ -30,7 +30,7 @@ import de.greenrobot.event.EventBus;
  * Created by buivu on 04/05/2017.
  */
 
-public class WorkManagementActivity extends AppCompatActivity implements View.OnClickListener {
+public class WorkManagementActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
