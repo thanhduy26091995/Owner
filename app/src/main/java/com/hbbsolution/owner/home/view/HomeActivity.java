@@ -127,13 +127,16 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
         switch (id) {
             case R.id.lo_maid_around:
                 transActivity(MaidNearByActivity.class);
+                finish();
                 //ShowToast("Maid Around");
                 break;
             case R.id.lo_your_tasks:
                 transActivity(WorkManagementActivity.class);
+                finish();
                 break;
             case R.id.lo_history:
                 transActivity(HistoryActivity.class);
+                finish();
                 break;
         }
     }

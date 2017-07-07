@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.history.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.fragment.HistoryViewPagerFragment;
+import com.hbbsolution.owner.home.view.HomeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +61,8 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            Intent intentHome = new Intent(HistoryActivity.this, HomeActivity.class);
+            startActivity(intentHome);
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -103,5 +107,13 @@ public class HistoryActivity extends AppCompatActivity {
             viewPagerHistory.setCurrentItem(2);
             changeUnpaid=false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intentHome = new Intent(HistoryActivity.this, HomeActivity.class);
+        startActivity(intentHome);
+        finish();
     }
 }

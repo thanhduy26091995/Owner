@@ -87,24 +87,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             EventBus.getDefault().postSticky("1");
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 1);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         } else if (data.get("status").equals("0")) {
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 0);
             EventBus.getDefault().postSticky(false);
             EventBus.getDefault().postSticky("0");
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         } else if (data.get("status").equals("10")) {
             Intent intent = new Intent(this, HistoryActivity.class);
             intent.putExtra("tab", 0);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         } else if (data.get("status").equals("11")) {
             Intent intent = new Intent(this, HistoryActivity.class);
             intent.putExtra("tab", 2);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         }
 

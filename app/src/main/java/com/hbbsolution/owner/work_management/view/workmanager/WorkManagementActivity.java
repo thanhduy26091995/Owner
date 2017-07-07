@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
-import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
@@ -74,6 +74,8 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         if (item.getItemId() == android.R.id.home) {
             EventBus.getDefault().postSticky(true);
             EventBus.getDefault().postSticky("0");
+            Intent intentHome = new Intent(WorkManagementActivity.this, HomeActivity.class);
+            startActivity(intentHome);
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -177,6 +179,9 @@ public class WorkManagementActivity extends AppCompatActivity implements View.On
         super.onBackPressed();
         EventBus.getDefault().postSticky(true);
         EventBus.getDefault().postSticky("0");
+        Intent intentHome = new Intent(WorkManagementActivity.this, HomeActivity.class);
+        startActivity(intentHome);
+        finish();
     }
 
     public void onEventMainThread(Integer quantityJobPost) {

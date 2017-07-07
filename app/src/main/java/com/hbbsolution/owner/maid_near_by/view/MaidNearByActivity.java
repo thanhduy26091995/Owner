@@ -44,6 +44,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.InternetConnection;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.maid_near_by.model.MarkerInfoWindowAdapter;
 import com.hbbsolution.owner.maid_near_by.presenter.MaidNearByPresenter;
 import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterActivity;
@@ -460,6 +461,8 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            Intent intentHome = new Intent(MaidNearByActivity.this, HomeActivity.class);
+            startActivity(intentHome);
             finish();
         } else if (item.getItemId() == R.id.action_filter) {
             // if (location != null) {
@@ -608,5 +611,13 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
     @Override
     public void onConnectionSuspended(int i) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intentHome = new Intent(MaidNearByActivity.this, HomeActivity.class);
+        startActivity(intentHome);
+        finish();
     }
 }
