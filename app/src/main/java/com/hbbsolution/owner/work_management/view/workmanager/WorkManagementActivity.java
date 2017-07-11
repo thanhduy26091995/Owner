@@ -10,14 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
 import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.utils.ConnectivityReceiver;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
@@ -30,7 +33,7 @@ import de.greenrobot.event.EventBus;
  * Created by buivu on 04/05/2017.
  */
 
-public class WorkManagementActivity extends BaseActivity implements View.OnClickListener {
+public class WorkManagementActivity extends BaseActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener  {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -42,6 +45,8 @@ public class WorkManagementActivity extends BaseActivity implements View.OnClick
     TabLayout tabLayout;
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
+    @BindView(R.id.imgNo_internet)
+    ImageView imgNo_internet;
 
     private Integer tabMore, mQuantityJobPost;
     private boolean isPause = false, mTab = false;
@@ -56,7 +61,7 @@ public class WorkManagementActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_work_management);
         mWorkManagementActivity = this;
         ButterKnife.bind(this);
-        checkConnectionInterner();
+        checkConnection();
 
         //setupView
         toolbar.setTitle("");
@@ -65,6 +70,7 @@ public class WorkManagementActivity extends BaseActivity implements View.OnClick
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtManagement_compose_toothbar.setOnClickListener(this);
+        imgNo_internet.setOnClickListener(this);
         createFragment();
         tabMore = getIntent().getIntExtra("tabMore", 0);
         if (tabMore != null) {
@@ -123,6 +129,17 @@ public class WorkManagementActivity extends BaseActivity implements View.OnClick
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), WorkManagementActivity.this);
                 }
                 break;
+
+            case R.id.imgNo_internet:
+                boolean isConnected = ConnectivityReceiver.isConnected();
+                if (isConnected) {
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+                    imgNo_internet.setVisibility(View.GONE);
+                }
+                break;
         }
     }
 
@@ -147,7 +164,6 @@ public class WorkManagementActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void onResume() {
-
         if (isPause) {
             if (mTab) {
                 this.finish();
@@ -197,5 +213,19 @@ public class WorkManagementActivity extends BaseActivity implements View.OnClick
 
     public void onEventMainThread(String positionTab) {
         mPositionTab = Integer.parseInt(positionTab);
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        if (!isConnected) {
+            imgNo_internet.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        if (!isConnected) {
+            imgNo_internet.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -35,5 +35,4 @@ public class InternetConnectionReceiver extends BroadcastReceiver {
         }
         BaseActivity.isInternetConnect = isInternetConnect;
     }
-
 }

@@ -111,10 +111,6 @@ public class OwnerApplication extends Application {
         }
     }
 
-    private void setToken(String token) {
-        ApiClient.setToken(token);
-    }
-
     private Locale getLocale() {
         SessionManagerForLanguage sessionManagerForLanguage = new SessionManagerForLanguage(this);
         String language = sessionManagerForLanguage.getLanguage();
@@ -130,6 +126,9 @@ public class OwnerApplication extends Application {
                 break;
         }
         return new Locale(language);
+    }
+    private void setToken(String token) {
+        ApiClient.setToken(token);
     }
 
     public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
