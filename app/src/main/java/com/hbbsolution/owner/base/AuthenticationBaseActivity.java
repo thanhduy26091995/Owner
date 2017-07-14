@@ -83,8 +83,8 @@ public class AuthenticationBaseActivity extends AppCompatActivity implements Hom
                     SessionManagerUser sessionManagerUser = new SessionManagerUser(getApplicationContext());
                     sessionManagerUser.logoutUser();
                     Intent itBackSignIn = new Intent(getApplicationContext(), SignInActivity.class);
+                    itBackSignIn.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(itBackSignIn);
-                    finish();
                 }
             });
             alertDialog.show();
