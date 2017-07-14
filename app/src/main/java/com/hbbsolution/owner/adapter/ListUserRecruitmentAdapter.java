@@ -1,7 +1,6 @@
 package com.hbbsolution.owner.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +9,15 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.work_management.model.maid.Request;
-import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
-import java.util.Date;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by tantr on 5/22/2017.
@@ -75,7 +69,7 @@ public class ListUserRecruitmentAdapter extends RecyclerView.Adapter<ListUserRec
 
         }else {
             holder.imgIcCheck.setVisibility(View.VISIBLE);
-            holder.tvDate.setText(String.valueOf(mMaid.getWorkInfo().getPrice()));
+            holder.tvDate.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mMaid.getWorkInfo().getPrice()));
             holder.tvType.setText(context.getResources().getString(R.string.select_your_applicants));
         }
 
