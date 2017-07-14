@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.base.IconTextView;
@@ -33,7 +34,7 @@ import de.greenrobot.event.EventBus;
  * Created by buivu on 04/05/2017.
  */
 
-public class WorkManagementActivity extends BaseActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener  {
+public class WorkManagementActivity extends AuthenticationBaseActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener  {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -227,5 +228,10 @@ public class WorkManagementActivity extends BaseActivity implements View.OnClick
         if (!isConnected) {
             imgNo_internet.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void responseCheckToken() {
+        super.responseCheckToken();
     }
 }

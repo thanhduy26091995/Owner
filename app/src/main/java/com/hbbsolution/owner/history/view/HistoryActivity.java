@@ -10,15 +10,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.history.fragment.HistoryViewPagerFragment;
 import com.hbbsolution.owner.home.view.HomeActivity;
+import com.hbbsolution.owner.home.view.HomeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-public class HistoryActivity extends BaseActivity {
+public class HistoryActivity extends AuthenticationBaseActivity implements HomeView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tab_layout_history)
@@ -117,5 +119,10 @@ public class HistoryActivity extends BaseActivity {
         Intent intentHome = new Intent(HistoryActivity.this, HomeActivity.class);
         startActivity(intentHome);
         finish();
+    }
+
+    @Override
+    public void responseCheckToken() {
+        super.responseCheckToken();
     }
 }

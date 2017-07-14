@@ -154,10 +154,10 @@ public class ListUserRecruitmentActivity extends BaseActivity implements ListMai
 
             alertDialog.show();
         } else {
-            if (isResponseChosenMaid.getMessage().equals("SCHEDULE_DUPLICATED")){
+            if (isResponseChosenMaid.getMessage().trim().equals("SCHEDULE_DUPLICATED")){
                 ShowAlertDialog.showAlert(getResources().getString(R.string.schedule_duplicated), ListUserRecruitmentActivity.this);
             }
-            else if (isResponseChosenMaid.getMessage().equals("DATA_NOT_EXIST")){
+            else if (isResponseChosenMaid.getMessage().trim().equals("DATA_NOT_EXIST")){
                 ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), ListUserRecruitmentActivity.this);
             }
 

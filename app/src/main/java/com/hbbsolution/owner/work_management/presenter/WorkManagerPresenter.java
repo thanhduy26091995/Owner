@@ -21,25 +21,26 @@ public class WorkManagerPresenter {
     private WorkManagerView mWorkManagerView;
     private ApiInterface apiService;
 
-    public WorkManagerPresenter(WorkManagerView mWorkManagerView){
+    public WorkManagerPresenter(WorkManagerView mWorkManagerView) {
         this.mWorkManagerView = mWorkManagerView;
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoWorkList(String process){
+    public void getInfoWorkList(String process) {
         Call<WorkManagerResponse> call = apiService.getInfo(process, true);
         call.enqueue(new Callback<WorkManagerResponse>() {
             @Override
             public void onResponse(Call<WorkManagerResponse> call, Response<WorkManagerResponse> response) {
-                if(response.isSuccessful()){
-                    try{
+                if (response.isSuccessful()) {
+                    try {
                         WorkManagerResponse workManagerResponse = response.body();
+                        mWorkManagerView.getInfoJob(workManagerResponse);
 
-                            mWorkManagerView.getInfoJob(workManagerResponse);
-
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         mWorkManagerView.getError();
                     }
+                }else {
+                        mWorkManagerView.responseCheckToken();
                 }
             }
 
@@ -49,17 +50,17 @@ public class WorkManagerPresenter {
         });
     }
 
-    public void getInfoJobPending(String process){
+    public void getInfoJobPending(String process) {
         Call<JobPendingResponse> call = apiService.getJobPendingResponse(process);
         call.enqueue(new Callback<JobPendingResponse>() {
             @Override
             public void onResponse(Call<JobPendingResponse> call, Response<JobPendingResponse> response) {
                 Log.e("onResponses", "isonResponse");
-                if(response.isSuccessful()){
-                    try{
+                if (response.isSuccessful()) {
+                    try {
                         JobPendingResponse jobPendingResponse = response.body();
                         mWorkManagerView.getInfoJobPending(jobPendingResponse);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Log.e("exception", e.toString());
                         mWorkManagerView.getError();
                     }
@@ -79,13 +80,13 @@ public class WorkManagerPresenter {
         responseCall.enqueue(new Callback<JobPostResponse>() {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
-                try{
+                try {
                     if (response.isSuccessful()) {
 
                         Boolean isJbPost = response.body().getStatus();
                         mWorkManagerView.displayNotifyJobPost(isJbPost);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }

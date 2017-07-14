@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.home.prsenter.HomePresenter;
@@ -27,7 +28,7 @@ import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActi
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends BaseActivity implements HomeView, View.OnClickListener {
+public class HomeActivity extends AuthenticationBaseActivity implements HomeView, View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -139,22 +140,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
 
     @Override
     public void responseCheckToken() {
-        if (HomeActivity.this != null) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setCancelable(false);
-            alertDialog.setTitle(getResources().getString(R.string.notification));
-            alertDialog.setMessage(getResources().getString(R.string.auth));
-            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    sessionManagerUser.logoutUser();
-                    Intent itBackSignIn = new Intent(HomeActivity.this, SignInActivity.class);
-                    startActivity(itBackSignIn);
-                    finish();
-                }
-            });
-            alertDialog.show();
-        }
+        super.responseCheckToken();
     }
 
     @Override

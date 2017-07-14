@@ -175,12 +175,17 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
     }
 
     @Override
-    public void authenticationFailed() {
+    public void getError() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void responseCheckToken() {
 
     }
 
     @Override
-    public void getError() {
-        progressBar.setVisibility(View.GONE);
+    public void errorConnectService() {
+
     }
 }
