@@ -125,6 +125,11 @@ public class DetailJobPendingActivity extends BaseActivity implements DetailJobP
         final Intent intent = getIntent();
         mDatum = (DatumPending) intent.getSerializableExtra("mDatum");
 
+        if(!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
+            relaConfirmMaid.setVisibility(View.GONE);
+        }else {
+            relaConfirmMaid.setVisibility(View.VISIBLE);
+        }
 
         txtNameMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
         txtAddressMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
