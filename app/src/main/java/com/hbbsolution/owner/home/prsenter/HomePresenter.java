@@ -32,7 +32,7 @@ public class HomePresenter {
         responseCall.enqueue(new Callback<ResponseRequest>() {
             @Override
             public void onResponse(Call<ResponseRequest> call, Response<ResponseRequest> response) {
-                Log.d("onResponse", response.code() + "");
+
                     if(response.code() == 401){
                         mHomeView.responseCheckToken();
                     }
@@ -40,7 +40,7 @@ public class HomePresenter {
 
             @Override
             public void onFailure(Call<ResponseRequest> call, Throwable t) {
-                Log.d("onFailure", t.toString());
+
                 mHomeView.errorConnectService();
             }
         });

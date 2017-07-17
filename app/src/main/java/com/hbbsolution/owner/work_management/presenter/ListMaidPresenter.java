@@ -42,6 +42,7 @@ public class ListMaidPresenter {
 
             @Override
             public void onFailure(Call<ListMaidResponse> call, Throwable t) {
+
             }
         });
     }

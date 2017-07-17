@@ -43,6 +43,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.maid_near_by.model.MarkerInfoWindowAdapter;
@@ -69,7 +70,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 18/05/2017.
  */
 
-public class MaidNearByActivity extends AppCompatActivity implements MaidNearByView, OnMapReadyCallback, LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class MaidNearByActivity extends AuthenticationBaseActivity implements MaidNearByView, OnMapReadyCallback, LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -163,18 +164,6 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         GoogleAuthController.install(this, this);
     }
 
-    private void showProgress() {
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage(getResources().getString(R.string.loading));
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
-    }
-
-    private void hideProgress() {
-        if (mProgressDialog.isShowing() && mProgressDialog != null) {
-            mProgressDialog.dismiss();
-        }
-    }
 
     private void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -619,5 +608,10 @@ public class MaidNearByActivity extends AppCompatActivity implements MaidNearByV
         Intent intentHome = new Intent(MaidNearByActivity.this, HomeActivity.class);
         startActivity(intentHome);
         finish();
+    }
+
+    @Override
+    public void responseCheckToken() {
+        super.responseCheckToken();
     }
 }

@@ -36,14 +36,13 @@ public class CheckOutAndBillPresenter {
                         mCheckOutView.getInfoCheckOut(response.body());
                     }
                 } catch (Exception e) {
-                    mCheckOutView.getErrorCheckOut(response.body().getMessage());
+                        mCheckOutView.getErrorCheckOut(response.body().getMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<CheckOutResponse> call, Throwable t) {
-
-                mCheckOutView.getErrorCheckOut(t.toString());
+                mCheckOutView.getErrorCheckOut(t.getMessage());
             }
         });
     }
