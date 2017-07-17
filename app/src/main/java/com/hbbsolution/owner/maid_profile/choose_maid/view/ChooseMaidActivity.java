@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +32,7 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.maid_profile.choose_maid.presenter.ChooseMaidPresenter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
@@ -64,7 +64,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 30/05/2017.
  */
 
-public class ChooseMaidActivity extends AppCompatActivity implements View.OnClickListener, ChooseMaidView {
+public class ChooseMaidActivity extends AuthenticationBaseActivity implements View.OnClickListener, ChooseMaidView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

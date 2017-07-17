@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.maid_near_by.view.filter.presenter.FilterPresenter;
 import com.hbbsolution.owner.model.MaidNearByResponse;
@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by buivu on 22/05/2017.
  */
 
-public class FilterActivity extends AppCompatActivity implements View.OnClickListener, FilterView {
+public class FilterActivity extends AuthenticationBaseActivity implements View.OnClickListener, FilterView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

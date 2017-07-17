@@ -3,7 +3,6 @@ package com.hbbsolution.owner.maid_profile.view;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -11,7 +10,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,10 +23,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ListCommentAdapter;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.history.model.helper.MaidHistory;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
@@ -52,7 +49,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import jp.wasabeef.blurry.Blurry;
 
 import static android.view.View.GONE;
 
@@ -60,7 +56,7 @@ import static android.view.View.GONE;
  * Created by buivu on 15/05/2017.
  */
 
-public class MaidProfileActivity extends AppCompatActivity implements MaidProfileView, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
+public class MaidProfileActivity extends AuthenticationBaseActivity implements MaidProfileView, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
 
     @BindView(R.id.lo_toolbar)
     LinearLayout toolbar;

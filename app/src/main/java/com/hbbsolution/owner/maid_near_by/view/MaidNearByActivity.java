@@ -21,7 +21,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -505,7 +504,7 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
     public void displayError(String error) {
         hideKeyboard();
         hideProgress();
-        if (latitude != null && longitude != null){
+        if (latitude != null && longitude != null) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
             Snackbar snackbar = Snackbar.make(findViewById(R.id.activity), getResources().getString(R.string.k_timthaykq), Snackbar.LENGTH_LONG);
             snackbar.show();
@@ -610,8 +609,4 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
         finish();
     }
 
-    @Override
-    public void responseCheckToken() {
-        super.responseCheckToken();
-    }
 }
