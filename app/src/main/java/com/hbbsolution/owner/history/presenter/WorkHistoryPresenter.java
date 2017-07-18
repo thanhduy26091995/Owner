@@ -29,7 +29,7 @@ public class WorkHistoryPresenter {
         call.enqueue(new Callback<WorkHistoryResponse>() {
             @Override
             public void onResponse(Call<WorkHistoryResponse> call, Response<WorkHistoryResponse> response) {
-                Log.e("onResponse",  "isResponse");
+                Log.e("onResponse", "isResponse");
                 if (response.isSuccessful()) {
                     try {
                         int codeResponse = response.code();
@@ -46,7 +46,7 @@ public class WorkHistoryPresenter {
             @Override
             public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
                 Log.e("dsaerror", t.toString());
-                workHistoryView.getError();
+                workHistoryView.connectServerFail();
             }
         });
     }
@@ -68,7 +68,8 @@ public class WorkHistoryPresenter {
 
             @Override
             public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
-                Log.e("error", t.toString());
+                //Log.e("error", t.toString());
+                workHistoryView.connectServerFail();
             }
         });
     }
@@ -92,7 +93,7 @@ public class WorkHistoryPresenter {
             @Override
             public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
                 Log.e("error", t.toString());
-                workHistoryView.getError();
+                workHistoryView.connectServerFail();
             }
         });
     }
@@ -115,6 +116,7 @@ public class WorkHistoryPresenter {
             @Override
             public void onFailure(Call<WorkHistoryResponse> call, Throwable t) {
                 Log.e("error", t.toString());
+                workHistoryView.connectServerFail();
             }
         });
     }

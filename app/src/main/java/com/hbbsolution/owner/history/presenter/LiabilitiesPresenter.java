@@ -24,7 +24,7 @@ public class LiabilitiesPresenter {
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void getInfoLiabilities(String endTime){
+    public void getInfoLiabilities(String endTime) {
         Call<LiabilitiesResponse> call = apiService.getLiabilities("", endTime);
         call.enqueue(new Callback<LiabilitiesResponse>() {
             @Override
@@ -42,13 +42,13 @@ public class LiabilitiesPresenter {
 
             @Override
             public void onFailure(Call<LiabilitiesResponse> call, Throwable t) {
-                liabilitiesView.getLiabilitiesError();
+                liabilitiesView.connectServerFail();
                 Log.e("error", t.toString());
             }
         });
     }
 
-    public void getInfoLiabilitiesTime(String startTime,String endTime){
+    public void getInfoLiabilitiesTime(String startTime, String endTime) {
         Call<LiabilitiesResponse> call = apiService.getLiabilities(startTime, endTime);
         call.enqueue(new Callback<LiabilitiesResponse>() {
             @Override
@@ -66,7 +66,7 @@ public class LiabilitiesPresenter {
 
             @Override
             public void onFailure(Call<LiabilitiesResponse> call, Throwable t) {
-                liabilitiesView.getLiabilitiesError();
+                liabilitiesView.connectServerFail();
                 Log.e("error", t.toString());
             }
         });

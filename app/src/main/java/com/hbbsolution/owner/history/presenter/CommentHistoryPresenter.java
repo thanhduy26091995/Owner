@@ -47,7 +47,7 @@ public class CommentHistoryPresenter {
 
             @Override
             public void onFailure(Call<CommentHistoryResponse> call, Throwable t) {
-                commentHistoryView.checkCommentFail();
+                commentHistoryView.connectServerFail();
             }
         });
     }

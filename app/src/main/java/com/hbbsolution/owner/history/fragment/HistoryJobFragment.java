@@ -346,4 +346,8 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         tvEndDate.setText(strEndDate);
     }
 
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
+    }
 }

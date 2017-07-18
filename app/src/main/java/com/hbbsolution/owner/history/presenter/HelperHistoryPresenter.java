@@ -42,12 +42,13 @@ public class HelperHistoryPresenter {
 
             @Override
             public void onFailure(Call<HistoryHelperResponse> call, Throwable t) {
-                helperHistoryView.getInfoHelperHistoryFail();
+                helperHistoryView.connectServerFail();
                 Log.e("error", t.toString());
             }
         });
     }
-    public void getInfoHelperHistoryTime(String startTime,String endTime) {
+
+    public void getInfoHelperHistoryTime(String startTime, String endTime) {
         Call<HistoryHelperResponse> call = apiService.getAllWorkedMaid(startTime, endTime);
         call.enqueue(new Callback<HistoryHelperResponse>() {
             @Override
@@ -66,7 +67,7 @@ public class HelperHistoryPresenter {
             @Override
             public void onFailure(Call<HistoryHelperResponse> call, Throwable t) {
                 Log.e("error", t.toString());
-                helperHistoryView.getInfoHelperHistoryFail();
+                helperHistoryView.connectServerFail();
             }
         });
     }

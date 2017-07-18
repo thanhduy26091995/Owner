@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.history;
 
+import com.hbbsolution.owner.base.ConnectionInterface;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by Administrator on 18/05/2017.
  */
 
-public interface WorkHistoryView {
+public interface WorkHistoryView extends ConnectionInterface{
     void getInfoWorkHistory (List<WorkHistory> listWorkHistory, int pages);
     void getMoreInfoWorkHistory (List<WorkHistory> listWorkHistory);
     void getInfoWorkHistoryTime (List<WorkHistory> listWorkHistory, String startAt, String endAt, int pages);

@@ -217,4 +217,9 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
         }
         return mOutputPrice;
     }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+    }
 }

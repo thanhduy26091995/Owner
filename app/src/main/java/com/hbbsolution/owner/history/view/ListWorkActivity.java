@@ -18,6 +18,7 @@ import com.hbbsolution.owner.history.adapter.HistoryJobAdapter;
 import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.history.presenter.ListWorkPresenter;
 import com.hbbsolution.owner.utils.EndlessRecyclerViewScrollListener;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class ListWorkActivity extends BaseActivity implements ListWorkView {
                         @Override
                         public void run() {
                             currentPage = 1;
-                            mListWorkPresenter.getInfoListWorkHistory(idMaid,currentPage);
+                            mListWorkPresenter.getInfoListWorkHistory(idMaid, currentPage);
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
                     }, 1500);
@@ -107,7 +108,7 @@ public class ListWorkActivity extends BaseActivity implements ListWorkView {
                 // presenter.getAllResort(response.getCurrentPage() + 1);
                 //get variables for load more
                 if (currentPage < pages) {
-                    mListWorkPresenter.getMoreInfoListWorkHistory(idMaid,currentPage + 1);
+                    mListWorkPresenter.getMoreInfoListWorkHistory(idMaid, currentPage + 1);
                 }
             }
         };
@@ -132,8 +133,7 @@ public class ListWorkActivity extends BaseActivity implements ListWorkView {
 
     }
 
-    public void setToolbar()
-    {
+    public void setToolbar() {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -147,9 +147,15 @@ public class ListWorkActivity extends BaseActivity implements ListWorkView {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+    }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

@@ -257,4 +257,9 @@ public class HistoryLiabilitiesFragment extends Fragment implements LiabilitiesV
         lnNoData.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
+    }
 }

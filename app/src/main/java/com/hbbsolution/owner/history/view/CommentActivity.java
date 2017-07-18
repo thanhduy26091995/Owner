@@ -227,4 +227,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
         }
     }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+    }
 }
