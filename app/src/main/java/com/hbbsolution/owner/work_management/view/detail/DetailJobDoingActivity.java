@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
-import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
@@ -211,5 +209,10 @@ public class DetailJobDoingActivity extends AuthenticationBaseActivity implement
             mOutputPrice = getResources().getString(R.string.hourly_pay);
         }
         return mOutputPrice;
+    }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

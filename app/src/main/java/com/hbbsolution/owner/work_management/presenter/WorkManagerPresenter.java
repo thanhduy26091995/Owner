@@ -39,14 +39,14 @@ public class WorkManagerPresenter {
                     } catch (Exception e) {
                         mWorkManagerView.getError();
                     }
-                }else {
-                        mWorkManagerView.responseCheckToken();
+                } else {
+                    mWorkManagerView.responseCheckToken();
                 }
             }
 
             @Override
             public void onFailure(Call<WorkManagerResponse> call, Throwable t) {
-                mWorkManagerView.getError();
+                mWorkManagerView.connectServerFail();
             }
         });
     }
@@ -70,7 +70,7 @@ public class WorkManagerPresenter {
 
             @Override
             public void onFailure(Call<JobPendingResponse> call, Throwable t) {
-                mWorkManagerView.getError();
+                mWorkManagerView.connectServerFail();
 
             }
         });
@@ -95,7 +95,7 @@ public class WorkManagerPresenter {
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-                mWorkManagerView.getError();
+                mWorkManagerView.connectServerFail();
 
             }
         });

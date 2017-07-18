@@ -1,7 +1,5 @@
 package com.hbbsolution.owner.work_management.presenter;
 
-import android.util.Log;
-
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
 import com.hbbsolution.owner.model.CheckInResponse;
@@ -49,7 +47,7 @@ public class DetailJobPostPresenter {
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-                mDetailJobPostView.displayError(t.getMessage());
+                mDetailJobPostView.connectServerFail();
             }
         });
     }
@@ -81,7 +79,7 @@ public class DetailJobPostPresenter {
 
             @Override
             public void onFailure(Call<CheckInResponse> call, Throwable t) {
-                mDetailJobPostView.checkInFail(t.getMessage());
+                mDetailJobPostView.connectServerFail();
             }
         });
     }

@@ -16,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,7 +28,6 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
-import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.Constants;
@@ -446,5 +444,10 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
             mOutputPrice = getResources().getString(R.string.hourly_pay);
         }
         return mOutputPrice;
+    }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

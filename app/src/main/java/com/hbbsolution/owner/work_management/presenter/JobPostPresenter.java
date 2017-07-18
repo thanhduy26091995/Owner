@@ -44,7 +44,7 @@ public class JobPostPresenter {
 
             @Override
             public void onFailure(Call<TypeJobResponse> call, Throwable t) {
-                mJobPostView.displayError(t.getMessage());
+                mJobPostView.connectServerFail();
             }
         });
     }
@@ -74,7 +74,7 @@ public class JobPostPresenter {
 
             @Override
             public void onFailure(Call<GeoCodeMapResponse> call, Throwable t) {
-
+                mJobPostView.connectServerFail();
             }
         });
     }
@@ -97,7 +97,8 @@ public class JobPostPresenter {
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-                Log.d("onFailure", t.toString());
+                //Log.d("onFailure", t.toString());
+                mJobPostView.connectServerFail();
             }
         });
     }
@@ -125,7 +126,8 @@ public class JobPostPresenter {
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-                Log.d("onFailure", t.toString());
+               // Log.d("onFailure", t.toString());
+                mJobPostView.connectServerFail();
             }
         });
     }

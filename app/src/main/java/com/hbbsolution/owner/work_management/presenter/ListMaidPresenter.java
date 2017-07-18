@@ -42,7 +42,7 @@ public class ListMaidPresenter {
 
             @Override
             public void onFailure(Call<ListMaidResponse> call, Throwable t) {
-                mListMaidView.getError();
+                mListMaidView.connectServerFail();
             }
         });
     }
@@ -66,7 +66,7 @@ public class ListMaidPresenter {
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-                mListMaidView.getError();
+                mListMaidView.connectServerFail();
                 Log.e("errors", t.toString());
             }
         });

@@ -35,7 +35,6 @@ import android.widget.TimePicker;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
-import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -754,5 +753,10 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         if (progressDialog.isShowing() && progressDialog != null) {
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

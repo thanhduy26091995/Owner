@@ -1,13 +1,9 @@
 package com.hbbsolution.owner.work_management.presenter;
 
-import android.util.Log;
-
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.work_management.model.billGv24.BillGv24Response;
 import com.hbbsolution.owner.work_management.model.chekout.CheckOutResponse;
 import com.hbbsolution.owner.work_management.view.detail.CheckOutView;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobPostView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +38,7 @@ public class CheckOutAndBillPresenter {
 
             @Override
             public void onFailure(Call<CheckOutResponse> call, Throwable t) {
-                mCheckOutView.getErrorCheckOut(t.getMessage());
+                mCheckOutView.connectServerFail();
             }
         });
     }

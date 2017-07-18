@@ -188,4 +188,9 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
     public void errorConnectService() {
 
     }
+
+    @Override
+    public void connectServerFail() {
+
+    }
 }

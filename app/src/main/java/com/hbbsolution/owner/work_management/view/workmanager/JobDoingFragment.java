@@ -16,12 +16,12 @@ import android.widget.ProgressBar;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPendingAdapter;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
 import com.hbbsolution.owner.work_management.presenter.WorkManagerPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
-import com.hbbsolution.owner.work_management.view.detail.DetailJobPendingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,5 +134,10 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
     @Override
     public void errorConnectService() {
 
+    }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
     }
 }

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPendingAdapter;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
@@ -184,5 +185,10 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
     @Override
     public void errorConnectService() {
 
+    }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
     }
 }
