@@ -41,7 +41,7 @@ public class ChooseMaidPresenter {
 
             @Override
             public void onFailure(Call<TypeJobResponse> call, Throwable t) {
-                view.displayError(t.getMessage());
+                view.connectServerFail();
             }
         });
     }
@@ -69,7 +69,7 @@ public class ChooseMaidPresenter {
 
             @Override
             public void onFailure(Call<GeoCodeMapResponse> call, Throwable t) {
-                view.displayError("Location" + t.getMessage());
+                view.connectServerFail();
             }
         });
     }
@@ -89,7 +89,7 @@ public class ChooseMaidPresenter {
 
             @Override
             public void onFailure(Call<SendRequestResponse> call, Throwable t) {
-                view.displayError("SendRequest " + t.getMessage());
+                view.connectServerFail();
             }
         });
     }

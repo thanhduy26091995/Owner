@@ -29,6 +29,7 @@ import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.ShowSnackbar;
 
 import java.io.Serializable;
@@ -358,5 +359,10 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
         }
         finish();
 
+    }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

@@ -40,7 +40,7 @@ public class FilterPresenter {
 
             @Override
             public void onFailure(Call<TypeJobResponse> call, Throwable t) {
-                view.displayError(t.getMessage());
+                view.connectServerFail();
             }
         });
     }
@@ -60,7 +60,7 @@ public class FilterPresenter {
 
             @Override
             public void onFailure(Call<MaidNearByResponse> call, Throwable t) {
-                view.displayError(t.getMessage());
+                view.connectServerFail();
             }
         });
     }

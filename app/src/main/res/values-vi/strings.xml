@@ -380,4 +380,6 @@
     <string name="data_not_exist">Dữ liệu không tồn tại</string>
     <string name="invalid">Tên đăng nhập hoặc Mật khẩu không đúng</string>
     <string name="invalid_pass">Mật khẩu không khớp. Vui lòng nhập lại!</string>
+
+    <string name="connection_error">Lỗi kết nối mạng</string>
 </resources>

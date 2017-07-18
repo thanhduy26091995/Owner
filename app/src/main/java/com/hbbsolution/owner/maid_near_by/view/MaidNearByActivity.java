@@ -609,4 +609,8 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
         finish();
     }
 
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+    }
 }

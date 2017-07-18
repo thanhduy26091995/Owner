@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.history.model.workhistory.WorkHistoryResponse;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileView;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.CommentMaidResponse;
@@ -45,7 +44,7 @@ public class MaidProfilePresenter {
             @Override
             public void onFailure(Call<CommentMaidResponse> call, Throwable t) {
                 Log.e("errors", t.toString());
-                mMaidProfileView.getMessager();
+                mMaidProfileView.connectServerFail();
             }
         });
     }
@@ -68,6 +67,7 @@ public class MaidProfilePresenter {
             @Override
             public void onFailure(Call<CommentMaidResponse> call, Throwable t) {
                 Log.e("error", t.toString());
+                mMaidProfileView.connectServerFail();
             }
         });
     }
@@ -92,6 +92,7 @@ public class MaidProfilePresenter {
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
                 Log.e("errors", t.toString());
+                mMaidProfileView.connectServerFail();
             }
         });
     }

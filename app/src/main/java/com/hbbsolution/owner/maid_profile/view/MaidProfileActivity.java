@@ -452,4 +452,9 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
 
         }
     }
+
+    @Override
+    public void connectServerFail() {
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+    }
 }

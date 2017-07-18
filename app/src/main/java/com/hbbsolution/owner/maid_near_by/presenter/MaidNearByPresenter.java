@@ -44,7 +44,7 @@ public class MaidNearByPresenter {
 
             @Override
             public void onFailure(Call<MaidNearByResponse> call, Throwable t) {
-                mView.displayError(t.getMessage());
+                mView.connectServerFail();
                 Log.d("ERROR", t.getMessage());
             }
         });
@@ -64,7 +64,7 @@ public class MaidNearByPresenter {
 
             @Override
             public void onFailure(Call<MaidNearByResponse> call, Throwable t) {
-                mView.displayError(t.getMessage());
+                mView.connectServerFail();
             }
         });
     }

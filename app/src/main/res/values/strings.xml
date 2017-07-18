@@ -389,4 +389,6 @@
     <string name="data_not_exist">Data does not exist</string>
     <string name="invalid">Invalid Username or Password</string>
     <string name="invalid_pass">These passwords do not match. Please re-enter!</string>
+
+    <string name="connection_error">Failed to connect to the Internet!</string>
 </resources>
