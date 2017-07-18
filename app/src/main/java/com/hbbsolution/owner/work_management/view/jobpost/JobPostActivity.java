@@ -757,6 +757,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     @Override
     public void connectServerFail() {
+        hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

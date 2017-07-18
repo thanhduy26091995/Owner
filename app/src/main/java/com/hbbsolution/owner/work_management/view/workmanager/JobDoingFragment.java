@@ -138,6 +138,7 @@ public class JobDoingFragment extends Fragment implements WorkManagerView{
 
     @Override
     public void connectServerFail() {
+        progressBar.setVisibility(View.GONE);
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
     }
 }

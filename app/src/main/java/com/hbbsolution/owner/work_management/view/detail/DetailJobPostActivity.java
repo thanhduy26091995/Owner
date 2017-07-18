@@ -283,6 +283,7 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
 
     @Override
     public void connectServerFail() {
+        hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

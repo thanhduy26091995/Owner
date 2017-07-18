@@ -363,6 +363,7 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
 
     @Override
     public void connectServerFail() {
+        hideProgressDialog();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

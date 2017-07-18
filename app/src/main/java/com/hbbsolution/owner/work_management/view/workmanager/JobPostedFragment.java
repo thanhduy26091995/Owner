@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPostAdapter;
 import com.hbbsolution.owner.adapter.ManageJobAdapter;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
@@ -191,6 +192,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
 
     @Override
     public void connectServerFail() {
-
+        progressBar.setVisibility(View.GONE);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
     }
 }

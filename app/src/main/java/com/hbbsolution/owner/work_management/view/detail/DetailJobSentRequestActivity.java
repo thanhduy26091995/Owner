@@ -255,6 +255,7 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
 
     @Override
     public void connectServerFail() {
+        hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

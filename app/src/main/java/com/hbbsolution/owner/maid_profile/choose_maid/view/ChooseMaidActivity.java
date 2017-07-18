@@ -619,6 +619,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     @Override
     public void connectServerFail() {
+        hideProgressDialog();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

@@ -170,6 +170,7 @@ public class ListUserRecruitmentActivity extends BaseActivity implements ListMai
 
     @Override
     public void connectServerFail() {
+        progressListRecruitment.setVisibility(View.GONE);
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

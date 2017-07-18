@@ -348,6 +348,8 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
 
     @Override
     public void connectServerFail() {
+        lnNoData.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
     }
 }

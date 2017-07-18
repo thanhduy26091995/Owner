@@ -204,4 +204,11 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
             mProgressDialog.dismiss();
         }
     }
+
+    @Override
+    public void connectServerFail() {
+        hideProgress();
+        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+        edtReport.getText().clear();
+    }
 }

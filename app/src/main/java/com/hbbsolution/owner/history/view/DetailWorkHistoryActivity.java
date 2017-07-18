@@ -220,6 +220,8 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
 
     @Override
     public void connectServerFail() {
+        tvComment.setVisibility(View.VISIBLE);
+        tvContentComment.setVisibility(View.GONE);
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

@@ -611,6 +611,8 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
 
     @Override
     public void connectServerFail() {
+        hideKeyboard();
+        hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }
