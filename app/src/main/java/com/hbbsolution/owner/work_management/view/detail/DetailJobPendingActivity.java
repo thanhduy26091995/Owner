@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.CheckInResponse;
@@ -54,7 +55,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobPendingActivity extends BaseActivity implements DetailJobPostView, View.OnClickListener {
+public class DetailJobPendingActivity extends AuthenticationBaseActivity implements DetailJobPostView, View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.lo_clear_job_pending)
@@ -364,19 +365,6 @@ public class DetailJobPendingActivity extends BaseActivity implements DetailJobP
         return result;
     }
 
-//    private void showProgress() {
-//        progressDialog = new ProgressDialog(this);
-//        progressDialog.setMessage(getResources().getString(R.string.dang_xacthuc));
-//        progressDialog.setCancelable(false);
-//        progressDialog.show();
-//    }
-//
-//    private void hideProgress() {
-//        if (progressDialog != null && progressDialog.isShowing()) {
-//            progressDialog.dismiss();
-//        }
-//    }
-
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
 //        progressBar.setVisibility(View.GONE);
@@ -403,7 +391,7 @@ public class DetailJobPendingActivity extends BaseActivity implements DetailJobP
 
     @Override
     public void displayError(String error) {
-
+        hideProgress();
     }
 
     @Override
@@ -442,7 +430,6 @@ public class DetailJobPendingActivity extends BaseActivity implements DetailJobP
         } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.confirm_failed), DetailJobPendingActivity.this);
         }
-        // }
     }
 
     @Override

@@ -49,7 +49,7 @@ public class DetailJobPostPresenter {
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-
+                mDetailJobPostView.displayError(t.getMessage());
             }
         });
     }

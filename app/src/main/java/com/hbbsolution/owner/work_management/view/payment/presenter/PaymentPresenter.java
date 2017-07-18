@@ -42,6 +42,7 @@ public class PaymentPresenter {
 
             @Override
             public void onFailure(Call<PaymentResponse> call, Throwable t) {
+                paymentView.getWalletFail();
             }
         });
     }

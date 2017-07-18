@@ -46,6 +46,7 @@ public class WorkManagerPresenter {
 
             @Override
             public void onFailure(Call<WorkManagerResponse> call, Throwable t) {
+                mWorkManagerView.getError();
             }
         });
     }
@@ -69,7 +70,8 @@ public class WorkManagerPresenter {
 
             @Override
             public void onFailure(Call<JobPendingResponse> call, Throwable t) {
-                Log.e("error", t.toString());
+                mWorkManagerView.getError();
+
             }
         });
     }
@@ -93,7 +95,8 @@ public class WorkManagerPresenter {
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-                Log.d("onFailure", t.toString());
+                mWorkManagerView.getError();
+
             }
         });
     }

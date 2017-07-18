@@ -34,6 +34,7 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
@@ -67,7 +68,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class JobPostActivity extends BaseActivity implements JobPostView, View.OnClickListener {
+public class JobPostActivity extends AuthenticationBaseActivity implements JobPostView, View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -404,7 +405,7 @@ public class JobPostActivity extends BaseActivity implements JobPostView, View.O
 
     @Override
     public void displayError(String error) {
-
+        hideProgressDialog();
     }
 
     private void eventClickTypeWork(final List<String> listData, final EditText txtShow) {

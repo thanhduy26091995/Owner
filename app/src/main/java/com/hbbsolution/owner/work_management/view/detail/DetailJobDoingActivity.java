@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -37,7 +38,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobDoingActivity extends BaseActivity implements View.OnClickListener, CheckOutView {
+public class DetailJobDoingActivity extends AuthenticationBaseActivity implements View.OnClickListener, CheckOutView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

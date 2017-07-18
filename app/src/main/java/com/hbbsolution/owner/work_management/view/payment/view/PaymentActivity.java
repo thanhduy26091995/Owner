@@ -334,6 +334,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getWalletFail() {
+        hideProgressDialog();
     }
 
     @Override
@@ -375,7 +376,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void getErrorPaymentBymoney(String error) {
-
+        hideProgressDialog();
     }
 
     @Override

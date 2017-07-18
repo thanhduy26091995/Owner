@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.model.CheckInResponse;
@@ -43,7 +44,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 5/14/2017.
  */
 
-public class DetailJobPostActivity extends BaseActivity implements DetailJobPostView, View.OnClickListener {
+public class DetailJobPostActivity extends AuthenticationBaseActivity implements DetailJobPostView, View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.manager_post_title_toothbar)
@@ -248,7 +249,7 @@ public class DetailJobPostActivity extends BaseActivity implements DetailJobPost
 
     @Override
     public void displayError(String error) {
-
+        hideProgress();
     }
 
     @Override
@@ -258,7 +259,7 @@ public class DetailJobPostActivity extends BaseActivity implements DetailJobPost
 
     @Override
     public void checkInFail(String error) {
-
+        hideProgress();
     }
 
     private boolean compareDays(String timeEndWork) {

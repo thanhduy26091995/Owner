@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.CheckInResponse;
@@ -41,7 +42,7 @@ import de.greenrobot.event.EventBus;
  * Created by tantr on 6/29/2017.
  */
 
-public class DetailJobSentRequestActivity extends BaseActivity implements DetailJobPostView, View.OnClickListener {
+public class DetailJobSentRequestActivity extends AuthenticationBaseActivity implements DetailJobPostView, View.OnClickListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.manager_doing_title_toothbar)
@@ -219,7 +220,7 @@ public class DetailJobSentRequestActivity extends BaseActivity implements Detail
 
     @Override
     public void displayError(String error) {
-
+        hideProgress();
     }
 
     @Override
@@ -229,7 +230,7 @@ public class DetailJobSentRequestActivity extends BaseActivity implements Detail
 
     @Override
     public void checkInFail(String error) {
-
+        hideProgress();
     }
 
     private boolean compareDays(String timeEndWork) {

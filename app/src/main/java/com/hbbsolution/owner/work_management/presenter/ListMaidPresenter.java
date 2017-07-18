@@ -35,14 +35,14 @@ public class ListMaidPresenter {
                         ListMaidResponse mListMaidResponse = response.body();
                         mListMaidView.getInfoListMaid(mListMaidResponse);
                     }catch (Exception e){
-
+                        mListMaidView.getError();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<ListMaidResponse> call, Throwable t) {
-
+                mListMaidView.getError();
             }
         });
     }
@@ -59,13 +59,14 @@ public class ListMaidPresenter {
 //                        Boolean isJbPost = response.body().getStatus();
                         mListMaidView.responseChosenMaid(response.body());
                     }catch (Exception e){
-
+                        mListMaidView.getError();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
+                mListMaidView.getError();
                 Log.e("errors", t.toString());
             }
         });
