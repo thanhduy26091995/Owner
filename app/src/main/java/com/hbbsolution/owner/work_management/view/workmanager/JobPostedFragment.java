@@ -90,7 +90,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
         progressBar.setVisibility(View.GONE);
         EventBus.getDefault().postSticky(mExample.getData().size());
         mJobList = mExample.getData();
-        if (mJobList.size() > 0){
+        if (mJobList.size() > 0) {
             lnNoData.setVisibility(View.GONE);
             mRecycler.setVisibility(View.VISIBLE);
             mRecycler.setHasFixedSize(true);
@@ -102,7 +102,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             mJobPostAdapter.setCallback(new ManageJobAdapter.Callback() {
                 @Override
                 public void onItemClick(Datum mDatum) {
-                    switch (mDatum.getProcess().getId()){
+                    switch (mDatum.getProcess().getId()) {
                         case "000000000000000000000006":
                             Intent itDetailJobSentRequest = new Intent(getActivity(), DetailJobSentRequestActivity.class);
                             itDetailJobSentRequest.putExtra("mDatum", mDatum);
@@ -138,7 +138,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
                     alertDialog.show();
                 }
             });
-        }else {
+        } else {
             lnNoData.setVisibility(View.VISIBLE);
             mRecycler.setVisibility(View.GONE);
         }
@@ -153,7 +153,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
     @Override
     public void displayNotifyJobPost(boolean isJobPost) {
         progressBar.setVisibility(View.GONE);
-        if(isJobPost){
+        if (isJobPost) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
@@ -169,7 +169,7 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             });
 
             alertDialog.show();
-        }else {
+        } else {
             Toast.makeText(getActivity(), getResources().getString(R.string.xoa_that_bai), Toast.LENGTH_SHORT).show();
         }
 
@@ -193,6 +193,8 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
     @Override
     public void connectServerFail() {
         progressBar.setVisibility(View.GONE);
-        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
+        if (getActivity() != null) {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
+        }
     }
 }
