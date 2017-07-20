@@ -1,9 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/activity">
+    android:orientation="vertical">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -14,8 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/white"
-            app:theme="@style/toolbar_theme"
-            >
+            app:theme="@style/toolbar_theme">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -28,12 +28,13 @@
                 android:textStyle="bold" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginTop="30dp"
-        >
+        android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,8 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:backgroundTint="@android:color/transparent"
-                android:hint="@string/sign_in_user_name"
                 android:fontFamily="@string/font_family_thin"
+                android:hint="@string/sign_in_user_name"
                 android:inputType="textEmailAddress"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
@@ -72,17 +73,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="15dp"
-            >
+            android:layout_marginTop="15dp">
 
             <com.hbbsolution.owner.base.IconTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ic_locked"
-                android:textSize="20sp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/ic_locked"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edit_password"
@@ -90,9 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:backgroundTint="@android:color/transparent"
-                android:inputType="textPassword"
-                android:hint="@string/sign_in_password"
                 android:fontFamily="@string/font_family_thin"
+                android:hint="@string/sign_in_password"
+                android:inputType="textPassword"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
 
@@ -108,8 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="15dp"
-            >
+            android:layout_marginTop="15dp">
 
             <com.hbbsolution.owner.base.IconTextView
                 android:layout_width="wrap_content"
@@ -124,10 +123,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:inputType="textPassword"
                 android:backgroundTint="@android:color/transparent"
-                android:hint="@string/sign_up_confirm_password"
                 android:fontFamily="@string/font_family_thin"
+                android:hint="@string/sign_up_confirm_password"
+                android:inputType="textPassword"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
 
@@ -142,14 +141,14 @@
             android:id="@+id/button_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
             android:background="@color/home_background_history"
             android:text="@string/sign_up_next"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
 
             />
     </LinearLayout>
