@@ -99,6 +99,7 @@
         </service>
 
         <activity android:name=".history.view.DetailUnpaidWork"></activity>
+        <activity android:name=".work_management.view.quickpost.QuickPostActivity"></activity>
     </application>
 
 </manifest>

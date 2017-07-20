@@ -42,13 +42,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3" >
-            <ImageView
-                android:id="@+id/imgQuickPost"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/circle"/>
+            android:layout_weight="3">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_type_job"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/boder_recycleview"
+                android:paddingTop="@dimen/boder_white"
+                android:paddingLeft="@dimen/boder_white"
+                android:visibility="gone"
+                />
         </RelativeLayout>
 
         <LinearLayout
@@ -166,10 +170,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="@string/home_history"
                         android:textAlignment="center"
                         android:textColor="@color/colorWhite" />

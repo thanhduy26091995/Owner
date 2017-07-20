@@ -37,10 +37,11 @@ import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
+import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
-import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostView;
@@ -110,7 +111,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     private boolean mChosenTools = false, isPost;
 
-    private Datum infoJob;
+    private TypeJob infoJob;
 
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
@@ -119,13 +120,17 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     private Calendar cal;
     private int clicked;
     private int date, month, year;
-
+    private SessionManagerUser sessionManagerUser;
+    private HashMap<String, String> hashDataUser = new HashMap<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_post);
         mQuickPostActivity = this;
         ButterKnife.bind(this);
+
+        sessionManagerUser = new SessionManagerUser(this);
+        hashDataUser = sessionManagerUser.getUserDetails();
 
         checkConnectionInterner();
         //setup view
@@ -143,20 +148,21 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         clicked = 0;
 
         mJobPostPresenter = new JobPostPresenter(this);
-        txt_post_complete.setEnabled(false);
-        mJobPostPresenter.getAllTypeJob();
 
         getDateCurrent();
 
-        edtType_job.setOnClickListener(this);
-        txt_post_complete.setOnClickListener(this);
-        txtTime_start.setOnClickListener(this);
-        txtTime_end.setOnClickListener(this);
-        txtDate_start_work.setOnClickListener(this);
-        rad_type_money_work.setOnClickListener(this);
-        rad_type_money_khoan.setOnClickListener(this);
+        final Intent intent = getIntent();
+        infoJob = (TypeJob) intent.getSerializableExtra("quickPost");
+        txt_post_complete.setText(getResources().getString(R.string.detail_posted));
+        setData();
 
+        setTextMoneyChange();
 
+        setEventClick();
+    }
+
+    private void setData()
+    {
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
             mPackageId = "000000000000000000000001";
@@ -164,59 +170,41 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             edt_monney_work.setEnabled(false);
             mPackageId = "000000000000000000000002";
         }
-
-        final Intent intent = getIntent();
-        infoJob = (Datum) intent.getSerializableExtra("infoJobPost");
-
         if (infoJob != null) {
-            isPost = true;
-            txt_post_complete.setText(getResources().getString(R.string.update_job_post));
-            mIdTask = infoJob.getId();
-
-            edtTitlePost.setText(infoJob.getInfo().getTitle());
+            edtTitlePost.setText(infoJob.getTitle());
             int position = edtTitlePost.length();
             Editable etext = edtTitlePost.getText();
             Selection.setSelection(etext, position);
+            edtDescriptionPost.setText(infoJob.getDescription());
+            edtAddressPost.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
+            edtType_job.setText(infoJob.getName());
+            mTypeJob = infoJob.getId();
+            edt_monney_work.setEnabled(true);
+            rad_type_money_work.setChecked(true);
+            edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoJob.getPrice()));
 
-            edtDescriptionPost.setText(infoJob.getInfo().getDescription());
-            edtAddressPost.setText(infoJob.getInfo().getAddress().getName());
-            edtType_job.setText(infoJob.getInfo().getWork().getName());
-            mTypeJob = infoJob.getInfo().getWork().getId();
-            chb_tools_work.setChecked(infoJob.getInfo().getTools());
-            mPackageId = infoJob.getInfo().getPackage().getId();
-            mHours = String.valueOf(infoJob.getInfo().getTime().getHour());
-//            edt_monney_work_hour.setText(mHours);
-
-            if (mPackageId.equals("000000000000000000000001")) {
-                edt_monney_work.setEnabled(true);
-//                edt_monney_work_hour.setEnabled(false);
-                rad_type_money_work.setChecked(true);
-                edt_monney_work.setText(String.valueOf(infoJob.getInfo().getPrice()));
-            } else if (mPackageId.equals("000000000000000000000002")) {
-                edt_monney_work.setEnabled(false);
-//                edt_monney_work_hour.setEnabled(true);
-                rad_type_money_khoan.setChecked(true);
-            }
-
-            txtDate_start_work.setText(getDatePostHistory(infoJob.getInfo().getTime().getStartAt()));
-            txtTime_start.setText(getTimeDoingPost(infoJob.getInfo().getTime().getStartAt()));
-            txtTime_end.setText(getTimeDoingPost(infoJob.getInfo().getTime().getEndAt()));
-
-            SimpleDateFormat editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            try {
-                startTime = editTime.parse(infoJob.getInfo().getTime().getStartAt());
-                endTime = editTime.parse(infoJob.getInfo().getTime().getEndAt());
-                choseDate = editTime.parse(infoJob.getInfo().getTime().getStartAt());
-                clicked = 1;
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            isPost = true;
-            txt_post_complete.setText(getResources().getString(R.string.detail_posted));
+            txt_post_complete.setEnabled(true);
         }
 
+        for (TypeJob typeJob : Constants.listTypeJob) {
+            hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+            listTypeJobName.add(typeJob.getName());
+        }
+    }
+
+    private void setEventClick()
+    {
+        edtType_job.setOnClickListener(this);
+        txt_post_complete.setOnClickListener(this);
+        txtTime_start.setOnClickListener(this);
+        txtTime_end.setOnClickListener(this);
+        txtDate_start_work.setOnClickListener(this);
+        rad_type_money_work.setOnClickListener(this);
+        rad_type_money_khoan.setOnClickListener(this);
+    }
+
+    private void setTextMoneyChange()
+    {
         edt_monney_work.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -242,7 +230,6 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             }
         });
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -311,12 +298,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
-        txt_post_complete.setEnabled(true);
 
-        for (TypeJob typeJob : typeJobResponse.getData()) {
-            hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
-            listTypeJobName.add(typeJob.getName());
-        }
     }
 
     @Override
@@ -341,13 +323,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         txt_post_complete.setEnabled(false);
 //        progressBar.setVisibility(View.VISIBLE);
 
-        if (isPost) {
-            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+        mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                     mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-        } else {
-            mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-        }
 //        if (checkDataComplete()) {
 //            posData(geoCodeMapResponse);
 //        }

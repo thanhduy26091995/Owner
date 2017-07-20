@@ -10,7 +10,7 @@
         android:layout_marginTop="10dp"
         />
     <ListView
-        android:id="@+id/listTypeJob"
+        android:id="@+id/listTypeJobName"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

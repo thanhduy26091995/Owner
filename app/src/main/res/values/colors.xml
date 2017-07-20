@@ -37,4 +37,6 @@
     <color name="colorBlue">#4A90E2</color>
 
     <color name="colorToolBar">#128785</color>
+
+    <color name="text_item_type_job">#990f4839</color>
 </resources>

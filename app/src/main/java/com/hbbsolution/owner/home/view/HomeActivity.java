@@ -3,44 +3,42 @@ package com.hbbsolution.owner.home.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.adapter.TypeJobAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.home.prsenter.HomePresenter;
 import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
 import com.hbbsolution.owner.model.TypeJob;
-import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.viet_pham.View.MoreActivity;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.SessionManagerForLanguage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.presenter.QuickPostPresenter;
-import com.hbbsolution.owner.work_management.view.quickpost.QuickPostView;
+import com.hbbsolution.owner.work_management.view.quickpost.QuickPostActivity;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AuthenticationBaseActivity implements HomeView, View.OnClickListener, QuickPostView {
+public class HomeActivity extends AuthenticationBaseActivity implements HomeView, View.OnClickListener{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -58,15 +56,17 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     TextView txt_work_management_history;
     @BindView(R.id.txt_work_maid_around)
     TextView txt_work_maid_around;
-    @BindView(R.id.imgQuickPost)
-    ImageView imgQuickPost;
+    @BindView(R.id.rcv_type_job)
+    RecyclerView rcv_type_job;
     private SessionManagerForLanguage sessionManagerForLanguage;
     private boolean isPause = false;
     private HomePresenter mHomePresenter;
     private SessionManagerUser sessionManagerUser;
     private QuickPostPresenter quickPostPresenter;
     private List<String> listTypeJobName = new ArrayList<>();
-    private HashMap<String, String> hashMapTypeJob = new HashMap<>();
+    private List<TypeJob> listTypeJob = new ArrayList<>();
+
+    private TypeJobAdapter typeJobAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +98,38 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         sessionManagerUser = new SessionManagerUser(HomeActivity.this);
         mHomePresenter.requestCheckToken();
 
-        imgQuickPost.setOnClickListener(this);
-        quickPostPresenter = new QuickPostPresenter(this);
-        quickPostPresenter.getAllTypeJob();
+        if(Constants.listTypeJob !=null) {
+            rcv_type_job.setVisibility(View.VISIBLE);
+            this.listTypeJob = Constants.listTypeJob;
+            for (TypeJob typeJob : this.listTypeJob) {
+                listTypeJobName.add(typeJob.getName());
+            }
+            setRecyclerView();
+        }
+        else
+        {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+        }
     }
 
+    private void setRecyclerView()
+    {
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                int mod = position % 6;
+                if(position == 0)
+                    return 2;
+                else
+                    return 1;
+            }
+        });
+        rcv_type_job.setLayoutManager(layoutManager);
+        typeJobAdapter=new TypeJobAdapter(HomeActivity.this,listTypeJob);
+        typeJobAdapter.notifyDataSetChanged();
+        rcv_type_job.setAdapter(typeJobAdapter);
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -150,9 +177,6 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
                 transActivity(HistoryActivity.class);
                 finish();
                 break;
-            case R.id.imgQuickPost:
-                showListTypeJobDialog();
-                break;
         }
     }
 
@@ -163,21 +187,23 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         View convertView = (View) inflater.inflate(R.layout.dialog_quickpost, null);
         alertDialog.setView(convertView);
         alertDialog.setTitle(getResources().getString(R.string.types_of_work));
-        ListView lv = (ListView) convertView.findViewById(R.id.listTypeJob);
+        ListView lv = (ListView) convertView.findViewById(R.id.listTypeJobName);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listTypeJobName);
         lv.setAdapter(adapter);
-
-        if(adapter.getCount() > 3){
-            View item = adapter.getView(0, null, lv);
-            item.measure(0, 0);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (5.5 * item.getMeasuredHeight()));
-            lv.setLayoutParams(params);
-        }
+//
+//        if(adapter.getCount() > 3){
+//            View item = adapter.getView(0, null, lv);
+//            item.measure(0, 0);
+//            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (5.5 * item.getMeasuredHeight()));
+//            lv.setLayoutParams(params);
+//        }
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(HomeActivity.this,listTypeJobName.get(position),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, QuickPostActivity.class);
+                intent.putExtra("quickPost",listTypeJob.get(position));
+                startActivity(intent);
             }
         });
         alertDialog.show();
@@ -235,23 +261,5 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         char[] charArray = str.toCharArray();
         charArray[position] = ch;
         return new String(charArray);
-    }
-
-    @Override
-    public void connectServerFail() {
-        ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
-    }
-
-    @Override
-    public void getAllTypeJob(TypeJobResponse typeJobResponse) {
-        for (TypeJob typeJob : typeJobResponse.getData()) {
-            hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
-            listTypeJobName.add(typeJob.getName());
-        }
-    }
-
-    @Override
-    public void displayError(String error) {
-
     }
 }

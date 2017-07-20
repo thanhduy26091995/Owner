@@ -1,5 +1,10 @@
 package com.hbbsolution.owner.utils;
 
+import com.hbbsolution.owner.model.TypeJob;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by buivu on 28/04/2017.
  */
@@ -24,4 +29,5 @@ public class Constants {
     public static final String MERCHANT_ID = "51185";
     public static final String MERCHANT_PASSWORD = "0fc156a3ed1cd742a4ec65fe52372d06";
 
+    public static List<TypeJob> listTypeJob = new ArrayList<>();
 }

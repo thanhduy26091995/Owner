@@ -11,4 +11,11 @@
 
     <dimen name="home_margin">25dp</dimen>
     <dimen name="home_margin_work">9dp</dimen>
+
+    <dimen name="text_size_type_job">11sp</dimen>
+
+    <dimen name="boder_white">5dp</dimen>
+    <dimen name="boder_padding">-6dp</dimen>
+
+    <dimen name="boder_padding_recycleview">2dp</dimen>
 </resources>
