@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -34,9 +35,12 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.adapter.SuggetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
+import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
@@ -62,6 +66,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+
+import static com.hbbsolution.owner.utils.Constants.listTypeJob;
 
 /**
  * Created by tantr on 5/14/2017.
@@ -100,6 +106,10 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     @BindView(R.id.lo_job_post)
     EditText lo_job_post;
 
+    @BindView(R.id.rcv_suggest)
+    RecyclerView rcv_suggest;
+    @BindView(R.id.view_suggest)
+    View view_suggest;
 
     public static Activity mJobPostActivity = null;
     private ProgressDialog progressDialog;
@@ -109,7 +119,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     private boolean mChosenTools = false, isPost;
 
-    private Datum infoJob;
+    private Datum mDatum;
 
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
@@ -118,6 +128,11 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     private Calendar cal;
     private int clicked;
     private int date, month, year;
+
+    private TypeJob infoJob;
+    private SuggetAdapter suggetAdapter;
+    private List<Suggest> listSuggest = new ArrayList<>();
+    private String note = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -165,47 +180,47 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         }
 
         final Intent intent = getIntent();
-        infoJob = (Datum) intent.getSerializableExtra("infoJobPost");
+        mDatum = (Datum) intent.getSerializableExtra("infoJobPost");
 
-        if (infoJob != null) {
+        if (mDatum != null) {
             isPost = false;
             txt_post_complete.setText(getResources().getString(R.string.update_job_post));
-            mIdTask = infoJob.getId();
+            mIdTask = mDatum.getId();
 
-            edtTitlePost.setText(infoJob.getInfo().getTitle());
+            edtTitlePost.setText(mDatum.getInfo().getTitle());
             int position = edtTitlePost.length();
             Editable etext = edtTitlePost.getText();
             Selection.setSelection(etext, position);
 
-            edtDescriptionPost.setText(infoJob.getInfo().getDescription());
-            edtAddressPost.setText(infoJob.getInfo().getAddress().getName());
-            edtType_job.setText(infoJob.getInfo().getWork().getName());
-            mTypeJob = infoJob.getInfo().getWork().getId();
-            chb_tools_work.setChecked(infoJob.getInfo().getTools());
-            mPackageId = infoJob.getInfo().getPackage().getId();
-            mHours = String.valueOf(infoJob.getInfo().getTime().getHour());
+            edtDescriptionPost.setText(mDatum.getInfo().getDescription());
+            edtAddressPost.setText(mDatum.getInfo().getAddress().getName());
+            edtType_job.setText(mDatum.getInfo().getWork().getName());
+            mTypeJob = mDatum.getInfo().getWork().getId();
+            chb_tools_work.setChecked(mDatum.getInfo().getTools());
+            mPackageId = mDatum.getInfo().getPackage().getId();
+            mHours = String.valueOf(mDatum.getInfo().getTime().getHour());
 //            edt_monney_work_hour.setText(mHours);
 
             if (mPackageId.equals("000000000000000000000001")) {
                 edt_monney_work.setEnabled(true);
 //                edt_monney_work_hour.setEnabled(false);
                 rad_type_money_work.setChecked(true);
-                edt_monney_work.setText(String.valueOf(infoJob.getInfo().getPrice()));
+                edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice()));
             } else if (mPackageId.equals("000000000000000000000002")) {
                 edt_monney_work.setEnabled(false);
 //                edt_monney_work_hour.setEnabled(true);
                 rad_type_money_khoan.setChecked(true);
             }
 
-            txtDate_start_work.setText(getDatePostHistory(infoJob.getInfo().getTime().getStartAt()));
-            txtTime_start.setText(getTimeDoingPost(infoJob.getInfo().getTime().getStartAt()));
-            txtTime_end.setText(getTimeDoingPost(infoJob.getInfo().getTime().getEndAt()));
+            txtDate_start_work.setText(getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
+            txtTime_start.setText(getTimeDoingPost(mDatum.getInfo().getTime().getStartAt()));
+            txtTime_end.setText(getTimeDoingPost(mDatum.getInfo().getTime().getEndAt()));
 
             SimpleDateFormat editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             try {
-                startTime = editTime.parse(infoJob.getInfo().getTime().getStartAt());
-                endTime = editTime.parse(infoJob.getInfo().getTime().getEndAt());
-                choseDate = editTime.parse(infoJob.getInfo().getTime().getStartAt());
+                startTime = editTime.parse(mDatum.getInfo().getTime().getStartAt());
+                endTime = editTime.parse(mDatum.getInfo().getTime().getEndAt());
+                choseDate = editTime.parse(mDatum.getInfo().getTime().getStartAt());
                 clicked = 1;
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -214,6 +229,11 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         } else {
             isPost = true;
             txt_post_complete.setText(getResources().getString(R.string.detail_posted));
+        }
+
+        for (TypeJob typeJob : Constants.listTypeJob) {
+            hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+            listTypeJobName.add(typeJob.getName());
         }
 
         edt_monney_work.addTextChangedListener(new TextWatcher() {
@@ -240,6 +260,44 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 }
             }
         });
+    }
+
+    private void setRecyclerView() {
+        listSuggest = infoJob.getSuggest();
+        if (listSuggest.size() > 0) {
+            view_suggest.setVisibility(View.VISIBLE);
+            rcv_suggest.setVisibility(View.VISIBLE);
+            note = "";
+
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+            rcv_suggest.setLayoutManager(layoutManager);
+            suggetAdapter = new SuggetAdapter(JobPostActivity.this, listSuggest);
+            suggetAdapter.notifyDataSetChanged();
+            rcv_suggest.setAdapter(suggetAdapter);
+            suggetAdapter.setCallback(new SuggetAdapter.Callback() {
+                @Override
+                public void onItemChecked(Suggest suggest) {
+                    addString(note, suggest.getName() + " " + "\r\n");
+                }
+
+                @Override
+                public void onItemNotChecked(Suggest suggest) {
+                    clearString(note, suggest.getName() + " " + "\r\n");
+                }
+            });
+        }
+
+    }
+
+    private void addString(String a, String b) {
+        note = new StringBuilder()
+                .append(a)
+                .append(b)
+                .toString();
+    }
+
+    private void clearString(String a, String b) {
+        note = a.replace(b, "");
     }
 
     @Override
@@ -311,11 +369,6 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
         txt_post_complete.setEnabled(true);
-
-        for (TypeJob typeJob : typeJobResponse.getData()) {
-            hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
-            listTypeJobName.add(typeJob.getName());
-        }
     }
 
     @Override
@@ -340,12 +393,27 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         txt_post_complete.setEnabled(false);
 //        progressBar.setVisibility(View.VISIBLE);
 
-        if (isPost) {
-            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-        } else {
-            mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        if (!note.equals("")) {
+            if(!mDescriptionPost.equals("")) {
+                mDescriptionPost += "\r\n" + note;
+            }
+            else
+            {
+                mDescriptionPost = note;
+            }
+        }
+        if (!mDescriptionPost.equals("")) {
+            if (isPost) {
+                mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+                        mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+            } else {
+                mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+                        mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+            }
+        }
+        else
+        {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
         }
 //        if (checkDataComplete()) {
 //            posData(geoCodeMapResponse);
@@ -437,6 +505,11 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 String idTypeJob = hashMapTypeJob.get(item);
                 mTypeJob = idTypeJob;
                 mBottomSheetDialog.dismiss();
+
+                infoJob = listTypeJob.get(position);
+                view_suggest.setVisibility(View.GONE);
+                rcv_suggest.setVisibility(View.GONE);
+                setRecyclerView();
             }
         });
 
@@ -451,7 +524,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     private boolean checkDataComplete() {
 
-        if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
+        if (edtTitlePost.getText().toString().isEmpty() ||
                 edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
             hideProgressDialog();
 //            progressBar.setVisibility(View.GONE);
@@ -525,7 +598,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 choseDate = calendar.getTime();
                 if (date == i2 && month == i1 && year == i) {
                     nowDate = choseDate;
-                    clicked=0;
+                    clicked = 0;
                 }
 //                DateTime dateTime = new DateTime(calendar);
 //                mDateStartWork = dateTime.toString();
@@ -555,15 +628,13 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     public void compareTimeStart(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         startTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1 && endTime!=null) {
+            if (clicked == 1 && endTime != null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
-                } else if (endTime.getTime() - startTimeTemp.getTime() < 0){
+                } else if (endTime.getTime() - startTimeTemp.getTime() < 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
-                }
-                else if (startTimeTemp.getTime() < nowTime.getTime())
-                {
+                } else if (startTimeTemp.getTime() < nowTime.getTime()) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
                 }
             } else {
@@ -576,7 +647,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 }
             }
         } else {
-            if (clicked == 1 && endTime!=null) {
+            if (clicked == 1 && endTime != null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
@@ -595,14 +666,13 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     public void compareTimeEnd(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         endTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1 && startTime!=null) {
+            if (clicked == 1 && startTime != null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;
-                } else if(endTimeTemp.getTime() - startTime.getTime() < 0){
+                } else if (endTimeTemp.getTime() - startTime.getTime() < 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), JobPostActivity.this);
-                }
-                else if (endTimeTemp.getTime() < nowTime.getTime()){
+                } else if (endTimeTemp.getTime() < nowTime.getTime()) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), JobPostActivity.this);
                 }
             } else {
@@ -615,7 +685,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 }
             }
         } else {
-            if (clicked == 1 && startTime!=null) {
+            if (clicked == 1 && startTime != null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;

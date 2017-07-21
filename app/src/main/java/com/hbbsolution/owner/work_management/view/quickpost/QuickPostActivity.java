@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -34,7 +35,9 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.adapter.SuggetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
+import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.Constants;
@@ -102,6 +105,11 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     @BindView(R.id.lo_job_post)
     EditText lo_job_post;
 
+    @BindView(R.id.rcv_suggest)
+    RecyclerView rcv_suggest;
+
+    @BindView(R.id.view_suggest)
+    View view_suggest;
 
     public static Activity mQuickPostActivity = null;
     private ProgressDialog progressDialog;
@@ -122,6 +130,13 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     private int date, month, year;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
+
+    private SuggetAdapter suggetAdapter;
+
+    private List<Suggest> listSuggest = new ArrayList<>();
+
+    private String note = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +154,6 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         cal = Calendar.getInstance();
         cal.set(0, 0, 0);
         nowTime = cal.getTime();
@@ -155,14 +169,14 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         infoJob = (TypeJob) intent.getSerializableExtra("quickPost");
         txt_post_complete.setText(getResources().getString(R.string.detail_posted));
         setData();
-
+        if (infoJob.getSuggest() != null) {
+            setRecyclerView();
+        }
         setTextMoneyChange();
-
         setEventClick();
     }
 
-    private void setData()
-    {
+    private void setData() {
         if (rad_type_money_work.isChecked()) {
             edt_monney_work.setEnabled(true);
             mPackageId = "000000000000000000000001";
@@ -192,8 +206,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         }
     }
 
-    private void setEventClick()
-    {
+    private void setEventClick() {
         edtType_job.setOnClickListener(this);
         txt_post_complete.setOnClickListener(this);
         txtTime_start.setOnClickListener(this);
@@ -203,8 +216,45 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         rad_type_money_khoan.setOnClickListener(this);
     }
 
-    private void setTextMoneyChange()
-    {
+    private void setRecyclerView() {
+        listSuggest = infoJob.getSuggest();
+        if (listSuggest.size() > 0) {
+            view_suggest.setVisibility(View.VISIBLE);
+            rcv_suggest.setVisibility(View.VISIBLE);
+            note = "";
+
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+            rcv_suggest.setLayoutManager(layoutManager);
+            suggetAdapter = new SuggetAdapter(QuickPostActivity.this, listSuggest);
+            suggetAdapter.notifyDataSetChanged();
+            rcv_suggest.setAdapter(suggetAdapter);
+            suggetAdapter.setCallback(new SuggetAdapter.Callback() {
+                @Override
+                public void onItemChecked(Suggest suggest) {
+                    addString(note, suggest.getName() + " " + "\r\n");
+                }
+
+                @Override
+                public void onItemNotChecked(Suggest suggest) {
+                    clearString(note, suggest.getName() + " " + "\r\n");
+                }
+            });
+        }
+
+    }
+
+    private void addString(String a, String b) {
+        note = new StringBuilder()
+                .append(a)
+                .append(b)
+                .toString();
+    }
+
+    private void clearString(String a, String b) {
+        note = a.replace(b, "");
+    }
+
+    private void setTextMoneyChange() {
         edt_monney_work.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -230,6 +280,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -323,8 +374,19 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         txt_post_complete.setEnabled(false);
 //        progressBar.setVisibility(View.VISIBLE);
 
-        mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+        if (!note.equals("")) {
+            if (!mDescriptionPost.equals("")) {
+                mDescriptionPost += "\r\n" + note;
+            } else {
+                mDescriptionPost = note;
+            }
+        }
+        if (!mDescriptionPost.equals("")) {
+            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                     mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        } else {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), QuickPostActivity.this);
+        }
 //        if (checkDataComplete()) {
 //            posData(geoCodeMapResponse);
 //        }
@@ -387,7 +449,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     private void eventClickTypeWork(final List<String> listData, final EditText txtShow) {
 
-        View view = getLayoutInflater().inflate(R.layout.job_post_bottom_sheet, null);
+        final View view = getLayoutInflater().inflate(R.layout.job_post_bottom_sheet, null);
         //map components
         TextView txtCancel = (TextView) view.findViewById(R.id.txt_cancel);
         RecyclerView mRecycler = (RecyclerView) view.findViewById(R.id.recy_type_job);
@@ -415,6 +477,10 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 String idTypeJob = hashMapTypeJob.get(item);
                 mTypeJob = idTypeJob;
                 mBottomSheetDialog.dismiss();
+                infoJob = Constants.listTypeJob.get(position);
+                view_suggest.setVisibility(View.GONE);
+                rcv_suggest.setVisibility(View.GONE);
+                setRecyclerView();
             }
         });
 
@@ -429,7 +495,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     private boolean checkDataComplete() {
 
-        if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
+        if (edtTitlePost.getText().toString().isEmpty() ||
                 edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
             hideProgressDialog();
 //            progressBar.setVisibility(View.GONE);
@@ -503,7 +569,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 choseDate = calendar.getTime();
                 if (date == i2 && month == i1 && year == i) {
                     nowDate = choseDate;
-                    clicked=0;
+                    clicked = 0;
                 }
 //                DateTime dateTime = new DateTime(calendar);
 //                mDateStartWork = dateTime.toString();
@@ -533,15 +599,13 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     public void compareTimeStart(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         startTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1 && endTime!=null) {
+            if (clicked == 1 && endTime != null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
-                } else if (endTime.getTime() - startTimeTemp.getTime() < 0){
+                } else if (endTime.getTime() - startTimeTemp.getTime() < 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), QuickPostActivity.this);
-                }
-                else if (startTimeTemp.getTime() < nowTime.getTime())
-                {
+                } else if (startTimeTemp.getTime() < nowTime.getTime()) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), QuickPostActivity.this);
                 }
             } else {
@@ -554,7 +618,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 }
             }
         } else {
-            if (clicked == 1 && endTime!=null) {
+            if (clicked == 1 && endTime != null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
@@ -573,14 +637,13 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     public void compareTimeEnd(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         endTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1 && startTime!=null) {
+            if (clicked == 1 && startTime != null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;
-                } else if(endTimeTemp.getTime() - startTime.getTime() < 0){
+                } else if (endTimeTemp.getTime() - startTime.getTime() < 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), QuickPostActivity.this);
-                }
-                else if (endTimeTemp.getTime() < nowTime.getTime()){
+                } else if (endTimeTemp.getTime() < nowTime.getTime()) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), QuickPostActivity.this);
                 }
             } else {
@@ -593,7 +656,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 }
             }
         } else {
-            if (clicked == 1 && startTime!=null) {
+            if (clicked == 1 && startTime != null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;

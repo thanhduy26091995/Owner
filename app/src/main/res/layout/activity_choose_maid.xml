@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity"
-    android:background="@color/gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -99,23 +99,22 @@
                     android:textSize="16sp" />
 
                 <View
+                    android:id="@+id/view_suggest"
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
-                    android:background="@color/colorBlack" />
+                    android:background="@color/colorBlack"
+                    android:visibility="gone" />
 
-                <EditText
-                    android:id="@+id/edtDescriptionPost"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_suggest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/work_description"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:scrollbars="vertical"
+                    android:visibility="gone" />
 
                 <View
                     android:layout_width="match_parent"
@@ -217,23 +216,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/edt_monney_work"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/enter_the_salary"
-                        android:inputType="numberDecimal"
-                        android:padding="10dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/edt_monney_work"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/enter_the_salary"
+                            android:inputType="numberDecimal"
+                            android:padding="10dp"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -259,9 +259,9 @@
                         android:background="@android:color/transparent"
                         android:enabled="false"
                         android:gravity="left|center"
-                        android:text="@string/khoangtienlamviec"
                         android:inputType="numberDecimal"
                         android:padding="10dp"
+                        android:text="@string/khoangtienlamviec"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
@@ -367,7 +367,25 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
 
+                <EditText
+                    android:id="@+id/edtDescriptionPost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/work_description"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

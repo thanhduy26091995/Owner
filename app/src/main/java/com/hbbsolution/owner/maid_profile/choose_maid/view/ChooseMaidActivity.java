@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -32,13 +33,16 @@ import android.widget.TimePicker;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
+import com.hbbsolution.owner.adapter.SuggetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.maid_profile.choose_maid.presenter.ChooseMaidPresenter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
+import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
@@ -95,8 +99,15 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     @BindView(R.id.progressPostJob)
     ProgressBar progressBar;
 
+    @BindView(R.id.rcv_suggest)
+    RecyclerView rcv_suggest;
+
+    @BindView(R.id.view_suggest)
+    View view_suggest;
+
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
+
     private String mTypeJob = null, mPackageId;
     private ChooseMaidPresenter presenter;
     private Maid mMaidInfo;
@@ -106,6 +117,13 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     private Calendar cal;
     private int clicked;
     private int date, month, year;
+
+    private TypeJob infoJob;
+    private SuggetAdapter suggetAdapter;
+
+    private List<Suggest> listSuggest = new ArrayList<>();
+
+    private String note = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -166,6 +184,44 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         });
     }
 
+    private void setRecyclerView() {
+        listSuggest = infoJob.getSuggest();
+        if (listSuggest.size() > 0) {
+            view_suggest.setVisibility(View.VISIBLE);
+            rcv_suggest.setVisibility(View.VISIBLE);
+            note = "";
+
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+            rcv_suggest.setLayoutManager(layoutManager);
+            suggetAdapter = new SuggetAdapter(ChooseMaidActivity.this, listSuggest);
+            suggetAdapter.notifyDataSetChanged();
+            rcv_suggest.setAdapter(suggetAdapter);
+            suggetAdapter.setCallback(new SuggetAdapter.Callback() {
+                @Override
+                public void onItemChecked(Suggest suggest) {
+                    addString(note, suggest.getName() + " " + "\r\n");
+                }
+
+                @Override
+                public void onItemNotChecked(Suggest suggest) {
+                    clearString(note, suggest.getName() + " " + "\r\n");
+                }
+            });
+        }
+
+    }
+
+    private void addString(String a, String b) {
+        note = new StringBuilder()
+                .append(a)
+                .append(b)
+                .toString();
+    }
+
+    private void clearString(String a, String b) {
+        note = a.replace(b, "");
+    }
+
     //show dialog to choose date
     private void getDatePicker() {
         final Calendar calendar = Calendar.getInstance();
@@ -223,14 +279,13 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     public void compareTimeStart(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         startTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1 && endTime!=null) {
+            if (clicked == 1 && endTime != null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0 && startTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
                 } else if (endTime.getTime() - startTimeTemp.getTime() < 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), ChooseMaidActivity.this);
-                }
-                else if (startTimeTemp.getTime() < nowTime.getTime()){
+                } else if (startTimeTemp.getTime() < nowTime.getTime()) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), ChooseMaidActivity.this);
                 }
             } else {
@@ -243,7 +298,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 }
             }
         } else {
-            if (clicked == 1 && endTime!=null) {
+            if (clicked == 1 && endTime != null) {
                 if (endTime.getTime() - startTimeTemp.getTime() >= 0) {
                     txtTime_start.setText(simpleDateFormat.format(calendar.getTime()));
                     startTime = startTimeTemp;
@@ -262,14 +317,13 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     public void compareTimeEnd(Calendar calendar, SimpleDateFormat simpleDateFormat) {
         endTimeTemp = calendar.getTime();
         if (choseDate.getTime() == nowDate.getTime()) {
-            if (clicked == 1 && startTime!=null) {
+            if (clicked == 1 && startTime != null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0 && endTimeTemp.getTime() >= nowTime.getTime()) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;
-                } else if(endTimeTemp.getTime() - startTime.getTime() < 0) {
+                } else if (endTimeTemp.getTime() - startTime.getTime() < 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.rangetime), ChooseMaidActivity.this);
-                }
-                else if (endTimeTemp.getTime() < nowTime.getTime()){
+                } else if (endTimeTemp.getTime() < nowTime.getTime()) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_working_time), ChooseMaidActivity.this);
                 }
             } else {
@@ -282,7 +336,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 }
             }
         } else {
-            if (clicked == 1 && startTime!=null) {
+            if (clicked == 1 && startTime != null) {
                 if (endTimeTemp.getTime() - startTime.getTime() >= 0) {
                     txtTime_end.setText(simpleDateFormat.format(calendar.getTime()));
                     endTime = endTimeTemp;
@@ -377,7 +431,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     private boolean checkDataComplete() {
 
-        if (edtTitlePost.getText().toString().isEmpty() || edtDescriptionPost.getText().toString().isEmpty() ||
+        if (edtTitlePost.getText().toString().isEmpty() ||
                 edtAddressPost.getText().toString().isEmpty() || edtType_job.getText().toString().isEmpty()) {
             progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), ChooseMaidActivity.this);
@@ -464,6 +518,10 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 String idTypeJob = hashMapTypeJob.get(item);
                 mTypeJob = idTypeJob;
                 mBottomSheetDialog.dismiss();
+                infoJob = Constants.listTypeJob.get(position);
+                view_suggest.setVisibility(View.GONE);
+                rcv_suggest.setVisibility(View.GONE);
+                setRecyclerView();
             }
         });
 
@@ -509,8 +567,20 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         String dateStartWork = getTimeWork(txtTime_start.getText().toString());
         String dateEndWork = getTimeWork(txtTime_end.getText().toString());
         //send request
-        presenter.sendRequest(mMaidInfo.getId(), title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
-
+        if (!note.equals("")) {
+            if(!description.equals("")) {
+                description += "\r\n" + note;
+            }
+            else
+            {
+                description = note;
+            }
+        }
+        if (!description.equals("")) {
+            presenter.sendRequest(mMaidInfo.getId(), title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
+        } else {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), ChooseMaidActivity.this);
+        }
     }
 
     private String getTimeWork(String mTimeWork) {

@@ -33,6 +33,8 @@ import com.hbbsolution.owner.work_management.view.quickpost.QuickPostActivity;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -101,6 +103,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         if(Constants.listTypeJob !=null) {
             rcv_type_job.setVisibility(View.VISIBLE);
             this.listTypeJob = Constants.listTypeJob;
+            compareValueInModel(this.listTypeJob);
             for (TypeJob typeJob : this.listTypeJob) {
                 listTypeJobName.add(typeJob.getName());
             }
@@ -126,7 +129,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             }
         });
         rcv_type_job.setLayoutManager(layoutManager);
-        typeJobAdapter=new TypeJobAdapter(HomeActivity.this,listTypeJob);
+        typeJobAdapter=new TypeJobAdapter(HomeActivity.this,this.listTypeJob);
         typeJobAdapter.notifyDataSetChanged();
         rcv_type_job.setAdapter(typeJobAdapter);
     }
@@ -261,5 +264,15 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         char[] charArray = str.toCharArray();
         charArray[position] = ch;
         return new String(charArray);
+    }
+
+    private List<TypeJob> compareValueInModel(List<TypeJob> list)
+    {
+        Collections.sort(list, new Comparator<TypeJob>() {
+            public int compare(TypeJob obj1, TypeJob obj2) {
+                return Integer.valueOf((int) obj2.getWeight()).compareTo((int) obj1.getWeight()); // To compare integer values
+            }
+        });
+        return list;
     }
 }

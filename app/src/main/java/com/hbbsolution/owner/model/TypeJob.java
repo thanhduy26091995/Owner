@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class TypeJob implements Serializable{
 
@@ -17,6 +18,9 @@ public class TypeJob implements Serializable{
     @SerializedName("price")
     @Expose
     private Integer price;
+    @SerializedName("weight")
+    @Expose
+    private Integer weight;
     @SerializedName("description")
     @Expose
     private String description;
@@ -26,6 +30,9 @@ public class TypeJob implements Serializable{
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("suggest")
+    @Expose
+    private List<Suggest> suggest = null;
 
     public String getId() {
         return id;
@@ -51,6 +58,14 @@ public class TypeJob implements Serializable{
         this.price = price;
     }
 
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -73,6 +88,14 @@ public class TypeJob implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Suggest> getSuggest() {
+        return suggest;
+    }
+
+    public void setSuggest(List<Suggest> suggest) {
+        this.suggest = suggest;
     }
 
 }
