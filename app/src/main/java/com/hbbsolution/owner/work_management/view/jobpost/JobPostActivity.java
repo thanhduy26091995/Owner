@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -357,6 +358,8 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 //                lo_job_post.setVisibility(View.VISIBLE);
 //                showProgressDialog();
 //                checkLocaltionOfOwner();
+
+//                Log.d("money", edt_monney_work.getText().toString().replace(".",""));
                 showProgressDialog();
                 if (checkDataComplete()) {
                     mJobPostPresenter.getLocaltionAddress(edtAddressPost.getText().toString());
@@ -540,7 +543,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), JobPostActivity.this);
             return false;
         }
-        if(edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString()) < 2000){
+        if(edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000){
             hideProgressDialog();
 //            progressBar.setVisibility(View.GONE);
 //            lo_job_post.setVisibility(View.GONE);
