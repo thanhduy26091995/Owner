@@ -540,6 +540,13 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), JobPostActivity.this);
             return false;
         }
+        if(edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString()) < 2000){
+            hideProgressDialog();
+//            progressBar.setVisibility(View.GONE);
+//            lo_job_post.setVisibility(View.GONE);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.validate_amount), JobPostActivity.this);
+            return false;
+        }
         if (CompareTimeStart(getTimeWork(txtTime_start.getText().toString()))) {
             hideProgressDialog();
 //            progressBar.setVisibility(View.GONE);

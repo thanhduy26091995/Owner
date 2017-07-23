@@ -100,7 +100,6 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         mProgressDialog = new ProgressDialog(this);
         mRegisterPresenter = new RegisterPresenter(this);
 
-
     }
 
     @Override

@@ -21,7 +21,6 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_type_job"
             android:lines="1"
-            android:ellipsize="end"
-            />
+            android:ellipsize="end" />
     </RelativeLayout>
 </LinearLayout>

@@ -160,7 +160,7 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
                 lo_ChosenMaidInfo.setVisibility(View.VISIBLE);
             }
             idTaskProcess = getIntent().getStringExtra("idTaskProcess");
-            txtNameInfoMaid.setText(mMaidInfo.getInfo().getUsername());
+            txtNameInfoMaid.setText(mMaidInfo.getInfo().getName());
             txtPriceInfoMaid.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mMaidInfo.getWorkInfo().getPrice()) + " VND" + getResources().getString(R.string.hour));
             txtGenderInfoMaid.setText(getGenderMaid(mMaidInfo.getInfo().getGender()));
             txtAgeInfoMaid.setText(String.valueOf(mMaidInfo.getInfo().getAge()));

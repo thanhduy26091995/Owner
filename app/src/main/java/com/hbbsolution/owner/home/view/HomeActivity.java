@@ -121,7 +121,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                int mod = position % 6;
+//                int mod = position % 6;
                 if(position == 0)
                     return 2;
                 else
@@ -130,6 +130,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         });
         rcv_type_job.setLayoutManager(layoutManager);
         typeJobAdapter=new TypeJobAdapter(HomeActivity.this,this.listTypeJob);
+
         typeJobAdapter.notifyDataSetChanged();
         rcv_type_job.setAdapter(typeJobAdapter);
     }

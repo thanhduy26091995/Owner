@@ -135,7 +135,6 @@ public class SessionManagerUser {
         data.put(KEY_IMAGE, pref.getString(KEY_IMAGE, null));
         data.put(KEY_PHONE, pref.getString(KEY_PHONE, null));
 
-
         // return data
         return data;
     }
