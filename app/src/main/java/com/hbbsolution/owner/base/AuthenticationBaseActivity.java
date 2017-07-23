@@ -22,6 +22,7 @@ import com.hbbsolution.owner.utils.ShowSnackbar;
 public class AuthenticationBaseActivity extends AppCompatActivity implements HomeView {
     public static boolean isInternetConnect;
     protected ProgressDialog progressDialog;
+    private SessionManagerUser sessionManagerUser;
 
     protected void showProgress() {
         progressDialog = new ProgressDialog(this);
@@ -45,8 +46,12 @@ public class AuthenticationBaseActivity extends AppCompatActivity implements Hom
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        HomePresenter mHomePresenter = new HomePresenter(this);
-        mHomePresenter.requestCheckToken();
+        sessionManagerUser = new SessionManagerUser(this);
+        if (sessionManagerUser.isLoggedIn()) {
+            HomePresenter mHomePresenter = new HomePresenter(this);
+            mHomePresenter.requestCheckToken();
+        }
+
     }
 
 

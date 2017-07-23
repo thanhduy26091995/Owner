@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
+import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.maid_near_by.view.filter.presenter.FilterPresenter;
 import com.hbbsolution.owner.model.MaidNearByResponse;

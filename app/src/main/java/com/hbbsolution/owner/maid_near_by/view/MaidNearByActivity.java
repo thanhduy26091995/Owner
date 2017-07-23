@@ -101,6 +101,7 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
     private ProgressDialog mProgressDialog;
     private GoogleAuthController googleAuthController;
     private GoogleApiClient mGoogleApiClient;
+    private boolean isFromSignIn = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,6 +118,7 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
         getSupportActionBar().setTitle("");
         mTextTitle.setText(getResources().getString(R.string.home_maid_around));
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        isFromSignIn = getIntent().getBooleanExtra("FromSignIn", false);
 
         if (InternetConnection.getInstance().isOnline(MaidNearByActivity.this)) {
             if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -449,9 +451,14 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent intentHome = new Intent(MaidNearByActivity.this, HomeActivity.class);
-            startActivity(intentHome);
-            finish();
+            if (isFromSignIn) {
+                finish();
+            } else {
+                Intent intentHome = new Intent(MaidNearByActivity.this, HomeActivity.class);
+                startActivity(intentHome);
+                finish();
+            }
+
         } else if (item.getItemId() == R.id.action_filter) {
             // if (location != null) {
             Intent intent = new Intent(MaidNearByActivity.this, FilterActivity.class);
@@ -604,9 +611,13 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intentHome = new Intent(MaidNearByActivity.this, HomeActivity.class);
-        startActivity(intentHome);
-        finish();
+        if (isFromSignIn) {
+            finish();
+        } else {
+            Intent intentHome = new Intent(MaidNearByActivity.this, HomeActivity.class);
+            startActivity(intentHome);
+            finish();
+        }
     }
 
     @Override

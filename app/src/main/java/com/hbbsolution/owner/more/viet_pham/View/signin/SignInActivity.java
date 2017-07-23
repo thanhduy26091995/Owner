@@ -187,6 +187,7 @@ public class SignInActivity extends BaseActivity implements MoreView, FirebaseAu
             @Override
             public void onClick(View v) {
                 Intent intentMaidNearBy = new Intent(SignInActivity.this, MaidNearByActivity.class);
+                intentMaidNearBy.putExtra("FromSignIn", true);
                 startActivity(intentMaidNearBy);
             }
         });

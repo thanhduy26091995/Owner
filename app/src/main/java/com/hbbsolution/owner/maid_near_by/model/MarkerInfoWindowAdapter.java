@@ -84,7 +84,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Goo
                         .into(imgAvatar, new InfoWindowRefresh(marker));
             }
         }
-        txtName.setText(maidInfo.getInfo().getUsername());
+        txtName.setText(maidInfo.getInfo().getName());
         txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(maidInfo.getWorkInfo().getPrice()) + " VND" + mActivity.getResources().getString(R.string.hour));
         // Setting up the infoWindow with current's marker info
         return view;

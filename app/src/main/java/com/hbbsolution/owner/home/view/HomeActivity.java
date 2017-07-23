@@ -40,7 +40,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AuthenticationBaseActivity implements HomeView, View.OnClickListener{
+public class HomeActivity extends AuthenticationBaseActivity implements HomeView, View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -100,7 +100,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         sessionManagerUser = new SessionManagerUser(HomeActivity.this);
         mHomePresenter.requestCheckToken();
 
-        if(Constants.listTypeJob !=null) {
+        if (Constants.listTypeJob != null) {
             rcv_type_job.setVisibility(View.VISIBLE);
             this.listTypeJob = Constants.listTypeJob;
             compareValueInModel(this.listTypeJob);
@@ -108,32 +108,30 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
                 listTypeJobName.add(typeJob.getName());
             }
             setRecyclerView();
-        }
-        else
-        {
+        } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
         }
     }
 
-    private void setRecyclerView()
-    {
+    private void setRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
 //                int mod = position % 6;
-                if(position == 0)
+                if (position == 0)
                     return 2;
                 else
                     return 1;
             }
         });
         rcv_type_job.setLayoutManager(layoutManager);
-        typeJobAdapter=new TypeJobAdapter(HomeActivity.this,this.listTypeJob);
+        typeJobAdapter = new TypeJobAdapter(HomeActivity.this, this.listTypeJob);
 
         typeJobAdapter.notifyDataSetChanged();
         rcv_type_job.setAdapter(typeJobAdapter);
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -184,15 +182,14 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         }
     }
 
-    private void showListTypeJobDialog()
-    {
+    private void showListTypeJobDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.dialog_quickpost, null);
         alertDialog.setView(convertView);
         alertDialog.setTitle(getResources().getString(R.string.types_of_work));
         ListView lv = (ListView) convertView.findViewById(R.id.listTypeJobName);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listTypeJobName);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listTypeJobName);
         lv.setAdapter(adapter);
 //
 //        if(adapter.getCount() > 3){
@@ -206,7 +203,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(HomeActivity.this, QuickPostActivity.class);
-                intent.putExtra("quickPost",listTypeJob.get(position));
+                intent.putExtra("quickPost", listTypeJob.get(position));
                 startActivity(intent);
             }
         });
@@ -267,8 +264,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         return new String(charArray);
     }
 
-    private List<TypeJob> compareValueInModel(List<TypeJob> list)
-    {
+    private List<TypeJob> compareValueInModel(List<TypeJob> list) {
         Collections.sort(list, new Comparator<TypeJob>() {
             public int compare(TypeJob obj1, TypeJob obj2) {
                 return Integer.valueOf((int) obj2.getWeight()).compareTo((int) obj1.getWeight()); // To compare integer values
