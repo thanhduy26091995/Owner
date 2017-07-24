@@ -535,9 +535,19 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
-        for (TypeJob typeJob : typeJobResponse.getData()) {
-            hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
-            listTypeJobName.add(typeJob.getName());
+        if (Constants.listTypeJob.size() == 0) {
+            Constants.listTypeJob = typeJobResponse.getData();
+            for (TypeJob typeJob : Constants.listTypeJob) {
+                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+                listTypeJobName.add(typeJob.getName());
+            }
+        }
+        else
+        {
+            for (TypeJob typeJob : Constants.listTypeJob) {
+                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+                listTypeJobName.add(typeJob.getName());
+            }
         }
     }
 

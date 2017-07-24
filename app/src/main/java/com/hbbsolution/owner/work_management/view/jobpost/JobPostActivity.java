@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -232,11 +231,6 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             txt_post_complete.setText(getResources().getString(R.string.detail_posted));
         }
 
-        for (TypeJob typeJob : Constants.listTypeJob) {
-            hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
-            listTypeJobName.add(typeJob.getName());
-        }
-
         edt_monney_work.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -372,6 +366,20 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
         txt_post_complete.setEnabled(true);
+        if (Constants.listTypeJob.size() == 0) {
+            Constants.listTypeJob = typeJobResponse.getData();
+            for (TypeJob typeJob : Constants.listTypeJob) {
+                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+                listTypeJobName.add(typeJob.getName());
+            }
+        }
+        else
+        {
+            for (TypeJob typeJob : Constants.listTypeJob) {
+                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+                listTypeJobName.add(typeJob.getName());
+            }
+        }
     }
 
     @Override
@@ -397,11 +405,9 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 //        progressBar.setVisibility(View.VISIBLE);
 
         if (!note.equals("")) {
-            if(!mDescriptionPost.equals("")) {
+            if (!mDescriptionPost.equals("")) {
                 mDescriptionPost += "\r\n" + note;
-            }
-            else
-            {
+            } else {
                 mDescriptionPost = note;
             }
         }
@@ -413,9 +419,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                         mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
             }
-        }
-        else
-        {
+        } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
         }
 //        if (checkDataComplete()) {
@@ -543,7 +547,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), JobPostActivity.this);
             return false;
         }
-        if(edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000){
+        if (edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000) {
             hideProgressDialog();
 //            progressBar.setVisibility(View.GONE);
 //            lo_job_post.setVisibility(View.GONE);

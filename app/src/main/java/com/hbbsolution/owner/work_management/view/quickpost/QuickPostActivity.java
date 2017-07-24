@@ -46,7 +46,6 @@ import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
-import com.hbbsolution.owner.work_management.presenter.QuickPostPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostView;
 
@@ -73,7 +72,7 @@ import de.greenrobot.event.EventBus;
  * Created by Administrator on 19/07/2017.
  */
 
-public class QuickPostActivity extends AuthenticationBaseActivity implements JobPostView, View.OnClickListener, QuickPostView {
+public class QuickPostActivity extends AuthenticationBaseActivity implements JobPostView, View.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -137,7 +136,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     private List<Suggest> listSuggest = new ArrayList<>();
 
     private String note = "";
-    private QuickPostPresenter quickPostPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +162,6 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         clicked = 0;
 
         mJobPostPresenter = new JobPostPresenter(this);
-        quickPostPresenter = new QuickPostPresenter(QuickPostActivity.this);
 
         getDateCurrent();
 
@@ -202,15 +200,9 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             txt_post_complete.setEnabled(true);
         }
 
-        if(Constants.listTypeJob!=null) {
-            for (TypeJob typeJob : Constants.listTypeJob) {
-                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
-                listTypeJobName.add(typeJob.getName());
-            }
-        }
-        else
-        {
-          quickPostPresenter.getAllTypeJob();
+        for (TypeJob typeJob : Constants.listTypeJob) {
+            hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+            listTypeJobName.add(typeJob.getName());
         }
     }
 
@@ -357,7 +349,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
-        Constants.listTypeJob = typeJobResponse.getData();
+
     }
 
     @Override
@@ -485,7 +477,6 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 String idTypeJob = hashMapTypeJob.get(item);
                 mTypeJob = idTypeJob;
                 mBottomSheetDialog.dismiss();
-
                 infoJob = Constants.listTypeJob.get(position);
                 view_suggest.setVisibility(View.GONE);
                 rcv_suggest.setVisibility(View.GONE);
