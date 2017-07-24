@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
-import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.history.fragment.HistoryViewPagerFragment;
 import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.home.view.HomeView;

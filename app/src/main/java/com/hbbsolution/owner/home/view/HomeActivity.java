@@ -100,7 +100,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         sessionManagerUser = new SessionManagerUser(HomeActivity.this);
         mHomePresenter.requestCheckToken();
 
-        if (Constants.listTypeJob != null) {
+        if (Constants.listTypeJob.size() > 0) {
             rcv_type_job.setVisibility(View.VISIBLE);
             this.listTypeJob = Constants.listTypeJob;
             compareValueInModel(this.listTypeJob);
