@@ -225,8 +225,12 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
                 e.printStackTrace();
             }
         } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            ivAvatar.setImageURI(fileUri);
-            mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(),fileUri);
+            if (fileUri != null) {
+                ivAvatar.setImageURI(fileUri);
+                mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), fileUri);
+            } else {
+                ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), SignUp2Activity.this);
+            }
         }
     }
 
@@ -324,7 +328,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
     }
 
     public void selectImage() {
-        final CharSequence[] options = {getResources().getString(R.string.sign_up_camera),getResources().getString(R.string.sign_up_libary_image),getResources().getString(R.string.sign_up_cancel)};
+        final CharSequence[] options = {getResources().getString(R.string.sign_up_camera), getResources().getString(R.string.sign_up_libary_image), getResources().getString(R.string.sign_up_cancel)};
         AlertDialog.Builder builder = new AlertDialog.Builder(SignUp2Activity.this);
         builder.setTitle(getResources().getString(R.string.sign_up_choice));
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -332,7 +336,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals(getResources().getString(R.string.sign_up_camera))) {
                     if (verifyCamerapermission()) {
-                         takePhoto();
+                        takePhoto();
                     } else {
                         return;
                     }

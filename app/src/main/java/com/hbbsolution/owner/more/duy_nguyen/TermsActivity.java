@@ -19,6 +19,7 @@ import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateRespon
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.utils.SessionManagerUser;
+import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
 import java.util.HashMap;
@@ -40,11 +41,12 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
     private RegisterPresenter mRegisterPresenter;
     private double mLat;
     private double mLng;
-    private String mUserName,mPassword,mEmail,mFullName,mPhoneName,mFilePath,mLocation;
+    private String mUserName, mPassword, mEmail, mFullName, mPhoneName, mFilePath, mLocation;
     private int mGender;
     private SessionManagerUser sessionManagerUser;
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,8 +115,7 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
     public void displaySignUpAndSignIn(BodyResponse bodyResponse) {
         btnOK.setEnabled(true);
         hideProgress();
-        if (bodyResponse.getStatus() == true)
-        {
+        if (bodyResponse.getStatus() == true) {
             sessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = sessionManagerUser.getUserDetails();
             ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
@@ -122,6 +123,11 @@ public class TermsActivity extends AppCompatActivity implements MoreView {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
+        } else {
+            String mess = bodyResponse.getMessage();
+            if (mess.equals("DUPLICATED")) {
+                ShowAlertDialog.showAlert(getResources().getString(R.string.email_duplicated), TermsActivity.this);
+            }
         }
     }
 

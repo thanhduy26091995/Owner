@@ -59,9 +59,10 @@ public class UpdateUserPresenter {
         mApiService.updateOwner(requestBodyPhone, requestBodyName, requestBodyLocation, requestBodyLat, requestBodyLng, requestBodyGender, fileImage).enqueue(new Callback<DataUpdateResponse>() {
             @Override
             public void onResponse(Call<DataUpdateResponse> call, Response<DataUpdateResponse> response) {
-                DataUpdateResponse dataUpdateResponse = response.body();
-                mMoreView.displayUpdate(dataUpdateResponse);
-
+                if (response.isSuccessful()) {
+                    DataUpdateResponse dataUpdateResponse = response.body();
+                    mMoreView.displayUpdate(dataUpdateResponse);
+                }
             }
 
             @Override

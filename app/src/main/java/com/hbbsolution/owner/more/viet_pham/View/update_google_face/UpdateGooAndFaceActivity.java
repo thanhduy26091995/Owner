@@ -242,7 +242,7 @@ public class UpdateGooAndFaceActivity extends BaseActivity implements MoreView, 
             finish();
         } else {
             clearCache();
-            if (bodyResponse.getMessage().equals("DUPLICATED")){
+            if (bodyResponse.getMessage().equals("DUPLICATED")) {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.email_duplicated), UpdateGooAndFaceActivity.this);
             }
 

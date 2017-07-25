@@ -111,6 +111,8 @@
                     android:backgroundTint="@android:color/transparent"
                     android:fontFamily="@string/font_family_thin"
                     android:hint="@string/sign_up_full_name"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:textColor="@android:color/black" />
             </RelativeLayout>
 
