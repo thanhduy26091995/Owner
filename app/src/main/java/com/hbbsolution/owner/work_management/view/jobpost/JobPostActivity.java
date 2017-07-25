@@ -133,7 +133,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     private SuggetAdapter suggetAdapter;
     private List<Suggest> listSuggest = new ArrayList<>();
     private String note = "";
-    private Calendar calendarForTime1,calendarForTime2;
+    private Calendar calendarForTime1, calendarForTime2;
 
     private InputMethodManager inputManager;
 
@@ -389,9 +389,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
                 listTypeJobName.add(typeJob.getName());
             }
-        }
-        else
-        {
+        } else {
             for (TypeJob typeJob : Constants.listTypeJob) {
                 hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
                 listTypeJobName.add(typeJob.getName());
@@ -564,12 +562,14 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), JobPostActivity.this);
             return false;
         }
-        if (edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000) {
-            hideProgressDialog();
+        if (!edt_monney_work.getText().toString().equals("")) {
+            if (edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000) {
+                hideProgressDialog();
 //            progressBar.setVisibility(View.GONE);
 //            lo_job_post.setVisibility(View.GONE);
-            ShowAlertDialog.showAlert(getResources().getString(R.string.validate_amount), JobPostActivity.this);
-            return false;
+                ShowAlertDialog.showAlert(getResources().getString(R.string.validate_amount), JobPostActivity.this);
+                return false;
+            }
         }
         if (CompareTimeStart(getTimeWork(txtTime_start.getText().toString()))) {
             hideProgressDialog();
