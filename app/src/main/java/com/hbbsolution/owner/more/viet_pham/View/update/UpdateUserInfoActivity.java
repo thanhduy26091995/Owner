@@ -42,7 +42,6 @@ import com.hbbsolution.owner.more.viet_pham.Presenter.UpdateUserPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
 import com.hbbsolution.owner.utils.Constants;
-import com.hbbsolution.owner.utils.EncodeImage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -121,9 +120,9 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         edtEmail.setText(mDataHashUser.get(SessionManagerUser.KEY_EMAIL));
         edtFullName.setText(mDataHashUser.get(SessionManagerUser.KEY_NAME));
         if (mDataHashUser.get(SessionManagerUser.KEY_GENDER).equals("0")) {
-            edtGender.setText("Nam");
+            edtGender.setText(getResources().getString(R.string.pro_file_gender_male));
         } else {
-            edtGender.setText("Nữ");
+            edtGender.setText(getResources().getString(R.string.pro_file_gender_female));
         }
         edtNumber.setText(mDataHashUser.get(SessionManagerUser.KEY_PHONE));
         edtLocation.setText(mDataHashUser.get(SessionManagerUser.KEY_ADDRESS));
@@ -190,7 +189,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                 mGender = edtGender.getText().toString();
                 mPhoneName = edtNumber.getText().toString();
                 mLocation = edtLocation.getText().toString();
-                if (mGender.equals("Nam")) {
+                if (mGender.equals("Nam") || mGender.equals("Male")) {
                     iGender = 0;
                 } else {
                     iGender = 1;
@@ -278,8 +277,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
             try {
                 if (getRealPathFromURI(data.getData()) != "") {
                     //load image
-                    Bitmap imageBitmap = EncodeImage.encodeImage(getRealPathFromURI(data.getData()));
-                    ivAvatar.setImageBitmap(imageBitmap);
+                    ImageLoader.getInstance().loadImageAvatar(UpdateUserInfoActivity.this, data.getData().toString(), ivAvatar);
                     //  mFilePath = getRealPathFromURI(getImageUri(UpdateUserInfoActivity.this, imageBitmap));
                     mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), data.getData());
                 } else {
@@ -289,14 +287,10 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                     Uri tempUri = getImageUri(getApplicationContext(), photo);
                     //   mFilePath = getRealPathFromURI(tempUri);
                     mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), tempUri);
+                    if (!photo.isRecycled()) {
+                        photo.recycle();
+                    }
                 }
-
-//                if (fileUri != null) {
-//                    ivAvatar.setImageURI(fileUri);
-                //    mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), fileUri);
-//                } else {
-//                    ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), this);
-//                }
             } catch (Exception e) {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), this);
             }
@@ -418,7 +412,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                         openCamera();
 //                    if (verifyCamerapermission()) {
 //                        takePhoto();
-//                    } else {
+                    } else {
                         return;
                     }
                 } else if (options[item].equals(getResources().getString(R.string.sign_up_libary_image))) {

@@ -191,7 +191,6 @@ public class UpdateGooAndFaceActivity extends BaseActivity implements MoreView, 
                 ivAvatar);
         edtEmail.setText(emailGoogle);
         edtFullName.setText(nameGoogle);
-
     }
 
     @Override

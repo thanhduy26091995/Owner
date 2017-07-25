@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -37,7 +38,9 @@ import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateRespon
 import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
+import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.EmailValidate;
+import com.hbbsolution.owner.utils.EncodeImage;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
@@ -85,6 +88,11 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
     private static final int CAMERA_REQUEST = 100;
     private Intent iChooseImage;
     private Uri fileUri;
+    private static final int REQUEST_CODE_CAMERA = 1002;
+    private static final String[] PERMISSIONS_CAMERA = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -200,6 +208,26 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         });
     }
 
+    private void openCamera() {
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePhotoIntent, Constants.CAMERA_INTENT);
+        }
+    }
+
+    private boolean verifyOpenCamera() {
+        int camera = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (camera != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_CAMERA, REQUEST_CODE_CAMERA
+            );
+
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -207,6 +235,11 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             case REQUEST_READ_EXTERNAL_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
+                }
+                break;
+            case REQUEST_CODE_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
                 }
                 break;
         }
@@ -224,14 +257,49 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            if (fileUri != null) {
-                ivAvatar.setImageURI(fileUri);
-                mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), fileUri);
-            } else {
-                ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), SignUp2Activity.this);
+        } else if (requestCode == Constants.CAMERA_INTENT && resultCode == RESULT_OK) {
+            try {
+                if (getRealPathFromURI(data.getData()) != "") {
+                    //load image
+                    Bitmap imageBitmap = EncodeImage.encodeImage(getRealPathFromURI(data.getData()));
+                    ivAvatar.setImageBitmap(imageBitmap);
+                    //  mFilePath = getRealPathFromURI(getImageUri(UpdateUserInfoActivity.this, imageBitmap));
+                    mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), data.getData());
+                } else {
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    ivAvatar.setImageBitmap(photo);
+                    // Bitmap des = EncodeImage.rotateBitmap(photo, orientation);
+                    Uri tempUri = getImageUri(getApplicationContext(), photo);
+                    //   mFilePath = getRealPathFromURI(tempUri);
+                    mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), tempUri);
+                }
+            } catch (Exception e) {
+                ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), this);
             }
         }
+    }
+
+    private Uri getImageUri(Context inContext, Bitmap inImage) {
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result = "";
+        try {
+            Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+            if (cursor == null) { // Source is Dropbox or other similar local file path
+                result = contentURI.getPath();
+            } else {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                result = cursor.getString(idx);
+                cursor.close();
+            }
+        } catch (Exception e) {
+
+        }
+        return result;
     }
 
     @Override
@@ -335,8 +403,8 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals(getResources().getString(R.string.sign_up_camera))) {
-                    if (verifyCamerapermission()) {
-                        takePhoto();
+                    if (verifyOpenCamera()) {
+                        openCamera();
                     } else {
                         return;
                     }
