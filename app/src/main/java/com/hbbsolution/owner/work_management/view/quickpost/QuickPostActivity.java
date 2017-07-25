@@ -637,6 +637,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             calendarForTime2.set(year, month, date, 0, minute2);
             calendarForTime2.set(Calendar.HOUR_OF_DAY,hour2);
         } else {
+            calendarForTime2.set(year, month, date, hour, minute);
             calendarForTime2.add(Calendar.HOUR_OF_DAY, 2);
         }
         txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));
