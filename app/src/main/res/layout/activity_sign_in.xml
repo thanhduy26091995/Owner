@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Sign In"
+                android:text="@string/more_sign_in"
                 android:textAllCaps="false"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"

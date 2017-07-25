@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
@@ -39,6 +41,8 @@ import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.UpdateUserPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
+import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.EncodeImage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -91,6 +95,11 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     private double mLng;
     private static final int CAMERA_REQUEST = 100;
     private Uri fileUri;
+    private static final int REQUEST_CODE_CAMERA = 1002;
+    private static final String[] PERMISSIONS_CAMERA = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -219,7 +228,37 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                     startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
                 }
                 break;
+//            case CAMERA_REQUEST:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    takePhoto();
+//                }
+//                break;
+            case REQUEST_CODE_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                }
+                break;
         }
+    }
+
+    private void openCamera() {
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePhotoIntent, Constants.CAMERA_INTENT);
+        }
+    }
+
+    private boolean verifyOpenCamera() {
+        int camera = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (camera != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_CAMERA, REQUEST_CODE_CAMERA
+            );
+
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -235,10 +274,64 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            ivAvatar.setImageURI(fileUri);
-            mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(),fileUri);
+        } else if (requestCode == Constants.CAMERA_INTENT && resultCode == RESULT_OK) {
+            try {
+                if (getRealPathFromURI(data.getData()) != "") {
+                    //load image
+                    Bitmap imageBitmap = EncodeImage.encodeImage(getRealPathFromURI(data.getData()));
+                    ivAvatar.setImageBitmap(imageBitmap);
+                    //  mFilePath = getRealPathFromURI(getImageUri(UpdateUserInfoActivity.this, imageBitmap));
+                    mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), data.getData());
+                } else {
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    ivAvatar.setImageBitmap(photo);
+                    // Bitmap des = EncodeImage.rotateBitmap(photo, orientation);
+                    Uri tempUri = getImageUri(getApplicationContext(), photo);
+                    //   mFilePath = getRealPathFromURI(tempUri);
+                    mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), tempUri);
+                }
+
+//                if (fileUri != null) {
+//                    ivAvatar.setImageURI(fileUri);
+                //    mFilePath = ImageFilePathPresenter.getPath(getApplicationContext(), fileUri);
+//                } else {
+//                    ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), this);
+//                }
+            } catch (Exception e) {
+                ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), this);
+            }
         }
+    }
+
+    private void loadAvatar(Bitmap bitmap) {
+        Glide.with(this)
+                .load(bitmap)
+                .centerCrop()
+                .into(ivAvatar);
+    }
+
+
+    private Uri getImageUri(Context inContext, Bitmap inImage) {
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result = "";
+        try {
+            Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+            if (cursor == null) { // Source is Dropbox or other similar local file path
+                result = contentURI.getPath();
+            } else {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                result = cursor.getString(idx);
+                cursor.close();
+            }
+        } catch (Exception e) {
+
+        }
+        return result;
     }
 
     @Override
@@ -256,8 +349,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         mSessionManagerUser.createLoginSession(data);
         mProgressDialog.dismiss();
         if (dataUpdateResponse.isStatus() == true) {
-            if (ProfileActivity.profileActivity !=null)
-            {
+            if (ProfileActivity.profileActivity != null) {
                 ProfileActivity.profileActivity.finish();
             }
             Intent iProfile = new Intent(UpdateUserInfoActivity.this, ProfileActivity.class);
@@ -287,7 +379,6 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         mLng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
 //        token = mDataHashUser.get(SessionManagerUser.KEY_TOKEN);
         if (mLat != 0 && mLng != 0) {
-
             mUpdateUserPresenter.updateUserInfo(mPhoneName, mFullName, mFilePath, mLocation, mLat, mLng, iGender);
 
         }
@@ -316,16 +407,18 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     }
 
     public void selectImage() {
-        final CharSequence[] options = {getResources().getString(R.string.sign_up_camera),getResources().getString(R.string.sign_up_libary_image),getResources().getString(R.string.sign_up_cancel)};
+        final CharSequence[] options = {getResources().getString(R.string.sign_up_camera), getResources().getString(R.string.sign_up_libary_image), getResources().getString(R.string.sign_up_cancel)};
         AlertDialog.Builder builder = new AlertDialog.Builder(UpdateUserInfoActivity.this);
         builder.setTitle(getResources().getString(R.string.sign_up_choice));
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals(getResources().getString(R.string.sign_up_camera))) {
-                    if (verifyCamerapermission()) {
-                        takePhoto();
-                    } else {
+                    if (verifyOpenCamera()) {
+                        openCamera();
+//                    if (verifyCamerapermission()) {
+//                        takePhoto();
+//                    } else {
                         return;
                     }
                 } else if (options[item].equals(getResources().getString(R.string.sign_up_libary_image))) {
