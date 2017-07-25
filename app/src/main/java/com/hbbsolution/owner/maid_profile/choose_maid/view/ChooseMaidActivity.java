@@ -124,7 +124,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     private List<Suggest> listSuggest = new ArrayList<>();
 
     private String note = "";
-
+    private Calendar calendarForTime1,calendarForTime2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +146,8 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         clicked = 0;
 
         getDateCurrent();
+        getTimeCurrent();
+
         //event click
         edtType_job.setOnClickListener(this);
         txt_post_complete.setOnClickListener(this);
@@ -251,28 +253,26 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     //show timepicker
     private void getTimePicker() {
-        final Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(0, 0, 0, hourOfDay, minute, 0);
-                compareTimeStart(calendar, simpleDateFormat);
+                calendarForTime1.set(0, 0, 0, hourOfDay, minute, 0);
+                compareTimeStart(calendarForTime1, simpleDateFormat);
             }
-        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        }, calendarForTime1.get(Calendar.HOUR_OF_DAY), calendarForTime1.get(Calendar.MINUTE), true);
         timePickerDialog.show();
     }
 
     private void getTimePicker2() {
-        final Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(0, 0, 0, hourOfDay, minute, 0);
-                compareTimeEnd(calendar, simpleDateFormat);
+                calendarForTime2.set(0, 0, 0, hourOfDay, minute, 0);
+                compareTimeEnd(calendarForTime2, simpleDateFormat);
             }
-        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        }, calendarForTime2.get(Calendar.HOUR_OF_DAY), calendarForTime2.get(Calendar.MINUTE), true);
         timePickerDialog.show();
     }
 
@@ -383,7 +383,27 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
 
     }
-
+    private void getTimeCurrent() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa");
+        calendarForTime1 = Calendar.getInstance();
+        calendarForTime2 = Calendar.getInstance();
+        int date = calendarForTime1.get(Calendar.DATE);
+        int month = calendarForTime1.get(Calendar.MONTH);
+        int year = calendarForTime1.get(Calendar.YEAR);
+        int hour = calendarForTime1.get(Calendar.HOUR);
+        int minute = calendarForTime1.get(Calendar.MINUTE);
+        int hour2, minute2;
+        calendarForTime1.set(year, month, date, hour, minute);
+        txtTime_start.setText(simpleDateFormat.format(calendarForTime1.getTime()));
+        if (hour >= 22) {
+            hour2 = 23;
+            minute2 = 59;
+            calendarForTime2.set(year, month, date, hour2, minute2);
+        } else {
+            calendarForTime2.add(Calendar.HOUR, 2);
+        }
+        txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

@@ -165,6 +165,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
         getDateCurrent();
         getTimeCurrent();
+
         final Intent intent = getIntent();
         infoJob = (TypeJob) intent.getSerializableExtra("quickPost");
         txt_post_complete.setText(getResources().getString(R.string.detail_posted));
