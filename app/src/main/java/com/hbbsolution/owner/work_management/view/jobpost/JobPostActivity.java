@@ -661,17 +661,19 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         int date = calendarForTime1.get(Calendar.DATE);
         int month = calendarForTime1.get(Calendar.MONTH);
         int year = calendarForTime1.get(Calendar.YEAR);
-        int hour = calendarForTime1.get(Calendar.HOUR);
+        int hour = calendarForTime1.get(Calendar.HOUR_OF_DAY);
         int minute = calendarForTime1.get(Calendar.MINUTE);
         int hour2, minute2;
-        calendarForTime1.set(year, month, date, hour, minute);
+        calendarForTime1.set(year, month, date, 0, minute);
+        calendarForTime1.set(Calendar.HOUR_OF_DAY,hour);
         txtTime_start.setText(simpleDateFormat.format(calendarForTime1.getTime()));
         if (hour >= 22) {
             hour2 = 23;
             minute2 = 59;
-            calendarForTime2.set(year, month, date, hour2, minute2);
+            calendarForTime2.set(year, month, date, 0, minute2);
+            calendarForTime2.set(Calendar.HOUR_OF_DAY,hour2);
         } else {
-            calendarForTime2.add(Calendar.HOUR, 2);
+            calendarForTime2.add(Calendar.HOUR_OF_DAY, 2);
         }
         txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));
     }
