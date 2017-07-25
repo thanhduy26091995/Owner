@@ -137,6 +137,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     private String note = "";
     private Calendar calendarForTime1,calendarForTime2;
+
+    private InputMethodManager inputManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +150,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         hashDataUser = sessionManagerUser.getUserDetails();
 
         checkConnectionInterner();
+        hideKeyboard();
+
         //setup view
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -175,6 +179,12 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         }
         setTextMoneyChange();
         setEventClick();
+    }
+
+    public void hideKeyboard() {
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
     }
 
     private void setData() {

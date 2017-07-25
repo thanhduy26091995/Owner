@@ -125,6 +125,8 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     private String note = "";
     private Calendar calendarForTime1,calendarForTime2;
+
+    private InputMethodManager inputManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +139,10 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+
+        checkConnectionInterner();
+        hideKeyboard();
+
 
         cal = Calendar.getInstance();
         cal.set(0, 0, 0);
@@ -185,7 +191,11 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
             }
         });
     }
+    public void hideKeyboard() {
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
 
+    }
     private void setRecyclerView() {
         listSuggest = infoJob.getSuggest();
         if (listSuggest.size() > 0) {

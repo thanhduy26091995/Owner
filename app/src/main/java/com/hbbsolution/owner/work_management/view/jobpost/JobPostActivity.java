@@ -134,6 +134,9 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     private List<Suggest> listSuggest = new ArrayList<>();
     private String note = "";
     private Calendar calendarForTime1,calendarForTime2;
+
+    private InputMethodManager inputManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +145,8 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         ButterKnife.bind(this);
 
         checkConnectionInterner();
+        hideKeyboard();
+
         //setup view
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -256,6 +261,12 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 }
             }
         });
+    }
+
+    public void hideKeyboard() {
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
     }
 
     private void setRecyclerView() {
