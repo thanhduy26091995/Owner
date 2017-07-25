@@ -401,6 +401,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                     mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
         } else {
+            hideProgressDialog();
+            txt_post_complete.setEnabled(true);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), QuickPostActivity.this);
         }
 //        if (checkDataComplete()) {

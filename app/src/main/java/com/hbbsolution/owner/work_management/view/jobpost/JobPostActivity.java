@@ -435,6 +435,8 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                         mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
             }
         } else {
+            hideProgressDialog();
+            txt_post_complete.setEnabled(true);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
         }
 //        if (checkDataComplete()) {

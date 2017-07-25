@@ -636,6 +636,8 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         if (!description.equals("")) {
             presenter.sendRequest(mMaidInfo.getId(), title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
         } else {
+            hideProgressDialog();
+            txt_post_complete.setEnabled(true);
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), ChooseMaidActivity.this);
         }
     }
