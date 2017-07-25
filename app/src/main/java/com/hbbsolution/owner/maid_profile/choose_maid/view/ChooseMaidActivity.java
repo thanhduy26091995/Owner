@@ -124,9 +124,10 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     private List<Suggest> listSuggest = new ArrayList<>();
 
     private String note = "";
-    private Calendar calendarForTime1,calendarForTime2;
+    private Calendar calendarForTime1, calendarForTime2;
 
     private InputMethodManager inputManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,11 +192,18 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
             }
         });
     }
-    public void hideKeyboard() {
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
 
+    public void hideKeyboard() {
+        try {
+            inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        } catch (Exception e) {
+        }
     }
+
     private void setRecyclerView() {
         listSuggest = infoJob.getSuggest();
         if (listSuggest.size() > 0) {
@@ -393,6 +401,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
 
     }
+
     private void getTimeCurrent() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa");
         calendarForTime1 = Calendar.getInstance();
@@ -414,6 +423,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         }
         txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -571,9 +581,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
                 listTypeJobName.add(typeJob.getName());
             }
-        }
-        else
-        {
+        } else {
             for (TypeJob typeJob : Constants.listTypeJob) {
                 hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
                 listTypeJobName.add(typeJob.getName());
@@ -608,11 +616,9 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         String dateEndWork = getTimeWork(txtTime_end.getText().toString());
         //send request
         if (!note.equals("")) {
-            if(!description.equals("")) {
+            if (!description.equals("")) {
                 description += "\r\n" + note;
-            }
-            else
-            {
+            } else {
                 description = note;
             }
         }

@@ -264,9 +264,14 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     public void hideKeyboard() {
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
+        try {
+            inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
 
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        } catch (Exception e) {
+        }
     }
 
     private void setRecyclerView() {

@@ -182,9 +182,14 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     }
 
     public void hideKeyboard() {
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
+        try {
+            inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
 
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        } catch (Exception e) {
+        }
     }
 
     private void setData() {
