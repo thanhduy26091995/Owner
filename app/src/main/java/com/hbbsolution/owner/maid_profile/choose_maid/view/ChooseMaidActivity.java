@@ -477,7 +477,15 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), ChooseMaidActivity.this);
             return false;
         }
-
+        if (!edt_monney_work.getText().toString().equals("")) {
+            if (edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000) {
+                hideProgressDialog();
+//            progressBar.setVisibility(View.GONE);
+//            lo_job_post.setVisibility(View.GONE);
+                ShowAlertDialog.showAlert(getResources().getString(R.string.validate_amount), ChooseMaidActivity.this);
+                return false;
+            }
+        }
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().replace(".", "").isEmpty()) {
             progressBar.setVisibility(View.GONE);
             ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), ChooseMaidActivity.this);

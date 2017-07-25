@@ -519,7 +519,15 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), QuickPostActivity.this);
             return false;
         }
-
+        if (!edt_monney_work.getText().toString().equals("")) {
+            if (edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000) {
+                hideProgressDialog();
+//            progressBar.setVisibility(View.GONE);
+//            lo_job_post.setVisibility(View.GONE);
+                ShowAlertDialog.showAlert(getResources().getString(R.string.validate_amount), QuickPostActivity.this);
+                return false;
+            }
+        }
         if (rad_type_money_work.isChecked() && edt_monney_work.getText().toString().isEmpty()) {
             hideProgressDialog();
 //            progressBar.setVisibility(View.GONE);
@@ -617,17 +625,19 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         int date = calendarForTime1.get(Calendar.DATE);
         int month = calendarForTime1.get(Calendar.MONTH);
         int year = calendarForTime1.get(Calendar.YEAR);
-        int hour = calendarForTime1.get(Calendar.HOUR);
+        int hour = calendarForTime1.get(Calendar.HOUR_OF_DAY);
         int minute = calendarForTime1.get(Calendar.MINUTE);
         int hour2, minute2;
-        calendarForTime1.set(year, month, date, hour, minute);
+        calendarForTime1.set(year, month, date, 0, minute);
+        calendarForTime1.set(Calendar.HOUR_OF_DAY,hour);
         txtTime_start.setText(simpleDateFormat.format(calendarForTime1.getTime()));
         if (hour >= 22) {
             hour2 = 23;
             minute2 = 59;
-            calendarForTime2.set(year, month, date, hour2, minute2);
+            calendarForTime2.set(year, month, date, 0, minute2);
+            calendarForTime2.set(Calendar.HOUR_OF_DAY,hour2);
         } else {
-            calendarForTime2.add(Calendar.HOUR, 2);
+            calendarForTime2.add(Calendar.HOUR_OF_DAY, 2);
         }
         txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));
     }
