@@ -142,9 +142,10 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     private String note = "";
     private String idTypeJob;
-    private Calendar calendarForTime1,calendarForTime2;
+    private Calendar calendarForTime1, calendarForTime2;
 
     private InputMethodManager inputManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,11 +211,11 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         if (infoJob != null) {
             idTypeJob = infoJob.getId();
             isTool = infoJob.isTool();
-            if(!idTypeJob.equals("000000000000000000000001")) {
+            if (!idTypeJob.equals("000000000000000000000001")) {
                 edtType_job.setVisibility(View.GONE);
                 view_typeofjob.setVisibility(View.GONE);
             }
-            if(!isTool) {
+            if (!isTool) {
                 liner_tool.setVisibility(View.GONE);
             }
             edtTitlePost.setText(infoJob.getTitle());
@@ -574,7 +575,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     }
 
     private void getTimePicker() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -586,7 +587,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     }
 
     private void getTimePicker2() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -637,7 +638,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     }
 
     private void getTimeCurrent() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", getResources().getConfiguration().locale);
         calendarForTime1 = Calendar.getInstance();
         calendarForTime2 = Calendar.getInstance();
         int date = calendarForTime1.get(Calendar.DATE);
@@ -647,13 +648,13 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         int minute = calendarForTime1.get(Calendar.MINUTE);
         int hour2, minute2;
         calendarForTime1.set(year, month, date, 0, minute);
-        calendarForTime1.set(Calendar.HOUR_OF_DAY,hour);
+        calendarForTime1.set(Calendar.HOUR_OF_DAY, hour);
         txtTime_start.setText(simpleDateFormat.format(calendarForTime1.getTime()));
         if (hour >= 22) {
             hour2 = 23;
             minute2 = 59;
             calendarForTime2.set(year, month, date, 0, minute2);
-            calendarForTime2.set(Calendar.HOUR_OF_DAY,hour2);
+            calendarForTime2.set(Calendar.HOUR_OF_DAY, hour2);
         } else {
             calendarForTime2.set(year, month, date, hour, minute);
             calendarForTime2.add(Calendar.HOUR_OF_DAY, 2);

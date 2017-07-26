@@ -13,7 +13,6 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -68,13 +67,13 @@ public class WorkTimeValidate {
         return mDateTimePostHistory;
     }
 
-    public static String getTimeWork(String _TimeWork) {
+    public static String getTimeWork(String _TimeWork,Context context) {
         String mTimeWork = null;
         Date date = new DateTime(_TimeWork).toDate();
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-        DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a", context.getResources().getConfiguration().locale);
+        DateFormatSymbols symbols = new DateFormatSymbols(context.getResources().getConfiguration().locale);
         // OVERRIDE SOME symbols WHILE RETAINING OTHERS
-        symbols.setAmPmStrings(new String[] { "am", "pm" });
+        symbols.setAmPmStrings(new String[] { context.getResources().getString(R.string.am), context.getResources().getString(R.string.pm) });
         time.setDateFormatSymbols(symbols);
         try{
             mTimeWork = time.format(date);
@@ -99,8 +98,8 @@ public class WorkTimeValidate {
     public static String getTimeWorkLanguage(Context context, String _TimeWork) {
         String mTimeWork = null;
         Date date = new DateTime(_TimeWork).toDate();
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a", Locale.US);
-        DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a", context.getResources().getConfiguration().locale);
+        DateFormatSymbols symbols = new DateFormatSymbols(context.getResources().getConfiguration().locale);
         // OVERRIDE SOME symbols WHILE RETAINING OTHERS
         symbols.setAmPmStrings(new String[] { context.getResources().getString(R.string.am), context.getResources().getString(R.string.pm) });
         time.setDateFormatSymbols(symbols);

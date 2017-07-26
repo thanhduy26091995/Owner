@@ -91,8 +91,8 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
             txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getInfo().getPrice()) + " VND");
             txtAddress.setText(mLiabilitiesHistory.getTask().getInfo().getAddress().getName());
             txtDate.setText(WorkTimeValidate.getDatePostHistory(mLiabilitiesHistory.getTask().getHistory().getUpdateAt()));
-            String mStartTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getStartAt());
-            String mEndTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getEndAt());
+            String mStartTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getStartAt(),DetailUnpaidWork.this);
+            String mEndTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getEndAt(),DetailUnpaidWork.this);
             txtTimeDoWrok.setText(mStartTime + " - " + mEndTime);
             Glide.with(this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
                     .thumbnail(0.5f)
@@ -121,8 +121,8 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
             txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice()) + " VND");
             txtAddress.setText(mDatum.getInfo().getAddress().getName());
             txtDate.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
-            String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt());
-            String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt());
+            String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt(),DetailUnpaidWork.this);
+            String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt(),DetailUnpaidWork.this);
             txtTimeDoWrok.setText(mStartTime + " - " + mEndTime);
             Glide.with(this).load(mDatum.getInfo().getWork().getImage())
                     .thumbnail(0.5f)

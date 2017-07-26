@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.IconTextView;
@@ -24,7 +25,6 @@ import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
-import com.squareup.picasso.Picasso;
 
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -145,7 +145,7 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
         String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
         String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
         txtTime_work_doing_detail_post.setText( mStartTime + " - " + mEndTime);
-        Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
+        Glide.with(this).load(mDatum.getInfo().getWork().getImage())
                 .error(R.drawable.no_image)
                 .placeholder(R.drawable.no_image)
                 .into(imgType_job_detail_post);

@@ -594,7 +594,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     private void getTimePicker() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -606,7 +606,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     private void getTimePicker2() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -657,7 +657,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     private void getTimeCurrent() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa",getResources().getConfiguration().locale);
         calendarForTime1 = Calendar.getInstance();
         calendarForTime2 = Calendar.getInstance();
         int date = calendarForTime1.get(Calendar.DATE);
