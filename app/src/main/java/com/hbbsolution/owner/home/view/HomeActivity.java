@@ -113,7 +113,6 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         else
         {
             quickPostPresenter.getAllTypeJob();
-
         }
         setRecyclerView();
     }
@@ -259,16 +258,20 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
         if(typeJobResponse.getStatus()){
-//            Constants.listTypeJob = typeJobResponse.getData();
+            Constants.listTypeJob = typeJobResponse.getData();
             rcv_type_job.setVisibility(View.VISIBLE);
             if(Constants.listTypeJob.size()==0) {
                 Constants.listTypeJob = typeJobResponse.getData();
+                this.listTypeJob = Constants.listTypeJob;
+                compareValueInModel(this.listTypeJob);
                 for (TypeJob typeJob : Constants.listTypeJob) {
                     listTypeJobName.add(typeJob.getName());
                 }
             }
             else
             {
+                this.listTypeJob = Constants.listTypeJob;
+                compareValueInModel(this.listTypeJob);
                 for (TypeJob typeJob : Constants.listTypeJob) {
                     listTypeJobName.add(typeJob.getName());
                 }

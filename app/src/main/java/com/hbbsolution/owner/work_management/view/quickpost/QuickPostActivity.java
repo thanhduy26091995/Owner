@@ -37,6 +37,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.adapter.SuggetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
@@ -48,6 +49,7 @@ import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostView;
+import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -317,23 +319,26 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            EventBus.getDefault().postSticky(false);
+            EventBus.getDefault().postSticky(true);
+            EventBus.getDefault().postSticky("0");
+            Intent intentHome = new Intent(QuickPostActivity.this, HomeActivity.class);
+            startActivity(intentHome);
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().postSticky(false);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.bind(this).unbind();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        EventBus.getDefault().postSticky(false);
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        ButterKnife.bind(this).unbind();
+//    }
 
     @Override
     public void onClick(View view) {
