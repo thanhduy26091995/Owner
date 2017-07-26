@@ -1,7 +1,9 @@
 package com.hbbsolution.owner.home.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -64,6 +66,8 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     private List<TypeJob> listTypeJob = new ArrayList<>();
 
     private TypeJobAdapter typeJobAdapter;
+    private  boolean isChangeLanguage = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +95,12 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             txt_work_management.setText(changeCharInPosition(setTitle(txt_work_management.getText().toString(), 1), '\n', txt_work_management.getText().toString()));
             txt_work_management_history.setText(changeCharInPosition(setTitle(txt_work_management_history.getText().toString(), 1), '\n', txt_work_management_history.getText().toString()));
         }
+        sessionManagerForLanguage = new SessionManagerForLanguage(HomeActivity.this);
         mHomePresenter = new HomePresenter(this);
         sessionManagerUser = new SessionManagerUser(HomeActivity.this);
         mHomePresenter.requestCheckToken();
         quickPostPresenter = new QuickPostPresenter(this);
-
+//
         if (Constants.listTypeJob.size() > 0) {
             rcv_type_job.setVisibility(View.VISIBLE);
             this.listTypeJob = Constants.listTypeJob;
@@ -103,12 +108,14 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             for (TypeJob typeJob : this.listTypeJob) {
                 listTypeJobName.add(typeJob.getName());
             }
-            setRecyclerView();
+//            setRecyclerView();
         }
         else
         {
             quickPostPresenter.getAllTypeJob();
+
         }
+        setRecyclerView();
     }
 
     private void setRecyclerView() {
@@ -206,9 +213,10 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     protected void onResume() {
         super.onResume();
         if (isPause) {
-            SessionManagerForLanguage sessionManagerForLanguage = new SessionManagerForLanguage(HomeActivity.this);
-            boolean isChangeLanguage = sessionManagerForLanguage.changeLanguage();
+//            SessionManagerForLanguage sessionManagerForLanguage = new SessionManagerForLanguage(HomeActivity.this);
+            isChangeLanguage = sessionManagerForLanguage.changeLanguage();
             if (isChangeLanguage) {
+                Constants.listTypeJob.clear();
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(this.getIntent());
@@ -237,7 +245,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     private List<TypeJob> compareValueInModel(List<TypeJob> list) {
         Collections.sort(list, new Comparator<TypeJob>() {
             public int compare(TypeJob obj1, TypeJob obj2) {
-                return Integer.valueOf((int) obj2.getWeight()).compareTo((int) obj1.getWeight()); // To compare integer values
+                return Integer.valueOf((int) obj1.getWeight()).compareTo((int) obj2.getWeight()); // To compare integer values
             }
         });
         return list;
@@ -250,22 +258,38 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
 
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
-        rcv_type_job.setVisibility(View.VISIBLE);
-        if(Constants.listTypeJob.size()==0) {
-            Constants.listTypeJob = typeJobResponse.getData();
-            for (TypeJob typeJob : Constants.listTypeJob) {
-                listTypeJobName.add(typeJob.getName());
+        if(typeJobResponse.getStatus()){
+//            Constants.listTypeJob = typeJobResponse.getData();
+            rcv_type_job.setVisibility(View.VISIBLE);
+            if(Constants.listTypeJob.size()==0) {
+                Constants.listTypeJob = typeJobResponse.getData();
+                for (TypeJob typeJob : Constants.listTypeJob) {
+                    listTypeJobName.add(typeJob.getName());
+                }
             }
-        }
-        else
-        {
-            for (TypeJob typeJob : Constants.listTypeJob) {
-                listTypeJobName.add(typeJob.getName());
+            else
+            {
+                for (TypeJob typeJob : Constants.listTypeJob) {
+                    listTypeJobName.add(typeJob.getName());
+                }
             }
+            typeJobAdapter = new TypeJobAdapter(HomeActivity.this, Constants.listTypeJob);
+            typeJobAdapter.notifyDataSetChanged();
+            rcv_type_job.setAdapter(typeJobAdapter);
+        }else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage(getResources().getString(R.string.home_error_type_job));
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+                }
+            });
+            alertDialog.show();
         }
-        typeJobAdapter = new TypeJobAdapter(HomeActivity.this, Constants.listTypeJob);
-        typeJobAdapter.notifyDataSetChanged();
-        rcv_type_job.setAdapter(typeJobAdapter);
+
     }
 
     @Override

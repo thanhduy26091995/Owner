@@ -16,6 +16,8 @@
     <string name="home_copy_right">Any Time - Any Where</string>
     <string name="more_sign_in">Sign in</string>
     <string name="auth">You account has been logged into from a new device</string>
+
+    <string name="home_error_type_job">Failed to download now the data type of work!</string>
     <!--home screen end-->
 
     <!--terms_screen start-->

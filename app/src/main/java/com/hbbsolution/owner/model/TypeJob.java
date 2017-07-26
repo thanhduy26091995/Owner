@@ -33,6 +33,17 @@ public class TypeJob implements Serializable{
     @SerializedName("suggest")
     @Expose
     private List<Suggest> suggest = null;
+    @SerializedName("tools")
+    @Expose
+    private boolean isTool;
+
+    public boolean isTool() {
+        return isTool;
+    }
+
+    public void setTool(boolean tool) {
+        isTool = tool;
+    }
 
     public String getId() {
         return id;

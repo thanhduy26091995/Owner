@@ -111,13 +111,18 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     @BindView(R.id.view_suggest)
     View view_suggest;
 
+    @BindView(R.id.liner_tool)
+    LinearLayout liner_tool;
+    @BindView(R.id.view_typeofjob)
+    View view_typeofjob;
+
     public static Activity mQuickPostActivity = null;
     private ProgressDialog progressDialog;
 
     private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId,
             mDateStartWork, mTimeStartWork, mTimeEndWork, mIdTask, mPrice, mHours;
 
-    private boolean mChosenTools = false, isPost;
+    private boolean mChosenTools = false, isTool;
 
     private TypeJob infoJob;
 
@@ -136,13 +141,14 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     private List<Suggest> listSuggest = new ArrayList<>();
 
     private String note = "";
+    private String idTypeJob;
     private Calendar calendarForTime1,calendarForTime2;
 
     private InputMethodManager inputManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_post);
+        setContentView(R.layout.activity_job_quick_post);
         mQuickPostActivity = this;
         ButterKnife.bind(this);
 
@@ -172,6 +178,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
         final Intent intent = getIntent();
         infoJob = (TypeJob) intent.getSerializableExtra("quickPost");
+
         txt_post_complete.setText(getResources().getString(R.string.detail_posted));
         setData();
         if (infoJob.getSuggest() != null) {
@@ -201,6 +208,15 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             mPackageId = "000000000000000000000002";
         }
         if (infoJob != null) {
+            idTypeJob = infoJob.getId();
+            isTool = infoJob.isTool();
+            if(!idTypeJob.equals("000000000000000000000001")) {
+                edtType_job.setVisibility(View.GONE);
+                view_typeofjob.setVisibility(View.GONE);
+            }
+            if(!isTool) {
+                liner_tool.setVisibility(View.GONE);
+            }
             edtTitlePost.setText(infoJob.getTitle());
             int position = edtTitlePost.length();
             Editable etext = edtTitlePost.getText();

@@ -10,6 +10,7 @@
     <string name="home_history">Lịch sử công việc</string>
     <string name="home_copy_right">Mọi lúc - Mọi nơi</string>
     <string name="auth">Tài khoản của bạn bị đăng nhập bởi một thiết bị khác</string>
+    <string name="home_error_type_job">Dữ liệu loại công việc bạn tìm hiện không tải về được!</string>
     <!--home screen end-->
 
     <!--work_manager start-->

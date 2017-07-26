@@ -42,8 +42,9 @@ public class RegisterPresenter {
         mApiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void createAccount(String username, String password, String email, String phone, String name, String filePath, String location, double lat, double lng, int gender
-            ) {
+    public void createAccount(String username, String password, String email,
+                              String phone, String name, String filePath, String location,
+                              double lat, double lng, int gender) {
         if ((filePath.trim().length() != 0)) {
             mFile = new File(filePath);
             requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
