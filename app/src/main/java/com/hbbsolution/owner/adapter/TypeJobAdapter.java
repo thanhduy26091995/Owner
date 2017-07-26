@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.work_management.view.quickpost.QuickPostActivity;
 
@@ -67,7 +68,7 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.Recycler
 //                context.startActivity(intent, historyOption.toBundle());
 //            } else {
             context.startActivity(intent);
-//            }
+            ((HomeActivity)context).finish();
         }
 
         @Override
