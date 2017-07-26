@@ -233,6 +233,10 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoJob.getPrice()));
 
             txt_post_complete.setEnabled(true);
+
+            edtTitlePost.setSelection(0);
+            edtDescriptionPost.setSelection(0);
+            edtAddressPost.setSelection(0);
         }
 
         for (TypeJob typeJob : Constants.listTypeJob) {
