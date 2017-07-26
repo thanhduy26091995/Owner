@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
-    android:id="@+id/activity">
+    android:background="@color/gray">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -100,25 +99,6 @@
                     android:textSize="16sp" />
 
                 <View
-                    android:id="@+id/view_suggest"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
-                    android:background="@color/colorBlack"
-                    android:visibility="gone"
-                    />
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rcv_suggest"
-                    android:scrollbars="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:visibility="gone"
-                    />
-
-                <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:layout_marginLeft="22dp"
@@ -133,10 +113,30 @@
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
                     android:hint="@string/address_job_post"
-                    android:inputType="textPostalAddress"                        android:padding="10dp"
+                    android:inputType="textPostalAddress"
+                    android:padding="10dp"
                     android:textSize="16sp" />
 
                 <View
+                    android:id="@+id/view_suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack"
+                    android:visibility="gone" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scrollbars="vertical"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/view_lineaddress"
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:layout_marginLeft="22dp"
@@ -156,19 +156,23 @@
                         android:layout_marginLeft="20dp"
                         android:buttonTint="@color/home_background_history"
                         android:paddingBottom="15dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorBlack"
+                        android:fontFamily="@string/font_family_regular"
+                        android:text="@string/mang_theo_dung_cu"
                         android:paddingTop="15dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:fontFamily="@string/font_family_regular"
-                        android:gravity="center_vertical"
-                        android:padding="10dp"
-                        android:text="@string/mang_theo_dung_cu"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="16sp" />
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--android:fontFamily="@string/font_family_regular"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:text="@string/mang_theo_dung_cu"-->
+                        <!--android:textColor="@color/colorBlack"-->
+                        <!--android:textSize="16sp" />-->
 
                 </LinearLayout>
             </LinearLayout>
@@ -381,12 +385,14 @@
                         android:textColor="@color/home_background_history" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@color/colorWhite"
                 android:orientation="horizontal">
+
                 <EditText
                     android:id="@+id/edtDescriptionPost"
                     android:layout_width="match_parent"
@@ -401,13 +407,13 @@
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <EditText
         android:id="@+id/lo_job_post"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:enabled="false">
-    </EditText>
+        android:enabled="false"
+        android:visibility="gone"></EditText>
 
     <ProgressBar
         android:id="@+id/progressPostJob"

@@ -49,7 +49,6 @@ import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostView;
-import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -119,6 +118,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     View view_typeofjob;
 
     public static Activity mQuickPostActivity = null;
+    @BindView(R.id.view_lineaddress)
+    View viewLineaddress;
     private ProgressDialog progressDialog;
 
     private String mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mPackageId,
@@ -219,7 +220,12 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             }
             if (!isTool) {
                 liner_tool.setVisibility(View.GONE);
+                viewLineaddress.setVisibility(View.GONE);
+            }else{
+                liner_tool.setVisibility(View.VISIBLE);
+                viewLineaddress.setVisibility(View.VISIBLE);
             }
+
             edtTitlePost.setText(infoJob.getTitle());
             int position = edtTitlePost.length();
             Editable etext = edtTitlePost.getText();
@@ -584,7 +590,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     }
 
     private void getTimePicker() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -596,7 +602,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     }
 
     private void getTimePicker2() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
