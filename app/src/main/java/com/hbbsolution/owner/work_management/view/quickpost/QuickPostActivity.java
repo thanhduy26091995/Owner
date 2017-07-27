@@ -882,4 +882,14 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().postSticky(true);
+        EventBus.getDefault().postSticky("0");
+        Intent intentHome = new Intent(QuickPostActivity.this, HomeActivity.class);
+        startActivity(intentHome);
+        finish();
+    }
 }
