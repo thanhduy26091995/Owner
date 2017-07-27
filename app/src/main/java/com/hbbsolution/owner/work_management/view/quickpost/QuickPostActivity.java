@@ -50,6 +50,7 @@ import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
 import com.hbbsolution.owner.work_management.presenter.JobPostPresenter;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostActivity;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostView;
+import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -476,8 +477,6 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    EventBus.getDefault().postSticky(true);
-                    EventBus.getDefault().postSticky("0");
                     if (mQuickPostActivity != null) {
                         QuickPostActivity.mQuickPostActivity.finish();
                         try {
@@ -488,6 +487,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
                         }
                     }
+                    Intent itHome = new Intent(QuickPostActivity.this, WorkManagementActivity.class);
+                    startActivity(itHome);
                 }
             });
 
