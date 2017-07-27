@@ -27,7 +27,7 @@
     <string name="title_job_post">Tiêu đề</string>
     <string name="types_of_work">Loại công việc</string>
     <string name="address_job_post">Địa chỉ</string>
-    <string name="work_description">Mô tả công việc</string>
+    <string name="work_description">Yêu cầu khác</string>
     <string name="enter_the_salary">Nhập số tiền công</string>
     <string name="hourly_pay">Tính tiền theo thời gian</string>
     <string name="hour">/ 1 giờ</string>

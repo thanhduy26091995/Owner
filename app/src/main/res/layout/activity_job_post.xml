@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
-    android:id="@+id/activity">
+    android:background="@color/gray">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -54,358 +53,394 @@
         android:layout_below="@+id/appbar"
         android:layout_marginTop="20dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"
+                    android:textColorHint="@color/home_background_history">
 
-                    <EditText
+                    <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edtTitlePost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:background="@android:color/transparent"
                         android:hint="@string/title_job_post"
                         android:inputType="text"
-                        android:padding="10dp"
+                        android:paddingTop="5dp"
                         android:textSize="16sp" />
+                </android.support.design.widget.TextInputLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginRight="22dp"
-                        android:background="@color/colorBlack" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"
+                    android:textColorHint="@color/home_background_history">
 
                     <EditText
                         android:id="@+id/job_post_txtType_job"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:background="@android:color/transparent"
                         android:focusable="false"
                         android:hint="@string/types_of_work"
+                        android:paddingTop="5dp"
                         android:inputType="text"
-                        android:padding="10dp"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
+                </android.support.design.widget.TextInputLayout>
 
-                    <View
-                        android:id="@+id/view_suggest"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginRight="22dp"
-                        android:background="@color/colorBlack"
-                        android:visibility="gone"
-                        />
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rcv_suggest"
-                        android:scrollbars="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:visibility="gone"
-                        />
+                <View
+                    android:id="@+id/view_suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack"
+                    android:visibility="gone" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginRight="22dp"
-                        android:background="@color/colorBlack" />
+                <EditText
+                    android:id="@+id/edtDescriptionAuto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scrollbars="vertical"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"
+                    android:textColorHint="@color/home_background_history">
 
                     <com.hbbsolution.owner.utils.CustomEditText
                         android:id="@+id/edtAddressPost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:background="@android:color/transparent"
                         android:hint="@string/address_job_post"
-                        android:inputType="textPostalAddress"                        android:padding="10dp"
+                        android:inputType="textPostalAddress"
+                        android:paddingTop="5dp"
                         android:textSize="16sp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/chb_tools_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:buttonTint="@color/home_background_history"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@string/font_family_regular"
+                        android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:text="@string/mang_theo_dung_cu"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <RadioButton
+                        android:id="@+id/rad_type_money_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/home_background_history"
+                        android:checked="true"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginRight="22dp"
                         android:background="@color/colorBlack" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/chb_tools_work"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:buttonTint="@color/home_background_history"
-                            android:paddingBottom="15dp"
-                            android:paddingTop="15dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:fontFamily="@string/font_family_regular"
-                            android:gravity="center_vertical"
-                            android:padding="10dp"
-                            android:text="@string/mang_theo_dung_cu"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="16sp" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorWhite"
-                    android:orientation="horizontal">
-
-                    <RadioGroup
-                        android:id="@+id/radio_group"
+                    <RadioButton
+                        android:id="@+id/rad_type_money_khoan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:orientation="vertical"
-                        android:weightSum="2">
+                        android:layout_weight="1"
+                        android:buttonTint="@color/home_background_history"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp" />
 
-                        <RadioButton
-                            android:id="@+id/rad_type_money_work"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:buttonTint="@color/home_background_history"
-                            android:checked="true"
-                            android:paddingBottom="15dp"
-                            android:paddingTop="15dp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="@color/colorBlack" />
-
-                        <RadioButton
-                            android:id="@+id/rad_type_money_khoan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:buttonTint="@color/home_background_history"
-                            android:paddingBottom="15dp"
-                            android:paddingTop="15dp" />
-
-                    </RadioGroup>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/edt_monney_work"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="3"
-                                android:background="@android:color/transparent"
-                                android:hint="@string/enter_the_salary"
-                                android:inputType="numberDecimal"
-                                android:padding="10dp"
-                                android:textColor="@color/colorBlack"
-                                android:textColorHint="@color/colorBlack"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:text="@string/vnd"
-                                android:textColor="@color/colorBlack" />
-
-                        </LinearLayout>
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/colorBlack" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/edt_monney_work_hour"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="3"
-                                android:background="@android:color/transparent"
-                                android:fontFamily="@string/font_family_regular"
-                                android:gravity="center_vertical"
-                                android:inputType="number"
-                                android:padding="10dp"
-                                android:text="@string/hourly_pay"
-                                android:textColor="@color/colorBlack"
-                                android:textColorHint="@color/colorBlack"
-                                android:textSize="16sp" />
-
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
+                </RadioGroup>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorWhite"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:id="@+id/edt_monney_work_hour"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@string/font_family_regular"
+                            android:gravity="center_vertical"
+                            android:inputType="number"
                             android:padding="10dp"
-                            android:text="@string/the_start_date"
+                            android:text="@string/hourly_pay"
                             android:textColor="@color/colorBlack"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textColorHint="@color/colorBlack"
+                            android:textSize="16sp" />
 
-                        <TextView
-                            android:id="@+id/txtDate_start_work"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:padding="10dp"
-                            android:text="10/05/2017"
-                            android:textColor="@color/home_background_history" />
 
                     </LinearLayout>
+
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginRight="22dp"
+                        android:layout_marginRight="20dp"
                         android:background="@color/colorBlack" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/time_of_working"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/txtTime_start"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:paddingBottom="10dp"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
-                            android:text="00:00 AM"
-                            android:textColor="@color/home_background_history" />
+                        <EditText
+                            android:id="@+id/edt_monney_work"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/enter_the_salary"
+                            android:inputType="numberDecimal"
+                            android:padding="10dp"
+                            android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/colorBlack"
+                            android:textSize="16sp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:paddingBottom="10dp"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
-                            android:paddingTop="5dp"
-                            android:text="@string/to_job_post" />
+                            android:gravity="center_vertical"
+                            android:text="@string/vnd"
+                            android:textColor="@color/colorBlack" />
 
-                        <TextView
-                            android:id="@+id/txtTime_end"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="right"
-                            android:paddingBottom="10dp"
-                            android:paddingRight="10dp"
-                            android:paddingTop="5dp"
-                            android:text="00:00 AM"
-                            android:textColor="@color/home_background_history" />
                     </LinearLayout>
+
+
                 </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorWhite"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="@string/the_start_date"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtDate_start_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:padding="10dp"
+                        android:text="10/05/2017"
+                        android:textColor="@color/home_background_history" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/time_of_working"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtTime_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp"
+                        android:text="00:00 AM"
+                        android:textColor="@color/home_background_history" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/to_job_post" />
+
+                    <TextView
+                        android:id="@+id/txtTime_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="right"
+                        android:paddingBottom="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="00:00 AM"
+                        android:textColor="@color/home_background_history" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"
+                    android:textColorHint="@color/home_background_history">
+
                     <EditText
                         android:id="@+id/edtDescriptionPost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:background="@android:color/transparent"
                         android:hint="@string/work_description"
                         android:inputType="textMultiLine"
-                        android:padding="10dp"
+                        android:paddingTop="5dp"
                         android:textSize="16sp" />
-                </LinearLayout>
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-    <EditText
-        android:id="@+id/lo_job_post"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:enabled="false">
-    </EditText>
 
     <ProgressBar
         android:id="@+id/progressPostJob"

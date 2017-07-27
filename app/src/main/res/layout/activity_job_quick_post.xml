@@ -64,17 +64,24 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/edtTitlePost"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/title_job_post"
-                    android:inputType="text"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textColorHint="@color/home_background_history">
+
+                    <EditText
+                        android:id="@+id/edtTitlePost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/title_job_post"
+                        android:paddingTop="5dp"
+                        android:inputType="text"
+                        android:textSize="16sp" />
+                </android.support.design.widget.TextInputLayout>
 
                 <View
                     android:id="@+id/view_typeofjob"
@@ -84,19 +91,27 @@
                     android:layout_marginRight="22dp"
                     android:background="@color/colorBlack" />
 
-                <EditText
-                    android:id="@+id/job_post_txtType_job"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilTypeJob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:focusable="false"
-                    android:hint="@string/types_of_work"
-                    android:inputType="text"
                     android:padding="10dp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp" />
+                    android:textColorHint="@color/home_background_history">
+
+                    <EditText
+                        android:id="@+id/job_post_txtType_job"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:focusable="false"
+                        android:hint="@string/types_of_work"
+                        android:paddingTop="5dp"
+                        android:inputType="text"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+                </android.support.design.widget.TextInputLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -105,26 +120,47 @@
                     android:layout_marginRight="22dp"
                     android:background="@color/colorBlack" />
 
-                <com.hbbsolution.owner.utils.CustomEditText
-                    android:id="@+id/edtAddressPost"
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="10dp"
+                    android:textColorHint="@color/home_background_history">
+
+                    <com.hbbsolution.owner.utils.CustomEditText
+                        android:id="@+id/edtAddressPost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/address_job_post"
+                        android:inputType="textPostalAddress"
+                        android:paddingTop="5dp"
+                        android:textSize="16sp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <View
+                    android:id="@+id/view_lineaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack" />
+
+
+                <EditText
+                    android:id="@+id/edtDescriptionAuto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
-                    android:hint="@string/address_job_post"
-                    android:inputType="textPostalAddress"
+                    android:inputType="textMultiLine"
                     android:padding="10dp"
-                    android:textSize="16sp" />
-
-                <View
-                    android:id="@+id/view_suggest"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
-                    android:background="@color/colorBlack"
+                    android:focusable="false"
+                    android:textSize="16sp"
                     android:visibility="gone" />
+
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rcv_suggest"
@@ -135,13 +171,15 @@
                     android:scrollbars="vertical"
                     android:visibility="gone" />
 
+
                 <View
-                    android:id="@+id/view_lineaddress"
+                    android:id="@+id/view_suggest"
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
-                    android:background="@color/colorBlack" />
+                    android:background="@color/colorBlack"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/liner_tool"
@@ -155,24 +193,24 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:buttonTint="@color/home_background_history"
-                        android:paddingBottom="15dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorBlack"
                         android:fontFamily="@string/font_family_regular"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
                         android:text="@string/mang_theo_dung_cu"
-                        android:paddingTop="15dp" />
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
 
                     <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:background="@android:color/transparent"-->
-                        <!--android:fontFamily="@string/font_family_regular"-->
-                        <!--android:gravity="center_vertical"-->
-                        <!--android:padding="10dp"-->
-                        <!--android:text="@string/mang_theo_dung_cu"-->
-                        <!--android:textColor="@color/colorBlack"-->
-                        <!--android:textSize="16sp" />-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:fontFamily="@string/font_family_regular"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="@string/mang_theo_dung_cu"-->
+                    <!--android:textColor="@color/colorBlack"-->
+                    <!--android:textSize="16sp" />-->
 
                 </LinearLayout>
             </LinearLayout>
@@ -229,6 +267,36 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
+                        <TextView
+                            android:id="@+id/edt_monney_work_hour"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@string/font_family_regular"
+                            android:gravity="center_vertical"
+                            android:inputType="number"
+                            android:padding="10dp"
+                            android:text="@string/hourly_pay"
+                            android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/colorBlack"
+                            android:textSize="16sp" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/colorBlack" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
                         <EditText
                             android:id="@+id/edt_monney_work"
                             android:layout_width="0dp"
@@ -251,38 +319,6 @@
                             android:textColor="@color/colorBlack" />
 
                     </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@color/colorBlack" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/edt_monney_work_hour"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="3"
-                            android:background="@android:color/transparent"
-                            android:fontFamily="@string/font_family_regular"
-                            android:gravity="center_vertical"
-                            android:inputType="number"
-                            android:padding="10dp"
-                            android:text="@string/hourly_pay"
-                            android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/colorBlack"
-                            android:textSize="16sp" />
-
-
-                    </LinearLayout>
-
 
                 </LinearLayout>
             </LinearLayout>
@@ -393,27 +429,28 @@
                 android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/edtDescriptionPost"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/work_description"
-                    android:inputType="textMultiLine"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textColorHint="@color/home_background_history">
+
+                    <EditText
+                        android:id="@+id/edtDescriptionPost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/work_description"
+                        android:inputType="textMultiLine"
+                        android:paddingTop="5dp"
+                        android:textSize="16sp" />
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <EditText
-        android:id="@+id/lo_job_post"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:enabled="false"
-        android:visibility="gone"></EditText>
 
     <ProgressBar
         android:id="@+id/progressPostJob"

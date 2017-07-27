@@ -103,8 +103,6 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     CheckBox chb_tools_work;
     @BindView(R.id.progressPostJob)
     ProgressBar progressBar;
-    @BindView(R.id.lo_job_post)
-    EditText lo_job_post;
 
     @BindView(R.id.rcv_suggest)
     RecyclerView rcv_suggest;
@@ -144,8 +142,11 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         mJobPostActivity = this;
         ButterKnife.bind(this);
 
+        progressDialog = new ProgressDialog(JobPostActivity.this);
+
         checkConnectionInterner();
         hideKeyboard();
+
 
         //setup view
         toolbar.setTitle("");
@@ -222,7 +223,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             txtTime_start.setText(getTimeDoingPost(mDatum.getInfo().getTime().getStartAt()));
             txtTime_end.setText(getTimeDoingPost(mDatum.getInfo().getTime().getEndAt()));
 
-            SimpleDateFormat editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", getResources().getConfiguration().locale);
             try {
                 startTime = editTime.parse(mDatum.getInfo().getTime().getStartAt());
                 endTime = editTime.parse(mDatum.getInfo().getTime().getEndAt());
@@ -633,7 +634,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 }
 //                DateTime dateTime = new DateTime(calendar);
 //                mDateStartWork = dateTime.toString();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", getResources().getConfiguration().locale);
                 txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
                 if (CompareDays(txtDate_start_work.getText().toString())) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_date_post), JobPostActivity.this);
@@ -651,7 +652,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         calendar.set(year, month, date, 0, 0, 0);
         nowDate = calendar.getTime();
         choseDate = calendar.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", getResources().getConfiguration().locale);
         txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
 
     }
@@ -761,7 +762,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
         Date date = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", getResources().getConfiguration().locale);
 
         try {
             date1 = sdf.parse(dateStartWork);
@@ -789,7 +790,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     private boolean CompareTime(String start, String end) {
         String startTime = start;
         String endTime = end;
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         Date d1 = null, d2 = null;
         try {
             d1 = sdf.parse(startTime);
@@ -820,19 +821,19 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     private String getDatePostHistory(String createDatePostHistory) {
         Date date = new DateTime(createDatePostHistory).toDate();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", getResources().getConfiguration().locale);
         String mDateTimePostHistory = df.format(date);
         return mDateTimePostHistory;
     }
 
     private String getTimeDoingPost(String mTimeWork) {
         Date date = new DateTime(mTimeWork).toDate();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         return simpleDateFormat.format(date);
     }
 
     private String getTimeWork(String mTimeWork) {
-        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
+        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa", getResources().getConfiguration().locale);
         String _TimeWork = txtDate_start_work.getText().toString() + " " + mTimeWork;
         Date mTimeAt = null;
         try {
@@ -869,7 +870,6 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     private void showProgressDialog() {
-        progressDialog = new ProgressDialog(JobPostActivity.this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
         progressDialog.show();

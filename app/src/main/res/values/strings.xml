@@ -48,15 +48,15 @@
 
     <string name="check_number_job_post">Your posts would be within ten!</string>
 
-    <string name="post_your_work">Post your work</string>
+    <string name="post_your_work">Work detail</string>
     <string name="title_job_post">Title</string>
     <string name="types_of_work">Types of work</string>
-    <string name="work_description">Work description</string>
+    <string name="work_description">Order requests</string>
     <string name="address_job_post">Address</string>
     <string name="enter_the_salary">Please enter the amount</string>
     <string name="hourly_pay">Hourly pay</string>
     <string name="hour">/ 1 hour</string>
-    <string name="the_start_date">The start date</string>
+    <string name="the_start_date">Start date</string>
     <string name="time_of_working">Time of working</string>
     <string name="to_job_post">to</string>
     <string name="jobs_for_applications">Jobs for applications</string>

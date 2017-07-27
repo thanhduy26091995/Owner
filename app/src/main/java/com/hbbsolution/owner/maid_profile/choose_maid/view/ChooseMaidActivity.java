@@ -141,8 +141,11 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
+        progressDialog = new ProgressDialog(ChooseMaidActivity.this);
+
         checkConnectionInterner();
         hideKeyboard();
+
 
 
         cal = Calendar.getInstance();
@@ -154,7 +157,6 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
         getDateCurrent();
         getTimeCurrent();
-
         //event click
         edtType_job.setOnClickListener(this);
         txt_post_complete.setOnClickListener(this);
@@ -259,7 +261,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 }
 //                DateTime dateTime = new DateTime(calendar);
 //                mDateStartWork = dateTime.toString();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", getResources().getConfiguration().locale);
                 txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
                 if (CompareDays(txtDate_start_work.getText().toString())) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_date_post), ChooseMaidActivity.this);
@@ -374,7 +376,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
         Date date = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", getResources().getConfiguration().locale);
 
         try {
             date1 = sdf.parse(dateStartWork);
@@ -397,7 +399,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         calendar.set(year, month, date, 0, 0, 0);
         nowDate = calendar.getTime();
         choseDate = calendar.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", getResources().getConfiguration().locale);
         txtDate_start_work.setText(simpleDateFormat.format(calendar.getTime()));
 
     }
@@ -436,7 +438,6 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     }
 
     private void showProgressDialog() {
-        progressDialog = new ProgressDialog(ChooseMaidActivity.this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -522,7 +523,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
         String startTime = start;
         String endTime = end;
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         Date d1 = null, d2 = null;
 
         try {
@@ -644,7 +645,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     private String getTimeWork(String mTimeWork) {
 
-        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
+        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa", getResources().getConfiguration().locale);
         String _TimeWork = txtDate_start_work.getText().toString() + " " + mTimeWork;
         Date mTimeAt = null;
         try {
@@ -669,7 +670,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     private boolean CompareTime(String start, String end) {
         String startTime = start;
         String endTime = end;
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         Date d1 = null, d2 = null;
         try {
             d1 = sdf.parse(startTime);

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -81,6 +82,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     EditText edtTitlePost;
     @BindView(R.id.edtDescriptionPost)
     EditText edtDescriptionPost;
+    @BindView(R.id.edtDescriptionAuto)
+    EditText edtDescriptionAuto;
     @BindView(R.id.edtAddressPost)
     EditText edtAddressPost;
     @BindView(R.id.job_post_txtType_job)
@@ -103,8 +106,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     CheckBox chb_tools_work;
     @BindView(R.id.progressPostJob)
     ProgressBar progressBar;
-    @BindView(R.id.lo_job_post)
-    EditText lo_job_post;
+    @BindView(R.id.tilTypeJob)
+    TextInputLayout tilTypeJob;
 
     @BindView(R.id.rcv_suggest)
     RecyclerView rcv_suggest;
@@ -159,8 +162,11 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         sessionManagerUser = new SessionManagerUser(this);
         hashDataUser = sessionManagerUser.getUserDetails();
 
+        progressDialog = new ProgressDialog(QuickPostActivity.this);
+
         checkConnectionInterner();
         hideKeyboard();
+
 
         //setup view
         toolbar.setTitle("");
@@ -215,13 +221,13 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             idTypeJob = infoJob.getId();
             isTool = infoJob.isTool();
             if (!idTypeJob.equals("000000000000000000000001")) {
-                edtType_job.setVisibility(View.GONE);
+                tilTypeJob.setVisibility(View.GONE);
                 view_typeofjob.setVisibility(View.GONE);
             }
             if (!isTool) {
                 liner_tool.setVisibility(View.GONE);
-                viewLineaddress.setVisibility(View.GONE);
-            }else{
+
+            } else {
                 liner_tool.setVisibility(View.VISIBLE);
                 viewLineaddress.setVisibility(View.VISIBLE);
             }
@@ -230,7 +236,14 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             int position = edtTitlePost.length();
             Editable etext = edtTitlePost.getText();
             Selection.setSelection(etext, position);
-            edtDescriptionPost.setText(infoJob.getDescription());
+            if(!infoJob.getDescription().isEmpty()) {
+                edtDescriptionAuto.setVisibility(View.VISIBLE);
+                edtDescriptionAuto.setText(infoJob.getDescription());
+            }
+            else
+            {
+                edtDescriptionAuto.setVisibility(View.GONE);
+            }
             edtAddressPost.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
             edtType_job.setText(infoJob.getName());
             mTypeJob = infoJob.getId();
@@ -267,7 +280,14 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             view_suggest.setVisibility(View.VISIBLE);
             rcv_suggest.setVisibility(View.VISIBLE);
             note = "";
-
+            if(!infoJob.getDescription().isEmpty()) {
+                edtDescriptionAuto.setVisibility(View.VISIBLE);
+                edtDescriptionAuto.setText(infoJob.getDescription());
+            }
+            else
+            {
+                edtDescriptionAuto.setVisibility(View.GONE);
+            }
             GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
             rcv_suggest.setLayoutManager(layoutManager);
             suggetAdapter = new SuggetAdapter(QuickPostActivity.this, listSuggest);
@@ -785,7 +805,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     private boolean CompareTime(String start, String end) {
         String startTime = start;
         String endTime = end;
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         Date d1 = null, d2 = null;
         try {
             d1 = sdf.parse(startTime);
@@ -823,12 +843,12 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     private String getTimeDoingPost(String mTimeWork) {
         Date date = new DateTime(mTimeWork).toDate();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         return simpleDateFormat.format(date);
     }
 
     private String getTimeWork(String mTimeWork) {
-        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
+        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa", getResources().getConfiguration().locale);
         String _TimeWork = txtDate_start_work.getText().toString() + " " + mTimeWork;
         Date mTimeAt = null;
         try {
@@ -865,7 +885,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     }
 
     private void showProgressDialog() {
-        progressDialog = new ProgressDialog(QuickPostActivity.this);
+
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
         progressDialog.show();
