@@ -225,13 +225,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 tilTypeJob.setVisibility(View.GONE);
                 view_typeofjob.setVisibility(View.GONE);
             }
-            if (!isTool) {
-                liner_tool.setVisibility(View.GONE);
 
-            } else {
-                liner_tool.setVisibility(View.VISIBLE);
-                viewLineaddress.setVisibility(View.VISIBLE);
-            }
 
             edtTitlePost.setText(infoJob.getTitle());
             int position = edtTitlePost.length();
@@ -257,6 +251,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             edtTitlePost.setSelection(0);
             edtDescriptionPost.setSelection(0);
             edtAddressPost.setSelection(0);
+
+
         }
 
         for (TypeJob typeJob : Constants.listTypeJob) {
@@ -306,7 +302,14 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 }
             });
         }
+        if (!isTool) {
+            liner_tool.setVisibility(View.GONE);
+            view_suggest.setVisibility(View.GONE);
 
+        } else {
+            liner_tool.setVisibility(View.VISIBLE);
+            viewLineaddress.setVisibility(View.VISIBLE);
+        }
     }
 
     private void addString(String a, String b) {
@@ -548,7 +551,10 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 String idTypeJob = hashMapTypeJob.get(item);
                 mTypeJob = idTypeJob;
                 mBottomSheetDialog.dismiss();
+
                 infoJob = Constants.listTypeJob.get(position);
+
+                isTool = infoJob.isTool();
                 view_suggest.setVisibility(View.GONE);
                 rcv_suggest.setVisibility(View.GONE);
                 setRecyclerView();

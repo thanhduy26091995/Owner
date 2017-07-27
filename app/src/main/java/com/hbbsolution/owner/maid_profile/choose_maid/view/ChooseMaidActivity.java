@@ -230,7 +230,6 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 }
             });
         }
-
     }
 
     private void addString(String a, String b) {
@@ -670,7 +669,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     private boolean CompareTime(String start, String end) {
         String startTime = start;
         String endTime = end;
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         Date d1 = null, d2 = null;
         try {
             d1 = sdf.parse(startTime);
