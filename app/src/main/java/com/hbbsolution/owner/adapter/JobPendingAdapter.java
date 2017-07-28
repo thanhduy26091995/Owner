@@ -8,23 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
-import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
-import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by tantr on 5/25/2017.
@@ -41,7 +30,7 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
         this.context = context;
         this.datumList = datumList;
         this.tabJob = tabJob;
-     
+
     }
 
     public void setCallback(Callback callback) {
@@ -57,34 +46,42 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
     @Override
     public void onBindViewHolder(JobPendingViewHolder holder, int position) {
         final DatumPending mDatum = datumList.get(position);
-        holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
-        holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
-        WorkTimeValidate.setWorkTimeRegister(context, holder.txtTimePostHistory,  mDatum.getHistory().getUpdateAt());
-        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getEndAt());
-        holder.txtTimeDoingPost.setText( mStartTime + " - " + mEndTime);
+        try {
+            holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
+            holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
+            WorkTimeValidate.setWorkTimeRegister(context, holder.txtTimePostHistory, mDatum.getHistory().getUpdateAt());
+            String mStartTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getStartAt());
+            String mEndTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getEndAt());
+            holder.txtTimeDoingPost.setText(mStartTime + " - " + mEndTime);
 
-        if(tabJob == 2){
-            if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
-                holder.txtType.setText(context.getResources().getString(R.string.qua_han_xac_nhan));
-                holder.txtExpired.setVisibility(View.VISIBLE);
-                holder.lo_background.setVisibility(View.VISIBLE);
-                holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-            } else {
-                holder.txtType.setText(context.getResources().getString(R.string.dang_cho_xac_nhan));
-                holder.txtExpired.setVisibility(View.GONE);
-                holder.lo_background.setVisibility(View.GONE);
+            if (tabJob == 2) {
+                if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                    holder.txtType.setText(context.getResources().getString(R.string.qua_han_xac_nhan));
+                    holder.txtExpired.setVisibility(View.VISIBLE);
+                    holder.lo_background.setVisibility(View.VISIBLE);
+                    holder.txtNumber_request_detail_post.setVisibility(View.GONE);
+                } else {
+                    holder.txtType.setText(context.getResources().getString(R.string.dang_cho_xac_nhan));
+                    holder.txtExpired.setVisibility(View.GONE);
+                    holder.lo_background.setVisibility(View.GONE);
+                }
             }
-        }
 
-        if(tabJob == 3){
-            holder.txtType.setText(context.getResources().getString(R.string.running_work));
-        }
+            if (tabJob == 3) {
+                holder.txtType.setText(context.getResources().getString(R.string.running_work));
+            }
 
-        Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
-                .into(holder.imgTypeJobPost);
+            if (mDatum != null && mDatum.getInfo() != null && mDatum.getInfo().getWork() != null && mDatum.getInfo().getWork().getImage() != null) {
+                Glide.with(context).load(mDatum.getInfo().getWork().getImage())
+                        .placeholder(R.drawable.no_image)
+                        .dontAnimate()
+                        .thumbnail(0.5f)
+                        .error(R.drawable.no_image)
+                        .into(holder.imgTypeJobPost);
+            }
+        } catch (Exception e) {
+
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +132,7 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
 
     public interface Callback {
         void onItemClick(DatumPending mDatum);
+
         void onItemLongClick(DatumPending mDatum);
     }
 

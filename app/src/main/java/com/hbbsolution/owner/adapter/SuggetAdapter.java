@@ -49,8 +49,7 @@ public class SuggetAdapter extends RecyclerView.Adapter<SuggetAdapter.RecyclerVi
                 if (callback != null) {
                     if (isChecked) {
                         callback.onItemChecked(listData.get(position));
-                    }
-                    else{
+                    } else {
                         callback.onItemNotChecked(listData.get(position));
                     }
                 }
