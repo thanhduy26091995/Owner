@@ -9,7 +9,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.model.Comment;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
 
 import org.joda.time.DateTime;
@@ -42,22 +41,15 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
     @Override
     public void onBindViewHolder(ListCommentViewHolder holder, int position) {
 
-//        Comment comment = comments.get(position);
-//        holder.txtCommentName.setText("Nguyễn Văn A");
-//        holder.txtCommentContent.setText(comment.getType());
-//        holder.txtCommentType.setText(comment.getContent());
-//        holder.txtCommentTime.setText("15/05/2017");
-//        //  holder.ratingBar.setRating((int) comment.getRating());
-
         Doc comment = comments.get(position);
-        try{
-        holder.txtCommentName.setText(comment.getFromId().getInfo().getName());
-        holder.txtCommentContent.setText(comment.getContent());
-            if(comment.getTask() == null) throw new IllegalArgumentException();
+        try {
+            holder.txtCommentName.setText(comment.getFromId().getInfo().getName());
+            holder.txtCommentContent.setText(comment.getContent());
+            if (comment.getTask() == null) throw new IllegalArgumentException();
             else {
                 holder.txtCommentType.setText(comment.getTask().getInfoTask().getTitle());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 

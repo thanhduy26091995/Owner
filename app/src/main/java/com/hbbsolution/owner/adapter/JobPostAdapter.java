@@ -78,7 +78,7 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
                 }
             }
 
-            if (mDatum.getInfo().getWork().getImage() != null) {
+            if (mDatum != null && mDatum.getInfo() != null && mDatum.getInfo().getWork() != null && mDatum.getInfo().getWork().getImage() != null) {
                 Glide.with(context).load(mDatum.getInfo().getWork().getImage())
                         .placeholder(R.drawable.no_image)
                         .thumbnail(0.5f)
@@ -88,6 +88,7 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
             }
 
         } catch (Exception e) {
+            Log.d("ERROR_LOAD", mDatum.getId());
             Log.d("ERROR_LOAD", e.getMessage());
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {

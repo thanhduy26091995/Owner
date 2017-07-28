@@ -2,17 +2,16 @@ package com.hbbsolution.owner.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
     private Callback callback;
     private int tabJob;
 
-    public ManageJobAdapter(Context context, List<Datum> datumList, int  tabJob) {
+    public ManageJobAdapter(Context context, List<Datum> datumList, int tabJob) {
         this.context = context;
         this.datumList = datumList;
         this.tabJob = tabJob;
@@ -48,38 +47,46 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
     @Override
     public void onBindViewHolder(final JobPostViewHolder holder, int position) {
         final Datum mDatum = datumList.get(position);
-        holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
-        holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
-        WorkTimeValidate.setWorkTimeRegister(context, holder.txtTimePostHistory,  mDatum.getHistory().getUpdateAt());
+        try {
+            holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
+            holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
+            WorkTimeValidate.setWorkTimeRegister(context, holder.txtTimePostHistory, mDatum.getHistory().getUpdateAt());
 
-        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(context,mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(context,mDatum.getInfo().getTime().getEndAt());
-        holder.txtTimeDoingPost.setText( mStartTime + " - " + mEndTime);
+            String mStartTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getStartAt());
+            String mEndTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getEndAt());
+            holder.txtTimeDoingPost.setText(mStartTime + " - " + mEndTime);
 
-        if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
-            holder.txtExpired.setVisibility(View.VISIBLE);
-            holder.lo_background.setVisibility(View.VISIBLE);
-            holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-            holder.txtType.setText(context.getResources().getString(R.string.qua_han_ung_tuyen));
-        } else {
-            holder.txtExpired.setVisibility(View.GONE);
-            holder.lo_background.setVisibility(View.GONE);
-            holder.txtType.setText(context.getResources().getString(R.string.jobs_for_applications));
-            if (tabJob == 1) {
-                holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-                if (mDatum.getStakeholders().getRequest().size() == 0) {
+            if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                holder.txtExpired.setVisibility(View.VISIBLE);
+                holder.lo_background.setVisibility(View.VISIBLE);
+                holder.txtNumber_request_detail_post.setVisibility(View.GONE);
+                holder.txtType.setText(context.getResources().getString(R.string.qua_han_ung_tuyen));
+            } else {
+                holder.txtExpired.setVisibility(View.GONE);
+                holder.lo_background.setVisibility(View.GONE);
+                holder.txtType.setText(context.getResources().getString(R.string.jobs_for_applications));
+                if (tabJob == 1) {
+                    holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                    if (mDatum.getStakeholders().getRequest().size() == 0) {
+                        holder.txtNumber_request_detail_post.setVisibility(View.GONE);
+                    }
+                    holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                } else {
                     holder.txtNumber_request_detail_post.setVisibility(View.GONE);
                 }
-                holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
-            } else {
-                holder.txtNumber_request_detail_post.setVisibility(View.GONE);
             }
-        }
 
-        Picasso.with(context).load(mDatum.getInfo().getWork().getImage())
-                .placeholder(R.drawable.no_image)
-                .error(R.drawable.no_image)
-                .into(holder.imgTypeJobPost);
+            if (mDatum.getInfo() != null && mDatum.getInfo().getWork() != null && mDatum.getInfo().getWork().getImage() != null) {
+                Glide.with(context).load(mDatum.getInfo().getWork().getImage())
+                        .placeholder(R.drawable.no_image)
+                        .dontAnimate()
+                        .thumbnail(0.5f)
+                        .error(R.drawable.no_image)
+                        .into(holder.imgTypeJobPost);
+            }
+        } catch (Exception e) {
+
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +136,7 @@ public class ManageJobAdapter extends RecyclerView.Adapter<ManageJobAdapter.JobP
 
     public interface Callback {
         void onItemClick(Datum mDatum);
+
         void onItemLongClick(Datum mDatum);
     }
 }
