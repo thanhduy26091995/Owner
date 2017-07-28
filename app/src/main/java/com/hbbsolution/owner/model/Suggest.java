@@ -18,6 +18,8 @@ public class Suggest implements Serializable{
     @Expose
     private String name;
 
+    private boolean isChecked;
+
     public String getId() {
         return id;
     }
@@ -34,4 +36,17 @@ public class Suggest implements Serializable{
         this.name = name;
     }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    public Suggest(Suggest suggest) {
+        this.id = suggest.getId();
+        this.name = suggest.getName();
+        this.isChecked =false;
+    }
 }

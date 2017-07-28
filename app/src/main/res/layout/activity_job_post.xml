@@ -84,6 +84,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <View
+                    android:id="@+id/view_typeofjob"
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:layout_marginLeft="22dp"
@@ -91,6 +92,7 @@
                     android:background="@color/colorBlack" />
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilTypeJob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -110,36 +112,6 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
                 </android.support.design.widget.TextInputLayout>
-
-                <View
-                    android:id="@+id/view_suggest"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
-                    android:background="@color/colorBlack"
-                    android:visibility="gone" />
-
-                <EditText
-                    android:id="@+id/edtDescriptionAuto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:inputType="textMultiLine"
-                    android:padding="10dp"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rcv_suggest"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:scrollbars="vertical"
-                    android:visibility="gone" />
 
                 <View
                     android:layout_width="match_parent"
@@ -168,13 +140,49 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <View
+                    android:id="@+id/view_lineaddress"
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
                     android:background="@color/colorBlack" />
 
+
+                <EditText
+                    android:id="@+id/edtDescriptionAuto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:focusable="false"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scrollbars="vertical"
+                    android:visibility="gone" />
+
+
+                <View
+                    android:id="@+id/view_suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:background="@color/colorBlack"
+                    android:visibility="gone" />
+
                 <LinearLayout
+                    android:id="@+id/liner_tool"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">

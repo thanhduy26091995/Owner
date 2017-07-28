@@ -105,6 +105,14 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     @BindView(R.id.view_suggest)
     View view_suggest;
 
+    @BindView(R.id.liner_tool)
+    LinearLayout liner_tool;
+    @BindView(R.id.view_typeofjob)
+    View view_typeofjob;
+
+    @BindView(R.id.view_lineaddress)
+    View viewLineaddress;
+
     private HashMap<String, String> hashMapTypeJob = new HashMap<>();
     private List<String> listTypeJobName = new ArrayList<>();
 
@@ -127,6 +135,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     private Calendar calendarForTime1, calendarForTime2;
 
     private InputMethodManager inputManager;
+    private boolean isTool;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -229,6 +238,14 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                     clearString(note, suggest.getName() + " " + "\r\n");
                 }
             });
+        }
+        if (!isTool) {
+            liner_tool.setVisibility(View.GONE);
+            view_suggest.setVisibility(View.GONE);
+
+        } else {
+            liner_tool.setVisibility(View.VISIBLE);
+            viewLineaddress.setVisibility(View.VISIBLE);
         }
     }
 

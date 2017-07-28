@@ -272,7 +272,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     }
 
     private void setRecyclerView() {
-        listSuggest = infoJob.getSuggest();
+        listSuggest = infoJob.getNewSuggest();
         if (listSuggest.size() > 0) {
             view_suggest.setVisibility(View.VISIBLE);
             rcv_suggest.setVisibility(View.VISIBLE);

@@ -5,9 +5,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class TypeJob implements Serializable{
+public class TypeJob implements Serializable {
 
     @SerializedName("_id")
     @Expose
@@ -104,6 +105,15 @@ public class TypeJob implements Serializable{
     public List<Suggest> getSuggest() {
         return suggest;
     }
+
+    public List<Suggest> getNewSuggest() {
+        List<Suggest> listNew= new ArrayList<>();
+        for (int i=0;i<suggest.size();i++){
+            listNew.add(new Suggest(suggest.get(i)));
+        }
+        return listNew;
+    }
+
 
     public void setSuggest(List<Suggest> suggest) {
         this.suggest = suggest;

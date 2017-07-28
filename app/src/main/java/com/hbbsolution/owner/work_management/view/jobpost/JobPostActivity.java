@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -81,6 +82,8 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     EditText edtTitlePost;
     @BindView(R.id.edtDescriptionPost)
     EditText edtDescriptionPost;
+    @BindView(R.id.edtDescriptionAuto)
+    EditText edtDescriptionAuto;
     @BindView(R.id.edtAddressPost)
     EditText edtAddressPost;
     @BindView(R.id.job_post_txtType_job)
@@ -109,6 +112,14 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     @BindView(R.id.view_suggest)
     View view_suggest;
 
+    @BindView(R.id.liner_tool)
+    LinearLayout liner_tool;
+
+    @BindView(R.id.tilTypeJob)
+    TextInputLayout tilTypeJob;
+
+    @BindView(R.id.view_typeofjob)
+    View view_typeofjob;
     public static Activity mJobPostActivity = null;
     private ProgressDialog progressDialog;
 
@@ -130,10 +141,13 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     private TypeJob infoJob;
     private SuggetAdapter suggetAdapter;
     private List<Suggest> listSuggest = new ArrayList<>();
+    private List<Suggest> listSuggestUpdate = new ArrayList<>();
     private String note = "";
     private Calendar calendarForTime1, calendarForTime2;
 
     private InputMethodManager inputManager;
+
+    private boolean isTool;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -190,48 +204,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         mDatum = (Datum) intent.getSerializableExtra("infoJobPost");
 
         if (mDatum != null) {
-            isPost = false;
-            txt_post_complete.setText(getResources().getString(R.string.update_job_post));
-            mIdTask = mDatum.getId();
-
-            edtTitlePost.setText(mDatum.getInfo().getTitle());
-            int position = edtTitlePost.length();
-            Editable etext = edtTitlePost.getText();
-            Selection.setSelection(etext, position);
-
-            edtDescriptionPost.setText(mDatum.getInfo().getDescription());
-            edtAddressPost.setText(mDatum.getInfo().getAddress().getName());
-            edtType_job.setText(mDatum.getInfo().getWork().getName());
-            mTypeJob = mDatum.getInfo().getWork().getId();
-            chb_tools_work.setChecked(mDatum.getInfo().getTools());
-            mPackageId = mDatum.getInfo().getPackage().getId();
-            mHours = String.valueOf(mDatum.getInfo().getTime().getHour());
-//            edt_monney_work_hour.setText(mHours);
-
-            if (mPackageId.equals("000000000000000000000001")) {
-                edt_monney_work.setEnabled(true);
-//                edt_monney_work_hour.setEnabled(false);
-                rad_type_money_work.setChecked(true);
-                edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice()));
-            } else if (mPackageId.equals("000000000000000000000002")) {
-                edt_monney_work.setEnabled(false);
-//                edt_monney_work_hour.setEnabled(true);
-                rad_type_money_khoan.setChecked(true);
-            }
-
-            txtDate_start_work.setText(getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
-            txtTime_start.setText(getTimeDoingPost(mDatum.getInfo().getTime().getStartAt()));
-            txtTime_end.setText(getTimeDoingPost(mDatum.getInfo().getTime().getEndAt()));
-
-            SimpleDateFormat editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", getResources().getConfiguration().locale);
-            try {
-                startTime = editTime.parse(mDatum.getInfo().getTime().getStartAt());
-                endTime = editTime.parse(mDatum.getInfo().getTime().getEndAt());
-                choseDate = editTime.parse(mDatum.getInfo().getTime().getStartAt());
-                clicked = 1;
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            editJob();
 
         } else {
             isPost = true;
@@ -264,6 +237,64 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         });
     }
 
+    private void editJob() {
+        isPost = false;
+        txt_post_complete.setText(getResources().getString(R.string.update_job_post));
+        mIdTask = mDatum.getId();
+
+        edtTitlePost.setText(mDatum.getInfo().getTitle());
+        int position = edtTitlePost.length();
+        Editable etext = edtTitlePost.getText();
+        Selection.setSelection(etext, position);
+
+        edtDescriptionPost.setText(mDatum.getInfo().getDescription());
+        edtAddressPost.setText(mDatum.getInfo().getAddress().getName());
+        edtType_job.setText(mDatum.getInfo().getWork().getName());
+        mTypeJob = mDatum.getInfo().getWork().getId();
+        chb_tools_work.setChecked(mDatum.getInfo().getTools());
+        mPackageId = mDatum.getInfo().getPackage().getId();
+        mHours = String.valueOf(mDatum.getInfo().getTime().getHour());
+//            edt_monney_work_hour.setText(mHours);
+
+        if (mPackageId.equals("000000000000000000000001")) {
+            edt_monney_work.setEnabled(true);
+//                edt_monney_work_hour.setEnabled(false);
+            rad_type_money_work.setChecked(true);
+            edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice()));
+        } else if (mPackageId.equals("000000000000000000000002")) {
+            edt_monney_work.setEnabled(false);
+//                edt_monney_work_hour.setEnabled(true);
+            rad_type_money_khoan.setChecked(true);
+        }
+
+        txtDate_start_work.setText(getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
+        txtTime_start.setText(getTimeDoingPost(mDatum.getInfo().getTime().getStartAt()));
+        txtTime_end.setText(getTimeDoingPost(mDatum.getInfo().getTime().getEndAt()));
+
+        SimpleDateFormat editTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", getResources().getConfiguration().locale);
+        try {
+            startTime = editTime.parse(mDatum.getInfo().getTime().getStartAt());
+            endTime = editTime.parse(mDatum.getInfo().getTime().getEndAt());
+            choseDate = editTime.parse(mDatum.getInfo().getTime().getStartAt());
+            clicked = 1;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < Constants.listTypeJob.size(); i++) {
+            if (mDatum.getInfo().getWork().getId().equals(Constants.listTypeJob.get(i).getId())) {
+                infoJob = Constants.listTypeJob.get(i);
+                setRecyclerView();
+                break;
+            }
+        }
+
+        if (!infoJob.getId().equals("000000000000000000000001")) {
+            tilTypeJob.setVisibility(View.GONE);
+            view_typeofjob.setVisibility(View.GONE);
+        }
+    }
+
     public void hideKeyboard() {
         try {
             inputManager = (InputMethodManager)
@@ -276,15 +307,34 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     private void setRecyclerView() {
-        listSuggest = infoJob.getSuggest();
+        isTool = infoJob.isTool();
+        listSuggest =  infoJob.getSuggest();
         if (listSuggest.size() > 0) {
             view_suggest.setVisibility(View.VISIBLE);
             rcv_suggest.setVisibility(View.VISIBLE);
             note = "";
 
+            if (!infoJob.getDescription().isEmpty()) {
+                edtDescriptionAuto.setVisibility(View.VISIBLE);
+                edtDescriptionAuto.setText(infoJob.getDescription());
+            } else {
+                edtDescriptionAuto.setVisibility(View.GONE);
+            }
+
             GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
             rcv_suggest.setLayoutManager(layoutManager);
+
+
+            for (int i = 0; i < listSuggest.size(); i++) {
+                if(edtDescriptionPost.getText().toString().contains(listSuggest.get(i).getName())){
+                    listSuggest.get(i).setChecked(true);
+                    clearString(edtDescriptionPost.getText().toString(),listSuggest.get(i).getName()+ " " + "\r\n");
+                    edtDescriptionPost.setText(note);
+                }
+            }
+
             suggetAdapter = new SuggetAdapter(JobPostActivity.this, listSuggest);
+
             suggetAdapter.notifyDataSetChanged();
             rcv_suggest.setAdapter(suggetAdapter);
             suggetAdapter.setCallback(new SuggetAdapter.Callback() {
@@ -299,6 +349,17 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 }
             });
         }
+        if (!isTool) {
+            liner_tool.setVisibility(View.GONE);
+            view_suggest.setVisibility(View.GONE);
+
+        } else {
+            liner_tool.setVisibility(View.VISIBLE);
+            //           viewLineaddress.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setSuggest() {
 
     }
 
@@ -595,7 +656,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     private void getTimePicker() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -607,7 +668,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     private void getTimePicker2() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -658,7 +719,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     }
 
     private void getTimeCurrent() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa",getResources().getConfiguration().locale);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", getResources().getConfiguration().locale);
         calendarForTime1 = Calendar.getInstance();
         calendarForTime2 = Calendar.getInstance();
         int date = calendarForTime1.get(Calendar.DATE);
@@ -668,17 +729,17 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         int minute = calendarForTime1.get(Calendar.MINUTE);
         int hour2, minute2;
         calendarForTime1.set(year, month, date, 0, minute);
-        calendarForTime1.set(Calendar.HOUR_OF_DAY,hour);
-        calendarForTime1.add(Calendar.MINUTE,10);
+        calendarForTime1.set(Calendar.HOUR_OF_DAY, hour);
+        calendarForTime1.add(Calendar.MINUTE, 10);
         txtTime_start.setText(simpleDateFormat.format(calendarForTime1.getTime()));
         if (hour >= 22) {
             hour2 = 23;
             minute2 = 59;
             calendarForTime2.set(year, month, date, 0, minute2);
-            calendarForTime2.set(Calendar.HOUR_OF_DAY,hour2);
+            calendarForTime2.set(Calendar.HOUR_OF_DAY, hour2);
         } else {
             calendarForTime2.set(year, month, date, hour, minute);
-            calendarForTime2.add(Calendar.MINUTE,10);
+            calendarForTime2.add(Calendar.MINUTE, 10);
             calendarForTime2.add(Calendar.HOUR_OF_DAY, 2);
         }
         txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));

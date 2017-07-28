@@ -43,6 +43,7 @@ public class SuggetAdapter extends RecyclerView.Adapter<SuggetAdapter.RecyclerVi
     public void onBindViewHolder(SuggetAdapter.RecyclerViewHolder holder, final int position) {
         suggest = listData.get(position);
         holder.tvSuggestName.setText(suggest.getName());
+        holder.chbSuggest.setChecked(suggest.isChecked());
         holder.chbSuggest.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
