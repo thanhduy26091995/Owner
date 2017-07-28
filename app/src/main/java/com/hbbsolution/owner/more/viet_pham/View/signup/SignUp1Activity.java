@@ -1,5 +1,6 @@
 package com.hbbsolution.owner.more.viet_pham.View.signup;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -15,6 +16,9 @@ import android.widget.EditText;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.CheckUsernameEmailResponse;
+import com.hbbsolution.owner.more.viet_pham.Presenter.CheckUsernameAndEmailPresenter;
+import com.hbbsolution.owner.more.viet_pham.View.CheckUsernameAndEmailView;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 
 import butterknife.BindView;
@@ -24,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 5/10/2017.
  */
 
-public class SignUp1Activity extends BaseActivity {
+public class SignUp1Activity extends BaseActivity implements CheckUsernameAndEmailView{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.button_next)
@@ -35,6 +39,9 @@ public class SignUp1Activity extends BaseActivity {
     EditText edtPassword;
     @BindView(R.id.edit_confirm_password)
     EditText edtConfirmPassword;
+    private CheckUsernameAndEmailPresenter mCheckUsernameAndEmailPresenter;
+    private String username,password;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +56,9 @@ public class SignUp1Activity extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addEvents();
+
+        mCheckUsernameAndEmailPresenter = new CheckUsernameAndEmailPresenter(this);
+        mProgressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -64,19 +74,17 @@ public class SignUp1Activity extends BaseActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = edtUserName.getText().toString();
-                String password = edtPassword.getText().toString();
+                username = edtUserName.getText().toString();
+                password = edtPassword.getText().toString();
                 String confirmPassword = edtConfirmPassword.getText().toString();
                 if (username.trim().length() == 0 || password.length() == 0 || confirmPassword.length() == 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), SignUp1Activity.this);
                 } else {
                     if (password.equals(confirmPassword)) {
-                        Intent iSignUp1 = new Intent(SignUp1Activity.this, SignUp2Activity.class);
-                        Bundle bNextPage = new Bundle();
-                        bNextPage.putString("username", username);
-                        bNextPage.putString("password", password);
-                        iSignUp1.putExtra("bNextPage", bNextPage);
-                        startActivity(iSignUp1);
+                        mProgressDialog.show();
+                        mProgressDialog.setMessage(getResources().getString(R.string.loading));
+                        mProgressDialog.setCanceledOnTouchOutside(false);
+                        mCheckUsernameAndEmailPresenter.checkUsername(username);
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.invalid_pass), SignUp1Activity.this);
                     }
@@ -106,5 +114,28 @@ public class SignUp1Activity extends BaseActivity {
             }
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public void checkUsername(CheckUsernameEmailResponse checkUsernameEmailResponse) {
+        mProgressDialog.dismiss();
+        if (checkUsernameEmailResponse.isStatus())
+        {
+            Intent iSignUp1 = new Intent(SignUp1Activity.this, SignUp2Activity.class);
+            Bundle bNextPage = new Bundle();
+            bNextPage.putString("username", username);
+            bNextPage.putString("password", password);
+            iSignUp1.putExtra("bNextPage", bNextPage);
+            startActivity(iSignUp1);
+
+        }
+        else {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_username),SignUp1Activity.this);
+        }
+    }
+
+    @Override
+    public void checkEmail(CheckUsernameEmailResponse checkUsernameEmailResponse) {
+
     }
 }

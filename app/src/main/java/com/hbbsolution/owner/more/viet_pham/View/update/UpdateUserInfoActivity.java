@@ -337,6 +337,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
     public void displayUpdate(DataUpdateResponse dataUpdateResponse) {
 
         Data data = new Data();
+
         data.setUser(dataUpdateResponse.getUser());
         data.setToken(mDataHashUser.get(SessionManagerUser.KEY_TOKEN));
         mSessionManagerUser.removeValue();

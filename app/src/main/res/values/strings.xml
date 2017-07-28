@@ -34,6 +34,9 @@
     <string name="sign_in_sign_now">Sign up</string>
     <string name="sign_in_by">Login with</string>
     <string name="sign_up">Sign up</string>
+    <string name="sign_up_invalid_username">Account is too short.</string>
+    <string name="sign_up_invalid_password">Password is too short</string>
+    <string name="sign_up_invalid_usernameandpassword">Account and password are too short</string>
     <!--signin_screen end-->
 
     <!--work_manager start-->
@@ -394,4 +397,6 @@
     <string name="invalid_pass">These passwords do not match. Please re-enter!</string>
 
     <string name="connection_error">Failed to connect to the Internet!</string>
+    <string name="check_username">Username already exists!</string>
+    <string name="check_email">Email you enter already exists!</string>
 </resources>

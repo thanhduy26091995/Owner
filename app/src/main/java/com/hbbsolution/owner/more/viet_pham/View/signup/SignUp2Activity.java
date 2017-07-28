@@ -34,9 +34,12 @@ import android.widget.TextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.CheckUsernameEmailResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
+import com.hbbsolution.owner.more.viet_pham.Presenter.CheckUsernameAndEmailPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.RegisterPresenter;
+import com.hbbsolution.owner.more.viet_pham.View.CheckUsernameAndEmailView;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.EmailValidate;
@@ -57,7 +60,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 5/10/2017.
  */
 
-public class SignUp2Activity extends AppCompatActivity implements MoreView {
+public class SignUp2Activity extends AppCompatActivity implements MoreView,CheckUsernameAndEmailView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.button_next)
@@ -93,6 +96,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+    private CheckUsernameAndEmailPresenter mCheckUsernameAndEmailPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +111,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
 
         mProgressDialog = new ProgressDialog(this);
         mRegisterPresenter = new RegisterPresenter(this);
+        mCheckUsernameAndEmailPresenter = new CheckUsernameAndEmailPresenter(this);
 
     }
 
@@ -152,7 +157,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
                         mProgressDialog.show();
                         mProgressDialog.setMessage(getResources().getString(R.string.loading));
                         mProgressDialog.setCanceledOnTouchOutside(false);
-                        mRegisterPresenter.getLocaltionAddress(mLocation);
+                        mCheckUsernameAndEmailPresenter.checkEmail(mEmail);
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong), SignUp2Activity.this);
                     }
@@ -442,5 +447,20 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         return new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_" + timeStamp + ".jpg");
+    }
+
+    @Override
+    public void checkUsername(CheckUsernameEmailResponse checkUsernameEmailResponse) {
+
+    }
+
+    @Override
+    public void checkEmail(CheckUsernameEmailResponse checkUsernameEmailResponse) {
+        if (checkUsernameEmailResponse.isStatus()){
+            mRegisterPresenter.getLocaltionAddress(mLocation);
+        }else {
+            mProgressDialog.dismiss();
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_email),SignUp2Activity.this);
+        }
     }
 }
