@@ -55,6 +55,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     private CommentPresenter commentPresenter;
     private String idHelper, nameHelper, imgHelper, addressHelper, idTask;
     private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +88,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                         .into(imgAvatar);
             }
 
-        } else if(infoMaid != null) {
+        } else if (infoMaid != null) {
             idTask = infoMaid.getString("idTask");
             idHelper = infoMaid.getString("idHelper");
             imgHelper = infoMaid.getString("imgHelper");
@@ -124,9 +125,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.txtNext:
                 if (DetailWorkHistoryActivity.detailWorkHistory != null) {
                     finish();
-                }
-                else
-                {
+                } else {
                     Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -139,11 +138,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 if (edtComment.getText().toString().length() > 0) {
-                    if(ratingBar.getRating()!=0) {
+                    if (ratingBar.getRating() != 0) {
                         commentPresenter.postComment(idTask, idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
-                    }
-                    else
-                    {
+                    } else {
 
                     }
                     showProgress();
@@ -165,7 +162,8 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void commentSuccess(String message) {
-        hideProgress(); AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        hideProgress();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
         alertDialog.setTitle(getResources().getString(R.string.notification));
         alertDialog.setMessage(getResources().getString(R.string.commentsuccess));
@@ -174,8 +172,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (DetailWorkHistoryActivity.detailWorkHistory != null) {
                     finish();
-                }
-                else {
+                } else {
                     Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
@@ -187,7 +184,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void commentFail(String message) {
         hideProgress();
-        ShowAlertDialog.showAlert(getResources().getString(R.string.commentfail),this);
+        ShowAlertDialog.showAlert(getResources().getString(R.string.commentfail), this);
     }
 
     @Override
@@ -225,9 +222,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         super.onBackPressed();
         if (DetailWorkHistoryActivity.detailWorkHistory != null) {
             finish();
-        }
-        else
-        {
+        } else {
             Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

@@ -2,6 +2,7 @@ package com.hbbsolution.owner.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,49 +44,52 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
     @Override
     public void onBindViewHolder(JobPostAdapter.JobPostViewHolder holder, int position) {
         final Datum mDatum = datumList.get(position);
-        holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
-        holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
-        WorkTimeValidate.setWorkTimeRegister(context, holder.txtTimePostHistory, mDatum.getHistory().getUpdateAt());
+        try {
+            holder.txtTitleJobPost.setText(mDatum.getInfo().getTitle());
+            holder.txtDatePostHistory.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getStartAt()));
+            WorkTimeValidate.setWorkTimeRegister(context, holder.txtTimePostHistory, mDatum.getHistory().getUpdateAt());
 
-        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getEndAt());
-        holder.txtTimeDoingPost.setText(mStartTime + " - " + mEndTime);
+            String mStartTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getStartAt());
+            String mEndTime = WorkTimeValidate.getTimeWorkLanguage(context, mDatum.getInfo().getTime().getEndAt());
+            holder.txtTimeDoingPost.setText(mStartTime + " - " + mEndTime);
 
-        if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
-            holder.txtExpired.setVisibility(View.VISIBLE);
-            holder.lo_background.setVisibility(View.VISIBLE);
-            holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-            holder.txtRequestDirect.setVisibility(View.GONE);
-            holder.txtType.setText(context.getResources().getString(R.string.qua_han_ung_tuyen));
-        } else {
-            holder.txtExpired.setVisibility(View.GONE);
-            holder.lo_background.setVisibility(View.GONE);
-            holder.txtType.setText(context.getResources().getString(R.string.jobs_for_applications));
-//            holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-            if (mDatum.getProcess().getId().equals("000000000000000000000006")) {
-                holder.txtRequestDirect.setVisibility(View.VISIBLE);
+            if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                holder.txtExpired.setVisibility(View.VISIBLE);
+                holder.lo_background.setVisibility(View.VISIBLE);
                 holder.txtNumber_request_detail_post.setVisibility(View.GONE);
-            } else {
                 holder.txtRequestDirect.setVisibility(View.GONE);
-                if (mDatum.getStakeholders().getRequest().size() == 0) {
+                holder.txtType.setText(context.getResources().getString(R.string.qua_han_ung_tuyen));
+            } else {
+                holder.txtExpired.setVisibility(View.GONE);
+                holder.lo_background.setVisibility(View.GONE);
+                holder.txtType.setText(context.getResources().getString(R.string.jobs_for_applications));
+//            holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                if (mDatum.getProcess().getId().equals("000000000000000000000006")) {
+                    holder.txtRequestDirect.setVisibility(View.VISIBLE);
                     holder.txtNumber_request_detail_post.setVisibility(View.GONE);
                 } else {
-                    holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-                    holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                    holder.txtRequestDirect.setVisibility(View.GONE);
+                    if (mDatum.getStakeholders().getRequest().size() == 0) {
+                        holder.txtNumber_request_detail_post.setVisibility(View.GONE);
+                    } else {
+                        holder.txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                        holder.txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                    }
                 }
             }
+
+            if (mDatum.getInfo().getWork().getImage() != null) {
+                Glide.with(context).load(mDatum.getInfo().getWork().getImage())
+                        .placeholder(R.drawable.no_image)
+                        .thumbnail(0.5f)
+                        .dontAnimate()
+                        .error(R.drawable.no_image)
+                        .into(holder.imgTypeJobPost);
+            }
+
+        } catch (Exception e) {
+            Log.d("ERROR_LOAD", e.getMessage());
         }
-
-        if (mDatum.getInfo().getWork().getImage() != null) {
-            Glide.with(context).load(mDatum.getInfo().getWork().getImage())
-                    .placeholder(R.drawable.no_image)
-                    .thumbnail(0.5f)
-                    .dontAnimate()
-                    .error(R.drawable.no_image)
-                    .into(holder.imgTypeJobPost);
-        }
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -23,16 +23,22 @@ public class RechargeOnlineThiPresenter {
         this.rechargeOnlineThiView = rechargeOnlineThiView;
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
-    public void getRechargeOnlineThi(String key,String billId)
-    {
-        Call<RechargeOnlineThiResponse> call = apiService.getRechargeOnlineThi(key,billId);
+
+    public void getRechargeOnlineThi(String key, String billId) {
+        Call<RechargeOnlineThiResponse> call = apiService.getRechargeOnlineThi(key, billId);
         call.enqueue(new Callback<RechargeOnlineThiResponse>() {
             @Override
             public void onResponse(Call<RechargeOnlineThiResponse> call, Response<RechargeOnlineThiResponse> response) {
                 if (response.isSuccessful()) {
                     try {
                         RechargeOnlineThiResponse rechargeOnlineThiResponse = response.body();
-                        rechargeOnlineThiView.thiSuccess();
+                        if (rechargeOnlineThiResponse.getStatus()){
+                            rechargeOnlineThiView.thiSuccess();
+                        }
+                        else {
+                            rechargeOnlineThiView.thiFail();
+                        }
+
                     } catch (Exception e) {
                         rechargeOnlineThiView.thiFail();
                         Log.e("exception", e.toString());

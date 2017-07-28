@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
@@ -144,7 +143,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
                     showProgress();
                     reportPresenter.reportMaid(idHelper, edtReport.getText().toString().trim());
                 } else {
-                    Toast.makeText(this, "Vui lòng nhập bình luận", Toast.LENGTH_LONG).show();
+                    ShowAlertDialog.showAlert(getResources().getString(R.string.add_comment), ReportMaidActivity.this);
                 }
                 break;
             case R.id.tvSkip:
@@ -163,7 +162,7 @@ public class ReportMaidActivity extends AppCompatActivity implements View.OnClic
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-              finish();
+                finish();
             }
         });
         alertDialog.show();

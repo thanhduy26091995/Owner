@@ -23,8 +23,8 @@ public class RechargeOnlineSecPresenter {
         this.rechargeOnlineSecView = rechargeOnlineSecView;
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
-    public void getRechargeOnlineSec(String key,String billId)
-    {
+
+    public void getRechargeOnlineSec(String key, String billId) {
         Call<RechargeOnlineSecResponse> call = apiService.getRechargeOnlineSec(key, billId);
         call.enqueue(new Callback<RechargeOnlineSecResponse>() {
             @Override
@@ -32,7 +32,11 @@ public class RechargeOnlineSecPresenter {
                 if (response.isSuccessful()) {
                     try {
                         RechargeOnlineSecResponse rechargeOnlineSecResponse = response.body();
-                        rechargeOnlineSecView.secSuccess(rechargeOnlineSecResponse.getData().getKey());
+                        if (rechargeOnlineSecResponse.getStatus()) {
+                            rechargeOnlineSecView.secSuccess(rechargeOnlineSecResponse.getData().getKey());
+                        } else {
+                            rechargeOnlineSecView.secFail();
+                        }
                     } catch (Exception e) {
                         rechargeOnlineSecView.secFail();
                         Log.e("exception", e.toString());

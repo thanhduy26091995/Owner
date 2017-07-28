@@ -326,15 +326,6 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
                 Uri tempUri = getImageUri(getApplicationContext(), photo);
                 photoPath = getRealPathFromURI(tempUri);
             }
-
-            // String photoPath = GetRealPath.getPath(DetailJobPendingActivity.this, imageBitmap);
-            //  String photoPath = GetRealPath.getPath(DetailJobPendingActivity.this, data.getData());
-            // Log.d("PATH", photoPath);
-
-//            Bitmap bitmap = EncodeImage.encodeImage(getRealPathFromURI(takenPhotoUri));
-//            String photoPath = "";
-//            photoPath = getRealPathFromURI(getImageUri(DetailJobPendingActivity.this, bitmap));
-            //   Log.d("PATH", photoPath);
             //show progress
             showProgress();
             mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", mDatum.getId());
@@ -397,8 +388,6 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     @Override
     public void checkIn(CheckInResponse checkInResponse) {
         hideProgress();
-        timeEnd = new Date().getTime();
-        Log.d("TIME", "" + (timeEnd - timeStart) / 1000);
         boolean status = checkInResponse.isStatus();
         if (status) {
             //boolean isIdentical = checkInResponse.getData().isIdentical();
@@ -428,7 +417,17 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
 
             }
         } else {
-            ShowAlertDialog.showAlert(getResources().getString(R.string.confirm_failed), DetailJobPendingActivity.this);
+            String message = checkInResponse.getMessage();
+            if (message.equals("DATA_NOT_EXIST")){
+                ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), DetailJobPendingActivity.this);
+            }
+            if (message.equals("CHECK_IN_EXIST")){
+
+            }
+            if (message.equals("FACE_IDENTICAL_FAILED")){
+
+            }
+
         }
     }
 
