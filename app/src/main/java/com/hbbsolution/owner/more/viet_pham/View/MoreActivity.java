@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -209,6 +210,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
+                                LoginManager.getInstance().logOut();
                                 FirebaseAuth.getInstance().signOut();
                                 sessionManagerUser.logoutUser();
                                 mGoogleApiClient = GoogleAuthController.getInstance().getGoogleApiClient();

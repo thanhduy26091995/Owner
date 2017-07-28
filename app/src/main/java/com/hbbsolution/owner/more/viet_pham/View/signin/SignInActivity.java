@@ -139,7 +139,6 @@ public class SignInActivity extends BaseActivity implements MoreView, FirebaseAu
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -236,12 +235,12 @@ public class SignInActivity extends BaseActivity implements MoreView, FirebaseAu
 
                     @Override
                     public void onCancel() {
-
+                        Log.d("LOGIN_FACEBOOK", "OnCancel");
                     }
 
                     @Override
                     public void onError(FacebookException error) {
-
+                        Log.d("LOGIN_FACEBOOK", error.getMessage());
                     }
                 });
             }
@@ -261,14 +260,14 @@ public class SignInActivity extends BaseActivity implements MoreView, FirebaseAu
         btnSignIn.setEnabled(true);
         hideProgress();
         if (bodyResponse.getStatus() == true) {
-                //save session
-                sessionManagerUser.createLoginSession(bodyResponse.getData());
-                hashDataUser = sessionManagerUser.getUserDetails();
-                ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
-                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+            //save session
+            sessionManagerUser.createLoginSession(bodyResponse.getData());
+            hashDataUser = sessionManagerUser.getUserDetails();
+            ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.invalid), SignInActivity.this);
 //            if(bodyResponse.getMessage().equals("DATA_NOT_EXISTS")|| bodyResponse.getMessage().equals("INVALID_PASSWORD")){
@@ -325,7 +324,7 @@ public class SignInActivity extends BaseActivity implements MoreView, FirebaseAu
         Intent iUpdate = new Intent(SignInActivity.this, UpdateGooAndFaceActivity.class);
         iUpdate.putExtra("infoGoogle", bUpdate);
         startActivity(iUpdate);
-       // finish();
+        // finish();
     }
 
     private void loginGoogle() {
@@ -368,8 +367,7 @@ public class SignInActivity extends BaseActivity implements MoreView, FirebaseAu
                 nameGoogleOrFace = googleSignInAccount.getDisplayName();
                 if (googleSignInAccount.getPhotoUrl() != null) {
                     imageGoogleOrFace = googleSignInAccount.getPhotoUrl().toString();
-                }
-                else{
+                } else {
                     imageGoogleOrFace = "";
                 }
                 mSignInGooAndFacePresenter.signInGooAndFace(IdUser, TokenID, DeviceToken);
