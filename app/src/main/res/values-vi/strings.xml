@@ -91,6 +91,9 @@
     <string name="sign_up_libary_image">Thư viện ảnh</string>
     <string name="sign_up_cancel">Hủy</string>
     <string name="sign_up_choice">Lựa chọn</string>
+    <string name="sign_up_invalid_username">Tài khoản quá ngắn.</string>
+    <string name="sign_up_invalid_password">Mật khẩu quá ngắn</string>
+    <string name="sign_up_invalid_usernameandpassword">Tài khoản và mật khẩu quá ngắn</string>
     <!--signup_screen end-->
 
     <!--signin_screen start-->
@@ -384,4 +387,6 @@
     <string name="invalid_pass">Mật khẩu không khớp. Vui lòng nhập lại!</string>
 
     <string name="connection_error">Lỗi kết nối mạng</string>
+    <string name="check_username">Tên đăng nhập đã tồn tại</string>
+    <string name="check_email">Email bạn nhập đã tồn tại</string>
 </resources>

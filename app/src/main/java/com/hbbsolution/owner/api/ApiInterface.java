@@ -19,6 +19,7 @@ import com.hbbsolution.owner.more.duy_nguyen.model.StatisticResponse;
 import com.hbbsolution.owner.more.phuc_tran.model.AboutResponse;
 import com.hbbsolution.owner.more.phuc_tran.model.ForgotPassResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
+import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.CheckUsernameEmailResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
 import com.hbbsolution.owner.report.model.ReportResponse;
 import com.hbbsolution.owner.work_management.model.billGv24.BillGv24Response;
@@ -92,6 +93,12 @@ public interface ApiInterface {
 
     @GET("work/getAll")
     Call<TypeJobResponse> getAllTypeJob();
+
+    @GET("more/checkUsername")
+    Call<CheckUsernameEmailResponse> checkUsername(@Query("username") String username);
+
+    @GET("more/checkEmail")
+    Call<CheckUsernameEmailResponse> checkEmail(@Query("email") String email);
 
 
     @Multipart
