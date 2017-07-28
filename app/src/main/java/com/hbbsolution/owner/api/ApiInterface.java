@@ -259,10 +259,10 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("payment/chargeOnlineSecConfirm")
-    Call<RechargeOnlineSecResponse> getRechargeOnlineSec(@Header("hbbgv_accesskey") String key, @Field("billId") String billId);
+    Call<RechargeOnlineSecResponse> getRechargeOnlineSec(@Header("hbbgvaccesskey") String key, @Field("billId") String billId);
 
     @FormUrlEncoded
     @POST("payment/chargeOnlineThiConfirm")
-    Call<RechargeOnlineThiResponse> getRechargeOnlineThi(@Header("hbbgv_accesskey") String key, @Field("billId") String billId);
+    Call<RechargeOnlineThiResponse> getRechargeOnlineThi(@Header("hbbgvaccesskey") String key, @Field("billId") String billId);
 
 }

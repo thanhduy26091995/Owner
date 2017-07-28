@@ -32,7 +32,13 @@ public class RechargeOnlineFiPresenter {
                 if (response.isSuccessful()) {
                     try {
                         RechargeOnlineFiResponse rechargeOnlineFiResponse = response.body();
-                        rechargeOnlineFiView.fiSuccess(rechargeOnlineFiResponse.getData().getBill(),rechargeOnlineFiResponse.getData().getKey());
+                        if (rechargeOnlineFiResponse.getStatus()) {
+                            rechargeOnlineFiView.fiSuccess(rechargeOnlineFiResponse.getData().getBill(), rechargeOnlineFiResponse.getData().getKey());
+                        }
+                        else
+                        {
+                            rechargeOnlineFiView.fiFail();
+                        }
                     } catch (Exception e) {
                         rechargeOnlineFiView.fiFail();
                         Log.e("exception", e.toString());
