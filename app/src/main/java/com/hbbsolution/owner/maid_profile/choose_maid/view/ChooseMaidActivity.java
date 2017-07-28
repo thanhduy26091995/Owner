@@ -415,6 +415,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         int hour2, minute2;
         calendarForTime1.set(year, month, date, 0, minute);
         calendarForTime1.set(Calendar.HOUR_OF_DAY,hour);
+        calendarForTime1.add(Calendar.MINUTE,10);
         txtTime_start.setText(simpleDateFormat.format(calendarForTime1.getTime()));
         if (hour >= 22) {
             hour2 = 23;
@@ -423,6 +424,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
             calendarForTime2.set(Calendar.HOUR_OF_DAY,hour2);
         } else {
             calendarForTime2.set(year, month, date, hour, minute);
+            calendarForTime2.add(Calendar.MINUTE,10);
             calendarForTime2.add(Calendar.HOUR_OF_DAY, 2);
         }
         txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));

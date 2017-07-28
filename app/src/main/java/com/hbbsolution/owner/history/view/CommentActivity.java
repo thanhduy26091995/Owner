@@ -1,11 +1,12 @@
 package com.hbbsolution.owner.history.view;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
@@ -164,18 +165,23 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void commentSuccess(String message) {
-        hideProgress();
-        if (DetailWorkHistoryActivity.detailWorkHistory != null) {
-            Intent intent = new Intent();
-            intent.putExtra("message", message);
-            setResult(Activity.RESULT_OK, intent);
-            finish();
-        }
-        else {
-            Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        hideProgress(); AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setCancelable(false);
+        alertDialog.setTitle(getResources().getString(R.string.notification));
+        alertDialog.setMessage(getResources().getString(R.string.commentsuccess));
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (DetailWorkHistoryActivity.detailWorkHistory != null) {
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(CommentActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
 
     @Override

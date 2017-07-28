@@ -344,7 +344,7 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
                 intent.putExtra("maid", mMaidInfo);
                 intent.putExtra("work", workHistory);
                 intent.putExtra("helper", datum);
-                startActivityForResult(intent, REPORT);
+                startActivity(intent);
                 break;
 
         }
@@ -437,14 +437,6 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REPORT) {
-            if (resultCode == Activity.RESULT_OK) {
-                ShowAlertDialog.showAlert(getResources().getString(R.string.reportsuccess), this);
-            }
-        }
-    }
 
     private void hideTextRequestDirectly(String idTaskProcess) {
         if (idTaskProcess.equals("000000000000000000000003") || idTaskProcess.equals("000000000000000000000004") ||

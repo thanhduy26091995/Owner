@@ -154,7 +154,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
                 mbundleComment.putString("nameHelper", doc.getStakeholders().getReceived().getInfo().getName());
                 mbundleComment.putString("addressHelper", doc.getStakeholders().getReceived().getInfo().getAddress().getName());
                 intent.putExtra("mbundleComment", mbundleComment);
-                startActivityForResult(intent,COMMENT);
+                startActivity(intent);
                 break;
             case R.id.rela_info:
                 intent = new Intent(this, MaidProfileActivity.class);
@@ -195,17 +195,6 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     protected void onResume() {
         super.onResume();
 
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==COMMENT)
-        {
-            if(resultCode== Activity.RESULT_OK)
-            {
-                ShowAlertDialog.showAlert(getResources().getString(R.string.commentsuccess),this);
-                commentHistoryPresenter.checkComment(doc.getId());
-            }
-        }
     }
 
     private String formatPrice(Integer _Price) {
