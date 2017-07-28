@@ -120,6 +120,9 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     @BindView(R.id.view_typeofjob)
     View view_typeofjob;
+    @BindView(R.id.view_lineaddress)
+    View viewLineaddress;
+
     public static Activity mJobPostActivity = null;
     private ProgressDialog progressDialog;
 
@@ -355,7 +358,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
         } else {
             liner_tool.setVisibility(View.VISIBLE);
-            //           viewLineaddress.setVisibility(View.VISIBLE);
+            viewLineaddress.setVisibility(View.VISIBLE);
         }
     }
 
