@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
@@ -116,9 +117,10 @@ public class DetailJobDoingActivity extends AuthenticationBaseActivity implement
         String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
         txtTimeDoWrokJobDoing.setText(mStartTime + " - " + mEndTime);
 //        txtTimeDoWrokJobDoing.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
-        Picasso.with(this).load(mDatum.getInfo().getWork().getImage())
+        Glide.with(this).load(mDatum.getInfo().getWork().getImage())
                 .error(R.drawable.no_image)
                 .placeholder(R.drawable.no_image)
+                .dontAnimate()
                 .into(img_job_type);
     }
 
