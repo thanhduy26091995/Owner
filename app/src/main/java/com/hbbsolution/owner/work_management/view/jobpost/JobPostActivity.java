@@ -145,7 +145,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     private SuggetAdapter suggetAdapter;
     private List<Suggest> listSuggest = new ArrayList<>();
     private List<Suggest> listSuggestUpdate = new ArrayList<>();
-    private String note = "";
+    private String note = "",noteUpdate ="";
     private Calendar calendarForTime1, calendarForTime2;
 
     private InputMethodManager inputManager;
@@ -251,6 +251,8 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         Selection.setSelection(etext, position);
 
         edtDescriptionPost.setText(mDatum.getInfo().getDescription());
+        note = mDatum.getInfo().getDescription();
+        noteUpdate = mDatum.getInfo().getDescription();
         edtAddressPost.setText(mDatum.getInfo().getAddress().getName());
         edtType_job.setText(mDatum.getInfo().getWork().getName());
         mTypeJob = mDatum.getInfo().getWork().getId();
@@ -311,11 +313,11 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     private void setRecyclerView() {
         isTool = infoJob.isTool();
-        listSuggest =  infoJob.getSuggest();
+        listSuggest =  infoJob.getNewSuggest();
         if (listSuggest.size() > 0) {
             view_suggest.setVisibility(View.VISIBLE);
             rcv_suggest.setVisibility(View.VISIBLE);
-            note = "";
+
 
             if (!infoJob.getDescription().isEmpty()) {
                 edtDescriptionAuto.setVisibility(View.VISIBLE);
@@ -331,10 +333,12 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             for (int i = 0; i < listSuggest.size(); i++) {
                 if(edtDescriptionPost.getText().toString().contains(listSuggest.get(i).getName())){
                     listSuggest.get(i).setChecked(true);
-                    clearString(edtDescriptionPost.getText().toString(),listSuggest.get(i).getName()+ " " + "\r\n");
-                    edtDescriptionPost.setText(note);
+                    clearStringUpdate(noteUpdate,listSuggest.get(i).getName()+ " "+ "\r\n");
+
                 }
             }
+            edtDescriptionPost.setText(noteUpdate.replace("\r\n",""));
+            clearString(note,noteUpdate);
 
             suggetAdapter = new SuggetAdapter(JobPostActivity.this, listSuggest);
 
@@ -343,12 +347,12 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             suggetAdapter.setCallback(new SuggetAdapter.Callback() {
                 @Override
                 public void onItemChecked(Suggest suggest) {
-                    addString(note, suggest.getName() + " " + "\r\n");
+                    addString(note, suggest.getName() + " "+ "\r\n");
                 }
 
                 @Override
                 public void onItemNotChecked(Suggest suggest) {
-                    clearString(note, suggest.getName() + " " + "\r\n");
+                    clearString(note, suggest.getName() + " "+ "\r\n");
                 }
             });
         }
@@ -375,6 +379,12 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     private void clearString(String a, String b) {
         note = a.replace(b, "");
+    }
+
+
+    private void clearStringUpdate(String a, String b) {
+//        noteUpdate = new StringBuilder().toString();
+        noteUpdate = a.replace(b, "");
     }
 
     @Override
@@ -486,7 +496,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
         if (!note.equals("")) {
             if (!mDescriptionPost.equals("")) {
-                mDescriptionPost += "\r\n" + note;
+                mDescriptionPost += " "+ "\r\n" + note;
             } else {
                 mDescriptionPost = note;
             }
