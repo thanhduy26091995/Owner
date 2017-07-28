@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.more.duy_nguyen.TermsActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.CheckUsernameEmailResponse;
@@ -154,10 +155,14 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView,Check
                     ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), SignUp2Activity.this);
                 } else {
                     if (EmailValidate.IsOk(mEmail)) {
-                        mProgressDialog.show();
-                        mProgressDialog.setMessage(getResources().getString(R.string.loading));
-                        mProgressDialog.setCanceledOnTouchOutside(false);
-                        mCheckUsernameAndEmailPresenter.checkEmail(mEmail);
+                        if(InternetConnection.getInstance().isOnline(SignUp2Activity.this)){
+                            mProgressDialog.show();
+                            mProgressDialog.setMessage(getResources().getString(R.string.loading));
+                            mProgressDialog.setCanceledOnTouchOutside(false);
+                            mCheckUsernameAndEmailPresenter.checkEmail(mEmail);
+                        }else {
+                            ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet),SignUp2Activity.this);
+                        }
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong), SignUp2Activity.this);
                     }

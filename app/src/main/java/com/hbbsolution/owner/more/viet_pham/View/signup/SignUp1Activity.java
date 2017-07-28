@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
+import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.CheckUsernameEmailResponse;
 import com.hbbsolution.owner.more.viet_pham.Presenter.CheckUsernameAndEmailPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.CheckUsernameAndEmailView;
@@ -81,10 +82,14 @@ public class SignUp1Activity extends BaseActivity implements CheckUsernameAndEma
                     ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), SignUp1Activity.this);
                 } else {
                     if (password.equals(confirmPassword)) {
-                        mProgressDialog.show();
-                        mProgressDialog.setMessage(getResources().getString(R.string.loading));
-                        mProgressDialog.setCanceledOnTouchOutside(false);
-                        mCheckUsernameAndEmailPresenter.checkUsername(username);
+                        if (InternetConnection.getInstance().isOnline(SignUp1Activity.this)){
+                            mProgressDialog.show();
+                            mProgressDialog.setMessage(getResources().getString(R.string.loading));
+                            mProgressDialog.setCanceledOnTouchOutside(false);
+                            mCheckUsernameAndEmailPresenter.checkUsername(username);
+                        }else {
+                            ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet),SignUp1Activity.this);
+                        }
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.invalid_pass), SignUp1Activity.this);
                     }
