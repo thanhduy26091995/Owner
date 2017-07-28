@@ -38,7 +38,6 @@ import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.text.NumberFormat;
@@ -125,36 +124,50 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
         final Intent intent = getIntent();
         mDatum = (DatumPending) intent.getSerializableExtra("mDatum");
 
-        if(!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
-            relaConfirmMaid.setVisibility(View.GONE);
-        }else {
-            relaConfirmMaid.setVisibility(View.VISIBLE);
-        }
+        try {
+            if (mDatum != null) {
+                if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                    relaConfirmMaid.setVisibility(View.GONE);
+                } else {
+                    relaConfirmMaid.setVisibility(View.VISIBLE);
+                }
 
-        txtNameMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
-        txtAddressMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
+                txtNameMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
+                txtAddressMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
 
-        Picasso.with(this).load(mDatum.getStakeholders().getMadi().getInfo().getImage())
-                .error(R.drawable.avatar)
-                .placeholder(R.drawable.avatar)
-                .into(img_avatarMaid);
+                //load image
+                if (mDatum.getStakeholders() != null && mDatum.getStakeholders().getMadi() != null &&
+                        mDatum.getStakeholders().getMadi().getInfo() != null && mDatum.getStakeholders().getMadi().getInfo().getImage() != null) {
+                    Glide.with(this).load(mDatum.getStakeholders().getMadi().getInfo().getImage())
+                            .error(R.drawable.avatar)
+                            .thumbnail(0.5f)
+                            .dontAnimate()
+                            .placeholder(R.drawable.avatar)
+                            .into(img_avatarMaid);
+                }
 
-        txtTitleJobPending.setText(mDatum.getInfo().getTitle());
-        txtTypeJobPending.setText(mDatum.getInfo().getWork().getName());
-        txtContentJobPending.setText(mDatum.getInfo().getDescription());
-        txtPriceJobPending.setText(formatPrice(mDatum.getInfo().getPrice()));
-        txtAddressJobPending.setText(mDatum.getInfo().getAddress().getName());
-        txtDateJobPending.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
-        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
-        txtTimeDoWrokJobPending.setText(mStartTime + " - " + mEndTime);
+                txtTitleJobPending.setText(mDatum.getInfo().getTitle());
+                txtTypeJobPending.setText(mDatum.getInfo().getWork().getName());
+                txtContentJobPending.setText(mDatum.getInfo().getDescription());
+                txtPriceJobPending.setText(formatPrice(mDatum.getInfo().getPrice()));
+                txtAddressJobPending.setText(mDatum.getInfo().getAddress().getName());
+                txtDateJobPending.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
+                String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
+                String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
+                txtTimeDoWrokJobPending.setText(mStartTime + " - " + mEndTime);
 //        txtTimeDoWrokJobPending.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
-        Glide.with(this).load(mDatum.getInfo().getWork().getImage())
-                .error(R.drawable.no_image)
-                .placeholder(R.drawable.no_image)
-                .dontAnimate()
-                .into(img_TypeJob);
+                if (mDatum.getInfo() != null && mDatum.getInfo().getWork() != null &&
+                        mDatum.getInfo().getWork().getImage() != null) {
+                    Glide.with(this).load(mDatum.getInfo().getWork().getImage())
+                            .error(R.drawable.no_image)
+                            .placeholder(R.drawable.no_image)
+                            .dontAnimate()
+                            .into(img_TypeJob);
+                }
+            }
+        } catch (Exception e) {
 
+        }
     }
 
     @Override
@@ -221,25 +234,6 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     }
 
     private void openCamera() {
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(MediaStore.Images.Media.TITLE, "Title");
-//        mUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-//        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
-//        startActivityForResult(cameraIntent, Constants.CAMERA_INTENT);
-
-        // create Intent to take a picture and return control to the calling application
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri("photo.jpg")); // set the image file name
-//
-//        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-//        // So as long as the result is not null, it's safe to use the intent.
-//        if (intent.resolveActivity(getPackageManager()) != null) {
-//            // Start the image capture intent to take photo
-//            startActivityForResult(intent, Constants.CAMERA_INTENT);
-//        }
-
-
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePhotoIntent, Constants.CAMERA_INTENT);
@@ -307,15 +301,6 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.CAMERA_INTENT && resultCode == RESULT_OK) {
             timeStart = new Date().getTime();
-//            Uri takenPhotoUri = getPhotoFileUri("photo.jpg");
-//            try {
-//                Log.d("PATH", getFilePath(DetailJobPendingActivity.this, takenPhotoUri));
-//            } catch (URISyntaxException e) {
-//                e.printStackTrace();
-//            }
-
-            // Bundle extras = data.getExtras();
-            //Bitmap imageBitmap = (Bitmap) extras.get("data");
             String photoPath = "";
             if (getRealPathFromURI(data.getData()) != "") {
                 Bitmap imageBitmap = EncodeImage.encodeImage(getRealPathFromURI(data.getData()));
@@ -418,13 +403,13 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
             }
         } else {
             String message = checkInResponse.getMessage();
-            if (message.equals("DATA_NOT_EXIST")){
+            if (message.equals("DATA_NOT_EXIST")) {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), DetailJobPendingActivity.this);
             }
-            if (message.equals("CHECK_IN_EXIST")){
+            if (message.equals("CHECK_IN_EXIST")) {
 
             }
-            if (message.equals("FACE_IDENTICAL_FAILED")){
+            if (message.equals("FACE_IDENTICAL_FAILED")) {
 
             }
 
@@ -437,11 +422,12 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
         hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.confirm_failed), DetailJobPendingActivity.this);
     }
+
     private String formatPrice(Integer _Price) {
         String mOutputPrice = null;
         if (_Price != null && _Price != 0) {
-            mOutputPrice =  String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
-        } else if(_Price == 0){
+            mOutputPrice = String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
+        } else if (_Price == 0) {
             mOutputPrice = getResources().getString(R.string.hourly_pay);
         }
         return mOutputPrice;

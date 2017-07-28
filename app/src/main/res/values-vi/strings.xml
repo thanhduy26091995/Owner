@@ -389,4 +389,6 @@
     <string name="connection_error">Lỗi kết nối mạng</string>
     <string name="check_username">Tên đăng nhập đã tồn tại</string>
     <string name="check_email">Email bạn nhập đã tồn tại</string>
+
+    <string name="profile_edit">Chỉnh sửa</string>
 </resources>

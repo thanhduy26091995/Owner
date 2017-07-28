@@ -116,6 +116,18 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         if (!InternetConnection.getInstance().isOnline(CommentActivity.this)) {
             ShowSnackbar.showSnack(CommentActivity.this, getResources().getString(R.string.no_internet));
         }
+        //event change rating
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                switch ((int) rating) {
+                    case 0: {
+                        ratingBar.setRating(1);
+                        break;
+                    }
+                }
+            }
+        });
     }
 
 
@@ -139,11 +151,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 if (edtComment.getText().toString().length() > 0) {
                     if (ratingBar.getRating() != 0) {
+                        showProgress();
                         commentPresenter.postComment(idTask, idHelper, edtComment.getText().toString().trim(), (int) ratingBar.getRating());
-                    } else {
-
                     }
-                    showProgress();
                 } else {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.add_comment), CommentActivity.this);
                 }
@@ -163,13 +173,14 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void commentSuccess(String message) {
         hideProgress();
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
         alertDialog.setTitle(getResources().getString(R.string.notification));
         alertDialog.setMessage(getResources().getString(R.string.commentsuccess));
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                alertDialog.create().dismiss();
                 if (DetailWorkHistoryActivity.detailWorkHistory != null) {
                     finish();
                 } else {
@@ -179,6 +190,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+        alertDialog.create().show();
     }
 
     @Override

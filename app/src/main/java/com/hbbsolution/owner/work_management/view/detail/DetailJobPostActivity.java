@@ -104,51 +104,64 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
 
         final Intent intent = getIntent();
         mDatum = (Datum) intent.getSerializableExtra("mDatum");
-        if(!compareDays(mDatum.getInfo().getTime().getEndAt())){
-            txtJob_post_edit_toothbar.setVisibility(View.GONE);
-            txtExpired_request_detail_post.setVisibility(View.VISIBLE);
-            if (mDatum.getStakeholders().getRequest().size() > 0 ) {
-                txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-                txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
-            } else {
-                lo_list_recruitment.setVisibility(View.GONE);
-                txtNumber_request_detail_post.setVisibility(View.GONE);
+        try {
+            if (mDatum != null){
+                if (!compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                    txtJob_post_edit_toothbar.setVisibility(View.GONE);
+                    txtExpired_request_detail_post.setVisibility(View.VISIBLE);
+                    if (mDatum.getStakeholders().getRequest().size() > 0) {
+                        txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                        txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                    } else {
+                        lo_list_recruitment.setVisibility(View.GONE);
+                        txtNumber_request_detail_post.setVisibility(View.GONE);
 
-            }
-        }else {
-            txtExpired_request_detail_post.setVisibility(View.GONE);
-            if (mDatum.getStakeholders().getRequest().size() > 0 ) {
-                txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-                txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
-                lo_list_recruitment.setVisibility(View.VISIBLE);
-                txtJob_post_edit_toothbar.setVisibility(View.GONE);
-            } else {
+                    }
+                } else {
+                    txtExpired_request_detail_post.setVisibility(View.GONE);
+                    if (mDatum.getStakeholders().getRequest().size() > 0) {
+                        txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                        txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                        lo_list_recruitment.setVisibility(View.VISIBLE);
+                        txtJob_post_edit_toothbar.setVisibility(View.GONE);
+                    } else {
 //                txtNumber_request_detail_post.setVisibility(View.GONE);
-                lo_list_recruitment.setVisibility(View.GONE);
-                txtJob_post_edit_toothbar.setVisibility(View.VISIBLE);
+                        lo_list_recruitment.setVisibility(View.GONE);
+                        txtJob_post_edit_toothbar.setVisibility(View.VISIBLE);
 
+                    }
+                }
+
+                if (mDatum.getInfo().getTools()) {
+                    txtIsTools.setVisibility(View.VISIBLE);
+                } else {
+                    txtIsTools.setVisibility(View.GONE);
+                }
+
+                txtTitle_job_detail_post.setText(mDatum.getInfo().getTitle());
+                txtType_job_detail_post.setText(mDatum.getInfo().getWork().getName());
+                txtContent_job_detail_psot.setText(mDatum.getInfo().getDescription());
+                txtPrice_job_detail_post.setText(formatPrice(mDatum.getInfo().getPrice()));
+                txtAddress_detail_post.setText(mDatum.getInfo().getAddress().getName());
+                txtDate_job_detail_post.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
+                String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
+                String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
+                txtTime_work_doing_detail_post.setText(mStartTime + " - " + mEndTime);
+                //load iamge
+                if (mDatum.getInfo() != null && mDatum.getInfo().getWork() != null &&
+                        mDatum.getInfo().getWork().getImage() != null) {
+                    Glide.with(this).load(mDatum.getInfo().getWork().getImage())
+                            .error(R.drawable.no_image)
+                            .thumbnail(0.5f)
+                            .dontAnimate()
+                            .placeholder(R.drawable.no_image)
+                            .into(imgType_job_detail_post);
+                }
             }
         }
+        catch (Exception e){
 
-        if(mDatum.getInfo().getTools()){
-            txtIsTools.setVisibility(View.VISIBLE);
-        }else {
-            txtIsTools.setVisibility(View.GONE);
         }
-
-        txtTitle_job_detail_post.setText(mDatum.getInfo().getTitle());
-        txtType_job_detail_post.setText(mDatum.getInfo().getWork().getName());
-        txtContent_job_detail_psot.setText(mDatum.getInfo().getDescription());
-        txtPrice_job_detail_post.setText(formatPrice(mDatum.getInfo().getPrice()));
-        txtAddress_detail_post.setText(mDatum.getInfo().getAddress().getName());
-        txtDate_job_detail_post.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
-        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
-        txtTime_work_doing_detail_post.setText( mStartTime + " - " + mEndTime);
-        Glide.with(this).load(mDatum.getInfo().getWork().getImage())
-                .error(R.drawable.no_image)
-                .placeholder(R.drawable.no_image)
-                .into(imgType_job_detail_post);
     }
 
 
@@ -185,11 +198,11 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
                 break;
             case R.id.lo_list_recruitment:
                 if (mDatum.getStakeholders().getRequest().size() > 0) {
-                    if(compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                    if (compareDays(mDatum.getInfo().getTime().getEndAt())) {
                         Intent itListRecruitment = new Intent(DetailJobPostActivity.this, ListUserRecruitmentActivity.class);
                         itListRecruitment.putExtra("idTaskProcess", mDatum.getId());
                         startActivity(itListRecruitment);
-                    }else {
+                    } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.waring), DetailJobPostActivity.this);
                     }
                 }
@@ -265,7 +278,7 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
         Date date = parser.parseDateTime(timeEndWork).toDate();
         long millisecond = date.getTime();
         long timer = (millisecond - time);
-        if(timer < 0) {
+        if (timer < 0) {
             return false;
         }
         return true;
@@ -274,8 +287,8 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
     private String formatPrice(Integer _Price) {
         String mOutputPrice = null;
         if (_Price != null && _Price != 0) {
-            mOutputPrice =  String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
-        } else if(_Price == 0){
+            mOutputPrice = String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
+        } else if (_Price == 0) {
             mOutputPrice = getResources().getString(R.string.hourly_pay);
         }
         return mOutputPrice;

@@ -242,8 +242,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             edtAddressPost.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
             edtType_job.setText(infoJob.getName());
             mTypeJob = infoJob.getId();
-            edt_monney_work.setEnabled(true);
-            rad_type_money_work.setChecked(true);
+            edt_monney_work.setEnabled(false);
+            rad_type_money_khoan.setChecked(true);
             edt_monney_work.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoJob.getPrice()));
 
             txt_post_complete.setEnabled(true);

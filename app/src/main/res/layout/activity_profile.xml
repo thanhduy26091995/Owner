@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="10dp"
-                android:text="@string/update_job_post"
+                android:text="@string/profile_edit"
                 android:textColor="@color/home_background_history"
                 android:textSize="20sp" />
 

@@ -24,7 +24,6 @@ import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
-import com.squareup.picasso.Picasso;
 
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -84,6 +83,7 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
 
 
     private Datum mDatum;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,36 +103,50 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
         final Intent intent = getIntent();
         mDatum = (Datum) intent.getSerializableExtra("mDatum");
 
-        if(!compareDays(mDatum.getInfo().getTime().getEndAt())){
-            txtExpired_request_detail_post.setVisibility(View.VISIBLE);
+        try {
+            if (mDatum != null) {
+                if (!compareDays(mDatum.getInfo().getTime().getEndAt())) {
+                    txtExpired_request_detail_post.setVisibility(View.VISIBLE);
 
-        }else {
-            txtExpired_request_detail_post.setVisibility(View.GONE);
+                } else {
+                    txtExpired_request_detail_post.setVisibility(View.GONE);
+
+                }
+
+                txtNameJobDoingInfoMaid.setText(mDatum.getStakeholders().getMaid().getInfo().getName());
+                txtAddressJobDoingInfoMaid.setText(mDatum.getStakeholders().getMaid().getInfo().getAddress().getName());
+                //load image
+                if (mDatum.getStakeholders() != null && mDatum.getStakeholders().getMaid() != null && mDatum.getStakeholders().getMaid().getInfo() != null &&
+                        mDatum.getStakeholders().getMaid().getInfo().getImage() != null) {
+                    Glide.with(this).load(mDatum.getStakeholders().getMaid().getInfo().getImage())
+                            .error(R.drawable.avatar)
+                            .thumbnail(0.5f)
+                            .dontAnimate()
+                            .placeholder(R.drawable.avatar)
+                            .into(img_avatarJobDoingInfoMiad);
+                }
+                txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
+                txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());
+                txtContentJobDoing.setText(mDatum.getInfo().getDescription());
+                txtPriceJobDoing.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
+                txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
+                txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
+                String mStartTime = WorkTimeValidate.getTimeWorkLanguage(DetailJobSentRequestActivity.this, mDatum.getInfo().getTime().getStartAt());
+                String mEndTime = WorkTimeValidate.getTimeWorkLanguage(DetailJobSentRequestActivity.this, mDatum.getInfo().getTime().getEndAt());
+                txtTimeDoWrokJobDoing.setText(mStartTime + " - " + mEndTime);
+//        txtTimeDoWrokJobDoing.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
+                if (mDatum.getInfo() != null && mDatum.getInfo().getWork() != null && mDatum.getInfo().getWork().getImage() != null) {
+                    Glide.with(this).load(mDatum.getInfo().getWork().getImage())
+                            .error(R.drawable.no_image)
+                            .thumbnail(0.5f)
+                            .placeholder(R.drawable.no_image)
+                            .dontAnimate()
+                            .into(img_job_type);
+                }
+            }
+        } catch (Exception e) {
 
         }
-
-        txtNameJobDoingInfoMaid.setText(mDatum.getStakeholders().getMaid().getInfo().getName());
-        txtAddressJobDoingInfoMaid.setText(mDatum.getStakeholders().getMaid().getInfo().getAddress().getName());
-        Picasso.with(this).load(mDatum.getStakeholders().getMaid().getInfo().getImage())
-                .error(R.drawable.avatar)
-                .placeholder(R.drawable.avatar)
-                .into(img_avatarJobDoingInfoMiad);
-
-        txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
-        txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());
-        txtContentJobDoing.setText(mDatum.getInfo().getDescription());
-        txtPriceJobDoing.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
-        txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
-        txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
-        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(DetailJobSentRequestActivity.this,mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(DetailJobSentRequestActivity.this,mDatum.getInfo().getTime().getEndAt());
-        txtTimeDoWrokJobDoing.setText( mStartTime + " - " + mEndTime);
-//        txtTimeDoWrokJobDoing.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
-        Glide.with(this).load(mDatum.getInfo().getWork().getImage())
-                .error(R.drawable.no_image)
-                .placeholder(R.drawable.no_image)
-                .dontAnimate()
-                .into(img_job_type);
     }
 
     @Override
@@ -155,10 +169,10 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.lo_infoMaidDoing:
                 Intent itInfoUser = new Intent(DetailJobSentRequestActivity.this, MaidProfileActivity.class);
-                itInfoUser.putExtra("maid",mDatum.getStakeholders().getMaid());
+                itInfoUser.putExtra("maid", mDatum.getStakeholders().getMaid());
                 startActivity(itInfoUser);
                 break;
             case R.id.lo_clear_job_request:
@@ -239,7 +253,7 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
         Date date = parser.parseDateTime(timeEndWork).toDate();
         long millisecond = date.getTime();
         long timer = (millisecond - time);
-        if(timer < 0) {
+        if (timer < 0) {
             return false;
         }
         return true;
@@ -248,8 +262,8 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
     private String formatPrice(Integer _Price) {
         String mOutputPrice = null;
         if (_Price != null && _Price != 0) {
-            mOutputPrice =  String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
-        } else if(_Price == 0){
+            mOutputPrice = String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(_Price));
+        } else if (_Price == 0) {
             mOutputPrice = getResources().getString(R.string.hourly_pay);
         }
         return mOutputPrice;

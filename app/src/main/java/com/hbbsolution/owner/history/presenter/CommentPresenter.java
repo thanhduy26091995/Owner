@@ -32,7 +32,11 @@ public class CommentPresenter {
                 if (response.isSuccessful()) {
                     try {
                         CommentResponse commentResponse = response.body();
-                        commentView.commentSuccess(commentResponse.getMessage());
+                        if (commentResponse.getStatus()) {
+                            commentView.commentSuccess(commentResponse.getMessage());
+                        } else {
+                            commentView.commentFail(commentResponse.getMessage());
+                        }
                     } catch (Exception e) {
                         Log.e("exception", e.toString());
                     }

@@ -399,4 +399,6 @@
     <string name="connection_error">Failed to connect to the Internet!</string>
     <string name="check_username">Username already exists!</string>
     <string name="check_email">Email you enter already exists!</string>
+
+    <string name="profile_edit">Edit</string>
 </resources>

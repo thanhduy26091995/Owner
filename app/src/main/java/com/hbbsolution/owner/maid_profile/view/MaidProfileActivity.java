@@ -176,21 +176,6 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
                     .into(img_avatarMaid);
             mMaidProfilePresenter.getInfoListMaid(mMaidInfo.getId(), currentPage);
 
-            // from Bitmap
-//            Glide.with(MaidProfileActivity.this)
-//                    .load(R.drawable.bg_app_720)
-//                    .asBitmap()
-//                    .error(R.drawable.avatar)
-//                    .into(imgBlurImage);
-//                    .into(new SimpleTarget<Bitmap>() {
-//                        @Override
-//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                            Blurry.with(MaidProfileActivity.this)
-//                                    .radius(15)
-//                                    .from(resource)
-//                                    .into(imgBlurImage);
-//                        }
-//                    });
             if (mMaidInfo.getWorkInfo().getAbility() != null) {
                 typeJobAdapter = new TypeJobAdapter(this, mMaidInfo.getWorkInfo().getAbility());
                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
@@ -227,20 +212,7 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
                     .asBitmap()
                     .error(R.drawable.avatar)
                     .into(imgBlurImage);
-//            Glide.with(MaidProfileActivity.this)
-//                    .load(workHistory.getStakeholders().getReceived().getInfo().getImage())
-//                    .asBitmap()
-//                    .error(R.drawable.avatar)
-//                    .into(new SimpleTarget<Bitmap>() {
-//                        @Override
-//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                            Blurry.with(MaidProfileActivity.this)
-//                                    .radius(15)
-//                                    .from(resource)
-//                                    .into(imgBlurImage);
-//                        }
-//                    });
-//            lo_ChosenMaidInfo.setVisibility(View.GONE);
+
             if (workHistory.getStakeholders().getReceived().getWorkInfo().getAbility() != null) {
                 typeJobAdapter = new TypeJobAdapter(this, workHistory.getStakeholders().getReceived().getWorkInfo().getAbility());
                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
@@ -272,21 +244,7 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
                     .centerCrop()
                     .dontAnimate()
                     .into(img_avatarMaid);
-//            Glide.with(MaidProfileActivity.this)
-//                    .load(datum.getId().getInfo().getImage())
-//                    .asBitmap()
-//                    .error(R.drawable.avatar)
-//                    .into(new SimpleTarget<Bitmap>() {
-//                        @Override
-//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                            Blurry.with(MaidProfileActivity.this)
-//                                    .radius(15)
-//                                    .from(resource)
-//                                    .into(imgBlurImage);
-//                        }
-//                    });
 
-//            lo_ChosenMaidInfo.setVisibility(View.GONE);
             if (datum.getId().getWorkInfo().getAbility() != null) {
                 typeJobAdapter = new TypeJobAdapter(this, datum.getId().getWorkInfo().getAbility());
                 RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
@@ -296,6 +254,8 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
             }
             vLine.setVisibility(View.GONE);
         }
+        //giúp recyclerView k bị ảnh hưởng với nestedScrollView
+        mRecycler.setNestedScrollingEnabled(false);
     }
 
     @Override

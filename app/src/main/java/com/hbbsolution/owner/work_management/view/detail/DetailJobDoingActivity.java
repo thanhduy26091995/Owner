@@ -24,7 +24,6 @@ import com.hbbsolution.owner.work_management.model.chekout.CheckOutResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.CheckOutAndBillPresenter;
 import com.hbbsolution.owner.work_management.view.payment.view.PaymentActivity;
-import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -100,28 +99,42 @@ public class DetailJobDoingActivity extends AuthenticationBaseActivity implement
         final Intent intent = getIntent();
         mDatum = (DatumPending) intent.getSerializableExtra("mDatum");
 
-        txtNameJobDoingInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
-        txtAddressJobDoingInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
-        Picasso.with(this).load(mDatum.getStakeholders().getMadi().getInfo().getImage())
-                .error(R.drawable.avatar)
-                .placeholder(R.drawable.avatar)
-                .into(img_avatarJobDoingInfoMiad);
+        try {
+            if (mDatum != null) {
+                txtNameJobDoingInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
+                txtAddressJobDoingInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
+                //load image
+                if (mDatum.getStakeholders() != null && mDatum.getStakeholders().getMadi() != null &&
+                        mDatum.getStakeholders().getMadi().getInfo() != null && mDatum.getStakeholders().getMadi().getInfo().getImage() != null) {
+                    Glide.with(this).load(mDatum.getStakeholders().getMadi().getInfo().getImage())
+                            .error(R.drawable.avatar)
+                            .dontAnimate()
+                            .thumbnail(0.5f)
+                            .placeholder(R.drawable.avatar)
+                            .into(img_avatarJobDoingInfoMiad);
+                }
 
-        txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
-        txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());
-        txtContentJobDoing.setText(mDatum.getInfo().getDescription());
-        txtPriceJobDoing.setText(formatPrice(mDatum.getInfo().getPrice()));
-        txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
-        txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
-        String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
-        String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
-        txtTimeDoWrokJobDoing.setText(mStartTime + " - " + mEndTime);
+                txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
+                txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());
+                txtContentJobDoing.setText(mDatum.getInfo().getDescription());
+                txtPriceJobDoing.setText(formatPrice(mDatum.getInfo().getPrice()));
+                txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
+                txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
+                String mStartTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getStartAt());
+                String mEndTime = WorkTimeValidate.getTimeWorkLanguage(this, mDatum.getInfo().getTime().getEndAt());
+                txtTimeDoWrokJobDoing.setText(mStartTime + " - " + mEndTime);
 //        txtTimeDoWrokJobDoing.setText(getTimerDoingWork(mDatum.getInfo().getTime().getStartAt(), mDatum.getInfo().getTime().getEndAt()));
-        Glide.with(this).load(mDatum.getInfo().getWork().getImage())
-                .error(R.drawable.no_image)
-                .placeholder(R.drawable.no_image)
-                .dontAnimate()
-                .into(img_job_type);
+                if (mDatum.getInfo() != null && mDatum.getInfo().getWork() != null && mDatum.getInfo().getWork().getImage() != null) {
+                    Glide.with(this).load(mDatum.getInfo().getWork().getImage())
+                            .error(R.drawable.no_image)
+                            .placeholder(R.drawable.no_image)
+                            .dontAnimate()
+                            .into(img_job_type);
+                }
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

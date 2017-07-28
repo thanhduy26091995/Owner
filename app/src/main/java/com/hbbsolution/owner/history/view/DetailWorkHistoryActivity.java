@@ -69,6 +69,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     private int idTask;
     public static Activity detailWorkHistory;
     private static final int COMMENT = 1;
+    private boolean resumeFlat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +118,9 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
             tvAddress.setText(doc.getInfo().getAddress().getName());
 
             tvDate.setText(WorkTimeValidate.getDatePostHistory(doc.getInfo().getTime().getEndAt()));
-            tvTime.setText(WorkTimeValidate.getTimeWorkLanguage(DetailWorkHistoryActivity.this,doc.getInfo().getTime().getStartAt()) + " - " + WorkTimeValidate.getTimeWorkLanguage(DetailWorkHistoryActivity.this,doc.getInfo().getTime().getEndAt()));
+            tvTime.setText(WorkTimeValidate.getTimeWorkLanguage(DetailWorkHistoryActivity.this, doc.getInfo().getTime().getStartAt()) + " - " + WorkTimeValidate.getTimeWorkLanguage(DetailWorkHistoryActivity.this, doc.getInfo().getTime().getEndAt()));
 
-            if(!doc.getStakeholders().getReceived().getInfo().getImage().equals("")) {
+            if (!doc.getStakeholders().getReceived().getInfo().getImage().equals("")) {
                 Glide.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
                         .thumbnail(0.5f)
                         .placeholder(R.drawable.avatar)
@@ -131,6 +132,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
             tvNameHelper.setText(doc.getStakeholders().getReceived().getInfo().getName());
             tvAddressHelper.setText(doc.getStakeholders().getReceived().getInfo().getAddress().getName());
         }
+        resumeFlat = false;
     }
 
     @Override
@@ -155,6 +157,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
                 mbundleComment.putString("addressHelper", doc.getStakeholders().getReceived().getInfo().getAddress().getName());
                 intent.putExtra("mbundleComment", mbundleComment);
                 startActivity(intent);
+                resumeFlat = true;
                 break;
             case R.id.rela_info:
                 intent = new Intent(this, MaidProfileActivity.class);
@@ -166,7 +169,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
 //                    startActivity(intent, historyOption.toBundle());
 //                }
 //                else {
-                    startActivity(intent);
+                startActivity(intent);
 //                }
                 break;
         }
@@ -194,7 +197,10 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     @Override
     protected void onResume() {
         super.onResume();
-
+        if (resumeFlat = true) {
+            commentHistoryPresenter.checkComment(doc.getId());
+            resumeFlat = false;
+        }
     }
 
     private String formatPrice(Integer _Price) {

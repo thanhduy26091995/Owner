@@ -85,7 +85,7 @@
                             android:fontFamily="@string/font_family_thin"
                             android:hint="@string/sign_up_email"
                             android:inputType="textEmailAddress"
-                            android:textColor="@android:color/black" />
+                            android:textColor="@color/color_line_view" />
                     </RelativeLayout>
 
                     <View
@@ -120,6 +120,7 @@
                             android:backgroundTint="@android:color/transparent"
                             android:fontFamily="@string/font_family_thin"
                             android:hint="@string/sign_up_full_name"
+                            android:inputType="text"
                             android:textColor="@android:color/black" />
                     </RelativeLayout>
 
@@ -225,6 +226,7 @@
                             android:backgroundTint="@android:color/transparent"
                             android:fontFamily="@string/font_family_thin"
                             android:hint="@string/sign_up_address"
+                            android:maxLines="5"
                             android:paddingBottom="10dp"
                             android:textColor="@android:color/black" />
                     </RelativeLayout>

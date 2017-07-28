@@ -184,8 +184,8 @@
                             android:maxLines="1"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:text="Nguyển Văn dsadasdasdasdasdasdasdasdasdasdadasdasdasdasdadasA"
-                            android:textColor="@android:color/white"
+                            android:text="Thanh Duy"
+                            android:textColor="@android:color/black"
                             android:textSize="@dimen/text_size_large" />
 
                         <RatingBar
