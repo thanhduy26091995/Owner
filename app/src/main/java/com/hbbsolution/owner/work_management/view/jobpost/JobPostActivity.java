@@ -337,7 +337,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
                 }
             }
-            edtDescriptionPost.setText(noteUpdate.replace("\r\n",""));
+            edtDescriptionPost.setText(noteUpdate.trim().replace("\r\n",""));
             clearString(note,noteUpdate);
 
             suggetAdapter = new SuggetAdapter(JobPostActivity.this, listSuggest);
@@ -501,7 +501,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 mDescriptionPost = note;
             }
         }
-        if (!mDescriptionPost.equals("")) {
+        if (!mDescriptionPost.trim().equals("")) {
             if (isPost) {
                 mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                         mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
