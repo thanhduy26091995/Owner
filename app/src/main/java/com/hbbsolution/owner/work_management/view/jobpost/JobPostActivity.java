@@ -356,6 +356,11 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 }
             });
         }
+        else
+        {
+            note = "";
+            noteUpdate="";
+        }
         if (!isTool) {
             liner_tool.setVisibility(View.GONE);
             view_suggest.setVisibility(View.GONE);
@@ -500,6 +505,16 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             } else {
                 mDescriptionPost = note;
             }
+        }
+
+        if(mPackageId.equals("000000000000000000000002"))
+        {
+            mPrice = "0";
+        }
+
+        if(liner_tool.getVisibility()==View.GONE)
+        {
+            mChosenTools=false;
         }
 
         if (!mDescriptionPost.trim().equals("")) {

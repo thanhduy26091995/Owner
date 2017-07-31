@@ -654,6 +654,17 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 description = note;
             }
         }
+
+        if(mPackageId.equals("000000000000000000000002"))
+        {
+           price = 0.0;
+        }
+
+        if(liner_tool.getVisibility()==View.GONE)
+        {
+            mChosenTools=false;
+        }
+
         if (!description.equals("")) {
             presenter.sendRequest(mMaidInfo.getId(), title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
         } else {
