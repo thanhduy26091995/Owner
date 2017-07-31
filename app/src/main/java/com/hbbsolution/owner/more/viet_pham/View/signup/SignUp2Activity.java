@@ -155,14 +155,18 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView,Check
                     ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), SignUp2Activity.this);
                 } else {
                     if (EmailValidate.IsOk(mEmail)) {
-                        if(InternetConnection.getInstance().isOnline(SignUp2Activity.this)){
-                            mProgressDialog.show();
-                            mProgressDialog.setMessage(getResources().getString(R.string.loading));
-                            mProgressDialog.setCanceledOnTouchOutside(false);
-                            mCheckUsernameAndEmailPresenter.checkEmail(mEmail);
-                        }else {
-                            ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet),SignUp2Activity.this);
-                        }
+                       if (mPhoneName.length() >= 10 && mPhoneName.length() <=11 && (mPhoneName.charAt(0) == '0')){
+                           if(InternetConnection.getInstance().isOnline(SignUp2Activity.this)){
+                               mProgressDialog.show();
+                               mProgressDialog.setMessage(getResources().getString(R.string.loading));
+                               mProgressDialog.setCanceledOnTouchOutside(false);
+                               mCheckUsernameAndEmailPresenter.checkEmail(mEmail);
+                           }else {
+                               ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet),SignUp2Activity.this);
+                           }
+                       }else {
+                           ShowAlertDialog.showAlert(getResources().getString(R.string.invalid_phone),SignUp2Activity.this);
+                       }
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong), SignUp2Activity.this);
                     }

@@ -81,18 +81,22 @@ public class SignUp1Activity extends BaseActivity implements CheckUsernameAndEma
                 if (username.trim().length() == 0 || password.length() == 0 || confirmPassword.length() == 0) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), SignUp1Activity.this);
                 } else {
-                    if (password.equals(confirmPassword)) {
-                        if (InternetConnection.getInstance().isOnline(SignUp1Activity.this)){
-                            mProgressDialog.show();
-                            mProgressDialog.setMessage(getResources().getString(R.string.loading));
-                            mProgressDialog.setCanceledOnTouchOutside(false);
-                            mCheckUsernameAndEmailPresenter.checkUsername(username);
-                        }else {
-                            ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet),SignUp1Activity.this);
-                        }
-                    } else {
-                        ShowAlertDialog.showAlert(getResources().getString(R.string.invalid_pass), SignUp1Activity.this);
-                    }
+                   if (username.length() < 300){
+                       if (password.equals(confirmPassword)) {
+                           if (InternetConnection.getInstance().isOnline(SignUp1Activity.this)){
+                               mProgressDialog.show();
+                               mProgressDialog.setMessage(getResources().getString(R.string.loading));
+                               mProgressDialog.setCanceledOnTouchOutside(false);
+                               mCheckUsernameAndEmailPresenter.checkUsername(username);
+                           }else {
+                               ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet),SignUp1Activity.this);
+                           }
+                       } else {
+                           ShowAlertDialog.showAlert(getResources().getString(R.string.invalid_pass), SignUp1Activity.this);
+                       }
+                   }else {
+                       ShowAlertDialog.showAlert(getResources().getString(R.string.username_too_long),SignUp1Activity.this);
+                   }
                 }
             }
         });

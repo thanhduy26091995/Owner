@@ -320,6 +320,8 @@
     <string name="vui_long_nhap_dia_chi">Please enter a valid address</string>
     <string name="cap_nhat_thong_tin">Update unsuccessfully!</string>
     <string name="dia_chi_khong_tim_thay">Address not found!</string>
+    <string name="invalid_phone">Invalid phone number!</string>
+    <string name="username_too_long">Username too long!</string>
     <!--more-end-viet-->
 
     <string name="maid_near_by">Partners nearby</string>
