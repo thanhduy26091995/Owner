@@ -128,7 +128,8 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
                 txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
                 txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());
                 txtContentJobDoing.setText(mDatum.getInfo().getDescription());
-                txtPriceJobDoing.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
+                txtPriceJobDoing.setText(formatPrice(mDatum.getInfo().getPrice()));
+                //txtPriceJobDoing.setText(String.format("%s VND", NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice())));
                 txtAddressJobDoing.setText(mDatum.getInfo().getAddress().getName());
                 txtDateJobDoing.setText(WorkTimeValidate.getDatePostHistory(mDatum.getInfo().getTime().getEndAt()));
                 String mStartTime = WorkTimeValidate.getTimeWorkLanguage(DetailJobSentRequestActivity.this, mDatum.getInfo().getTime().getStartAt());
