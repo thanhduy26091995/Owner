@@ -216,6 +216,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     }
 
     private void setRecyclerView() {
+        isTool = infoJob.isTool();
         listSuggest = infoJob.getSuggest();
         if (listSuggest.size() > 0) {
             view_suggest.setVisibility(View.VISIBLE);
@@ -588,6 +589,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 String idTypeJob = hashMapTypeJob.get(item);
                 mTypeJob = idTypeJob;
                 mBottomSheetDialog.dismiss();
+
                 infoJob = Constants.listTypeJob.get(position);
                 view_suggest.setVisibility(View.GONE);
                 rcv_suggest.setVisibility(View.GONE);

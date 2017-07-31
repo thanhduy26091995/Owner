@@ -453,6 +453,12 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 mDescriptionPost = note;
             }
         }
+
+        if(mPackageId.equals("000000000000000000000002"))
+        {
+            mPrice = "0";
+        }
+
         if (!mDescriptionPost.equals("")) {
             mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                     mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);

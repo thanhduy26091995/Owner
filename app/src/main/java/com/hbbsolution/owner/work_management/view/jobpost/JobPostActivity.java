@@ -501,6 +501,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 mDescriptionPost = note;
             }
         }
+
         if (!mDescriptionPost.trim().equals("")) {
             if (isPost) {
                 mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
