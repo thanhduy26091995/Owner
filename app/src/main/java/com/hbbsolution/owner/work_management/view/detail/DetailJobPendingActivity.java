@@ -411,6 +411,7 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
                 ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_face_identical_failed), DetailJobPendingActivity.this);
             } else {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), DetailJobPendingActivity.this);
+
             }
 
         }
