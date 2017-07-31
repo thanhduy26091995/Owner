@@ -29,6 +29,9 @@ public class InfoOwner {
     @Expose
     private Address address;
 
+    @SerializedName("image")
+    private String avatar;
+
     public String getUsername() {
         return username;
     }
@@ -75,5 +78,13 @@ public class InfoOwner {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

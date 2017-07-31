@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.work_management.model.listcommentmaid.Doc;
 
 import org.joda.time.DateTime;
@@ -49,6 +50,8 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
             else {
                 holder.txtCommentType.setText(comment.getTask().getInfoTask().getTitle());
             }
+            //load image
+            ImageLoader.getInstance().loadImageAvatar(activity, comment.getFromId().getInfo().getAvatar(), holder.imgAvatar);
         } catch (Exception e) {
 
         }
