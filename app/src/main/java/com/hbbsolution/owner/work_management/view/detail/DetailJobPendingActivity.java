@@ -405,12 +405,12 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
             String message = checkInResponse.getMessage();
             if (message.equals("DATA_NOT_EXIST")) {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), DetailJobPendingActivity.this);
-            }
-            if (message.equals("CHECK_IN_EXIST")) {
+            } else if (message.equals("CHECK_IN_EXIST")) {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_exist), DetailJobPendingActivity.this);
-            }
-            if (message.equals("FACE_IDENTICAL_FAILED")) {
+            } else if (message.equals("FACE_IDENTICAL_FAILED")) {
                 ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_face_identical_failed), DetailJobPendingActivity.this);
+            } else {
+                ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), DetailJobPendingActivity.this);
             }
 
         }
