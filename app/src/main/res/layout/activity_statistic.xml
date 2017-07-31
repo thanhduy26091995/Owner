@@ -68,7 +68,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:textColor="@color/home_background_history"
-                    android:textSize="@dimen/text_size_large" />
+                    android:textSize="@dimen/TEXT_SIZE_NORMAL" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -85,7 +85,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:textColor="@color/home_background_history"
-                    android:textSize="@dimen/text_size_large" />
+                    android:textSize="@dimen/TEXT_SIZE_NORMAL" />
             </LinearLayout>
 
             <View
@@ -170,7 +170,7 @@
                                         android:layout_height="0dp"
                                         android:layout_weight="2"
                                         android:gravity="center"
-                                        android:text="0.0 millions"
+                                        android:text="0.0"
                                         android:textColor="@color/home_background_history"
                                         android:textSize="28sp"
                                         android:textStyle="bold"
