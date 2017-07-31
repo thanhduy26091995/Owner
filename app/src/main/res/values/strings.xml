@@ -401,4 +401,7 @@
     <string name="check_email">Email you enter already exists!</string>
 
     <string name="profile_edit">Edit</string>
+
+    <string name="checkin_exist">This applicant has been assigned another task at the same time of working. Please choose another!</string>
+    <string name="checkin_face_identical_failed">Face recognition system failed to find a match with the provided facial image</string>
 </resources>

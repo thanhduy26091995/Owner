@@ -391,4 +391,6 @@
     <string name="check_email">Email bạn nhập đã tồn tại</string>
 
     <string name="profile_edit">Chỉnh sửa</string>
+    <string name="checkin_exist">Bạn không thể chọn một người cho nhiều việc cùng khung giờ. Vui lòng chọn lại!</string>
+    <string name="checkin_face_identical_failed">Hình ảnh hiện tại không trùng khớp với hình ảnh đã cung cấp</string>
 </resources>
