@@ -86,6 +86,9 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     ProgressBar progressBar;
     @BindView(R.id.rela_confirm_maid)
     RelativeLayout relaConfirmMaid;
+    @BindView(R.id.txtIsTools)
+    TextView txtIsTools;
+
 
     private DatumPending mDatum;
     private DetailJobPostPresenter mDetailJobPostPresenter;
@@ -144,6 +147,13 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
                             .dontAnimate()
                             .placeholder(R.drawable.avatar)
                             .into(img_avatarMaid);
+                }
+
+                //check tools
+                if (mDatum.getInfo().getTools()) {
+                    txtIsTools.setVisibility(View.VISIBLE);
+                } else {
+                    txtIsTools.setVisibility(View.GONE);
                 }
 
                 txtTitleJobPending.setText(mDatum.getInfo().getTitle());

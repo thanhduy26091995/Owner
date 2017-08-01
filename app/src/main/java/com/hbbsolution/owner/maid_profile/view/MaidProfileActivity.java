@@ -207,11 +207,6 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
                     .centerCrop()
                     .dontAnimate()
                     .into(img_avatarMaid);
-            Glide.with(MaidProfileActivity.this)
-                    .load(R.drawable.bg_app_720)
-                    .asBitmap()
-                    .error(R.drawable.avatar)
-                    .into(imgBlurImage);
 
             if (workHistory.getStakeholders().getReceived().getWorkInfo().getAbility() != null) {
                 typeJobAdapter = new TypeJobAdapter(this, workHistory.getStakeholders().getReceived().getWorkInfo().getAbility());
@@ -293,6 +288,8 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
                 } else {
                     Intent intentChooseMaid = new Intent(MaidProfileActivity.this, ChooseMaidActivity.class);
                     intentChooseMaid.putExtra("maid", mMaidInfo);
+                    intentChooseMaid.putExtra("work", workHistory);
+                    intentChooseMaid.putExtra("helper", datum);
                     startActivity(intentChooseMaid);
                 }
                 break;

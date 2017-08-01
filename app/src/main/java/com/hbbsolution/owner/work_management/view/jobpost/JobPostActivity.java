@@ -145,7 +145,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     private SuggetAdapter suggetAdapter;
     private List<Suggest> listSuggest = new ArrayList<>();
     private List<Suggest> listSuggestUpdate = new ArrayList<>();
-    private String note = "",noteUpdate ="";
+    private String note = "", noteUpdate = "";
     private Calendar calendarForTime1, calendarForTime2;
 
     private InputMethodManager inputManager;
@@ -313,7 +313,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     private void setRecyclerView() {
         isTool = infoJob.isTool();
-        listSuggest =  infoJob.getNewSuggest();
+        listSuggest = infoJob.getNewSuggest();
         if (listSuggest.size() > 0) {
             view_suggest.setVisibility(View.VISIBLE);
             rcv_suggest.setVisibility(View.VISIBLE);
@@ -331,14 +331,14 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
 
             for (int i = 0; i < listSuggest.size(); i++) {
-                if(edtDescriptionPost.getText().toString().contains(listSuggest.get(i).getName())){
+                if (edtDescriptionPost.getText().toString().contains(listSuggest.get(i).getName())) {
                     listSuggest.get(i).setChecked(true);
-                    clearStringUpdate(noteUpdate,listSuggest.get(i).getName()+ " "+ "\r\n");
+                    clearStringUpdate(noteUpdate, listSuggest.get(i).getName() + " " + "\r\n");
 
                 }
             }
-            edtDescriptionPost.setText(noteUpdate.trim().replace("\r\n",""));
-            clearString(note,noteUpdate);
+            edtDescriptionPost.setText(noteUpdate.trim().replace("\r\n", ""));
+            clearString(note, noteUpdate);
 
             suggetAdapter = new SuggetAdapter(JobPostActivity.this, listSuggest);
 
@@ -347,19 +347,20 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             suggetAdapter.setCallback(new SuggetAdapter.Callback() {
                 @Override
                 public void onItemChecked(Suggest suggest) {
-                    addString(note, suggest.getName() + " "+ "\r\n");
+                    addString(note, suggest.getName() + " " + "\r\n");
                 }
 
                 @Override
                 public void onItemNotChecked(Suggest suggest) {
-                    clearString(note, suggest.getName() + " "+ "\r\n");
+                    clearString(note, suggest.getName() + " " + "\r\n");
                 }
             });
-        }
-        else
-        {
+        } else {
             note = "";
-            noteUpdate="";
+            noteUpdate = "";
+            //TODO
+            //add them để refresh autoDescription
+            edtDescriptionAuto.setVisibility(View.GONE);
         }
         if (!isTool) {
             liner_tool.setVisibility(View.GONE);
@@ -501,20 +502,18 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
         if (!note.equals("")) {
             if (!mDescriptionPost.equals("")) {
-                mDescriptionPost += " "+ "\r\n" + note;
+                mDescriptionPost += " " + "\r\n" + note;
             } else {
                 mDescriptionPost = note;
             }
         }
 
-        if(mPackageId.equals("000000000000000000000002"))
-        {
+        if (mPackageId.equals("000000000000000000000002")) {
             mPrice = "0";
         }
 
-        if(liner_tool.getVisibility()==View.GONE)
-        {
-            mChosenTools=false;
+        if (liner_tool.getVisibility() == View.GONE) {
+            mChosenTools = false;
         }
 
         if (!mDescriptionPost.trim().equals("")) {
@@ -615,6 +614,10 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         mTypeJobtAdapter.setCallback(new BottomSheetAdapter.Callback() {
             @Override
             public void onItemClick(int position) {
+                //TODO clear data note
+                note = "";
+                noteUpdate = "";
+                //end clear note
                 txtShow.setText(listData.get(position));
                 String item = listData.get(position);
                 String idTypeJob = hashMapTypeJob.get(item);

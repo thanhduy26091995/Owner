@@ -48,10 +48,10 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/appbar"
-        android:layout_marginTop="20dp">
+        android:layout_toRightOf="@+id/progressPostJob"
+        android:layout_toEndOf="@+id/progressPostJob">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity"
     android:layout_width="match_parent"
-    android:background="@color/gray"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/activity">
+    android:background="@color/gray"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -233,6 +233,15 @@
                         android:text="Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h. Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h."
                         android:textColor="@color/colorBlack" />
 
+                    <TextView
+                        android:id="@+id/txtIsTools"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:text="@string/mang_theo_dung_cu"
+                        android:textColor="@color/home_background_your_tasks" />
                 </LinearLayout>
 
                 <View
@@ -272,15 +281,16 @@
                             android:paddingBottom="10dp"
                             android:paddingTop="10dp"
                             android:textColor="@color/colorBlack" />
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:layout_marginRight="20dp"
+                            android:layout_weight="1"
                             android:gravity="center_vertical|right"
                             android:text="@string/vnd"
-                            android:visibility="gone"
-                            android:textColor="@color/colorBlack" />
+                            android:textColor="@color/colorBlack"
+                            android:visibility="gone" />
 
 
                     </LinearLayout>

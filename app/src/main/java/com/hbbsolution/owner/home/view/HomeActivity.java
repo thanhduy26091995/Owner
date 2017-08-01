@@ -55,8 +55,11 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     TextView txt_work_management_history;
     @BindView(R.id.txt_work_maid_around)
     TextView txt_work_maid_around;
-    @BindView(R.id.rcv_type_job)
-    RecyclerView rcv_type_job;
+//    @BindView(R.id.rcv_type_job)
+//    RecyclerView rcv_type_job;
+
+    private RecyclerView rcv_type_job;
+
     private SessionManagerForLanguage sessionManagerForLanguage;
     private boolean isPause = false;
     private HomePresenter mHomePresenter;
@@ -66,7 +69,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     private List<TypeJob> listTypeJob = new ArrayList<>();
 
     private TypeJobAdapter typeJobAdapter;
-    private  boolean isChangeLanguage = false;
+    private boolean isChangeLanguage = false;
 
 
     @Override
@@ -74,6 +77,8 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        rcv_type_job = (RecyclerView) findViewById(R.id.rcv_type_job);
         // setup toolbar
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -109,9 +114,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
                 listTypeJobName.add(typeJob.getName());
             }
 //            setRecyclerView();
-        }
-        else
-        {
+        } else {
             quickPostPresenter.getAllTypeJob();
         }
         setRecyclerView();
@@ -257,19 +260,17 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
 
     @Override
     public void getAllTypeJob(TypeJobResponse typeJobResponse) {
-        if(typeJobResponse.getStatus()){
+        if (typeJobResponse.getStatus()) {
             Constants.listTypeJob = typeJobResponse.getData();
             rcv_type_job.setVisibility(View.VISIBLE);
-            if(Constants.listTypeJob.size()==0) {
+            if (Constants.listTypeJob.size() == 0) {
                 Constants.listTypeJob = typeJobResponse.getData();
                 this.listTypeJob = Constants.listTypeJob;
                 compareValueInModel(this.listTypeJob);
                 for (TypeJob typeJob : Constants.listTypeJob) {
                     listTypeJobName.add(typeJob.getName());
                 }
-            }
-            else
-            {
+            } else {
                 this.listTypeJob = Constants.listTypeJob;
                 compareValueInModel(this.listTypeJob);
                 for (TypeJob typeJob : Constants.listTypeJob) {
@@ -279,7 +280,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             typeJobAdapter = new TypeJobAdapter(HomeActivity.this, Constants.listTypeJob);
             typeJobAdapter.notifyDataSetChanged();
             rcv_type_job.setAdapter(typeJobAdapter);
-        }else {
+        } else {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setCancelable(false);
             alertDialog.setTitle(getResources().getString(R.string.notification));
@@ -287,7 +288,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
+                    finish();
                 }
             });
             alertDialog.show();

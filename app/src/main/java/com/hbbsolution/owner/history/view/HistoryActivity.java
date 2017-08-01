@@ -39,7 +39,7 @@ public class HistoryActivity extends AuthenticationBaseActivity implements HomeV
         ButterKnife.bind(this);
         setToolbar();
 
-        checkConnectionInterner();
+       // checkConnectionInterner();
 
         changeUnpaid =false;
 

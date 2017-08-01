@@ -231,12 +231,10 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             int position = edtTitlePost.length();
             Editable etext = edtTitlePost.getText();
             Selection.setSelection(etext, position);
-            if(!infoJob.getDescription().isEmpty()) {
+            if (!infoJob.getDescription().isEmpty()) {
                 edtDescriptionAuto.setVisibility(View.VISIBLE);
                 edtDescriptionAuto.setText(infoJob.getDescription());
-            }
-            else
-            {
+            } else {
                 edtDescriptionAuto.setVisibility(View.GONE);
             }
             edtAddressPost.setText(hashDataUser.get(SessionManagerUser.KEY_ADDRESS));
@@ -277,12 +275,10 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             view_suggest.setVisibility(View.VISIBLE);
             rcv_suggest.setVisibility(View.VISIBLE);
             note = "";
-            if(!infoJob.getDescription().isEmpty()) {
+            if (!infoJob.getDescription().isEmpty()) {
                 edtDescriptionAuto.setVisibility(View.VISIBLE);
                 edtDescriptionAuto.setText(infoJob.getDescription());
-            }
-            else
-            {
+            } else {
                 edtDescriptionAuto.setVisibility(View.GONE);
             }
             GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -301,6 +297,11 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                     clearString(note, suggest.getName() + " " + "\r\n");
                 }
             });
+        } else {
+            note = "";
+            //TODO
+            //add them để refresh autoDescription
+            edtDescriptionAuto.setVisibility(View.GONE);
         }
         if (!isTool) {
             liner_tool.setVisibility(View.GONE);
@@ -454,14 +455,12 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             }
         }
 
-        if(mPackageId.equals("000000000000000000000002"))
-        {
+        if (mPackageId.equals("000000000000000000000002")) {
             mPrice = "0";
         }
 
-        if(liner_tool.getVisibility()==View.GONE)
-        {
-            mChosenTools=false;
+        if (liner_tool.getVisibility() == View.GONE) {
+            mChosenTools = false;
         }
 
         if (!mDescriptionPost.equals("")) {
@@ -557,6 +556,10 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         mTypeJobtAdapter.setCallback(new BottomSheetAdapter.Callback() {
             @Override
             public void onItemClick(int position) {
+                //TODO clear data note
+                note = "";
+                //TODO add title
+                edtTitlePost.setText(listData.get(position));
                 txtShow.setText(listData.get(position));
                 String item = listData.get(position);
                 String idTypeJob = hashMapTypeJob.get(item);
@@ -702,7 +705,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         int hour2, minute2;
         calendarForTime1.set(year, month, date, 0, minute);
         calendarForTime1.set(Calendar.HOUR_OF_DAY, hour);
-        calendarForTime1.add(Calendar.MINUTE,10);
+        calendarForTime1.add(Calendar.MINUTE, 10);
         txtTime_start.setText(simpleDateFormat.format(calendarForTime1.getTime()));
         if (hour >= 22) {
             hour2 = 23;
@@ -711,7 +714,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             calendarForTime2.set(Calendar.HOUR_OF_DAY, hour2);
         } else {
             calendarForTime2.set(year, month, date, hour, minute);
-            calendarForTime2.add(Calendar.MINUTE,10);
+            calendarForTime2.add(Calendar.MINUTE, 10);
             calendarForTime2.add(Calendar.HOUR_OF_DAY, 2);
         }
         txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));

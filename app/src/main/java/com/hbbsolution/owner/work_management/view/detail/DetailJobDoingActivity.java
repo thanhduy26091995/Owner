@@ -72,6 +72,9 @@ public class DetailJobDoingActivity extends AuthenticationBaseActivity implement
     TextView txt_lo_infoMail;
     @BindView(R.id.progressDetailJobDoing)
     ProgressBar progressDetailJobDoing;
+    @BindView(R.id.txtIsTools)
+    TextView txtIsTools;
+
 
     private CheckOutAndBillPresenter checkOutAndBillPresenter;
     public static Activity mDetailJobDoingActivity = null;
@@ -112,6 +115,12 @@ public class DetailJobDoingActivity extends AuthenticationBaseActivity implement
                             .thumbnail(0.5f)
                             .placeholder(R.drawable.avatar)
                             .into(img_avatarJobDoingInfoMiad);
+                }
+                //check tools
+                if (mDatum.getInfo().getTools()) {
+                    txtIsTools.setVisibility(View.VISIBLE);
+                } else {
+                    txtIsTools.setVisibility(View.GONE);
                 }
 
                 txtTitleJobDoing.setText(mDatum.getInfo().getTitle());

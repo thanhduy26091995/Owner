@@ -36,9 +36,9 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
         android:layout_marginTop="20dp">
 
         <LinearLayout
@@ -54,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
@@ -75,10 +76,10 @@
                             android:id="@+id/img_avatarInfoMiad"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:src="@drawable/avatar"
-                            android:layout_alignParentTop="true"
                             android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/avatar" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -101,9 +102,9 @@
                                 android:id="@+id/txtAddressInfoMaid"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:maxLines="1"
-                                android:ellipsize="end"
                                 android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:paddingRight="10dp"
                                 android:text="123 đường số 1, quận 1, Tp.HCM, Việt Nam"
                                 android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -121,11 +122,11 @@
                             android:textSize="@dimen/icon_size_normal" />
 
                     </RelativeLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
                         android:background="@android:color/darker_gray" />
-
 
 
                 </LinearLayout>
@@ -151,11 +152,12 @@
                         android:paddingBottom="10dp"
                         android:text="@string/description"
                         android:textStyle="bold" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
-                        android:background="@android:color/darker_gray"
-                        android:layout_alignParentBottom="true"/>
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/darker_gray" />
 
                 </RelativeLayout>
 
@@ -219,6 +221,16 @@
                     android:paddingTop="10dp"
                     android:text="Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h. Cần một bạn nữ siêng năng dọn phòng ngày sáng thứ tư , sau 9h."
                     android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/txtIsTools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:text="@string/mang_theo_dung_cu"
+                    android:textColor="@color/home_background_your_tasks" />
 
             </LinearLayout>
 
@@ -301,8 +313,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="right|center_vertical"
-                        android:paddingRight="20dp"
                         android:paddingBottom="5dp"
+                        android:paddingRight="20dp"
                         android:paddingTop="5dp"
                         android:text="9h00 am - 12h00 pm" />
 
@@ -345,6 +357,7 @@
                         android:textColor="@color/colorBlack" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"

@@ -53,11 +53,14 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
     TextView txtAddress;
     @BindView(R.id.lo_infoMaid)
     RelativeLayout lo_infoMaid;
+    @BindView(R.id.txtIsTools)
+    TextView txtIsTools;
 
     private LiabilitiesHistory mLiabilitiesHistory;
     private DatumPending mDatum;
     private DataBill mDataBill;
     private int type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +76,7 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
 
         Bundle extras = getIntent().getExtras();
         type = extras.getInt("type");
-        if (type==0) {
+        if (type == 0) {
             mLiabilitiesHistory = (LiabilitiesHistory) extras.getSerializable("liability");
             txtNameInfoMaid.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
             txtAddressInfoMaid.setText(mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
@@ -84,15 +87,20 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
                     .centerCrop()
                     .dontAnimate()
                     .into(img_avatarInfoMiad);
-
+            //check toolse
+            if (mDatum.getInfo().getTools()) {
+                txtIsTools.setVisibility(View.VISIBLE);
+            } else {
+                txtIsTools.setVisibility(View.GONE);
+            }
             txtTitle.setText(mLiabilitiesHistory.getTask().getInfo().getTitle());
             txtType.setText(mLiabilitiesHistory.getTask().getInfo().getWork().getName());
             txtContent.setText(mLiabilitiesHistory.getTask().getInfo().getDescription());
             txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mLiabilitiesHistory.getTask().getInfo().getPrice()) + " VND");
             txtAddress.setText(mLiabilitiesHistory.getTask().getInfo().getAddress().getName());
             txtDate.setText(WorkTimeValidate.getDatePostHistory(mLiabilitiesHistory.getTask().getHistory().getUpdateAt()));
-            String mStartTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getStartAt(),DetailUnpaidWork.this);
-            String mEndTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getEndAt(),DetailUnpaidWork.this);
+            String mStartTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getStartAt(), DetailUnpaidWork.this);
+            String mEndTime = WorkTimeValidate.getTimeWork(mLiabilitiesHistory.getTask().getInfo().getTime().getEndAt(), DetailUnpaidWork.this);
             txtTimeDoWrok.setText(mStartTime + " - " + mEndTime);
             Glide.with(this).load(mLiabilitiesHistory.getTask().getInfo().getWork().getImage())
                     .thumbnail(0.5f)
@@ -101,9 +109,7 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
                     .centerCrop()
                     .dontAnimate()
                     .into(img_job_type);
-        }
-        else
-        {
+        } else {
             mDatum = (DatumPending) extras.getSerializable("mDatum");
             txtNameInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getName());
             txtAddressInfoMaid.setText(mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
@@ -121,8 +127,8 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
             txtPrice.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(mDatum.getInfo().getPrice()) + " VND");
             txtAddress.setText(mDatum.getInfo().getAddress().getName());
             txtDate.setText(WorkTimeValidate.getDatePostHistory(mDatum.getHistory().getUpdateAt()));
-            String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt(),DetailUnpaidWork.this);
-            String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt(),DetailUnpaidWork.this);
+            String mStartTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getStartAt(), DetailUnpaidWork.this);
+            String mEndTime = WorkTimeValidate.getTimeWork(mDatum.getInfo().getTime().getEndAt(), DetailUnpaidWork.this);
             txtTimeDoWrok.setText(mStartTime + " - " + mEndTime);
             Glide.with(this).load(mDatum.getInfo().getWork().getImage())
                     .thumbnail(0.5f)
@@ -140,17 +146,16 @@ public class DetailUnpaidWork extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.lo_infoMaid:
                 intent = new Intent(DetailUnpaidWork.this, MaidProfileActivity.class);
-                if(type == 0) {
+                if (type == 0) {
                     intent.putExtra("work", mLiabilitiesHistory.getTask());
-                }
-                else
-                {
+                } else {
                     intent.putExtra("mData", mDatum);
                 }
                 startActivity(intent);
                 break;
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

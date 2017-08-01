@@ -35,6 +35,8 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.adapter.SuggetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
+import com.hbbsolution.owner.history.model.helper.MaidHistory;
+import com.hbbsolution.owner.history.model.workhistory.WorkHistory;
 import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.maid_profile.choose_maid.presenter.ChooseMaidPresenter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
@@ -119,6 +121,8 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     private String mTypeJob = null, mPackageId;
     private ChooseMaidPresenter presenter;
     private Maid mMaidInfo;
+    private WorkHistory workHistory;
+    private MaidHistory datum;
     private boolean mChosenTools = false;
     private ProgressDialog progressDialog;
     private Date startTime, endTime, startTimeTemp, endTimeTemp, nowTime, nowDate, choseDate;
@@ -143,6 +147,8 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         setContentView(R.layout.activity_choose_maid);
         ButterKnife.bind(this);
         mMaidInfo = (Maid) getIntent().getSerializableExtra("maid");
+        workHistory = (WorkHistory) getIntent().getSerializableExtra("work");
+        datum = (MaidHistory) getIntent().getSerializableExtra("helper");
         presenter = new ChooseMaidPresenter(this);
         //config toolbar
         setSupportActionBar(toolbar);
@@ -154,7 +160,6 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
         checkConnectionInterner();
         hideKeyboard();
-
 
 
         cal = Calendar.getInstance();
@@ -217,7 +222,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     private void setRecyclerView() {
         isTool = infoJob.isTool();
-        listSuggest = infoJob.getSuggest();
+        listSuggest = infoJob.getNewSuggest();
         if (listSuggest.size() > 0) {
             view_suggest.setVisibility(View.VISIBLE);
             rcv_suggest.setVisibility(View.VISIBLE);
@@ -239,6 +244,8 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                     clearString(note, suggest.getName() + " " + "\r\n");
                 }
             });
+        } else {
+            note = "";
         }
         if (!isTool) {
             liner_tool.setVisibility(View.GONE);
@@ -290,7 +297,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     //show timepicker
     private void getTimePicker() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -302,7 +309,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     }
 
     private void getTimePicker2() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a",getResources().getConfiguration().locale);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -422,7 +429,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     }
 
     private void getTimeCurrent() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa",getResources().getConfiguration().locale);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", getResources().getConfiguration().locale);
         calendarForTime1 = Calendar.getInstance();
         calendarForTime2 = Calendar.getInstance();
         int date = calendarForTime1.get(Calendar.DATE);
@@ -432,17 +439,17 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         int minute = calendarForTime1.get(Calendar.MINUTE);
         int hour2, minute2;
         calendarForTime1.set(year, month, date, 0, minute);
-        calendarForTime1.set(Calendar.HOUR_OF_DAY,hour);
-        calendarForTime1.add(Calendar.MINUTE,10);
+        calendarForTime1.set(Calendar.HOUR_OF_DAY, hour);
+        calendarForTime1.add(Calendar.MINUTE, 10);
         txtTime_start.setText(simpleDateFormat.format(calendarForTime1.getTime()));
         if (hour >= 22) {
             hour2 = 23;
             minute2 = 59;
             calendarForTime2.set(year, month, date, 0, minute2);
-            calendarForTime2.set(Calendar.HOUR_OF_DAY,hour2);
+            calendarForTime2.set(Calendar.HOUR_OF_DAY, hour2);
         } else {
             calendarForTime2.set(year, month, date, hour, minute);
-            calendarForTime2.add(Calendar.MINUTE,10);
+            calendarForTime2.add(Calendar.MINUTE, 10);
             calendarForTime2.add(Calendar.HOUR_OF_DAY, 2);
         }
         txtTime_end.setText(simpleDateFormat.format(calendarForTime2.getTime()));
@@ -584,6 +591,8 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         mTypeJobtAdapter.setCallback(new BottomSheetAdapter.Callback() {
             @Override
             public void onItemClick(int position) {
+                //TODO clear data note
+                note = "";
                 txtShow.setText(listData.get(position));
                 String item = listData.get(position);
                 String idTypeJob = hashMapTypeJob.get(item);
@@ -655,18 +664,24 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
             }
         }
 
-        if(mPackageId.equals("000000000000000000000002"))
-        {
-           price = 0.0;
+        if (mPackageId.equals("000000000000000000000002")) {
+            price = 0.0;
         }
 
-        if(liner_tool.getVisibility()==View.GONE)
-        {
-            mChosenTools=false;
+        if (liner_tool.getVisibility() == View.GONE) {
+            mChosenTools = false;
         }
 
         if (!description.equals("")) {
-            presenter.sendRequest(mMaidInfo.getId(), title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
+            String maidInfoId = null;
+            if (mMaidInfo != null) {
+                maidInfoId = mMaidInfo.getId();
+            } else if (datum != null) {
+                maidInfoId = datum.getId().getId();
+            } else if (workHistory != null) {
+                maidInfoId = workHistory.getStakeholders().getReceived().getId();
+            }
+            presenter.sendRequest(maidInfoId, title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
         } else {
             hideProgressDialog();
             txt_post_complete.setEnabled(true);

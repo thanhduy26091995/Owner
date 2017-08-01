@@ -240,8 +240,8 @@ public class HistoryHelperFragment extends Fragment implements HelperHistoryView
     public void connectServerFail() {
         lnNoData.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
-        if (getActivity() != null) {
-            ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
-        }
+//        if (getActivity() != null) {
+//            ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), getActivity());
+//        }
     }
 }

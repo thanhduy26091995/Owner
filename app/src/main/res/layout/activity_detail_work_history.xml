@@ -111,7 +111,7 @@
                                 android:id="@+id/detail_work_history_tvJob"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="dsandksandkjasndjksandjkdasdasdasdadasdasdasdasdasdaansdkjansdkjanskdjnaskjdnaksjndkjasndkjasndkjasndkjandnask"
+
                                 android:textColor="@color/colorBlack"
                                 android:textSize="@dimen/text_size_large"
                                 android:textStyle="bold" />
@@ -137,6 +137,15 @@
                         android:paddingRight="15dp"
                         android:textColor="@color/colorBlack" />
 
+                    <TextView
+                        android:id="@+id/txtIsTools"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:text="@string/mang_theo_dung_cu"
+                        android:textColor="@color/home_background_your_tasks" />
                 </LinearLayout>
 
                 <View

@@ -77,6 +77,8 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
     LinearLayout lo_clear_job_request;
     @BindView(R.id.txtExpired_request_detail_post)
     TextView txtExpired_request_detail_post;
+    @BindView(R.id.txtIsTools)
+    TextView txtIsTools;
 
     public static Activity mDetailJobDoingActivity = null;
     private DetailJobPostPresenter mDetailJobPostPresenter;
@@ -124,6 +126,13 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
                             .dontAnimate()
                             .placeholder(R.drawable.avatar)
                             .into(img_avatarJobDoingInfoMiad);
+                }
+                //check tools
+                //check toolse
+                if (mDatum.getInfo().getTools()) {
+                    txtIsTools.setVisibility(View.VISIBLE);
+                } else {
+                    txtIsTools.setVisibility(View.GONE);
                 }
                 txtTitleJobDoing.setText(mDatum.getInfo().getTitle());
                 txtTypeJobDoing.setText(mDatum.getInfo().getWork().getName());

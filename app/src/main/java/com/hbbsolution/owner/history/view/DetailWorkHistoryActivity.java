@@ -61,6 +61,8 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     TextView tvContentComment;
     @BindView(R.id.v_line)
     View vLine;
+    @BindView(R.id.txtIsTools)
+    TextView txtIsTools;
 
     private WorkHistory doc;
     private String date;
@@ -119,7 +121,12 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
 
             tvDate.setText(WorkTimeValidate.getDatePostHistory(doc.getInfo().getTime().getEndAt()));
             tvTime.setText(WorkTimeValidate.getTimeWorkLanguage(DetailWorkHistoryActivity.this, doc.getInfo().getTime().getStartAt()) + " - " + WorkTimeValidate.getTimeWorkLanguage(DetailWorkHistoryActivity.this, doc.getInfo().getTime().getEndAt()));
-
+            //check toolse
+            if (doc.getInfo().getTools()) {
+                txtIsTools.setVisibility(View.VISIBLE);
+            } else {
+                txtIsTools.setVisibility(View.GONE);
+            }
             if (!doc.getStakeholders().getReceived().getInfo().getImage().equals("")) {
                 Glide.with(this).load(doc.getStakeholders().getReceived().getInfo().getImage())
                         .thumbnail(0.5f)
