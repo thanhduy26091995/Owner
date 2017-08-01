@@ -248,7 +248,7 @@
     <string name="txtSendOrder">Thanh toán online</string>
     <string name="thanhtoan">Gửi yêu cầu</string>
     <string name="complete">Hoàn tất</string>
-    <string name="txtCheckOrder">CheckOrder</string>
+    <string name="txtCheckOrder">Hóa đơn</string>
 
     <string name="txtNameOrder">Họ tên người thanh toán</string>
     <string name="txtDescription">Mô tả</string>
