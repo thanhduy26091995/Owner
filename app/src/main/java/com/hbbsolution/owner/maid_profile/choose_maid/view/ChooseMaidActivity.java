@@ -507,6 +507,15 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), ChooseMaidActivity.this);
             return false;
         }
+
+        if (!edt_monney_work.getText().toString().equals("")) {
+            if (Long.parseLong(edt_monney_work.getText().toString().replace(".", "")) > 1000000) {
+                hideProgressDialog();
+                ShowAlertDialog.showAlert(getResources().getString(R.string.money_too_large), ChooseMaidActivity.this);
+                return false;
+            }
+        }
+
         if (!edt_monney_work.getText().toString().equals("")) {
             if (edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000) {
                 hideProgressDialog();
@@ -672,21 +681,22 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
             mChosenTools = false;
         }
 
-        if (!description.equals("")) {
-            String maidInfoId = null;
-            if (mMaidInfo != null) {
-                maidInfoId = mMaidInfo.getId();
-            } else if (datum != null) {
-                maidInfoId = datum.getId().getId();
-            } else if (workHistory != null) {
-                maidInfoId = workHistory.getStakeholders().getReceived().getId();
-            }
-            presenter.sendRequest(maidInfoId, title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
-        } else {
-            hideProgressDialog();
-            txt_post_complete.setEnabled(true);
-            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), ChooseMaidActivity.this);
+        // if (!description.equals("")) {
+        String maidInfoId = null;
+        if (mMaidInfo != null) {
+            maidInfoId = mMaidInfo.getId();
+        } else if (datum != null) {
+            maidInfoId = datum.getId().getId();
+        } else if (workHistory != null) {
+            maidInfoId = workHistory.getStakeholders().getReceived().getId();
         }
+        presenter.sendRequest(maidInfoId, title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
+        //  }
+//        else {
+//            hideProgressDialog();
+//            txt_post_complete.setEnabled(true);
+//            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), ChooseMaidActivity.this);
+//        }
     }
 
     private String getTimeWork(String mTimeWork) {

@@ -463,14 +463,15 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             mChosenTools = false;
         }
 
-        if (!mDescriptionPost.equals("")) {
-            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-        } else {
-            hideProgressDialog();
-            txt_post_complete.setEnabled(true);
-            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), QuickPostActivity.this);
-        }
+//        if (!mDescriptionPost.equals("")) {
+        mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+                mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        // }
+//        else {
+//            hideProgressDialog();
+//            txt_post_complete.setEnabled(true);
+//            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), QuickPostActivity.this);
+//        }
 //        if (checkDataComplete()) {
 //            posData(geoCodeMapResponse);
 //        }
@@ -594,6 +595,15 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), QuickPostActivity.this);
             return false;
         }
+
+        if (!edt_monney_work.getText().toString().equals("")) {
+            if (Long.parseLong(edt_monney_work.getText().toString().replace(".", "")) > 1000000) {
+                hideProgressDialog();
+                ShowAlertDialog.showAlert(getResources().getString(R.string.money_too_large), QuickPostActivity.this);
+                return false;
+            }
+        }
+
         if (!edt_monney_work.getText().toString().equals("")) {
             if (edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000) {
                 hideProgressDialog();

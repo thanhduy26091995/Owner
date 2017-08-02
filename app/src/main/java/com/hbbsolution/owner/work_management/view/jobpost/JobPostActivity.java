@@ -38,6 +38,7 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.adapter.SuggetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
+import com.hbbsolution.owner.maid_profile.choose_maid.view.ChooseMaidActivity;
 import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
@@ -516,7 +517,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             mChosenTools = false;
         }
 
-        if (!mDescriptionPost.trim().equals("")) {
+        //if (!mDescriptionPost.trim().equals("")) {
             if (isPost) {
                 mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                         mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
@@ -524,11 +525,12 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
                         mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
             }
-        } else {
-            hideProgressDialog();
-            txt_post_complete.setEnabled(true);
-            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
-        }
+//        }
+//        else {
+//            hideProgressDialog();
+//            txt_post_complete.setEnabled(true);
+//            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), JobPostActivity.this);
+//        }
 //        if (checkDataComplete()) {
 //            posData(geoCodeMapResponse);
 //        }
@@ -658,6 +660,15 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             ShowAlertDialog.showAlert(getResources().getString(R.string.no_amount), JobPostActivity.this);
             return false;
         }
+
+        if (!edt_monney_work.getText().toString().equals("")) {
+            if (Long.parseLong(edt_monney_work.getText().toString().replace(".", "")) > 1000000) {
+                hideProgressDialog();
+                ShowAlertDialog.showAlert(getResources().getString(R.string.money_too_large), JobPostActivity.this);
+                return false;
+            }
+        }
+
         if (!edt_monney_work.getText().toString().equals("")) {
             if (edt_monney_work.isClickable() && Integer.parseInt(edt_monney_work.getText().toString().replace(".", "")) < 2000) {
                 hideProgressDialog();
