@@ -18,7 +18,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://api.ngv247.com/";
+   // public static final String BASE_URL = "http://api.ngv247.com/";
+    public static final String BASE_URL = "http://10.95.74.138:8000/";
 //    public static final String BASE_URL = "https://yukotest123.herokuapp.com/";
 
     public static String language = "en";
