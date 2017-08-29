@@ -11,12 +11,14 @@ import android.support.v4.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hbbsolution.owner.history.view.HistoryActivity;
+import com.hbbsolution.owner.utils.SessionShortcutBadger;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
 import java.util.List;
 import java.util.Map;
 
 import de.greenrobot.event.EventBus;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 /**
  * Created by buivu on 28/10/2016.
@@ -24,7 +26,8 @@ import de.greenrobot.event.EventBus;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     private NotificationUtils notificationUtils;
-
+    private int countNotification;
+    private SessionShortcutBadger sessionShortcutBadger;
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 //        // [START_EXCLUDE]
@@ -44,6 +47,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //        // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             handleNotification(remoteMessage);
+            countNotification++;
+            ShortcutBadger.applyCount(getApplicationContext(), countNotification); //for 1.1.4+
+//            ShortcutBadger.with(getApplicationContext()).count(countNotification); //for 1.1.3
         }
 //
 //        // Check if message contains a notification payload.
@@ -70,6 +76,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     private void handleNotification(RemoteMessage remoteMessage) {
+        sessionShortcutBadger = new SessionShortcutBadger(getApplicationContext());
         String status = "";
         status = remoteMessage.getData().get("status");
         if (NotificationUtils.isAppIsInBackground(getApplicationContext())) {
@@ -129,6 +136,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // play notification sound
         NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
         notificationUtils.playNotificationSound();
+
+        if(!sessionShortcutBadger.isCounted()) {
+            sessionShortcutBadger.createCountSession(0);
+        }
+        countNotification = sessionShortcutBadger.getCount();
+        countNotification++;
+        ShortcutBadger.applyCount(getApplicationContext(), countNotification);
+        sessionShortcutBadger.setCount(countNotification);
     }
 
     private int getNotificationIcon(NotificationCompat.Builder notificationBuilder) {

@@ -25,6 +25,7 @@ import com.hbbsolution.owner.more.viet_pham.View.MoreActivity;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.SessionManagerForLanguage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
+import com.hbbsolution.owner.utils.SessionShortcutBadger;
 import com.hbbsolution.owner.work_management.presenter.QuickPostPresenter;
 import com.hbbsolution.owner.work_management.view.quickpost.QuickPostView;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
@@ -36,6 +37,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class HomeActivity extends AuthenticationBaseActivity implements HomeView, View.OnClickListener, QuickPostView {
 
@@ -71,12 +73,16 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     private TypeJobAdapter typeJobAdapter;
     private boolean isChangeLanguage = false;
 
-
+    private SessionShortcutBadger sessionShortcutBadger;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        //Clear shortcutBadger
+        sessionShortcutBadger = new SessionShortcutBadger(this);
+        sessionShortcutBadger.removeCount();
+        ShortcutBadger.removeCount(this); //for 1.1.4+
 
         rcv_type_job = (RecyclerView) findViewById(R.id.rcv_type_job);
         // setup toolbar
