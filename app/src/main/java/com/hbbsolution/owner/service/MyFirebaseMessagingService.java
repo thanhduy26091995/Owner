@@ -106,6 +106,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra("tab", 2);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        } else if (data.get("status").equals("88")) {
+            Intent intent = new Intent(this, WorkManagementActivity.class);
+            intent.putExtra("tabMore", 0);
+            EventBus.getDefault().postSticky(false);
+            EventBus.getDefault().postSticky("0");
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)

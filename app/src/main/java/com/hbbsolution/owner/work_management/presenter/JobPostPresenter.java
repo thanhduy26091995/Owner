@@ -56,7 +56,7 @@ public class JobPostPresenter {
             public void onResponse(Call<GeoCodeMapResponse> call, Response<GeoCodeMapResponse> response) {
                 if (response.isSuccessful()) {
                     GeoCodeMapResponse mGeoCodeMapResponse = response.body();
-                    if(mGeoCodeMapResponse.getResults().size() > 0){
+                    if (mGeoCodeMapResponse.getResults().size() > 0) {
                         double lat = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
                         double lng = mGeoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
                         if (lat != 0 || lng != 0) {
@@ -65,7 +65,7 @@ public class JobPostPresenter {
                             mJobPostView.displayNotFoundLocaltion();
                         }
 
-                    }else {
+                    } else {
                         mJobPostView.displayNotFoundLocaltion();
                     }
 
@@ -87,11 +87,11 @@ public class JobPostPresenter {
         responseCall.enqueue(new Callback<JobPostResponse>() {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
-
                 if (response.isSuccessful()) {
-
 //                    Boolean isJbPost = response.body().getStatus();
                     mJobPostView.displayNotifyJobPost(response.body());
+                } else {
+                    Log.d("errorPost",response.message());
                 }
             }
 
@@ -103,8 +103,8 @@ public class JobPostPresenter {
         });
     }
 
-    public void updatePostJob( String idTask, String title, String typeJob, String description, String address, double lat, double lng,
-                        boolean isTool, String packageId, String price, String timeStartWork, String timeEndWork) {
+    public void updatePostJob(String idTask, String title, String typeJob, String description, String address, double lat, double lng,
+                              boolean isTool, String packageId, String price, String timeStartWork, String timeEndWork) {
 
         Call<JobPostResponse> responseCall = apiService.updatePostJob(idTask, title, typeJob, description, address,
                 lat, lng, isTool, packageId, price, timeStartWork, timeEndWork);
@@ -112,13 +112,13 @@ public class JobPostPresenter {
             @Override
             public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
 
-                try{
+                try {
                     if (response.isSuccessful()) {
 
 //                        Boolean isJbPost = response.body().getStatus();
                         mJobPostView.displayNotifyJobPost(response.body());
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.d("Exception", e.toString());
                 }
 
@@ -126,7 +126,7 @@ public class JobPostPresenter {
 
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
-               // Log.d("onFailure", t.toString());
+                // Log.d("onFailure", t.toString());
                 mJobPostView.connectServerFail();
             }
         });
