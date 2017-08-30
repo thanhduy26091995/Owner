@@ -38,7 +38,6 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.adapter.SuggetAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
-import com.hbbsolution.owner.maid_profile.choose_maid.view.ChooseMaidActivity;
 import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
@@ -989,7 +988,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 
     @Override
     public void connectServerFail() {
-        hideProgress();
+        hideProgressDialog();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 }

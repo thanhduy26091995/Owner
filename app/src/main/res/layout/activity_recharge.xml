@@ -281,7 +281,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:src="@drawable/icon_logo_test" />
+                android:src="@drawable/logo_splashscreen"
+                android:scaleType="centerCrop"/>
         </LinearLayout>
 
         <TextView

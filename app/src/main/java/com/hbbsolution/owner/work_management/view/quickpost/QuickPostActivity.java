@@ -932,7 +932,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     @Override
     public void connectServerFail() {
-        hideProgress();
+        hideProgressDialog();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
     }
 
