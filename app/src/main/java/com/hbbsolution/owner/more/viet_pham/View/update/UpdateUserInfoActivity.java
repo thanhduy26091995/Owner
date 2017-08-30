@@ -11,9 +11,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -30,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
@@ -41,6 +44,7 @@ import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.UpdateUserPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
+import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp2Activity;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -99,7 +103,10 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
+    private static final String[] PERMISSIONS_GALLERY = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,22 +231,55 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
         switch (requestCode) {
             case REQUEST_READ_EXTERNAL_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
+                    openGallery();
+                } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+                    Toast.makeText(UpdateUserInfoActivity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    // User selected the Never Ask Again Option
+                    Intent i = new Intent();
+                    i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    i.addCategory(Intent.CATEGORY_DEFAULT);
+                    i.setData(Uri.parse("package:" + getPackageName()));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(UpdateUserInfoActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
-//            case CAMERA_REQUEST:
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    takePhoto();
-//                }
-//                break;
             case REQUEST_CODE_CAMERA:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openCamera();
+                    // do your work here
+                } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+                    Toast.makeText(UpdateUserInfoActivity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    // User selected the Never Ask Again Option
+                    Intent i = new Intent();
+                    i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    i.addCategory(Intent.CATEGORY_DEFAULT);
+                    i.setData(Uri.parse("package:" + getPackageName()));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(UpdateUserInfoActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
+    private boolean verifyGallery() {
+        int camera = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (camera != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_GALLERY, REQUEST_READ_EXTERNAL_PERMISSION
+            );
 
+            return false;
+        }
+        return true;
+    }
     private void openCamera() {
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
@@ -411,13 +451,11 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                 if (options[item].equals(getResources().getString(R.string.sign_up_camera))) {
                     if (verifyOpenCamera()) {
                         openCamera();
-//                    if (verifyCamerapermission()) {
-//                        takePhoto();
                     } else {
                         return;
                     }
                 } else if (options[item].equals(getResources().getString(R.string.sign_up_libary_image))) {
-                    if (verifyCamerapermission()) {
+                    if (verifyGallery()) {
                         openGallery();
                     } else {
                         return;

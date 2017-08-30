@@ -11,9 +11,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -30,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.InternetConnection;
@@ -61,7 +64,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 5/10/2017.
  */
 
-public class SignUp2Activity extends AppCompatActivity implements MoreView,CheckUsernameAndEmailView {
+public class SignUp2Activity extends AppCompatActivity implements MoreView, CheckUsernameAndEmailView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.button_next)
@@ -95,6 +98,10 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView,Check
     private static final int REQUEST_CODE_CAMERA = 1002;
     private static final String[] PERMISSIONS_CAMERA = {
             Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private static final String[] PERMISSIONS_GALLERY = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private CheckUsernameAndEmailPresenter mCheckUsernameAndEmailPresenter;
@@ -155,18 +162,18 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView,Check
                     ShowAlertDialog.showAlert(getResources().getString(R.string.vui_long_dien_day_du), SignUp2Activity.this);
                 } else {
                     if (EmailValidate.IsOk(mEmail)) {
-                       if (mPhoneName.length() >= 10 && mPhoneName.length() <=11 && (mPhoneName.charAt(0) == '0')){
-                           if(InternetConnection.getInstance().isOnline(SignUp2Activity.this)){
-                               mProgressDialog.show();
-                               mProgressDialog.setMessage(getResources().getString(R.string.loading));
-                               mProgressDialog.setCanceledOnTouchOutside(false);
-                               mCheckUsernameAndEmailPresenter.checkEmail(mEmail);
-                           }else {
-                               ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet),SignUp2Activity.this);
-                           }
-                       }else {
-                           ShowAlertDialog.showAlert(getResources().getString(R.string.invalid_phone),SignUp2Activity.this);
-                       }
+                        if (mPhoneName.length() >= 10 && mPhoneName.length() <= 11 && (mPhoneName.charAt(0) == '0')) {
+                            if (InternetConnection.getInstance().isOnline(SignUp2Activity.this)) {
+                                mProgressDialog.show();
+                                mProgressDialog.setMessage(getResources().getString(R.string.loading));
+                                mProgressDialog.setCanceledOnTouchOutside(false);
+                                mCheckUsernameAndEmailPresenter.checkEmail(mEmail);
+                            } else {
+                                ShowAlertDialog.showAlert(getResources().getString(R.string.no_internet), SignUp2Activity.this);
+                            }
+                        } else {
+                            ShowAlertDialog.showAlert(getResources().getString(R.string.invalid_phone), SignUp2Activity.this);
+                        }
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.email_wrong), SignUp2Activity.this);
                     }
@@ -242,18 +249,58 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView,Check
         return true;
     }
 
+    private boolean verifyGallery() {
+        int camera = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (camera != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_GALLERY, REQUEST_READ_EXTERNAL_PERMISSION
+            );
+
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_READ_EXTERNAL_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(Intent.createChooser(iChooseImage, getResources().getString(R.string.select_image)), PICK_IMAGE_FROM_GALLERY_REQUEST);
+                    openGallery();
+                } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+                    Toast.makeText(SignUp2Activity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    // User selected the Never Ask Again Option
+                    Intent i = new Intent();
+                    i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    i.addCategory(Intent.CATEGORY_DEFAULT);
+                    i.setData(Uri.parse("package:" + getPackageName()));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(SignUp2Activity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case REQUEST_CODE_CAMERA:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openCamera();
+                    // do your work here
+                } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+                    Toast.makeText(SignUp2Activity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    // User selected the Never Ask Again Option
+                    Intent i = new Intent();
+                    i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    i.addCategory(Intent.CATEGORY_DEFAULT);
+                    i.setData(Uri.parse("package:" + getPackageName()));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(SignUp2Activity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -423,7 +470,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView,Check
                         return;
                     }
                 } else if (options[item].equals(getResources().getString(R.string.sign_up_libary_image))) {
-                    if (verifyCamerapermission()) {
+                    if (verifyGallery()) {
                         openGallery();
                     } else {
                         return;
@@ -465,11 +512,11 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView,Check
 
     @Override
     public void checkEmail(CheckUsernameEmailResponse checkUsernameEmailResponse) {
-        if (checkUsernameEmailResponse.isStatus()){
+        if (checkUsernameEmailResponse.isStatus()) {
             mRegisterPresenter.getLocaltionAddress(mLocation);
-        }else {
+        } else {
             mProgressDialog.dismiss();
-            ShowAlertDialog.showAlert(getResources().getString(R.string.check_email),SignUp2Activity.this);
+            ShowAlertDialog.showAlert(getResources().getString(R.string.check_email), SignUp2Activity.this);
         }
     }
 }

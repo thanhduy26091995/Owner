@@ -9,9 +9,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
@@ -25,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
@@ -301,10 +304,22 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
             case REQUEST_CODE_CAMERA:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openCamera();
+                } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+                    Toast.makeText(DetailJobPendingActivity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    // User selected the Never Ask Again Option
+                    Intent i = new Intent();
+                    i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    i.addCategory(Intent.CATEGORY_DEFAULT);
+                    i.setData(Uri.parse("package:" + getPackageName()));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(DetailJobPendingActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
-
     }
 
     @Override
