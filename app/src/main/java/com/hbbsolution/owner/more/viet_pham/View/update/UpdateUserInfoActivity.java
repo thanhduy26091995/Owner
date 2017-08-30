@@ -44,7 +44,6 @@ import com.hbbsolution.owner.more.viet_pham.Presenter.ImageFilePathPresenter;
 import com.hbbsolution.owner.more.viet_pham.Presenter.UpdateUserPresenter;
 import com.hbbsolution.owner.more.viet_pham.View.MoreView;
 import com.hbbsolution.owner.more.viet_pham.View.profile.ProfileActivity;
-import com.hbbsolution.owner.more.viet_pham.View.signup.SignUp2Activity;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -233,7 +232,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openGallery();
                 } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
-                    Toast.makeText(UpdateUserInfoActivity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UpdateUserInfoActivity.this,getResources().getString(R.string.setting_permission), Toast.LENGTH_LONG).show();
                     // User selected the Never Ask Again Option
                     Intent i = new Intent();
                     i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -244,7 +243,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                     i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                     startActivity(i);
                 } else {
-                    Toast.makeText(UpdateUserInfoActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateUserInfoActivity.this, getResources().getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case REQUEST_CODE_CAMERA:
@@ -252,7 +251,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                     openCamera();
                     // do your work here
                 } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
-                    Toast.makeText(UpdateUserInfoActivity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UpdateUserInfoActivity.this, getResources().getString(R.string.setting_permission), Toast.LENGTH_LONG).show();
                     // User selected the Never Ask Again Option
                     Intent i = new Intent();
                     i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -263,7 +262,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements MoreVie
                     i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                     startActivity(i);
                 } else {
-                    Toast.makeText(UpdateUserInfoActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateUserInfoActivity.this, getResources().getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

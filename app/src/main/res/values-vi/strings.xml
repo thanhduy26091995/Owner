@@ -397,4 +397,7 @@
     <string name="username_too_long">Tên đăng nhập quá dài!</string>
     <string name="money_too_large">Số tiền bạn nhập không được vượt quá một triệu đồng</string>
     <string name="schedule_duplicated_choose_maid">Bạn không thể chọn một người cho nhiều việc cùng khung giờ. Vui lòng chọn lại!</string>
+
+    <string name="setting_permission">Vui lòng vào phần "Cài đặt" và cấp quyền sử dụng tính năng này.</string>
+    <string name="permission_denied">Cấp quyền bị từ chối</string>
 </resources>

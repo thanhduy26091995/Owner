@@ -270,7 +270,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView, Chec
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openGallery();
                 } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
-                    Toast.makeText(SignUp2Activity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp2Activity.this,getResources().getString(R.string.setting_permission), Toast.LENGTH_LONG).show();
                     // User selected the Never Ask Again Option
                     Intent i = new Intent();
                     i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -281,7 +281,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView, Chec
                     i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                     startActivity(i);
                 } else {
-                    Toast.makeText(SignUp2Activity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp2Activity.this, getResources().getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case REQUEST_CODE_CAMERA:
@@ -289,7 +289,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView, Chec
                     openCamera();
                     // do your work here
                 } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
-                    Toast.makeText(SignUp2Activity.this, "Go to Settings and Grant the permission to use this feature.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp2Activity.this, getResources().getString(R.string.setting_permission), Toast.LENGTH_LONG).show();
                     // User selected the Never Ask Again Option
                     Intent i = new Intent();
                     i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -300,7 +300,7 @@ public class SignUp2Activity extends AppCompatActivity implements MoreView, Chec
                     i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                     startActivity(i);
                 } else {
-                    Toast.makeText(SignUp2Activity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp2Activity.this, getResources().getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
