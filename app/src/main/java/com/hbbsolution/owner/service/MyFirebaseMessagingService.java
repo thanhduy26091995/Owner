@@ -47,9 +47,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //        // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             handleNotification(remoteMessage);
-            countNotification++;
-            ShortcutBadger.applyCount(getApplicationContext(), countNotification); //for 1.1.4+
-//            ShortcutBadger.with(getApplicationContext()).count(countNotification); //for 1.1.3
         }
 //
 //        // Check if message contains a notification payload.
