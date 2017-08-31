@@ -79,7 +79,7 @@ public class DetailJobPostPresenter {
 
             @Override
             public void onFailure(Call<CheckInResponse> call, Throwable t) {
-                mDetailJobPostView.connectServerFail();
+                mDetailJobPostView.checkInFail(t.getMessage());
             }
         });
     }

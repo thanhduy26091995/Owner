@@ -303,6 +303,7 @@ public class SignInActivity extends BaseActivity implements MoreView, FirebaseAu
         if (bodyResponse.isStatus() == true) {
             sessionManagerUser.createLoginSession(bodyResponse.getData());
             hashDataUser = sessionManagerUser.getUserDetails();
+            Log.d("TOKEN_APP", hashDataUser.get(SessionManagerUser.KEY_TOKEN));
             ApiClient.setToken(hashDataUser.get(SessionManagerUser.KEY_TOKEN));
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

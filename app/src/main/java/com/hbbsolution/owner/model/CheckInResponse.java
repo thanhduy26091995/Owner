@@ -11,21 +11,21 @@ public class CheckInResponse {
     private boolean status;
     @SerializedName("message")
     private String message;
-   // @SerializedName("data")
-    //private DataCheckIn data;
+    @SerializedName("data")
+    private DataCheckIn data;
 
     public CheckInResponse(boolean status, String message) {
         this.status = status;
         this.message = message;
     }
 
-//    public DataCheckIn getData() {
-//        return data;
-//    }
-//
-//    public void setData(DataCheckIn data) {
-//        this.data = data;
-//    }
+    public DataCheckIn getData() {
+        return data;
+    }
+
+    public void setData(DataCheckIn data) {
+        this.data = data;
+    }
 
     public boolean isStatus() {
         return status;

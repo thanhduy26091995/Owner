@@ -412,4 +412,7 @@
 
     <string name="setting_permission">Please go to Settings and Grant the permission to use this feature.</string>
     <string name="permission_denied">Permission Denied</string>
+
+    <string name="check_in_correct">Correct</string>
+    <string name="check_in_incorrect">Incorrect</string>
 </resources>

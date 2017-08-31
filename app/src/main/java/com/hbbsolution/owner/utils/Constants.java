@@ -30,4 +30,6 @@ public class Constants {
     public static final String MERCHANT_PASSWORD = "0fc156a3ed1cd742a4ec65fe52372d06";
 
     public static List<TypeJob> listTypeJob = new ArrayList<>();
+
+    public static Double CONFIDENCE_CORRECT_DEFAULT = 0.5;
 }

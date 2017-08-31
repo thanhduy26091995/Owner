@@ -34,6 +34,8 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.CheckInResponse;
+import com.hbbsolution.owner.run_face.model.CompareImageModel;
+import com.hbbsolution.owner.run_face.view.PhotoViewerActivity;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.EncodeImage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
@@ -105,6 +107,8 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     private HashMap<String, String> hashDataUser = new HashMap<>();
     private long timeStart, timeEnd;
     private ProgressDialog progressDialog;
+    private CompareImageModel mCompareImageModel = new CompareImageModel();
+    public static final int REQUEST_PHOTO_VIEW = 120;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,6 +134,8 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
         final Intent intent = getIntent();
         mDatum = (DatumPending) intent.getSerializableExtra("mDatum");
 
+        Log.d("JOB_ID", mDatum.getId());
+
         try {
             if (mDatum != null) {
                 if (!WorkTimeValidate.compareDays(mDatum.getInfo().getTime().getEndAt())) {
@@ -150,6 +156,8 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
                             .dontAnimate()
                             .placeholder(R.drawable.avatar)
                             .into(img_avatarMaid);
+                    //save data imageview
+                    mCompareImageModel.setImageServer(mDatum.getStakeholders().getMadi().getInfo().getImage());
                 }
 
                 //check tools
@@ -329,15 +337,21 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
             String photoPath = "";
             if (getRealPathFromURI(data.getData()) != "") {
                 Bitmap imageBitmap = EncodeImage.encodeImage(getRealPathFromURI(data.getData()));
+                //save data
+                mCompareImageModel.setImageGallery(data.getData().toString());
                 photoPath = getRealPathFromURI(getImageUri(DetailJobPendingActivity.this, imageBitmap));
             } else {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 // Bitmap des = EncodeImage.rotateBitmap(photo, orientation);
                 Uri tempUri = getImageUri(getApplicationContext(), photo);
+                //save data
+                mCompareImageModel.setImageGallery(tempUri.toString());
                 photoPath = getRealPathFromURI(tempUri);
             }
+
             //show progress
             showProgress();
+
             mDetailJobPostPresenter.checkIn(photoPath, "5911460ae740560cb422ac35", mDatum.getId());
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -399,48 +413,58 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     public void checkIn(CheckInResponse checkInResponse) {
         hideProgress();
         boolean status = checkInResponse.isStatus();
-        if (status) {
-            //boolean isIdentical = checkInResponse.getData().isIdentical();
-            // if (isIdentical) {
-            try {
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailJobPendingActivity.this);
-                alertDialogBuilder.setMessage(getResources().getString(R.string.confirm_success));
-                alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-//                                finish();
-//                                Constants.isLoadTabDoing = true;
-                                EventBus.getDefault().postSticky(true);
-                                EventBus.getDefault().postSticky("1");
-                                finish();
-                                alertDialogBuilder.create().dismiss();
-                            }
-
-                        });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            } catch (Exception e) {
-
-            }
-        } else {
-            String message = checkInResponse.getMessage();
-            if (message.equals("DATA_NOT_EXIST")) {
-                ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), DetailJobPendingActivity.this);
-            } else if (message.equals("CHECK_IN_EXIST")) {
-                ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_exist), DetailJobPendingActivity.this);
-            } else if (message.equals("FACE_IDENTICAL_FAILED")) {
-                ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_face_identical_failed), DetailJobPendingActivity.this);
-            } else {
-                ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), DetailJobPendingActivity.this);
-
-            }
-
+        mCompareImageModel.setStatus(status);
+        mCompareImageModel.setConfidence(checkInResponse.getData().getConfidence());
+        mCompareImageModel.setIdentical(checkInResponse.getData().isIdentical());
+        //save data
+        Intent intent = new Intent(DetailJobPendingActivity.this, PhotoViewerActivity.class);
+        intent.putExtra("CompareImage", mCompareImageModel);
+        startActivity(intent);
+        if (checkInResponse.getData().getConfidence() > Constants.CONFIDENCE_CORRECT_DEFAULT) {
+            finish();
         }
+//        if (status) {
+//            //boolean isIdentical = checkInResponse.getData().isIdentical();
+//            // if (isIdentical) {
+//            try {
+//                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DetailJobPendingActivity.this);
+//                alertDialogBuilder.setMessage(getResources().getString(R.string.confirm_success));
+//                alertDialogBuilder.setCancelable(false);
+//                alertDialogBuilder.setPositiveButton(getResources().getText(R.string.okAlert),
+//                        new DialogInterface.OnClickListener() {
+//
+//                            @Override
+//                            public void onClick(DialogInterface arg0, int arg1) {
+////                                finish();
+////                                Constants.isLoadTabDoing = true;
+//                                EventBus.getDefault().postSticky(true);
+//                                EventBus.getDefault().postSticky("1");
+//                                finish();
+//                                alertDialogBuilder.create().dismiss();
+//                            }
+//
+//                        });
+//
+//                AlertDialog alertDialog = alertDialogBuilder.create();
+//                alertDialog.show();
+//            } catch (Exception e) {
+//
+//            }
+//        } else {
+//            String message = checkInResponse.getMessage();
+//            if (message.equals("DATA_NOT_EXIST")) {
+//                ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), DetailJobPendingActivity.this);
+//            } else if (message.equals("CHECK_IN_EXIST")) {
+//                ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_exist), DetailJobPendingActivity.this);
+//            } else if (message.equals("FACE_IDENTICAL_FAILED")) {
+//                ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_face_identical_failed), DetailJobPendingActivity.this);
+//            } else {
+//                ShowAlertDialog.showAlert(getResources().getString(R.string.loi_thu_lai), DetailJobPendingActivity.this);
+//            }
+//        }
+
     }
+
 
     @Override
     public void checkInFail(String error) {

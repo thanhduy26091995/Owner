@@ -31,6 +31,9 @@
         </provider>
 
         <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="face" />
+        <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
         <meta-data
@@ -100,6 +103,7 @@
 
         <activity android:name=".history.view.DetailUnpaidWork"></activity>
         <activity android:name=".work_management.view.quickpost.QuickPostActivity"></activity>
+        <activity android:name=".run_face.view.PhotoViewerActivity" />
     </application>
 
 </manifest>

@@ -400,4 +400,7 @@
 
     <string name="setting_permission">Vui lòng vào phần "Cài đặt" và cấp quyền sử dụng tính năng này.</string>
     <string name="permission_denied">Cấp quyền bị từ chối</string>
+
+    <string name="check_in_correct">Hợp lệ</string>
+    <string name="check_in_incorrect">Không hợp lệ</string>
 </resources>
