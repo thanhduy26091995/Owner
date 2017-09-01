@@ -29,7 +29,6 @@ import com.hbbsolution.owner.work_management.model.billGv24.BillGv24Response;
 import com.hbbsolution.owner.work_management.model.chekout.DataBill;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobDoingActivity;
-import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 import com.hbbsolution.owner.work_management.view.payment.presenter.PaymentPresenter;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
 
@@ -43,6 +42,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -275,6 +275,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            EventBus.getDefault().postSticky(true);
+            EventBus.getDefault().postSticky("2");
             super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);

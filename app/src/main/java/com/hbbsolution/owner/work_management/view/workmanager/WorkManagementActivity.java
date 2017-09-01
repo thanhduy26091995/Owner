@@ -6,21 +6,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.ViewPagerAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.home.view.HomeActivity;
-import com.hbbsolution.owner.base.BaseActivity;
-import com.hbbsolution.owner.base.IconTextView;
 import com.hbbsolution.owner.utils.ConnectivityReceiver;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
@@ -176,7 +172,6 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
                 mPositionTab = -1;
                 isPause = false;
                 mTab = false;
-
             }
         } else {
             if (mPositionTab == -1) {
