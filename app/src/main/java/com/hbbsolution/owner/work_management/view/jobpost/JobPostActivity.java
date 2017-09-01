@@ -907,8 +907,6 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         return false;
     }
 

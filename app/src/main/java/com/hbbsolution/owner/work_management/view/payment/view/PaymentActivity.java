@@ -43,6 +43,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -275,6 +276,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            EventBus.getDefault().postSticky(true);
+            EventBus.getDefault().postSticky("2");
             super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
