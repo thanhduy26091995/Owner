@@ -96,8 +96,7 @@ public class PaymentOnlineActivity extends AppCompatActivity implements View.OnC
                 }
             });
         }
-        if (infoMaid != null) {
-
+        else if (infoMaid != null) {
             editAmount.setEnabled(false);
             idBillOrder = infoMaid.getString("idBillOrder", "");
             editAmount.setText(NumberFormat.getNumberInstance(Locale.GERMANY).format(infoMaid.getInt("total", 0)));

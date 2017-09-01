@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'Owner'
             keyPassword 'hbbsolutions'
-            storeFile file('D:/Owner.jks')
+            storeFile file('E:/Owner.jks')
             storePassword 'hbbsolutions'
         }
     }
