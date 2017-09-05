@@ -44,6 +44,7 @@ public class HistoryJobAdapter extends RecyclerView.Adapter<HistoryJobAdapter.Re
 
     @Override
     public void onBindViewHolder(HistoryJobAdapter.RecyclerViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         workHistory = listData.get(position);
         holder.tvJob.setText(workHistory.getInfo().getTitle());
         if (!workHistory.getInfo().getWork().getImage().equals("")) {

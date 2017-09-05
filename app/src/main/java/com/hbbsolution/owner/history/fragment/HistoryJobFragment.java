@@ -84,7 +84,6 @@ public class HistoryJobFragment extends Fragment implements WorkHistoryView {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setNestedScrollingEnabled(false);
 
         tvStartDate = (TextView) v.findViewById(R.id.tvStartDate);
         tvEndDate = (TextView) v.findViewById(R.id.tvEndDate);
