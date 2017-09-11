@@ -5,7 +5,9 @@
     <color name="colorAccent">#066EA9</color>
 
     <color name="colorWhite">#FFF</color>
+    <color name="colorWhite_transparent">#bfffffff</color>
     <color name="colorBlack">#000</color>
+    <color name="colorBlack_transparent">#40000000</color>
     <color name="color_line_view">#C0C0C0</color>
     <color name="edittext_hint">#808080</color>
     
