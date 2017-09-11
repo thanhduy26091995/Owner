@@ -166,7 +166,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         progressDialog = new ProgressDialog(QuickPostActivity.this);
 
         checkConnectionInterner();
-        hideKeyboard();
+
 
 
         //setup view
@@ -197,6 +197,8 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         }
         setTextMoneyChange();
         setEventClick();
+
+        hideKeyboard();
     }
 
     public void hideKeyboard() {

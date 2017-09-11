@@ -7,13 +7,18 @@
     <color name="colorWhite">#FFF</color>
     <color name="colorWhite_transparent">#bfffffff</color>
     <color name="colorBlack">#000</color>
-    <color name="colorBlack_transparent">#40000000</color>
+    <color name="colorBlack_transparent">#33000000</color>
+
+    <color name="background_item_type_job">#4D000000</color>
+
     <color name="color_line_view">#C0C0C0</color>
     <color name="edittext_hint">#808080</color>
-    
+
     <color name="home_background_maid_aound">#FFC041</color>
     <color name="home_background_your_tasks">#7ED321</color>
     <color name="home_background_history">#066EA9</color>
+    <color name="red">#F30649</color>
+
     <color name="job_number_person">#F44336</color>
 
     <color name="collapsedappbar">#00ffffff</color>

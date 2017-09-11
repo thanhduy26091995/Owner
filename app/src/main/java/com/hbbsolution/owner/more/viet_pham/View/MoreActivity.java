@@ -14,10 +14,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
@@ -63,7 +63,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.cv_sign_in)
     CardView cvSignIn;
     @BindView(R.id.cardview_statistic)
-    CardView cvStatistic;
+    Button cvStatistic;
     @BindView(R.id.txt_name)
     TextView txtName;
     @BindView(R.id.txt_address)
@@ -73,15 +73,15 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.lnLanguage)
     LinearLayout lnLanguage;
     @BindView(R.id.lnLogOut)
-    LinearLayout lnLogOut;
+    Button lnLogOut;
     @BindView(R.id.linearlayout_follow_facebook)
     LinearLayout lnlFollowFacebook;
     @BindView(R.id.lo_about)
-    RelativeLayout lo_about;
+    LinearLayout lo_about;
     @BindView(R.id.lo_terms1)
-    RelativeLayout lo_terms1;
+    LinearLayout lo_terms1;
     @BindView(R.id.lo_terms)
-    RelativeLayout lo_terms;
+    LinearLayout lo_terms;
     @BindView(R.id.lo_share_app)
     LinearLayout lo_share_app;
     @BindView(R.id.switch_announcement)

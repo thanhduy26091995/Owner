@@ -3,14 +3,15 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -45,7 +46,7 @@
                 android:id="@+id/cv_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/margin_padding_05dp"
                 app:cardElevation="0dp"
                 card_view:cardUseCompatPadding="true"
                 card_view:contentPadding="5dp">
@@ -106,50 +107,26 @@
                             android:textColor="@android:color/darker_gray"
                             android:textSize="@dimen/icon_size_normal" />
                     </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:background="@android:color/darker_gray" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <Button
                 android:id="@+id/cardview_statistic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/more_job_statistic"
-                        android:textColor="@color/colorBlack" />
-
-                    <com.hbbsolution.owner.base.IconTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/ion_chevron_right"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="@dimen/icon_size_normal" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
+                android:layout_marginLeft="@dimen/margin_padding_40dp"
+                android:layout_marginRight="@dimen/margin_padding_40dp"
+                android:layout_marginTop="@dimen/margin_padding_10dp"
+                android:background="@drawable/background_button_blue"
+                android:text="@string/more_job_statistic"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/margin_padding_10dp"
+                android:background="@color/colorWhite"
                 app:cardElevation="0dp"
                 card_view:cardUseCompatPadding="true"
                 card_view:contentPadding="5dp">
@@ -162,22 +139,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="10dp">
 
+                        <ImageView
+                            android:layout_width="@dimen/space_96"
+                            android:layout_height="@dimen/space_96"
+                            android:background="@drawable/background_button_blue" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_padding_10dp"
                             android:layout_weight="1"
                             android:text="@string/more_notification"
                             android:textColor="@color/colorBlack" />
 
                         <android.support.v7.widget.SwitchCompat
-                            android:layout_width="wrap_content"
                             android:id="@+id/switch_announcement"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:theme="@style/SCBSwitch" />
@@ -186,21 +170,29 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
+                        android:layout_marginLeft="@dimen/margin_padding_40dp"
                         android:background="@android:color/darker_gray" />
 
                     <LinearLayout
                         android:id="@+id/lnLanguage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="10dp">
 
+                        <ImageView
+                            android:layout_width="@dimen/space_96"
+                            android:layout_height="@dimen/space_96"
+                            android:background="@drawable/background_button_blue" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_padding_10dp"
                             android:layout_weight="1"
                             android:text="@string/more_languge"
                             android:textColor="@color/colorBlack" />
@@ -218,6 +210,11 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="@dimen/margin_padding_40dp"
+                android:background="@android:color/darker_gray" />
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -229,63 +226,76 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/colorWhite">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:layout_above="@+id/linear_button"
-                        android:background="@android:color/darker_gray" />
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/lo_about"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
+                        android:orientation="horizontal"
                         android:paddingRight="10dp"
-                        android:paddingTop="10dp">
-
+                        android:paddingTop="10dp"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="@dimen/space_96"
+                            android:layout_height="@dimen/space_96"
+                            android:background="@drawable/background_button_blue"/>
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/about"
-                            android:textColor="@color/colorBlack" />
-
+                            android:textColor="@color/colorBlack"
+                            android:layout_marginLeft="@dimen/margin_padding_10dp"/>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            />
                         <com.hbbsolution.owner.base.IconTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerInParent="true"
                             android:layout_marginRight="10dp"
                             android:text="@string/ion_chevron_right"
                             android:textColor="@android:color/darker_gray"
                             android:textSize="@dimen/icon_size_normal" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
                         android:layout_above="@+id/linear_button"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="@dimen/margin_padding_40dp"
                         android:background="@android:color/darker_gray" />
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/lo_terms1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:paddingTop="10dp">
-
+                        android:paddingTop="10dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="@dimen/space_96"
+                            android:layout_height="@dimen/space_96"
+                            android:background="@drawable/background_button_blue"/>
                         <TextView
                             android:id="@+id/textView"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/term_title"
-                            android:textColor="@color/colorBlack" />
-
+                            android:textColor="@color/colorBlack"
+                            android:layout_marginLeft="@dimen/margin_padding_10dp"/>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            />
                         <com.hbbsolution.owner.base.IconTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -297,34 +307,41 @@
                             android:text="@string/ion_chevron_right"
                             android:textColor="@android:color/darker_gray"
                             android:textSize="@dimen/icon_size_normal" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
                         android:layout_above="@+id/linear_button"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="@dimen/margin_padding_40dp"
                         android:background="@android:color/darker_gray" />
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/lo_terms"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:paddingTop="10dp">
-
+                        android:paddingTop="10dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="@dimen/space_96"
+                            android:layout_height="@dimen/space_96"
+                            android:background="@drawable/background_button_blue"/>
                         <TextView
                             android:id="@+id/textView1"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/contact"
+                            android:text="@string/more_contact"
                             android:textColor="@color/colorBlack"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
-
+                            android:layout_marginLeft="@dimen/margin_padding_10dp"/>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            />
                         <com.hbbsolution.owner.base.IconTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -336,12 +353,13 @@
                             android:text="@string/ion_chevron_right"
                             android:textColor="@android:color/darker_gray"
                             android:textSize="@dimen/icon_size_normal" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
                         android:layout_above="@+id/linear_button"
+                        android:layout_marginLeft="@dimen/margin_padding_40dp"
                         android:background="@android:color/darker_gray" />
                 </LinearLayout>
 
@@ -369,30 +387,28 @@
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:paddingTop="10dp">
+                        android:paddingTop="10dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical">
 
-                        <com.hbbsolution.owner.base.IconTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerInParent="true"
-                            android:layout_marginRight="10dp"
-                            android:text="@string/ic_share"
-                            android:textColor="@color/home_background_history"
-                            android:textSize="@dimen/icon_size_normal" />
+                        <ImageView
+                            android:layout_width="@dimen/space_96"
+                            android:layout_height="@dimen/space_96"
+                            android:background="@drawable/background_button_blue"/>
+
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/more_share_app_Gv24"
-                            android:textColor="@color/home_background_history" />
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="@dimen/margin_padding_10dp"
+                            />
 
                         <com.hbbsolution.owner.base.IconTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerInParent="true"
                             android:layout_marginRight="10dp"
                             android:text="@string/ion_chevron_right"
                             android:textColor="@android:color/darker_gray"
@@ -403,7 +419,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.1dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="@dimen/margin_padding_40dp"
                         android:background="@android:color/darker_gray" />
 
                     <LinearLayout
@@ -414,56 +430,55 @@
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:paddingTop="10dp">
+                        android:paddingTop="10dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical">
 
-                        <com.hbbsolution.owner.base.IconTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerInParent="true"
-                            android:layout_marginRight="10dp"
-                            android:text="@string/ic_facebook"
-                            android:textColor="@color/home_background_history"
-                            android:textSize="@dimen/icon_size_normal" />
+                        <ImageView
+                            android:layout_width="@dimen/space_96"
+                            android:layout_height="@dimen/space_96"
+                            android:background="@drawable/background_button_blue"/>
+
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/more_follow_Gv24_on_facebook"
-                            android:textColor="@color/home_background_history" />
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="@dimen/margin_padding_10dp"/>
 
                         <com.hbbsolution.owner.base.IconTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerInParent="true"
                             android:layout_marginRight="10dp"
                             android:text="@string/ion_chevron_right"
                             android:textColor="@android:color/darker_gray"
                             android:textSize="@dimen/icon_size_normal" />
                     </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="@dimen/margin_padding_40dp"
+                        android:background="@android:color/darker_gray" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <LinearLayout
+            <Button
                 android:id="@+id/lnLogOut"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/signout"
-                    android:textColor="@color/home_background_maid_aound" />
-            </LinearLayout>
+                android:layout_marginTop="@dimen/margin_padding_10dp"
+                android:layout_marginLeft="@dimen/margin_padding_40dp"
+                android:layout_marginRight="@dimen/margin_padding_40dp"
+                android:layout_marginBottom="@dimen/margin_padding_20dp"
+                android:text="@string/signout"
+                android:textColor="@color/grey_400"
+                android:textAllCaps="false"
+                android:background="@drawable/background_button_grey"
+                >
+            </Button>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

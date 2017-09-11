@@ -36,9 +36,30 @@ public class TypeJobAdapter extends RecyclerView.Adapter<TypeJobAdapter.Recycler
     }
 
     @Override
-    public void onBindViewHolder(TypeJobAdapter.RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(TypeJobAdapter.RecyclerViewHolder holder, final int position) {
+        holder.setIsRecyclable(false);
         typeJob = listData.get(position);
         holder.tvTypeJobName.setText(typeJob.getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, QuickPostActivity.class);
+                intent.putExtra("quickPost", listData.get(position));
+                context.startActivity(intent);
+                ((HomeActivity)context).finish();
+            }
+        });
+
+        holder.tvTypeJobName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, QuickPostActivity.class);
+                intent.putExtra("quickPost", listData.get(position));
+                context.startActivity(intent);
+                ((HomeActivity)context).finish();
+            }
+        });
       }
 
     @Override

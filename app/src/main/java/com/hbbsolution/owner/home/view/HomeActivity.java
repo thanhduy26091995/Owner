@@ -6,16 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.TypeJobAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
+import com.hbbsolution.owner.base.ImageLoader;
 import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.home.prsenter.HomePresenter;
 import com.hbbsolution.owner.maid_near_by_new_version.view.MaidNearByNewActivity;
@@ -37,26 +34,20 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class HomeActivity extends AuthenticationBaseActivity implements HomeView, View.OnClickListener, QuickPostView {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.home_title_toothbar)
-    TextView txtHome_title_toothbar;
+
     @BindView(R.id.lo_maid_around)
-    RelativeLayout mLayout_MaidAround;
+    Button mLayout_MaidAround;
     @BindView(R.id.lo_your_tasks)
-    RelativeLayout mLayout_YourTasks;
+    Button mLayout_YourTasks;
     @BindView(R.id.lo_history)
-    RelativeLayout mLayout_History;
-    @BindView(R.id.txt_work_management)
-    TextView txt_work_management;
-    @BindView(R.id.txt_work_management_history)
-    TextView txt_work_management_history;
-    @BindView(R.id.txt_work_maid_around)
-    TextView txt_work_maid_around;
+    Button mLayout_History;
+    @BindView(R.id.imgAvatar)
+    CircleImageView imgAvatar;
 //    @BindView(R.id.rcv_type_job)
 //    RecyclerView rcv_type_job;
 
@@ -87,26 +78,17 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
 
         rcv_type_job = (RecyclerView) findViewById(R.id.rcv_type_job);
         // setup toolbar
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        txtHome_title_toothbar.setText(getResources().getString(R.string.home_home));
         checkConnectionInterner();
         // on click
         mLayout_MaidAround.setOnClickListener(this);
         mLayout_YourTasks.setOnClickListener(this);
         mLayout_History.setOnClickListener(this);
+        imgAvatar.setOnClickListener(this);
+
         sessionManagerForLanguage = new SessionManagerForLanguage(this);
         String lang = sessionManagerForLanguage.getLanguage();
 
-        if (lang.equals("Tiếng Việt")) {
-            txt_work_maid_around.setText(changeCharInPosition(setTitle(txt_work_maid_around.getText().toString(), 2), '\n', txt_work_maid_around.getText().toString()));
-            txt_work_management.setText(changeCharInPosition(setTitle(txt_work_management.getText().toString(), 2), '\n', txt_work_management.getText().toString()));
-            txt_work_management_history.setText(changeCharInPosition(setTitle(txt_work_management_history.getText().toString(), 2), '\n', txt_work_management_history.getText().toString()));
-        } else {
-            txt_work_maid_around.setText(changeCharInPosition(setTitle(txt_work_maid_around.getText().toString(), 1), '\n', txt_work_maid_around.getText().toString()));
-            txt_work_management.setText(changeCharInPosition(setTitle(txt_work_management.getText().toString(), 1), '\n', txt_work_management.getText().toString()));
-            txt_work_management_history.setText(changeCharInPosition(setTitle(txt_work_management_history.getText().toString(), 1), '\n', txt_work_management_history.getText().toString()));
-        }
+
         sessionManagerForLanguage = new SessionManagerForLanguage(HomeActivity.this);
         mHomePresenter = new HomePresenter(this);
         sessionManagerUser = new SessionManagerUser(HomeActivity.this);
@@ -125,6 +107,10 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             quickPostPresenter.getAllTypeJob();
         }
         setRecyclerView();
+
+        //Set Avatar
+        ImageLoader.getInstance().loadImageAvatar(HomeActivity.this,sessionManagerUser.getUserDetails().get(SessionManagerUser.KEY_IMAGE),imgAvatar);
+
     }
 
     private void setRecyclerView() {
@@ -156,19 +142,6 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         super.onStop();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.actio_more) {
-            transActivity(MoreActivity.class);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onDestroy() {
@@ -192,6 +165,9 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             case R.id.lo_history:
                 transActivity(HistoryActivity.class);
                 finish();
+                break;
+            case R.id.imgAvatar:
+                transActivity(MoreActivity.class);
                 break;
         }
     }
