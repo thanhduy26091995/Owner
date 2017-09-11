@@ -102,6 +102,7 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
     private static final int dialogDistance = 100, PLACE_PICKER_REQUEST = 101, dialogTypeJob = 102, dialogPrice = 103, dialogGender = 104;
     private List<Item> mListItemDistance, mListItemPrice, mListItemTypeOfWork, mListItemGender;
     private Integer ageMin = null, ageMax = null;
+    private String mAddress, mWorkName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -242,6 +243,10 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
                 }
 
                 if (InternetConnection.getInstance().isOnline(this)) {
+                    //save data into filtermodel
+                    FilterModel filterModel = new FilterModel(mLat, mLng, mAddress, maxDistance, priceMin, priceMax, workId, mWorkName,
+                            gender, ageMin, ageMax);
+                    FilterModelSingleton.getInstance().saveFilterModel(filterModel);
                     mButtonUpdate.setEnabled(false);
                     showProgress();
                     presenter.filterMaid(mLat, mLng, ageMin, ageMax, gender, maxDistance, priceMin, priceMax, workId);
@@ -347,6 +352,7 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
                 if (dialogResulltItem.getObject() != null) {
                     Item item = (Item) dialogResulltItem.getObject();
                     workId = item.getId();
+                    mWorkName = item.getTitle();
                     mTextViewTypeJob.setText(item.getTitle());
                 }
                 mMessageDialogManger.onDimiss();
@@ -384,7 +390,7 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
-                String mAddress = String.format("%s", place.getAddress());
+                mAddress = String.format("%s", place.getAddress());
                 mTextViewLocation.setText(mAddress);
                 mLat = place.getLatLng().latitude;
                 mLng = place.getLatLng().longitude;
