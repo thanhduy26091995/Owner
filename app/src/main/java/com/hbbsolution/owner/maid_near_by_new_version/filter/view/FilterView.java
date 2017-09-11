@@ -1,4 +1,4 @@
-package com.hbbsolution.owner.maid_near_by.view.filter.view;
+package com.hbbsolution.owner.maid_near_by_new_version.filter.view;
 
 import com.hbbsolution.owner.base.ConnectionInterface;
 import com.hbbsolution.owner.model.MaidNearByResponse;

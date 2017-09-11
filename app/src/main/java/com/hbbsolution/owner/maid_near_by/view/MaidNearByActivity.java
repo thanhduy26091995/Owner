@@ -47,7 +47,7 @@ import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.maid_near_by.model.MarkerInfoWindowAdapter;
 import com.hbbsolution.owner.maid_near_by.presenter.MaidNearByPresenter;
-import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterActivity;
+import com.hbbsolution.owner.maid_near_by_new_version.filter.view.FilterActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.more.viet_pham.base.GoogleAuthController;
@@ -191,11 +191,10 @@ public class MaidNearByActivity extends AuthenticationBaseActivity implements Ma
                         public void run() {
                             // Do something after 5s = 5000ms
                             loadData();
-                            progressDialog.hide();
+                            progressDialog.dismiss();
                         }
-                    }, 6000);
+                    }, 5000);
                 }
-
             }
         }
     };

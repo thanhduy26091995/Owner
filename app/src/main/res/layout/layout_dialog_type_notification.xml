@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_box"
+        android:layout_marginLeft="@dimen/space_150"
+        android:layout_marginRight="@dimen/space_150"
+        android:gravity="center"
+        android:paddingTop="@dimen/space_40"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/space_48"
+            android:paddingRight="@dimen/space_48">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imageview_mark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_dialog_typeinformation" />
+
+            <com.daniribalbert.customfontlib.views.CustomFontTextView
+                android:id="@+id/textview_title"
+                android:layout_marginTop="@dimen/space_40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/dialog_title"
+                android:textColor="@color/blue_500"
+                android:textSize="@dimen/font_48"
+                app:font="Roboto_Regular" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.daniribalbert.customfontlib.views.CustomFontTextView
+                android:id="@+id/textview_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:minLines="3"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="@dimen/font_42"
+                android:layout_marginRight="@dimen/space_20"
+                android:layout_marginLeft="@dimen/space_20"
+                app:font="Roboto_Light" />
+
+            <com.daniribalbert.customfontlib.views.CustomFontButton
+                android:id="@+id/button_accept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_50"
+                android:background="@drawable/dialog_box_button_alone"
+                android:text="@string/dialog_button_close"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_48"
+                app:font="Roboto_Regular" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

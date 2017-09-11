@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Maid implements Serializable{
+public class Maid implements Serializable {
 
     @SerializedName("_id")
     @Expose
@@ -19,6 +19,17 @@ public class Maid implements Serializable{
     @SerializedName("info")
     @Expose
     private InfoMaid info;
+
+    @SerializedName("dist")
+    private Dist dist;
+
+    public Dist getDist() {
+        return dist;
+    }
+
+    public void setDist(Dist dist) {
+        this.dist = dist;
+    }
 
     public String getId() {
         return id;

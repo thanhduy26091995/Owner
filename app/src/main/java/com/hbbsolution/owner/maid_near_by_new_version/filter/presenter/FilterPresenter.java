@@ -1,8 +1,8 @@
-package com.hbbsolution.owner.maid_near_by.view.filter.presenter;
+package com.hbbsolution.owner.maid_near_by_new_version.filter.presenter;
 
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
-import com.hbbsolution.owner.maid_near_by.view.filter.view.FilterView;
+import com.hbbsolution.owner.maid_near_by_new_version.filter.view.FilterView;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 
@@ -51,7 +51,11 @@ public class FilterPresenter {
             @Override
             public void onResponse(Call<MaidNearByResponse> call, Response<MaidNearByResponse> response) {
                 if (response.isSuccessful()) {
-                    view.filterMaid(response.body());
+                    if (response.body().getStatus()) {
+                        view.filterMaid(response.body());
+                    } else {
+                        view.displayError(response.body().getMessage());
+                    }
 
                 } else {
                     view.displayError(response.message());

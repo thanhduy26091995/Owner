@@ -2,16 +2,16 @@
 <resources>
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#000</color>
-    <color name="colorAccent">#33c6cd</color>
+    <color name="colorAccent">#066EA9</color>
 
     <color name="colorWhite">#FFF</color>
     <color name="colorBlack">#000</color>
     <color name="color_line_view">#C0C0C0</color>
     <color name="edittext_hint">#808080</color>
     
-    <color name="home_background_maid_aound">#ffbf41</color>
-    <color name="home_background_your_tasks">#5fd81b</color>
-    <color name="home_background_history">#33c6cd</color>
+    <color name="home_background_maid_aound">#FFC041</color>
+    <color name="home_background_your_tasks">#7ED321</color>
+    <color name="home_background_history">#066EA9</color>
     <color name="job_number_person">#F44336</color>
 
     <color name="collapsedappbar">#00ffffff</color>
@@ -39,4 +39,29 @@
     <color name="colorToolBar">#128785</color>
 
     <color name="text_item_type_job">#990f4839</color>
+
+    <color name="grey_800">#424242</color>
+
+    <color name="colorGeneral">#f47321</color>
+
+    <color name="grey_200">#EEEEEE</color>
+
+    <color name="yellow_500">#FFEB3B</color>
+
+    <color name="red_500">#F44336</color>
+
+    <color name="grey_400">#BDBDBD</color>
+
+    <color name="transparent_black_70">#4D000000</color>
+
+    <color name="blue_500">#2196F3</color>
+
+    <color name="black">#000000</color>
+
+    <color name="white">#ffffff</color>
+    
+    <color name="color_blue_new">#066EA9</color>
+    <color name="red_new">#F30649</color>
+    <color name="yellow_new">#FFC041</color>
+    <color name="green_new">#7ED321</color>
 </resources>

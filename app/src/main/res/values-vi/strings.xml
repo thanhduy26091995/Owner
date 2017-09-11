@@ -403,4 +403,28 @@
 
     <string name="check_in_correct">Hợp lệ</string>
     <string name="check_in_incorrect">Không hợp lệ</string>
+
+    <!-- Dialog message start-->
+    <string name="dialog_title">Tin nhắn</string>
+    <string name="signin_loading">Đang tải...</string>
+    <string name="dialog_button_confirm_no">Không</string>
+    <string name="dialog_button_confirm_yes">Có</string>
+    <string name="dialog_button_close">Đóng</string>
+    <!-- Dialog message end-->
+
+    <string name="maid_near_by_list">Workers</string>
+    <string name="maid_near_by_map">Map</string>
+    <string name="maid_near_by_location">Location</string>
+    <string name="maid_near_by_update">Cập nhật</string>
+    <string name="maid_near_by_all_work">Tất cả</string>
+    <string name="maid_near_by_age">Tuổi: </string>
+
+    <string-array name="maid_near_by_price">
+        <item> &lt; 50.000d</item>
+        <item>50.000d - 150.000d</item>
+        <item>150.000d - 250.000d</item>
+        <item>250.000d - 350.000d</item>
+        <item>350.000d - 450.000d</item>
+        <item>&gt; 450.000d</item>
+    </string-array>
 </resources>

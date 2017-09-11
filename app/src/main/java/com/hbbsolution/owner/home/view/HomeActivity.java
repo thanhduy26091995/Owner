@@ -18,7 +18,7 @@ import com.hbbsolution.owner.adapter.TypeJobAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.home.prsenter.HomePresenter;
-import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
+import com.hbbsolution.owner.maid_near_by_new_version.view.MaidNearByNewActivity;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.viet_pham.View.MoreActivity;
@@ -74,6 +74,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     private boolean isChangeLanguage = false;
 
     private SessionShortcutBadger sessionShortcutBadger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,7 +181,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         int id = view.getId();
         switch (id) {
             case R.id.lo_maid_around:
-                transActivity(MaidNearByActivity.class);
+                transActivity(MaidNearByNewActivity.class);
                 finish();
                 //ShowToast("Maid Around");
                 break;

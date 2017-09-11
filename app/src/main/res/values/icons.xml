@@ -53,4 +53,7 @@
     <!--Recharge activity-->
     <string name="ic_telephone">&#xf4b9;</string>
     <!--Recharge activity-->
+
+    <string name="ic_location">&#xf456;</string>
+    <string name="ic_distance">&#xf203;</string>
 </resources>

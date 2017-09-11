@@ -77,7 +77,7 @@
         <activity android:name=".more.phuc_tran.view.AboutActivity" />
         <activity android:name=".more.phuc_tran.view.ForgotPassActivity" />
         <activity android:name=".report.view.ReportMaidActivity" />
-        <activity android:name=".maid_near_by.view.filter.view.FilterActivity" />
+        <activity android:name=".maid_near_by_new_version.filter.view.FilterActivity" />
         <activity android:name=".more.viet_pham.View.profile.ProfileActivity" />
         <activity android:name=".maid_profile.choose_maid.view.ChooseMaidActivity" />
         <activity android:name=".more.duy_nguyen.LanguageActivity" />
@@ -104,6 +104,7 @@
         <activity android:name=".history.view.DetailUnpaidWork"></activity>
         <activity android:name=".work_management.view.quickpost.QuickPostActivity"></activity>
         <activity android:name=".run_face.view.PhotoViewerActivity" />
+        <activity android:name=".maid_near_by_new_version.view.MaidNearByNewActivity" />
     </application>
 
 </manifest>

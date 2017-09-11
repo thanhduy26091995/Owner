@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/dialog_box"
+        android:orientation="vertical"
+        android:paddingBottom="5dp">
+
+        <com.daniribalbert.customfontlib.views.CustomFontTextView
+            android:id="@+id/textview_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/colorBlack" />
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textview_header"
+            android:layout_marginTop="5dp"
+            android:background="@color/grey_400" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textview_cancel"
+            android:layout_below="@+id/v_line"
+            tools:listitem="@layout/item_type" />
+
+        <com.daniribalbert.customfontlib.views.CustomFontTextView
+            android:id="@+id/textview_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/cancel"
+            android:textColor="@color/colorBlack" />
+    </RelativeLayout>
+</RelativeLayout>
