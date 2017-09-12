@@ -17,10 +17,12 @@ package com.hbbsolution.owner.run_face.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
@@ -121,9 +123,21 @@ public class FaceView extends View {
         double imageHeight = mBitmap.getHeight();
         double scale = Math.min(viewWidth / imageWidth, viewHeight / imageHeight);
 
-//        Rect destBounds = new Rect(0, 0, (int) (imageWidth * scale), (int) (imageHeight * scale));
-        Rect destBounds = new Rect(0, 0, (int) (imageWidth*scale ), (int) (imageHeight *scale));
-        canvas.drawBitmap(mBitmap, null, destBounds, null);
+        Rect destBounds = new Rect(0, 0, (int) (imageWidth * scale), (int) (imageHeight * scale));
+        // Rect destBounds = new Rect(0, 0, (int) (imageWidth * scale), (int) (imageHeight * scale));
+        //canvas.drawBitmap(mBitmap, null, destBounds, null);
+        BitmapShader bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(1);
+        paint.setShader(bitmapShader);
+        //  Bitmap mutableBitmap = mBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        // canvas = new Canvas(mutableBitmap);
+
+        canvas.drawCircle((float) viewWidth / 2, (float) viewHeight / 2, (float) viewWidth / 2, paint);
+        // canvas.drawBitmap(mBitmap, null, destBounds, null);
         return scale;
     }
 
