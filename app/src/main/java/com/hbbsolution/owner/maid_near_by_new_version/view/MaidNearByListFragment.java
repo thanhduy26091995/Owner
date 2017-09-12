@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,8 +27,10 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.maid_near_by_new_version.adapter.MaidNearByNewAdapter;
 import com.hbbsolution.owner.maid_near_by_new_version.presenter.MaidNearByNewPresenter;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.model.MaidNearByResponse;
+import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.ShowSettingLocation;
 import com.hbbsolution.owner.utils.ShowSnackbar;
@@ -57,12 +60,14 @@ public class MaidNearByListFragment extends Fragment implements LocationListener
     private List<Maid> mMaidList;
     private RecyclerView mRecycler;
     private MaidNearByNewAdapter mMaidNearByNewAdapter;
+    private SessionManagerUser sessionManagerUser;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_maid_near_by_list, container, false);
         mRecycler = (RecyclerView) rootView.findViewById(R.id.recyclerView_maid);
+        sessionManagerUser = new SessionManagerUser(getContext());
         maidNearByListFragment = this;
         initComponents();
         return rootView;
@@ -131,6 +136,20 @@ public class MaidNearByListFragment extends Fragment implements LocationListener
         } else {
             ShowSnackbar.showSnack(getActivity(), getResources().getString(R.string.no_internet));
         }
+        //event click adapter
+        mMaidNearByNewAdapter.setItemClick(new MaidNearByNewAdapter.OnItemClick() {
+            @Override
+            public void onItemClickDetail(Maid maid) {
+                if (sessionManagerUser.isLoggedIn()) {
+                    Intent intent = new Intent(getActivity(), MaidProfileActivity.class);
+                    intent.putExtra("maid", maid);
+                    startActivity(intent);
+                } else {
+                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.activity), getResources().getString(R.string.loginFirst), Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
+        });
     }
 
     public void loadData() {
@@ -258,6 +277,10 @@ public class MaidNearByListFragment extends Fragment implements LocationListener
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    public List<Maid> getCurrentMaidList() {
+        return mMaidList;
     }
 
     public void updateListMaid(List<Maid> maids) {

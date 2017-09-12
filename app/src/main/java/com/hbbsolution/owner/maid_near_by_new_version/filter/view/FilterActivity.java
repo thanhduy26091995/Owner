@@ -111,12 +111,10 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
         ButterKnife.bind(this);
         mMessageDialogManger = new MessageDialogManger();
         initDataList();
+        showDataFilter();
         //init
         presenter = new FilterPresenter(this);
         presenter.getAllTypeJob();
-        //get intent
-        mLat = (Double) getIntent().getDoubleExtra(Constants.LAT, 0);
-        mLng = (Double) getIntent().getDoubleExtra(Constants.LNG, 0);
         //init toolbar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -159,6 +157,7 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
             //load data
             mLat = filterModel.getLat();
             mLng = filterModel.getLng();
+            mAddress = filterModel.getAddress();
             if (!TextUtils.isEmpty(filterModel.getAddress())) {
                 mTextViewLocation.setText(filterModel.getAddress());
             }
@@ -168,27 +167,45 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
             }
             priceMin = filterModel.getPriceMin();
             priceMax = filterModel.getPriceMax();
-            if (priceMin == null && priceMax == 50000) {
-                mTextViewPrice.setText("< 50000d");
-            } else if (priceMax == null && priceMin == 450000) {
-                mTextViewPrice.setText("> 450000d");
-            } else {
+            if (priceMax != null && priceMin != null) {
                 mTextViewPrice.setText(String.format("%dd - %dd", priceMin, priceMax));
+            } else {
+                if (priceMax == null && priceMin == null) {
+                    mTextViewPrice.setText(getResources().getString(R.string.price));
+                } else {
+                    if (priceMin == null) {
+                        mTextViewPrice.setText("< 50000d");
+                    } else {
+                        mTextViewPrice.setText("> 450000d");
+                    }
+                }
             }
             workId = filterModel.getWorkId();
-            mTextViewTypeJob.setText(filterModel.getWorkName());
-            gender = filterModel.getGender();
-            if (gender == 1) {
-                mTextViewGender.setText(getResources().getString(R.string.pro_file_gender_female));
+            if (filterModel.getWorkName() != null) {
+                mTextViewTypeJob.setText(filterModel.getWorkName());
             } else {
-                mTextViewGender.setText(getResources().getString(R.string.pro_file_gender_male));
+                mTextViewTypeJob.setText(getResources().getString(R.string.types_of_work));
+            }
+            gender = filterModel.getGender();
+            if (gender != null) {
+                if (gender == 1) {
+                    mTextViewGender.setText(getResources().getString(R.string.pro_file_gender_female));
+                } else {
+                    mTextViewGender.setText(getResources().getString(R.string.pro_file_gender_male));
+                }
+            } else {
+                mTextViewGender.setText(getResources().getString(R.string.gender));
             }
             ageMin = filterModel.getAgeMin();
             ageMax = filterModel.getAgeMax();
-            if (ageMax != null && ageMin != null && ageMin == ageMax) {
-                mTextViewOld.setText(String.format("%d %s", ageMax, getResources().getString(R.string.old)));
+            if (ageMax != null && ageMin != null) {
+                if (ageMin == ageMax) {
+                    mTextViewOld.setText(String.format("%d %s", ageMax, getResources().getString(R.string.old)));
+                } else {
+                    mTextViewOld.setText(String.format("%s %d %s %d", getResources().getString(R.string.from), ageMin, getResources().getString(R.string.to), ageMax));
+                }
             } else {
-                mTextViewOld.setText(String.format("%s %d %s %d", getResources().getString(R.string.from), ageMin, getResources().getString(R.string.to), ageMax));
+                mTextViewOld.setText(getResources().getString(R.string.sign_up_age));
             }
         }
     }
@@ -245,7 +262,7 @@ public class FilterActivity extends AuthenticationBaseActivity implements View.O
                 if (InternetConnection.getInstance().isOnline(this)) {
                     //save data into filtermodel
                     FilterModel filterModel = new FilterModel(mLat, mLng, mAddress, maxDistance, priceMin, priceMax, workId, mWorkName,
-                            gender, ageMin, ageMax);
+                            gender, ageMax, ageMin);
                     FilterModelSingleton.getInstance().saveFilterModel(filterModel);
                     mButtonUpdate.setEnabled(false);
                     showProgress();

@@ -70,7 +70,7 @@ public class MaidNearByNewActivity extends BaseActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
-
+                    MaidNearByMapFragment.getInstance().updateDataMap(MaidNearByListFragment.getInstance().getCurrentMaidList());
                 }
             }
 

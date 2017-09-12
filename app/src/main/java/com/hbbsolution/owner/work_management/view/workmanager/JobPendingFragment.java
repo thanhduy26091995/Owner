@@ -108,10 +108,16 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
 
             mJobPendingAdapter.setCallback(new JobPendingAdapter.Callback() {
                 @Override
-                public void onItemClick(DatumPending mDatum) {
+                public void onItemClickDetail(DatumPending mDatum) {
                     Intent itDetailJobPending = new Intent(getActivity(), DetailJobPendingActivity.class);
                     itDetailJobPending.putExtra("mDatum", mDatum);
                     startActivity(itDetailJobPending);
+                }
+
+                @Override
+                public void onItemClickDelete(DatumPending mDatum) {
+                    progressBar.setVisibility(View.GONE);
+                    mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
                 }
 
                 @Override

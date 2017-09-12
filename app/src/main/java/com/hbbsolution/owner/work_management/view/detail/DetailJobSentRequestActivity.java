@@ -22,6 +22,8 @@ import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
+import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 
@@ -283,5 +285,20 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
     public void connectServerFail() {
         hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+    }
+
+    @Override
+    public void getInfoListMaid(ListMaidResponse mListMaidRespose) {
+
+    }
+
+    @Override
+    public void responseChosenMaid(JobPostResponse mJobPostResponse) {
+
+    }
+
+    @Override
+    public void getError() {
+
     }
 }

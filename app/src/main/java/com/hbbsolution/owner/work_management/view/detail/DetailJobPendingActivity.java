@@ -41,6 +41,8 @@ import com.hbbsolution.owner.utils.EncodeImage;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
+import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
 
@@ -487,5 +489,20 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     public void connectServerFail() {
         hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+    }
+
+    @Override
+    public void getInfoListMaid(ListMaidResponse mListMaidRespose) {
+
+    }
+
+    @Override
+    public void responseChosenMaid(JobPostResponse mJobPostResponse) {
+
+    }
+
+    @Override
+    public void getError() {
+
     }
 }

@@ -1,9 +1,12 @@
 package com.hbbsolution.owner.work_management.presenter;
 
+import android.util.Log;
+
 import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.api.ApiInterface;
 import com.hbbsolution.owner.model.CheckInResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
+import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
 import com.hbbsolution.owner.work_management.view.detail.DetailJobPostView;
 
 import java.io.File;
@@ -80,6 +83,60 @@ public class DetailJobPostPresenter {
             @Override
             public void onFailure(Call<CheckInResponse> call, Throwable t) {
                 mDetailJobPostView.checkInFail(t.getMessage());
+            }
+        });
+    }
+
+    public void getInfoListMaid(String process) {
+        Call<ListMaidResponse> call = apiService.getInfoListMaid(process);
+        call.enqueue(new Callback<ListMaidResponse>() {
+            @Override
+            public void onResponse(Call<ListMaidResponse> call, Response<ListMaidResponse> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        if (response.body().getStatus()) {
+                            ListMaidResponse mListMaidResponse = response.body();
+                            mDetailJobPostView.getInfoListMaid(mListMaidResponse);
+                        } else {
+                            mDetailJobPostView.getError();
+                        }
+                    } catch (Exception e) {
+                        mDetailJobPostView.getError();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ListMaidResponse> call, Throwable t) {
+                mDetailJobPostView.connectServerFail();
+            }
+        });
+    }
+
+    public void sentRequestChosenMaid(String id, String maidId) {
+        Call<JobPostResponse> call = apiService.sentRequestChosenMaid(id, maidId);
+        call.enqueue(new Callback<JobPostResponse>() {
+            @Override
+            public void onResponse(Call<JobPostResponse> call, Response<JobPostResponse> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        if (response.body().getStatus()) {
+                            mDetailJobPostView.responseChosenMaid(response.body());
+                        } else {
+                            mDetailJobPostView.displayError(response.body().getMessage());
+                        }
+                    } catch (Exception e) {
+                        mDetailJobPostView.getError();
+                    }
+                } else {
+                    mDetailJobPostView.displayError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JobPostResponse> call, Throwable t) {
+                mDetailJobPostView.connectServerFail();
+                Log.e("errors", t.toString());
             }
         });
     }

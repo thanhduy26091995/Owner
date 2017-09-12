@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.swipe.SwipeLayout;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
@@ -24,14 +25,14 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
 
     private Context context;
     private List<Datum> datumList;
-    private ManageJobAdapter.Callback callback;
+    private Callback callback;
 
     public JobPostAdapter(Context context, List<Datum> datumList) {
         this.context = context;
         this.datumList = datumList;
     }
 
-    public void setCallback(ManageJobAdapter.Callback callback) {
+    public void setCallback(Callback callback) {
         this.callback = callback;
     }
 
@@ -91,24 +92,48 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
             Log.d("ERROR_LOAD", mDatum.getId());
             Log.d("ERROR_LOAD", e.getMessage());
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.linearData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (callback != null) {
-                    callback.onItemClick(mDatum);
+                    callback.onItemClickDetail(mDatum);
                 }
             }
         });
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.linearDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                if (callback != null) {
-                    callback.onItemLongClick(mDatum);
+            public void onClick(View v) {
+                if (callback != null){
+                    callback.onItemClickDelete(mDatum);
                 }
-                return true;
             }
         });
+//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                if (callback != null) {
+//                    callback.onItemLongClick(mDatum);
+//                }
+//                return true;
+//            }
+//        });
+//
+//        holder.linearDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("CLICK", "TRUE");
+//            }
+//        });
+//
+//        holder.linearData.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("CLICK_DATA", "TRUE");
+//            }
+//        });
+
+
     }
 
     @Override
@@ -121,6 +146,8 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
                 txtTitleJobPost, txtNumber_request_detail_post, txtExpired, txtType, txtRequestDirect;
         private ImageView imgTypeJobPost;
         private LinearLayout lo_background;
+        private SwipeLayout swipeLayout;
+        private LinearLayout linearDelete, linearData;
 
         public JobPostViewHolder(View itemView) {
             super(itemView);
@@ -134,11 +161,22 @@ public class JobPostAdapter extends RecyclerView.Adapter<JobPostAdapter.JobPostV
             lo_background = (LinearLayout) itemView.findViewById(R.id.lo_background);
             txtType = (TextView) itemView.findViewById(R.id.txtType);
             txtRequestDirect = (TextView) itemView.findViewById(R.id.txtExpired_request_direct_detail);
+            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_post);
+            linearDelete = (LinearLayout) itemView.findViewById(R.id.bottom_delete);
+            linearData = (LinearLayout) itemView.findViewById(R.id.linear_data);
+
+            //config swipe
+            swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, itemView.findViewById(R.id.bottom_delete));
+            swipeLayout.setRightSwipeEnabled(true);
+            swipeLayout.setLeftSwipeEnabled(false);
         }
     }
 
     public interface Callback {
-        void onItemClick(Datum mDatum);
+        void onItemClickDetail(Datum mDatum);
+
+        void onItemClickDelete(Datum mDatum);
 
         void onItemLongClick(Datum mDatum);
     }

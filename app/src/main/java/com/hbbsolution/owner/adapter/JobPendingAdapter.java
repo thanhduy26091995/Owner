@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.swipe.SwipeLayout;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
@@ -83,22 +84,21 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
 
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.linearData.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 if (callback != null) {
-                    callback.onItemClick(mDatum);
+                    callback.onItemClickDetail(mDatum);
                 }
             }
         });
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.linearDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public void onClick(View v) {
                 if (callback != null) {
-                    callback.onItemLongClick(mDatum);
+                    callback.onItemClickDelete(mDatum);
                 }
-                return true;
             }
         });
     }
@@ -115,6 +115,9 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
         private ImageView imgTypeJobPost;
         private LinearLayout lo_background;
 
+        private SwipeLayout swipeLayout;
+        private LinearLayout linearData, linearDelete;
+
         public JobPendingViewHolder(View itemView) {
             super(itemView);
 
@@ -127,11 +130,22 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
             txtExpired = (TextView) itemView.findViewById(R.id.txtExpired_request_detail_post);
             lo_background = (LinearLayout) itemView.findViewById(R.id.lo_background);
             txtType = (TextView) itemView.findViewById(R.id.txtType);
+            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_post);
+            linearData = (LinearLayout) itemView.findViewById(R.id.linear_data);
+            linearDelete = (LinearLayout) itemView.findViewById(R.id.bottom_delete);
+
+            //config swipe
+            swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, itemView.findViewById(R.id.bottom_delete));
+            swipeLayout.setRightSwipeEnabled(true);
+            swipeLayout.setLeftSwipeEnabled(false);
         }
     }
 
     public interface Callback {
-        void onItemClick(DatumPending mDatum);
+        void onItemClickDetail(DatumPending mDatum);
+
+        void onItemClickDelete(DatumPending mDatum);
 
         void onItemLongClick(DatumPending mDatum);
     }

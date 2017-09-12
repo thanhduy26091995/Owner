@@ -25,12 +25,16 @@ public class MaidNearByNewAdapter extends RecyclerView.Adapter<MaidNearByNewAdap
 
     private List<Maid> mMaidInfoList;
     private Activity mActivity;
+    private OnItemClick listener;
 
     public MaidNearByNewAdapter(List<Maid> mMaidInfoList, Activity mActivity) {
         this.mMaidInfoList = mMaidInfoList;
         this.mActivity = mActivity;
     }
 
+    public void setItemClick(OnItemClick listener) {
+        this.listener = listener;
+    }
 
     @Override
     public MaidNearByNewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,7 +45,7 @@ public class MaidNearByNewAdapter extends RecyclerView.Adapter<MaidNearByNewAdap
     @Override
     public void onBindViewHolder(MaidNearByNewViewHolder holder, int position) {
         try {
-            Maid maid = mMaidInfoList.get(position);
+            final Maid maid = mMaidInfoList.get(position);
             //load data
             ImageLoader.getInstance().loadImageAvatar(mActivity, maid.getInfo().getImage(), holder.mImageViewAvatar);
             holder.mTextViewName.setText(maid.getInfo().getName());
@@ -53,6 +57,15 @@ public class MaidNearByNewAdapter extends RecyclerView.Adapter<MaidNearByNewAdap
             }
             holder.mTextViewAge.setText(String.format("%s %d", mActivity.getResources().getString(R.string.maid_near_by_age), maid.getInfo().getAge()));
             holder.mRatingBar.setRating(maid.getWorkInfo().getEvaluationPoint());
+            //event click
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onItemClickDetail(maid);
+                    }
+                }
+            });
         } catch (Exception e) {
 
         }
@@ -79,5 +92,9 @@ public class MaidNearByNewAdapter extends RecyclerView.Adapter<MaidNearByNewAdap
             mTextViewAge = (TextView) itemView.findViewById(R.id.textView_maid_birth);
             mRatingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
         }
+    }
+
+    public interface OnItemClick {
+        void onItemClickDetail(Maid maid);
     }
 }

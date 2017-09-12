@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -18,11 +21,17 @@ import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.base.IconTextView;
+import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.CheckInResponse;
+import com.hbbsolution.owner.model.Maid;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.utils.WorkTimeValidate;
+import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
+import com.hbbsolution.owner.work_management.model.maid.ListMaidResponse;
+import com.hbbsolution.owner.work_management.model.maid.Request;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.presenter.DetailJobPostPresenter;
+import com.hbbsolution.owner.work_management.view.detail.adapter.ApplicantListAdapter;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 import com.hbbsolution.owner.work_management.view.listmaid.ListUserRecruitmentActivity;
 
@@ -30,7 +39,9 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -48,8 +59,8 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
     TextView txtManager_post_title_toothbar;
     @BindView(R.id.job_psot_edit_toothbar)
     IconTextView txtJob_post_edit_toothbar;
-    @BindView(R.id.txtNumber_request_detail_post)
-    TextView txtNumber_request_detail_post;
+    //    @BindView(R.id.txtNumber_request_detail_post)
+//    TextView txtNumber_request_detail_post;
     @BindView(R.id.txtTitle_job_detail_post)
     TextView txtTitle_job_detail_post;
     @BindView(R.id.txtType_job_detail_post)
@@ -69,19 +80,25 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
     @BindView(R.id.lo_list_recruitment)
     LinearLayout lo_list_recruitment;
     @BindView(R.id.lo_clear_job)
-    LinearLayout lo_clear_job;
+    Button lo_clear_job;
     @BindView(R.id.progressDetailJobPost)
     ProgressBar progressBar;
     @BindView(R.id.txtIsTools)
     TextView txtIsTools;
     @BindView(R.id.txtExpired_request_detail_post)
     TextView txtExpired_request_detail_post;
+    @BindView(R.id.recycler_applicant)
+    RecyclerView mRecyclerApplicant;
+    @BindView(R.id.textView_choose_maid)
+    TextView mTextViewChooseMaid;
 
     public static Activity mDetailJobPostActivity = null;
 
     private Datum mDatum;
     private DetailJobPostPresenter mDetailJobPostPresenter;
-
+    private ApplicantListAdapter mApplicantListAdapter;
+    private List<Request> mListRequestList;
+    private Maid mMaidChoose;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,33 +114,63 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mDetailJobPostPresenter = new DetailJobPostPresenter(this);
+        mMaidChoose = new Maid();
+        mListRequestList = new ArrayList<>();
+        mApplicantListAdapter = new ApplicantListAdapter(mListRequestList, this);
+        mRecyclerApplicant.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mRecyclerApplicant.setAdapter(mApplicantListAdapter);
+
+        //event click applicant
+        mApplicantListAdapter.OnItemClick(new ApplicantListAdapter.OnItemClickApplicant() {
+            @Override
+            public void onItemClickAvatar(Maid maid) {
+                Intent itInfoUser = new Intent(DetailJobPostActivity.this, MaidProfileActivity.class);
+                itInfoUser.putExtra("maid", maid);
+                itInfoUser.putExtra("idTaskProcess", mDatum.getId());
+                itInfoUser.putExtra("chosenMaidFromListRecruitment", true);
+                startActivity(itInfoUser);
+            }
+
+            @Override
+            public void onItemClick(Maid maid, Boolean result) {
+                if (result) {
+                    mMaidChoose = maid;
+                    mTextViewChooseMaid.setVisibility(View.VISIBLE);
+                    txtJob_post_edit_toothbar.setVisibility(View.GONE);
+                }
+            }
+        });
 
         txtJob_post_edit_toothbar.setOnClickListener(this);
         lo_list_recruitment.setOnClickListener(this);
         lo_clear_job.setOnClickListener(this);
+        mTextViewChooseMaid.setOnClickListener(this);
 
         final Intent intent = getIntent();
         mDatum = (Datum) intent.getSerializableExtra("mDatum");
         try {
-            if (mDatum != null){
+            if (mDatum != null) {
                 if (!compareDays(mDatum.getInfo().getTime().getEndAt())) {
                     txtJob_post_edit_toothbar.setVisibility(View.GONE);
                     txtExpired_request_detail_post.setVisibility(View.VISIBLE);
                     if (mDatum.getStakeholders().getRequest().size() > 0) {
-                        txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-                        txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                        //txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                        //  txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
                     } else {
                         lo_list_recruitment.setVisibility(View.GONE);
-                        txtNumber_request_detail_post.setVisibility(View.GONE);
+                        //   txtNumber_request_detail_post.setVisibility(View.GONE);
 
                     }
                 } else {
                     txtExpired_request_detail_post.setVisibility(View.GONE);
                     if (mDatum.getStakeholders().getRequest().size() > 0) {
-                        txtNumber_request_detail_post.setVisibility(View.VISIBLE);
-                        txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
+                        // txtNumber_request_detail_post.setVisibility(View.VISIBLE);
+                        // txtNumber_request_detail_post.setText(String.valueOf(mDatum.getStakeholders().getRequest().size()));
                         lo_list_recruitment.setVisibility(View.VISIBLE);
                         txtJob_post_edit_toothbar.setVisibility(View.GONE);
+                        //gọi danh sách những nguoi đăng ký
+                        showProgress();
+                        mDetailJobPostPresenter.getInfoListMaid(mDatum.getId());
                     } else {
 //                txtNumber_request_detail_post.setVisibility(View.GONE);
                         lo_list_recruitment.setVisibility(View.GONE);
@@ -158,8 +205,7 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
                             .into(imgType_job_detail_post);
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -228,7 +274,11 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
                 });
                 alertDialog.show();
                 break;
-
+            case R.id.textView_choose_maid: {
+                showProgress();
+                mDetailJobPostPresenter.sentRequestChosenMaid(mDatum.getId(), mMaidChoose.getId());
+                break;
+            }
         }
     }
 
@@ -260,6 +310,9 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
     @Override
     public void displayError(String error) {
         hideProgress();
+        if (error.equals("SCHEDULE_DUPLICATED")){
+            ShowAlertDialog.showAlert(getResources().getString(R.string.job_post_new_error_scheduled_duplicated), DetailJobPostActivity.this);
+        }
     }
 
     @Override
@@ -298,5 +351,48 @@ public class DetailJobPostActivity extends AuthenticationBaseActivity implements
     public void connectServerFail() {
         hideProgress();
         ShowAlertDialog.showAlert(getResources().getString(R.string.connection_error), this);
+    }
+
+    @Override
+    public void getInfoListMaid(ListMaidResponse mListMaidRespose) {
+        hideProgress();
+        int size = mListMaidRespose.getData().size();
+        for (int i = 0; i < size; i++) {
+            mListRequestList.addAll(mListMaidRespose.getData().get(i).getRequest());
+        }
+        mApplicantListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void responseChosenMaid(JobPostResponse mJobPostResponse) {
+        hideProgress();
+        if (mJobPostResponse.getStatus()) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle(getResources().getString(R.string.notification));
+            alertDialog.setMessage(getResources().getString(R.string.chon_nguoi_giup_viec_thanh_cong));
+            alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    EventBus.getDefault().postSticky(true);
+                    EventBus.getDefault().postSticky("1");
+                    finish();
+                }
+            });
+
+            alertDialog.show();
+        } else {
+            if (mJobPostResponse.getMessage().trim().equals("SCHEDULE_DUPLICATED")) {
+                ShowAlertDialog.showAlert(getResources().getString(R.string.schedule_duplicated_choose_maid), DetailJobPostActivity.this);
+            } else if (mJobPostResponse.getMessage().trim().equals("DATA_NOT_EXIST")) {
+                ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), DetailJobPostActivity.this);
+            }
+
+        }
+    }
+
+    @Override
+    public void getError() {
+        hideProgress();
     }
 }

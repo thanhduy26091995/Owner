@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPostAdapter;
-import com.hbbsolution.owner.adapter.ManageJobAdapter;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
@@ -99,9 +98,9 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             mRecycler.setLayoutManager(linearLayoutManager);
             mRecycler.setAdapter(mJobPostAdapter);
 
-            mJobPostAdapter.setCallback(new ManageJobAdapter.Callback() {
+            mJobPostAdapter.setCallback(new JobPostAdapter.Callback() {
                 @Override
-                public void onItemClick(Datum mDatum) {
+                public void onItemClickDetail(Datum mDatum) {
                     switch (mDatum.getProcess().getId()) {
                         case "000000000000000000000006":
                             Intent itDetailJobSentRequest = new Intent(getActivity(), DetailJobSentRequestActivity.class);
@@ -114,6 +113,12 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
                             startActivity(itDetailJobPost);
                             break;
                     }
+                }
+
+                @Override
+                public void onItemClickDelete(Datum mDatum) {
+                    progressBar.setVisibility(View.GONE);
+                    mWorkManagerPresenter.deleteJob(mDatum.getId(), mDatum.getStakeholders().getOwner());
                 }
 
                 @Override

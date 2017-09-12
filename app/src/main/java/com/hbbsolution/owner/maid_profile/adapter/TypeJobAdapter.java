@@ -1,6 +1,5 @@
 package com.hbbsolution.owner.maid_profile.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbbsolution.owner.R;
-import com.hbbsolution.owner.adapter.ManageJobAdapter;
 import com.hbbsolution.owner.model.Ability;
 import com.squareup.picasso.Picasso;
 

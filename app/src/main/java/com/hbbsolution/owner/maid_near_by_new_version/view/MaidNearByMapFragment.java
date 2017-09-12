@@ -22,8 +22,6 @@ import com.hbbsolution.owner.model.Maid;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.hbbsolution.owner.maid_near_by_new_version.view.MaidNearByListFragment.maidNearByListFragment;
-
 /**
  * Created by buivu on 08/09/2017.
  */
@@ -73,7 +71,7 @@ public class MaidNearByMapFragment extends Fragment implements OnMapReadyCallbac
                 @Override
                 public boolean onMarkerClick(Marker marker) {
                     marker.showInfoWindow();
-                    marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+//                    marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
                     return true;
                 }
             });

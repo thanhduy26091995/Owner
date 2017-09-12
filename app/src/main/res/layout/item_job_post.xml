@@ -1,203 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swipe_post"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/bottom_delete"
+            android:layout_width="@dimen/width_img_itemnews"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp">
+            android:background="@color/red_new"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgTypeJobPost"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/dondepnha" />
+            <com.hbbsolution.owner.base.IconTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ic_delete"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_05dp"
+                android:text="@string/job_post_new_delete"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/imgTypeJobPost"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgTypeJobPost"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/dondepnha" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="5">
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/imgTypeJobPost"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txtTitleJobPost"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.8"
-                        android:layout_marginRight="5dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="Cần giúp nấu ăn lau dọn vệ sinh nhà"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold" />
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.2">
+                        android:orientation="horizontal"
+                        android:weightSum="5">
 
                         <TextView
-                            android:id="@+id/txtExpired_request_detail_post"
-                            android:layout_width="match_parent"
+                            android:id="@+id/txtTitleJobPost"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:visibility="gone"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:layout_marginLeft="3dp"
-                            android:layout_marginRight="12dp"
-                            android:padding="2dp"
-                            android:background="@drawable/background_text_expired"
-                            android:text="@string/qua_han"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/icon_size_normal" />
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="2.8"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Cần giúp nấu ăn lau dọn vệ sinh nhà"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/txtNumber_request_detail_post"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@drawable/circle"
-                            android:gravity="center"
-                            android:visibility="gone"
+                            android:layout_weight="2.2">
 
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/icon_size_normal" />
+                            <TextView
+                                android:id="@+id/txtExpired_request_detail_post"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="12dp"
+                                android:background="@drawable/background_text_expired"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="@string/qua_han"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/icon_size_normal"
+                                android:visibility="gone" />
 
-                        <TextView
-                            android:id="@+id/txtExpired_request_direct_detail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="15dp"
-                            android:background="@drawable/background_txt_request_direct"
-                            android:gravity="center"
-                            android:padding="2dp"
-                            android:text="@string/sent_directly"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_size_small"
-                            android:visibility="gone" />
+                            <TextView
+                                android:id="@+id/txtNumber_request_detail_post"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/circle"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
 
-                    </RelativeLayout>
+                                android:textSize="@dimen/icon_size_normal"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/txtExpired_request_direct_detail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/background_txt_request_direct"
+                                android:gravity="center"
+                                android:padding="2dp"
+                                android:text="@string/sent_directly"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/text_size_small"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/txtType"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:textSize="12sp" />
+                        android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="0.1dp"
-                        android:layout_height="12sp"
-                        android:layout_gravity="bottom"
-                        android:background="@android:color/darker_gray" />
+                        <TextView
+                            android:id="@+id/txtType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/txtTimePostHistory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
-                        android:text="1 phút trước"
-                        android:textSize="12sp" />
+                        <View
+                            android:layout_width="0.1dp"
+                            android:layout_height="12sp"
+                            android:layout_gravity="bottom"
+                            android:background="@android:color/darker_gray" />
+
+                        <TextView
+                            android:id="@+id/txtTimePostHistory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="1 phút trước"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <com.hbbsolution.owner.base.IconTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/manager_ic_clock"
+                    android:textColor="@color/home_background_history"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtDatePostHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="10/10/2017"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/txtTimeDoingPost"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="9h00 am - 12h00 am"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <com.hbbsolution.owner.base.IconTextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/manager_ic_clock"
-                android:textColor="@color/home_background_history"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/txtDatePostHistory"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:text="10/10/2017"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorBlack" />
-
-            <TextView
-                android:id="@+id/txtTimeDoingPost"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:text="9h00 am - 12h00 am"
-                android:textSize="12sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
 
         </LinearLayout>
+    </com.daimajia.swipe.SwipeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/darker_gray" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lo_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/more_background_lo"
+        android:orientation="vertical"
         android:visibility="gone">
 
     </LinearLayout>
