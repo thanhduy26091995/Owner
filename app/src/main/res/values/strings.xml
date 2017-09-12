@@ -443,7 +443,7 @@
     <string name="job_post_new_type">Type</string>
     <string name="job_post_new_time">Time</string>
     <string name="job_post_new_other_request">Other requests</string>
-    <string name="job_post_new_choose_maid">Choose maid for this work</string>
+    <string name="job_post_new_choose_maid">CHOOSE MAID FOR THIS WORK</string>
     <string name="job_post_new_delete">Delete</string>
     <string name="job_post_new_choose">Choose</string>
     <string name="job_post_new_error_scheduled_duplicated">The applicant has got another work with the same working time</string>

@@ -59,7 +59,7 @@ import static android.view.View.GONE;
 public class MaidProfileActivity extends AuthenticationBaseActivity implements MaidProfileView, View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
 
     @BindView(R.id.lo_toolbar)
-    LinearLayout toolbar;
+    RelativeLayout toolbar;
     @BindView(R.id.info_user_appbar)
     AppBarLayout appBarLayout;
     @BindView(R.id.collapsing_toolbar)

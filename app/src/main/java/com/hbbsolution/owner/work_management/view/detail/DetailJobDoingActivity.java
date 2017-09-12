@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -43,7 +44,7 @@ public class DetailJobDoingActivity extends AuthenticationBaseActivity implement
     @BindView(R.id.manager_doing_title_toothbar)
     TextView txtManager_doing_title_toothbar;
     @BindView(R.id.lo_ChosenCheckin)
-    RelativeLayout lo_ChosenCheckin;
+    Button lo_ChosenCheckin;
     @BindView(R.id.txtNameJobDoingInfoMaid)
     TextView txtNameJobDoingInfoMaid;
     @BindView(R.id.txtAddressJobDoingInfoMaid)

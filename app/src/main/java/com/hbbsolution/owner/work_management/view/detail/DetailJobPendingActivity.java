@@ -22,8 +22,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,7 +64,7 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.lo_clear_job_pending)
-    LinearLayout lo_clear_job_pending;
+    Button lo_clear_job_pending;
     @BindView(R.id.lo_infoMaid)
     RelativeLayout lo_infoMaid;
     @BindView(R.id.txtTitleJobPending)
@@ -92,7 +92,7 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     @BindView(R.id.progressDetailJobPending)
     ProgressBar progressBar;
     @BindView(R.id.rela_confirm_maid)
-    RelativeLayout relaConfirmMaid;
+    Button relaConfirmMaid;
     @BindView(R.id.txtIsTools)
     TextView txtIsTools;
 

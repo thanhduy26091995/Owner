@@ -4,7 +4,6 @@
     android:id="@+id/activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -120,46 +119,18 @@
 
                     </RelativeLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:background="@android:color/darker_gray" />
-
-                    <RelativeLayout
+                    <Button
                         android:id="@+id/lo_ChosenCheckin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorWhite"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/job_doing_txtDone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_gravity="center"
-                            android:gravity="center_vertical"
-                            android:paddingBottom="10dp"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="10dp"
-                            android:text="@string/work_complete"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="@color/home_background_history" />
-
-                        <com.hbbsolution.owner.base.IconTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/job_doing_txtDone"
-                            android:gravity="right"
-                            android:paddingRight="10dp"
-                            android:text="@string/manager_ic_logout"
-                            android:textColor="@color/home_background_history"
-                            android:textSize="20sp" />
-
-                    </RelativeLayout>
-
+                        android:layout_marginTop="@dimen/margin_padding_10dp"
+                        android:layout_marginLeft="@dimen/margin_padding_20dp"
+                        android:layout_marginBottom="@dimen/margin_padding_20dp"
+                        android:layout_marginRight="@dimen/margin_padding_20dp"
+                        android:background="@drawable/background_button_blue"
+                        android:text="@string/work_complete"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
                 <TextView
@@ -184,9 +155,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="20dp"
                         android:paddingBottom="10dp"
                         android:text="@string/description"
+                        android:textColor="@color/grey_800"
                         android:textStyle="bold" />
                 </RelativeLayout>
 

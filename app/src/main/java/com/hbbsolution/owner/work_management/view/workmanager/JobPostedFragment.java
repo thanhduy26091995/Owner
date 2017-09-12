@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPostAdapter;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
+import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanager.Datum;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
@@ -43,6 +44,8 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
     private LinearLayout lnNoData;
     private WorkManagerPresenter mWorkManagerPresenter;
     private List<Datum> mJobList = new ArrayList<>();
+    private List<Datum> mJobListExpire = new ArrayList<>();
+    private List<Datum> mJobListPost = new ArrayList<>();
     private JobPostAdapter mJobPostAdapter;
     private RecyclerView mRecycler;
     private ProgressBar progressBar;
@@ -88,12 +91,31 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
     public void getInfoJob(WorkManagerResponse mExample) {
         progressBar.setVisibility(View.GONE);
         EventBus.getDefault().postSticky(mExample.getData().size());
+
+        mJobListPost.clear();
+        mJobListExpire.clear();
+
         mJobList = mExample.getData();
         if (mJobList.size() > 0) {
             lnNoData.setVisibility(View.GONE);
             mRecycler.setVisibility(View.VISIBLE);
             mRecycler.setHasFixedSize(true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+
+            for (Datum job : mJobList){
+                if (!WorkTimeValidate.compareDays(job.getInfo().getTime().getEndAt()))
+                {
+                    mJobListExpire.add(job);
+                }
+                else
+                {
+                    mJobListPost.add(job);
+                }
+            }
+            mJobListPost.addAll(mJobListExpire);
+            mJobList.clear();
+            mJobList.addAll(mJobListPost);
+
             mJobPostAdapter = new JobPostAdapter(getActivity(), mJobList);
             mRecycler.setLayoutManager(linearLayoutManager);
             mRecycler.setAdapter(mJobPostAdapter);
