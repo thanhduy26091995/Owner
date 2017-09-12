@@ -166,6 +166,9 @@ public class JobPostedFragment extends Fragment implements WorkManagerView {
             alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    EventBus.getDefault().postSticky(true);
+                    EventBus.getDefault().postSticky("0");
+
                     getActivity().finish();
                     getActivity().overridePendingTransition(0, 0);
                     getActivity().startActivity(getActivity().getIntent());

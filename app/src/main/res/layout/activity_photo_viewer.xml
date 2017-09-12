@@ -69,13 +69,15 @@
             android:layout_width="196dp"
             android:layout_height="196dp"
             android:layout_margin="27dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:src="@drawable/avatar" />
 
 
         <com.hbbsolution.owner.run_face.view.FaceView
             android:id="@+id/faceView_compare_uri"
             android:layout_width="196dp"
             android:layout_height="196dp"
+            android:src="@drawable/avatar"
             android:layout_margin="27dp"
             android:layout_weight="1" />
 

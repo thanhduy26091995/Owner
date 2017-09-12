@@ -20,6 +20,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -95,7 +100,10 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
 
         //get intent
         mCompareImageModel = (CompareImageModel) getIntent().getSerializableExtra("CompareImage");
-
+        mCompareImageModel = new CompareImageModel();
+        mCompareImageModel.setConfidence(0.4);
+        mCompareImageModel.setImageServer("http://res.cloudinary.com/nguyencaoky/image/upload/v1499395868/wquharvyugja3yi7n0e8.jpg");
+        mCompareImageModel.setImageGallery("/storage/emulated/0/Pictures/1505199594101.jpg");
 
         Double mConfidence = mCompareImageModel.getConfidence() * 100;
         mRateMatch = mConfidence.intValue();
@@ -223,6 +231,10 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
             // of the SafeFaceDetector class will patch the issue.
             final Detector<Face> safeDetector = new SafeFaceDetector(detector);
 
+            //convert
+            bitmapServer = drawBitmap(bitmapServer);
+            bitmapGallery = drawBitmap(bitmapGallery);
+
             // Create a frame from the bitmap and run face detection on the frame.
             Frame frameServer = new Frame.Builder().setBitmap(bitmapServer).build();
             final SparseArray<Face> facesServer = safeDetector.detect(frameServer);
@@ -272,6 +284,31 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
             }, 1000);
 
         }
+    }
+
+    private Bitmap drawBitmap(Bitmap input) {
+
+        double imageWidth = input.getWidth();
+        double imageHeight = input.getHeight();
+
+        Bitmap workingBitmap = Bitmap.createBitmap(input);
+        Bitmap mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+
+        Canvas canvas = new Canvas(mutableBitmap);
+
+        BitmapShader bitmapShader = new BitmapShader(mutableBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(1);
+        paint.setShader(bitmapShader);
+        //  Bitmap mutableBitmap = mBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        // canvas = new Canvas(mutableBitmap);
+
+        canvas.drawCircle((float) imageWidth / 2, (float) imageHeight / 2, (float) imageWidth / 2, paint);
+        // canvas.drawBitmap(mBitmap, null, destBounds, null);
+        return mutableBitmap;
     }
 
     private void initProgressbar() {
