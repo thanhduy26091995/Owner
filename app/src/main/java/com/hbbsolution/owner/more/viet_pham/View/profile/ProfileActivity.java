@@ -42,8 +42,6 @@ public class ProfileActivity extends AppCompatActivity {
     TextView txtProfilePhone;
     @BindView(R.id.img_avatar)
     ImageView imgAvatar;
-    @BindView(R.id.img_blur_image)
-    ImageView imgBlurImage;
     @BindView(R.id.textview_update)
     TextView txtUpdate;
 
@@ -81,22 +79,6 @@ public class ProfileActivity extends AppCompatActivity {
         txtProfilePhone.setText(hashDataUser.get(SessionManagerUser.KEY_PHONE));
         ImageLoader.getInstance().loadImageAvatar(ProfileActivity.this, hashDataUser.get(SessionManagerUser.KEY_IMAGE),
                 imgAvatar);
-
-//        // from Bitmap
-//        Glide.with(ProfileActivity.this)
-//                .load(hashDataUser.get(SessionManagerUser.KEY_IMAGE))
-//                .asBitmap()
-//                .error(R.drawable.avatar)
-//                .into(new SimpleTarget<Bitmap>() {
-//                    @Override
-//                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                        Blurry.with(ProfileActivity.this)
-//                                .radius(10)
-//                                .from(resource)
-//                                .into(imgBlurImage);
-//                    }
-//                });
-
     }
 
     private void addEvent() {

@@ -439,4 +439,6 @@
         <item>350.000d - 450.000d</item>
         <item>&gt; 450.000d</item>
     </string-array>
+
+    <string name="comment_upcase">COMMENT</string>
 </resources>

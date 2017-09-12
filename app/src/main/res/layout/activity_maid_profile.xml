@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
     android:fitsSystemWindows="true">
 
     <android.support.v4.widget.NestedScrollView
@@ -26,7 +25,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
                 android:paddingBottom="15dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -35,6 +33,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/grey_800"
                     android:text="@string/comment_upper" />
             </LinearLayout>
 
@@ -80,11 +80,11 @@
             android:id="@+id/txtBackInfoMaid"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/margin_padding_20dp"
             android:gravity="center_vertical"
             android:text="@string/ic_back"
             android:textColor="@color/home_background_history"
-            android:textSize="30dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/manager_doing_title_toothbar"
@@ -92,7 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/evaluate"
+            android:layout_marginRight="@dimen/margin_padding_25dp"
+            android:text="@string/comment"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -142,12 +143,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/img_blur_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="190dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/blur_bg_profile" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -159,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="20dp">
+                            android:layout_marginTop="@dimen/margin_padding_20dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="96dp"
@@ -179,13 +174,12 @@
                             android:id="@+id/txtNameInfoMaid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="@dimen/margin_padding_05dp"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:text="Thanh Duy"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/text_size_large" />
 
@@ -197,7 +191,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerInParent="true"
                             android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="@dimen/margin_padding_05dp"
                             android:numStars="5"
                             android:rating="4"
                             android:stepSize="1"
@@ -208,9 +202,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/margin_padding_15dp"
                     android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
                     android:weightSum="4">
 
                     <com.hbbsolution.owner.base.IconTextView
@@ -236,7 +229,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:text="Nữ"
                             android:textColor="@color/colorBlack" />
 
                         <View
@@ -363,25 +355,24 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="@dimen/margin_padding_20dp"
                     android:background="@android:color/darker_gray" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/more_background"
                     android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="20dp"
                     android:text="@string/work_ability"
-                    android:textColor="@color/colorBlack" />
+                    android:textStyle="bold"
+                    android:textColor="@color/grey_800" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
                     android:weightSum="4">
 
                     <com.hbbsolution.owner.base.IconTextView
@@ -422,7 +413,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+                    android:layout_marginTop="10dp"/>
 
                 <View
                     android:layout_width="match_parent"

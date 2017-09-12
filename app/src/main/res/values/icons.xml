@@ -56,4 +56,11 @@
 
     <string name="ic_location">&#xf456;</string>
     <string name="ic_distance">&#xf203;</string>
+
+    <string name="ic_notifications">&#xf39b;</string>
+    <string name="ic_language_change">&#xf4d3;</string>
+    <string name="ic_list_outline">&#xf391;</string>
+    <string name="ic_person">&#xf47e;</string>
+    <string name="ic_mail_outline">&#xf422;</string>
+    <string name="ic_follow">&#xf39e;</string>
 </resources>

@@ -90,8 +90,7 @@ public class MaidProfileActivity extends AuthenticationBaseActivity implements M
     View vLine;
     @BindView(R.id.img_avatarMaid)
     ImageView img_avatarMaid;
-    @BindView(R.id.img_blur_image)
-    ImageView imgBlurImage;
+
     @BindView(R.id.recy_listTypeJob)
     RecyclerView recy_listTypeJob;
     @BindView(R.id.nestedScrollView)

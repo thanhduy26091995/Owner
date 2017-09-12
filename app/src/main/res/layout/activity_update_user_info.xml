@@ -45,8 +45,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="25dp"
-
+                android:layout_marginTop="@dimen/margin_padding_20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/camera_android"
                 app:civ_border_overlay="true" />
@@ -73,7 +72,8 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerInParent="true"
                             android:text="@string/ic_mail"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textColor="@color/colorAccent"/>
 
                         <EditText
                             android:id="@+id/edit_email"
@@ -86,7 +86,7 @@
                             android:fontFamily="@string/font_family_thin"
                             android:hint="@string/sign_up_email"
                             android:inputType="textEmailAddress"
-                            android:textColor="@color/color_line_view" />
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <View
@@ -110,7 +110,8 @@
                             android:layout_alignParentTop="true"
                             android:layout_marginTop="10dp"
                             android:text="@string/ic_fullname"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textColor="@color/colorAccent" />
 
                         <EditText
                             android:id="@+id/edit_full_name"
@@ -122,7 +123,8 @@
                             android:fontFamily="@string/font_family_thin"
                             android:hint="@string/sign_up_full_name"
                             android:inputType="text"
-                            android:textColor="@android:color/black" />
+                            android:textStyle="bold"
+                            android:textColor="@color/grey_800" />
                     </RelativeLayout>
 
                     <View
@@ -145,7 +147,8 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerInParent="true"
                             android:text="@string/ic_gender"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textColor="@color/colorAccent"/>
 
                         <EditText
                             android:id="@+id/edit_gender"
@@ -157,7 +160,8 @@
                             android:focusable="false"
                             android:fontFamily="@string/font_family_thin"
                             android:hint="@string/sign_up_gender"
-                            android:textColor="@android:color/black" />
+                            android:textStyle="bold"
+                            android:textColor="@color/grey_800" />
                     </RelativeLayout>
 
                     <View
@@ -180,7 +184,8 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerInParent="true"
                             android:text="@string/ic_phone_portr"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textColor="@color/colorAccent"/>
 
                         <EditText
                             android:id="@+id/edit_number"
@@ -192,7 +197,8 @@
                             android:fontFamily="@string/font_family_thin"
                             android:hint="@string/sign_up_phone_number"
                             android:inputType="number"
-                            android:textColor="@android:color/black" />
+                            android:textStyle="bold"
+                            android:textColor="@color/grey_800" />
                     </RelativeLayout>
 
                     <View
@@ -216,7 +222,8 @@
                             android:layout_alignParentTop="true"
                             android:layout_marginTop="10dp"
                             android:text="@string/ic_home"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textColor="@color/colorAccent"/>
 
                         <EditText
                             android:id="@+id/edit_location"
@@ -229,7 +236,8 @@
                             android:hint="@string/sign_up_address"
                             android:maxLines="5"
                             android:paddingBottom="10dp"
-                            android:textColor="@android:color/black" />
+                            android:textStyle="bold"
+                            android:textColor="@color/grey_800" />
                     </RelativeLayout>
 
                     <View
@@ -250,7 +258,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
-            android:paddingBottom="15dp"
+            android:paddingBottom="@dimen/margin_padding_20dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp">
 
@@ -258,11 +266,11 @@
                 android:id="@+id/button_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/home_background_history"
+                android:background="@drawable/background_button_blue"
                 android:text="@string/update_job_post"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

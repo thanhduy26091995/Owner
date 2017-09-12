@@ -71,4 +71,7 @@
     <color name="red_new">#F30649</color>
     <color name="yellow_new">#FFC041</color>
     <color name="green_new">#7ED321</color>
+
+    <color name="facebook">#3B5998</color>
+    <color name="google">#d62d20</color>
 </resources>
