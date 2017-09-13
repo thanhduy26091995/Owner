@@ -121,7 +121,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             title = getResources().getString(R.string.notification);
             body = "CANCEL_DIRECT";
-
         } else if (data.get("status").equals("88")) {
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 0);
