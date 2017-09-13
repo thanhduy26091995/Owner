@@ -356,7 +356,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:cardElevation="20dp"
+        app:cardElevation="@dimen/margin_padding_30dp"
         card_view:cardUseCompatPadding="true"
         android:orientation="vertical">
 
@@ -390,7 +390,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/margin_padding_05dp"
                     android:layout_weight="1"
-                    android:background="@drawable/background_button_white"
+                    android:background="@drawable/background_button_yellow"
                     android:orientation="vertical"
                     android:padding="@dimen/margin_padding_10dp">
 
@@ -399,7 +399,7 @@
                         android:layout_width="@dimen/space_192"
                         android:layout_height="@dimen/space_192"
                         android:layout_gravity="center"
-                        android:src="@mipmap/taikhoanngv" />
+                        android:src="@drawable/piggy_bank_and_book" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -407,7 +407,7 @@
                         android:layout_marginTop="@dimen/margin_padding_05dp"
                         android:gravity="center"
                         android:text="@string/taikhoanGV24"
-                        android:textColor="@color/home_background_maid_aound"
+                        android:textColor="@color/colorWhite"
                         android:textSize="@dimen/text_size_small" />
                 </LinearLayout>
 
@@ -418,7 +418,7 @@
                     android:layout_marginLeft="@dimen/margin_padding_05dp"
                     android:layout_marginRight="@dimen/margin_padding_05dp"
                     android:layout_weight="1"
-                    android:background="@drawable/background_button_white"
+                    android:background="@drawable/background_button_green"
                     android:orientation="vertical"
                     android:padding="@dimen/margin_padding_10dp">
 
@@ -426,7 +426,7 @@
                         android:layout_width="@dimen/space_192"
                         android:layout_height="@dimen/space_192"
                         android:layout_gravity="center"
-                        android:src="@mipmap/thanhtoan_online" />
+                        android:src="@drawable/credit_coin" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -434,7 +434,7 @@
                         android:gravity="center"
                         android:layout_marginTop="@dimen/margin_padding_05dp"
                         android:text="@string/thanhtoanonline"
-                        android:textColor="@color/home_background_your_tasks"
+                        android:textColor="@color/colorWhite"
                         android:textSize="@dimen/text_size_small" />
                 </LinearLayout>
 
@@ -444,7 +444,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_padding_05dp"
                     android:layout_weight="1"
-                    android:background="@drawable/background_button_white"
+                    android:background="@drawable/background_button_blue"
                     android:orientation="vertical"
                     android:padding="@dimen/margin_padding_10dp">
 
@@ -452,7 +452,7 @@
                         android:layout_width="@dimen/space_192"
                         android:layout_height="@dimen/space_192"
                         android:layout_gravity="center"
-                        android:src="@mipmap/tienmat" />
+                        android:src="@drawable/dollar_coin" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -460,7 +460,7 @@
                         android:gravity="center"
                         android:layout_marginTop="@dimen/margin_padding_05dp"
                         android:text="@string/thanhtoantienmat"
-                        android:textColor="@color/home_background_history"
+                        android:textColor="@color/colorWhite"
                         android:textSize="@dimen/text_size_small" />
                 </LinearLayout>
             </LinearLayout>

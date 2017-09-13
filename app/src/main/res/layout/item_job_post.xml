@@ -53,8 +53,7 @@
                     android:layout_height="64dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/dondepnha" />
+                    android:layout_marginLeft="5dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,7 +77,6 @@
                             android:layout_weight="2.8"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="Cần giúp nấu ăn lau dọn vệ sinh nhà"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold" />
@@ -166,7 +164,7 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:paddingLeft="10dp"
-                            android:text="1 phút trước"
+
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -198,7 +196,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="10/10/2017"
+
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorBlack" />
 
@@ -208,7 +206,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="9h00 am - 12h00 am"
                     android:textSize="12sp" />
 
             </LinearLayout>

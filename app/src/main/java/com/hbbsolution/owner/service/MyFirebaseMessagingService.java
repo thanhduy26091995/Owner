@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.history.view.HistoryActivity;
 import com.hbbsolution.owner.utils.SessionShortcutBadger;
 import com.hbbsolution.owner.work_management.view.workmanager.WorkManagementActivity;
@@ -29,6 +30,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private NotificationUtils notificationUtils;
     private int countNotification;
     private SessionShortcutBadger sessionShortcutBadger;
+    private String title,body;
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 //        // [START_EXCLUDE]
@@ -82,6 +84,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void pushNotification(RemoteMessage remoteMessage) {
         Map<String, String> data = remoteMessage.getData();
+
+        title = data.get("title");
+        body = data.get("body");
+
         PendingIntent pendingIntent = null;
         if (data.get("status").equals("2")) {
             EventBus.getDefault().postSticky(false);
@@ -90,6 +96,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra("tabMore", 1);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            title = getResources().getString(R.string.notification);
+            body = "Người giúp việc vừa chấp nhận yêu cầu của bạn";
         } else if (data.get("status").equals("0")) {
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 0);
@@ -97,16 +105,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             EventBus.getDefault().postSticky("0");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            title = getResources().getString(R.string.notification);
+            body = "Công việc vừa bị hủy";
         } else if (data.get("status").equals("10")) {
             Intent intent = new Intent(this, HistoryActivity.class);
             intent.putExtra("tab", 0);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            title = getResources().getString(R.string.notification);
+            body = "CONFIRM_DIRECT";
         } else if (data.get("status").equals("11")) {
             Intent intent = new Intent(this, HistoryActivity.class);
             intent.putExtra("tab", 2);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            title = getResources().getString(R.string.notification);
+            body = "CANCEL_DIRECT";
         } else if (data.get("status").equals("88")) {
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 0);
@@ -114,11 +128,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             EventBus.getDefault().postSticky("0");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            title = getResources().getString(R.string.notification);
+            body = "Người giúp việc vừa ứng tuyển vào công việc của bạn";
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setContentTitle(data.get("title"))
-                .setContentText(data.get("body"))
+                .setContentTitle(title)
+                .setContentText(body)
                 .setAutoCancel(true)
                 .setLights(0xff00ff00, 300, 100)
                 .setDefaults(Notification.DEFAULT_ALL)

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.JobPendingAdapter;
+import com.hbbsolution.owner.utils.WorkTimeValidate;
 import com.hbbsolution.owner.work_management.model.workmanager.WorkManagerResponse;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.DatumPending;
 import com.hbbsolution.owner.work_management.model.workmanagerpending.JobPendingResponse;
@@ -45,6 +46,8 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
     private LinearLayout lnNoData;
     private WorkManagerPresenter mWorkManagerPresenter;
     private List<DatumPending> mJobList = new ArrayList<>();
+    private List<DatumPending> mJobListExpire = new ArrayList<>();
+    private List<DatumPending> mJobListPending = new ArrayList<>();
     private JobPendingAdapter mJobPendingAdapter;
     private RecyclerView mRecycler;
     private ProgressBar progressBar;
@@ -96,12 +99,31 @@ public class JobPendingFragment extends Fragment implements WorkManagerView {
     @Override
     public void getInfoJobPending(JobPendingResponse mJobPendingResponse) {
         progressBar.setVisibility(View.GONE);
+
+        mJobListPending.clear();
+        mJobListExpire.clear();
+
         mJobList = mJobPendingResponse.getData();
         if(mJobList.size() > 0){
             lnNoData.setVisibility(View.GONE);
             mRecycler.setVisibility(View.VISIBLE);
             mRecycler.setHasFixedSize(true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+
+            for (DatumPending job : mJobList){
+                if (!WorkTimeValidate.compareDays(job.getInfo().getTime().getEndAt()))
+                {
+                    mJobListExpire.add(job);
+                }
+                else
+                {
+                    mJobListPending.add(job);
+                }
+            }
+            mJobListPending.addAll(mJobListExpire);
+            mJobList.clear();
+            mJobList.addAll(mJobListPending);
+
             mJobPendingAdapter = new JobPendingAdapter(getActivity(), mJobList, 2);
             mRecycler.setLayoutManager(linearLayoutManager);
             mRecycler.setAdapter(mJobPendingAdapter);
