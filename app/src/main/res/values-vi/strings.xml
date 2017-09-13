@@ -403,6 +403,8 @@
 
     <string name="check_in_correct">Hợp lệ</string>
     <string name="check_in_incorrect">Không hợp lệ</string>
+    <string name="check_in_start">Lets start</string>
+    <string name="check_in_try_again">Thử lại !</string>
 
     <!-- Dialog message start-->
     <string name="dialog_title">Tin nhắn</string>

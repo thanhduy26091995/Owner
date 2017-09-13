@@ -9,6 +9,7 @@ import com.hbbsolution.owner.home.model.ResponseRequest;
 import com.hbbsolution.owner.maid_profile.choose_maid.model.SendRequestResponse;
 import com.hbbsolution.owner.model.AnnouncementResponse;
 import com.hbbsolution.owner.model.CheckInResponse;
+import com.hbbsolution.owner.model.DefaultResponse;
 import com.hbbsolution.owner.model.MaidNearByResponse;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.more.duy_nguyen.model.ContactResponse;
@@ -272,4 +273,7 @@ public interface ApiInterface {
     @POST("payment/chargeOnlineThiConfirm")
     Call<RechargeOnlineThiResponse> getRechargeOnlineThi(@Header("hbbgvaccesskey") String key, @Field("billId") String billId);
 
+    @FormUrlEncoded
+    @POST("task/getmaidbyid")
+    Call<DefaultResponse> sendPushForMaid(@Field("maidId") String maidId);
 }

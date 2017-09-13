@@ -24,6 +24,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 
@@ -108,6 +109,7 @@ public class FaceView extends View {
         super.onDraw(canvas);
         if ((mBitmap != null) && (mFaces != null)) {
             double scale = drawBitmap(canvas);
+            Log.d("SCALE", "" + scale);
             drawFaceAnnotations(canvas, scale);
         }
     }
@@ -121,11 +123,18 @@ public class FaceView extends View {
         double viewHeight = canvas.getHeight();
         double imageWidth = mBitmap.getWidth();
         double imageHeight = mBitmap.getHeight();
+        Log.d("FIRST_1", "" + imageWidth + "/ " + imageHeight);
         double scale = Math.min(viewWidth / imageWidth, viewHeight / imageHeight);
 
-        Rect destBounds = new Rect(0, 0, (int) (imageWidth * scale), (int) (imageHeight * scale));
-        // Rect destBounds = new Rect(0, 0, (int) (imageWidth * scale), (int) (imageHeight * scale));
-        //canvas.drawBitmap(mBitmap, null, destBounds, null);
+
+        //Rect destBounds = new Rect(0, 0, (int) (imageWidth * scale), (int) (imageHeight * scale));
+        // canvas.drawBitmap(mBitmap, null, destBounds, null);
+
+//        Bitmap workingBitmap = Bitmap.createBitmap(mBitmap);
+//        Bitmap mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+//        canvas = new Canvas(mutableBitmap);
+
+
         BitmapShader bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
         Paint paint = new Paint();
@@ -133,6 +142,7 @@ public class FaceView extends View {
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setStrokeWidth(1);
         paint.setShader(bitmapShader);
+
         //  Bitmap mutableBitmap = mBitmap.copy(Bitmap.Config.ARGB_8888, true);
         // canvas = new Canvas(mutableBitmap);
 
@@ -152,7 +162,7 @@ public class FaceView extends View {
     private void drawFaceAnnotations(final Canvas canvas, final double scale) {
         final Paint paintLine = new Paint();
         paintLine.setStyle(Paint.Style.STROKE);
-        paintLine.setStrokeWidth(2);
+        paintLine.setStrokeWidth(1);
         paintLine.setColor(Color.GREEN);
 
         Paint mFacePositionPaint = new Paint();
@@ -193,18 +203,18 @@ public class FaceView extends View {
                 paint.setStyle(Paint.Style.FILL_AND_STROKE);
                 paint.setStrokeWidth(1);
                 paint.setColor(mColors[j % mColors.length]);
-                final int cx = (int) (landmark.getPosition().x * scale);
-                final int cy = (int) (landmark.getPosition().y * scale);
-                canvas.drawCircle(cx, cy, 5, paint);
+                final int cx = (int) (landmark.getPosition().x );
+                final int cy = (int) (landmark.getPosition().y );
+                //canvas.drawCircle(cx, cy, 5, paint);
 
                 Landmark landmarkPre = face.getLandmarks().get((j + 2) % face.getLandmarks().size());
-                final int cxPre = (int) (landmarkPre.getPosition().x * scale);
-                final int cyPre = (int) (landmarkPre.getPosition().y * scale);
+                final int cxPre = (int) (landmarkPre.getPosition().x);
+                final int cyPre = (int) (landmarkPre.getPosition().y);
                 canvas.drawLine(cx, cy, cxPre, cyPre, paintLine);
 
                 Landmark landmarkNext = face.getLandmarks().get((j + 1) % face.getLandmarks().size());
-                final int cxNext = (int) (landmarkNext.getPosition().x * scale);
-                final int cyNext = (int) (landmarkNext.getPosition().y * scale);
+                final int cxNext = (int) (landmarkNext.getPosition().x );
+                final int cyNext = (int) (landmarkNext.getPosition().y );
                 canvas.drawLine(cx, cy, cxNext, cyNext, paintLine);
             }
         }

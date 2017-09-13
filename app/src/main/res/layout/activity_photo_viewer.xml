@@ -60,64 +60,103 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        android:orientation="vertical"
+        android:weightSum="2">
 
-        <com.hbbsolution.owner.run_face.view.FaceView
-            android:id="@+id/faceView_server"
-            android:layout_width="196dp"
-            android:layout_height="196dp"
-            android:layout_margin="27dp"
-            android:layout_weight="1"
-            android:src="@drawable/avatar" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/linear_data"
+            android:layout_below="@+id/appbar"
+            android:layout_marginTop="@dimen/margin_padding_10dp"
+            android:layout_weight="1.1"
+            android:orientation="horizontal">
+
+            <com.hbbsolution.owner.run_face.view.FaceView
+                android:id="@+id/faceView_server"
+                android:layout_width="196dp"
+                android:layout_height="196dp"
+                android:layout_marginLeft="@dimen/margin_padding_20dp"
+                android:layout_marginRight="@dimen/margin_padding_20dp"
+                android:layout_weight="1"
+                android:src="@drawable/avatar" />
 
 
-        <com.hbbsolution.owner.run_face.view.FaceView
-            android:id="@+id/faceView_compare_uri"
-            android:layout_width="196dp"
-            android:layout_height="196dp"
-            android:src="@drawable/avatar"
-            android:layout_margin="27dp"
-            android:layout_weight="1" />
+            <com.hbbsolution.owner.run_face.view.FaceView
+                android:id="@+id/faceView_compare_uri"
+                android:layout_width="196dp"
+                android:layout_height="196dp"
+                android:layout_marginLeft="@dimen/margin_padding_20dp"
+                android:layout_marginRight="@dimen/margin_padding_20dp"
+                android:layout_weight="1"
+                android:src="@drawable/avatar" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_data"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_padding_10dp"
+            android:layout_marginLeft="@dimen/margin_padding_20dp"
+            android:layout_marginRight="@dimen/margin_padding_20dp"
+            android:layout_marginTop="@dimen/margin_padding_10dp"
+            android:layout_weight="0.9"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/circularProgressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_above="@+id/textview_matchrate"
+                android:layout_marginLeft="@dimen/margin_padding_20dp"
+                android:layout_marginRight="@dimen/margin_padding_20dp"
+                android:background="@drawable/background_button_white"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/background_progress_bar_failed" />
+
+            <TextView
+                android:id="@+id/textview_matchrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_padding_20dp"
+                android:layout_marginTop="@dimen/margin_padding_10dp"
+                android:gravity="center"
+                android:text="0%"
+                android:textColor="#000"
+                android:textSize="@dimen/icon_size" />
+
+            <ImageView
+                android:id="@+id/imageView_result"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_success"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textView_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_padding_10dp"
+                android:layout_marginTop="@dimen/margin_padding_10dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:textSize="@dimen/icon_size" />
+        </LinearLayout>
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/circularProgressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textview_matchrate"
-        android:indeterminate="false" />
-
-    <TextView
-        android:id="@+id/textview_matchrate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:text="0%"
-        android:textColor="#000"
-        android:textSize="@dimen/icon_size" />
-
-    <TextView
-        android:id="@+id/textView_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/textview_matchrate"
-        android:gravity="center"
-        android:textColor="#000"
-        android:textSize="@dimen/icon_size" />
 
 </RelativeLayout>

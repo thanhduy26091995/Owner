@@ -74,7 +74,11 @@ public class DetailJobPostPresenter {
             @Override
             public void onResponse(Call<CheckInResponse> call, Response<CheckInResponse> response) {
                 if (response.isSuccessful()) {
-                    mDetailJobPostView.checkIn(response.body());
+                    if (response.body().isStatus()) {
+                        mDetailJobPostView.checkIn(response.body());
+                    } else {
+                        mDetailJobPostView.checkInFail(response.body().getMessage());
+                    }
                 } else {
                     mDetailJobPostView.checkInFail(response.message());
                 }

@@ -16,15 +16,13 @@
 package com.hbbsolution.owner.run_face.view;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Shader;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +34,7 @@ import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -51,8 +50,11 @@ import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.run_face.model.CompareImageModel;
 import com.hbbsolution.owner.run_face.patch.SafeFaceDetector;
+import com.hbbsolution.owner.run_face.presenter.PhotoViewerPresenter;
 import com.hbbsolution.owner.utils.Constants;
 import com.hbbsolution.owner.utils.EncodeImage;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Demonstrates basic usage of the GMS vision face detector by running face landmark detection on a
@@ -78,39 +80,44 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
     final int originalPos[] = new int[2];
     private FaceView view1, view2;
     private boolean fisrt = false;
+    private ImageView mImageViewResult;
+    private Ringtone ringtoneProcess, ringtoneFailed;
+    private PhotoViewerPresenter mPhotoViewerPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_viewer);
 
+        mPhotoViewerPresenter = new PhotoViewerPresenter(this);
         overlayImageServer = (FaceView) findViewById(R.id.faceView_server);
         overlayImageCompare = (FaceView) findViewById(R.id.faceView_compare_uri);
         textViewMatchRate = (TextView) findViewById(R.id.textview_matchrate);
         progressBar = (ProgressBar) findViewById(R.id.circularProgressbar);
+        mImageViewResult = (ImageView) findViewById(R.id.imageView_result);
 
         mTextViewResult = (TextView) findViewById(R.id.textView_result);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
         mTextViewHeader = (TextView) toolbar.findViewById(R.id.title_toolbar);
         mTextViewHeader.setText(getResources().getString(R.string.xacnhannguoigiupviec));
+        //set event click
+        mImageViewResult.setOnClickListener(this);
 
         //get intent
         mCompareImageModel = (CompareImageModel) getIntent().getSerializableExtra("CompareImage");
-        mCompareImageModel = new CompareImageModel();
-        mCompareImageModel.setConfidence(0.4);
-        mCompareImageModel.setImageServer("http://res.cloudinary.com/nguyencaoky/image/upload/v1499395868/wquharvyugja3yi7n0e8.jpg");
-        mCompareImageModel.setImageGallery("/storage/emulated/0/Pictures/1505199594101.jpg");
+
+//        mCompareImageModel = new CompareImageModel();
+//        mCompareImageModel.setConfidence(0.79);
+//        mCompareImageModel.setImageServer("http://res.cloudinary.com/nguyencaoky/image/upload/v1499395868/wquharvyugja3yi7n0e8.jpg");
+//        mCompareImageModel.setImageGallery("/storage/emulated/0/Pictures/1505199594101.jpg");
 
         Double mConfidence = mCompareImageModel.getConfidence() * 100;
         mRateMatch = mConfidence.intValue();
         showProgress();
         try {
             bitmapGallery = EncodeImage.encodeImage(getRealPathFromURI(Uri.parse(mCompareImageModel.getImageGallery())));
-            //bitmapGallery = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(mCompareImageModel.getImageGallery()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,14 +178,14 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
 
 
     public void transPositionView(FaceView faceView) {
-        moveViewToScreenCenter(faceView);
+        moveViewToScreenCenter(faceView, 0.8f);
     }
 
     public void transPositionViewCompare(FaceView faceView) {
-        moveViewToScreenCenter(faceView);
+        moveViewToScreenCenter(faceView, 0.5f);
     }
 
-    private void moveViewToScreenCenter(final View view) {
+    private void moveViewToScreenCenter(final View view, float alpha) {
         DisplayMetrics dm = new DisplayMetrics();
         View rootView = findViewById(R.id.root_view);
         this.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -192,9 +199,9 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
         int yDest = dm.heightPixels / 2 - (view.getMeasuredHeight() / 2) - statusBarOffset;
 
         view.animate()
-                .alpha(0.5f)
+                .alpha(alpha)
                 .translationX(xDest - originalPos[0])
-                .translationY(yDest - originalPos[1])
+                .translationY(yDest - originalPos[1] - getResources().getDimensionPixelOffset(R.dimen.margin_padding_60dp))
                 .setInterpolator(new AccelerateInterpolator())
                 .setDuration(mDuration);
 
@@ -203,8 +210,30 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        if (v == mImageViewResult) {
+            finish();
+            if (mCompareImageModel.getConfidence() >= 0.5) {
+                EventBus.getDefault().postSticky(true);
+                EventBus.getDefault().postSticky("2");
+            }
+        }
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        if (mImageViewResult.getVisibility() == View.VISIBLE) {
+            super.onBackPressed();
+            if (mCompareImageModel.getConfidence() >= 0.5) {
+                EventBus.getDefault().postSticky(true);
+                EventBus.getDefault().postSticky("2");
+            }
+            if (ringtoneProcess.isPlaying()) {
+                ringtoneProcess.stop();
+            }
+            if (ringtoneFailed.isPlaying()) {
+                ringtoneFailed.stop();
+            }
+        }
     }
 
     @Override
@@ -230,10 +259,6 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
             // on very small images.  This will be fixed in a future release.  But in the near term, use
             // of the SafeFaceDetector class will patch the issue.
             final Detector<Face> safeDetector = new SafeFaceDetector(detector);
-
-            //convert
-            bitmapServer = drawBitmap(bitmapServer);
-            bitmapGallery = drawBitmap(bitmapGallery);
 
             // Create a frame from the bitmap and run face detection on the frame.
             Frame frameServer = new Frame.Builder().setBitmap(bitmapServer).build();
@@ -286,57 +311,63 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private Bitmap drawBitmap(Bitmap input) {
+    @Override
+    public void sendPushNotificationSuccessfully() {
+        Log.d("SEND_PUSH", "SUCCESS");
+    }
 
-        double imageWidth = input.getWidth();
-        double imageHeight = input.getHeight();
-
-        Bitmap workingBitmap = Bitmap.createBitmap(input);
-        Bitmap mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
-
-        Canvas canvas = new Canvas(mutableBitmap);
-
-        BitmapShader bitmapShader = new BitmapShader(mutableBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-
-        Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(1);
-        paint.setShader(bitmapShader);
-        //  Bitmap mutableBitmap = mBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        // canvas = new Canvas(mutableBitmap);
-
-        canvas.drawCircle((float) imageWidth / 2, (float) imageHeight / 2, (float) imageWidth / 2, paint);
-        // canvas.drawBitmap(mBitmap, null, destBounds, null);
-        return mutableBitmap;
+    @Override
+    public void sendPushNotificationFailed(String error) {
+        Log.d("SEND_PUSH", "FAILED");
     }
 
     private void initProgressbar() {
+        //play sound
+        playNotificationSound("process", true);
         textViewMatchRate.setText("0 %");
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (mProcess < mRateMatch) {
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(200);
                         mProcess += 2;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 textViewMatchRate.setText(String.format("%d", mProcess) + " %");
                                 if (mProcess < PERCENT_RATE) {
-                                    textViewMatchRate.setTextColor(getResources().getColor(R.color.job_number_person));
+                                    textViewMatchRate.setTextColor(getResources().getColor(R.color.red_new));
+                                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.background_progress_bar_failed));
                                 } else {
-                                    textViewMatchRate.setTextColor(getResources().getColor(R.color.colorAccent));
+                                    textViewMatchRate.setTextColor(getResources().getColor(R.color.green_new));
+                                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.background_progress_bar_success));
                                 }
                                 //show result
                                 if (mProcess >= mRateMatch) {
+                                    //send push for maid
+                                    if (mCompareImageModel.getConfidence() >= 0.5) {
+                                        mPhotoViewerPresenter.sendPushForMaid(mCompareImageModel.getMaidId());
+                                    }
                                     if (mRateMatch < PERCENT_RATE) {
-                                        mTextViewResult.setText(getResources().getString(R.string.check_in_incorrect));
-                                        mTextViewResult.setTextColor(getResources().getColor(R.color.job_number_person));
+                                        mTextViewResult.setText(getResources().getString(R.string.check_in_try_again));
+                                        mTextViewResult.setTextColor(getResources().getColor(R.color.red_new));
+                                        //tắt nhạc process
+                                        ringtoneProcess.stop();
+                                        //phát nhạc in correct
+                                        playNotificationSound("incorrect", false);
+                                        //hiển thị kết quả
+                                        mImageViewResult.setVisibility(View.VISIBLE);
+                                        mImageViewResult.setImageResource(R.drawable.icon_failed);
                                     } else {
-                                        mTextViewResult.setText(getResources().getString(R.string.check_in_correct));
-                                        mTextViewResult.setTextColor(getResources().getColor(R.color.colorAccent));
+                                        //stop nhạc
+                                        ringtoneProcess.stop();
+                                        mTextViewResult.setText(getResources().getString(R.string.check_in_start));
+                                        mTextViewResult.setTextColor(getResources().getColor(R.color.green_new));
+                                        //   playNotificationSound("correct");
+                                        //hiển thị kết quả
+                                        mImageViewResult.setVisibility(View.VISIBLE);
+                                        mImageViewResult.setImageResource(R.drawable.icon_success);
                                     }
                                 }
 
@@ -359,6 +390,21 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void playNotificationSound(String mp3Name, boolean isProcess) {
+        try {
+            Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getPackageName() + "/raw/" + mp3Name);
+            if (isProcess) {
+                ringtoneProcess = RingtoneManager.getRingtone(this, alarmSound);
+                ringtoneProcess.play();
+            } else {
+                ringtoneFailed = RingtoneManager.getRingtone(this, alarmSound);
+                ringtoneFailed.play();
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 }
 

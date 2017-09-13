@@ -12,8 +12,17 @@ public class CompareImageModel implements Serializable {
     private boolean status;
     private Double confidence;
     private Boolean isIdentical;
+    private String maidId;
 
     public CompareImageModel() {
+    }
+
+    public String getMaidId() {
+        return maidId;
+    }
+
+    public void setMaidId(String maidId) {
+        this.maidId = maidId;
     }
 
     public String getImageServer() {

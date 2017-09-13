@@ -183,4 +183,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>
+
+    <style name="AppTheme.WhiteAccent">
+        <item name="android:progressDrawable">@drawable/background_progress_bar_success</item>
+        <item name="colorAccent">@color/green_new</item> <!-- Whatever color you want-->
+        <item name="android:background">@drawable/background_progress_bar</item>
+        <item name="android:minHeight">@dimen/margin_padding_10dp</item>
+        <item name="android:maxHeight">@dimen/margin_padding_10dp</item>
+    </style>
 </resources>

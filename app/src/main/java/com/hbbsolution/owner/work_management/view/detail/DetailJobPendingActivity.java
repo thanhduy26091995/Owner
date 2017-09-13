@@ -418,6 +418,7 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
         mCompareImageModel.setStatus(status);
         mCompareImageModel.setConfidence(checkInResponse.getData().getConfidence());
         mCompareImageModel.setIdentical(checkInResponse.getData().isIdentical());
+        mCompareImageModel.setMaidId(mDatum.getStakeholders().getMadi().getId());
         //save data
         Intent intent = new Intent(DetailJobPendingActivity.this, PhotoViewerActivity.class);
         intent.putExtra("CompareImage", mCompareImageModel);
@@ -472,7 +473,15 @@ public class DetailJobPendingActivity extends AuthenticationBaseActivity impleme
     public void checkInFail(String error) {
         Log.d("ERROR", error);
         hideProgress();
-        ShowAlertDialog.showAlert(getResources().getString(R.string.confirm_failed), DetailJobPendingActivity.this);
+        if (error.equals("DATA_NOT_EXIST")) {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.data_not_exist), DetailJobPendingActivity.this);
+        } else if (error.equals("CHECK_IN_EXIST")) {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_exist), DetailJobPendingActivity.this);
+        } else if (error.equals("FACE_IDENTICAL_FAILED")) {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.checkin_face_identical_failed), DetailJobPendingActivity.this);
+        } else {
+            ShowAlertDialog.showAlert(getResources().getString(R.string.confirm_failed), DetailJobPendingActivity.this);
+        }
     }
 
     private String formatPrice(Integer _Price) {
