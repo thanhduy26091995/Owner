@@ -131,7 +131,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             title = getResources().getString(R.string.notification);
             body = getResources().getString(R.string.status_88);
         }
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setContentTitle(title)
                 .setContentText(body)
