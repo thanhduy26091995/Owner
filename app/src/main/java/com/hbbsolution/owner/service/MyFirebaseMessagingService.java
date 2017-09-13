@@ -97,7 +97,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             title = getResources().getString(R.string.notification);
-            body = "Người giúp việc vừa chấp nhận yêu cầu của bạn";
+            body = getResources().getString(R.string.status_2);
         } else if (data.get("status").equals("0")) {
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 0);
@@ -106,7 +106,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             title = getResources().getString(R.string.notification);
-            body = "Công việc vừa bị hủy";
+            body = getResources().getString(R.string.status_0);
         } else if (data.get("status").equals("10")) {
             Intent intent = new Intent(this, HistoryActivity.class);
             intent.putExtra("tab", 0);
@@ -129,7 +129,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             title = getResources().getString(R.string.notification);
-            body = "Người giúp việc vừa ứng tuyển vào công việc của bạn";
+            body = getResources().getString(R.string.status_88);
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)

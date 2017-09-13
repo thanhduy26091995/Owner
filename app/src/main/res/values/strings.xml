@@ -451,4 +451,10 @@
     <string name="job_post_new_error_scheduled_duplicated">The applicant has got another work with the same working time</string>
 
     <string name="comment_upcase">COMMENT</string>
+    
+    <string name="status_88">You just got a new application</string>
+    <string name="status_0">The applicant just refused your work</string>
+    <string name="status_2">The applicant just accepted your request</string>
+    <string name="status_10">The applicant just accepted your request</string>
+    <string name="status_11">The applicant just accepted your request</string>
 </resources>

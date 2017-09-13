@@ -439,4 +439,10 @@
     <string name="job_post_new_error_scheduled_duplicated">Ứng viên đang có một công việc khác trùng khung giờ</string>
 
     <string name="comment_upcase">NHẬN XÉT</string>
+
+    <string name="status_88">Người giúp việc vừa ứng tuyển vào công việc của bạn</string>
+    <string name="status_0">Người giúp việc vừa hủy công việc đã nhận</string>
+    <string name="status_2">Người giúp việc vừa chấp nhận yêu cầu của bạn</string>
+    <string name="status_10">The applicant just accepted your request</string>
+    <string name="status_11">The applicant just accepted your request</string>
 </resources>
