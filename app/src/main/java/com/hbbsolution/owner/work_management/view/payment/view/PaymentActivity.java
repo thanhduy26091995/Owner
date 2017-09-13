@@ -19,8 +19,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hbbsolution.owner.R;
+import com.hbbsolution.owner.history.CommentHistoryView;
 import com.hbbsolution.owner.history.model.liabilities.LiabilitiesHistory;
+import com.hbbsolution.owner.history.presenter.CommentHistoryPresenter;
 import com.hbbsolution.owner.history.view.CommentActivity;
+import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.paymentonline.api.CheckOrderPresenter;
 import com.hbbsolution.owner.paymentonline.ui.activity.CheckOrderView;
 import com.hbbsolution.owner.paymentonline.ui.activity.PaymentOnlineActivity;
@@ -49,7 +52,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by tantr on 5/19/2017.
  */
 
-public class PaymentActivity extends AppCompatActivity implements View.OnClickListener, PaymentView, CheckOrderView {
+public class PaymentActivity extends AppCompatActivity implements View.OnClickListener, PaymentView, CheckOrderView, CommentHistoryView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tvJob)
@@ -108,7 +111,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private long totalPrice;
 
     private ProgressDialog progressDialog;
-
+    private CommentHistoryPresenter commentHistoryPresenter;
+    private boolean commented;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +123,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         setToolbar();
         checkOrderPresenter = new CheckOrderPresenter(this);
         mPaymentPresenter = new PaymentPresenter(this);
+        commented = false;
+        commentHistoryPresenter = new CommentHistoryPresenter(this);
+
         mPaymentPresenter.getWallet();
         setData();
         setEventClick();
@@ -173,6 +180,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                         .dontAnimate()
                         .into(payment_avatar);
             }
+            commentHistoryPresenter.checkComment(mLiabilitiesHistory.getTask().getId());
         } else if (bdDataBill != null) {
             mDatum = (DatumPending) bdDataBill.getSerializable("mDatum");
             mDataBill = (DataBill) bdDataBill.getSerializable("datacheckout");
@@ -200,6 +208,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                     .centerCrop()
                     .dontAnimate()
                     .into(payment_avatar);
+            commentHistoryPresenter.checkComment(mDatum.getId());
         }
     }
 
@@ -398,7 +407,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 mbundleComment.putString("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
                 mbundleComment.putString("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
                 mbundleComment.putString("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
-                mbundleComment.putInt("total",mDataBill.getPrice());
+                mbundleComment.putInt("total", mDataBill.getPrice());
 //                itPaymentOnline.putExtra("mbundleComment",mbundleComment);
             } else {
                 mbundleComment.putString("idBillOrder", mLiabilitiesHistory.getId());
@@ -407,10 +416,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 mbundleComment.putString("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
                 mbundleComment.putString("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
                 mbundleComment.putString("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
-                mbundleComment.putInt("total",mLiabilitiesHistory.getPrice());
+                mbundleComment.putInt("total", mLiabilitiesHistory.getPrice());
 //                itPaymentOnline.putExtra("mbundleComment",mbundleComment);
             }
-            itPaymentOnline.putExtra("mbundleComment",mbundleComment);
+            itPaymentOnline.putExtra("mbundleComment", mbundleComment);
             startActivity(itPaymentOnline);
         } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), PaymentActivity.this);
@@ -425,29 +434,32 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-                Intent itCommnet = new Intent(PaymentActivity.this, CommentActivity.class);
-                Bundle mbundleComment = new Bundle();
-                if (mDataBill != null) {
+                if (!commented) {
+                    Intent itCommnet = new Intent(PaymentActivity.this, CommentActivity.class);
+                    Bundle mbundleComment = new Bundle();
+                    if (mDataBill != null) {
 //                    itCommnet.putExtra("idTask", mDatum.getId());
 //                    itCommnet.putExtra("idHelper", mDatum.getStakeholders().getMadi().getId());
 //                    itCommnet.putExtra("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
 //                    itCommnet.putExtra("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
 //                    itCommnet.putExtra("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress());
-                    mbundleComment.putString("idTask", mDatum.getId());
-                    mbundleComment.putString("idHelper", mDatum.getStakeholders().getMadi().getId());
-                    mbundleComment.putString("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
-                    mbundleComment.putString("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
-                    mbundleComment.putString("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
+                        mbundleComment.putString("idTask", mDatum.getId());
+                        mbundleComment.putString("idHelper", mDatum.getStakeholders().getMadi().getId());
+                        mbundleComment.putString("imgHelper", mDatum.getStakeholders().getMadi().getInfo().getImage());
+                        mbundleComment.putString("nameHelper", mDatum.getStakeholders().getMadi().getInfo().getName());
+                        mbundleComment.putString("addressHelper", mDatum.getStakeholders().getMadi().getInfo().getAddress().getName());
+                    } else {
+                        mbundleComment.putString("idTask", mLiabilitiesHistory.getId());
+                        mbundleComment.putString("idHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getId());
+                        mbundleComment.putString("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
+                        mbundleComment.putString("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
+                        mbundleComment.putString("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
+                    }
+                    itCommnet.putExtra("mbundleComment", mbundleComment);
+                    startActivity(itCommnet);
                 } else {
-                    mbundleComment.putString("idTask", mLiabilitiesHistory.getId());
-                    mbundleComment.putString("idHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getId());
-                    mbundleComment.putString("imgHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getImage());
-                    mbundleComment.putString("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
-                    mbundleComment.putString("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
+                    startActivity(new Intent(PaymentActivity.this, HomeActivity.class));
                 }
-                itCommnet.putExtra("mbundleComment", mbundleComment);
-                startActivity(itCommnet);
                 if (mPaymentActivity != null) {
                     PaymentActivity.mPaymentActivity.finish();
                     try {
@@ -479,4 +491,18 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public void connectServerFail() {
+
+    }
+
+    @Override
+    public void checkCommentSuccess(String message) {
+        commented = true;
+    }
+
+    @Override
+    public void checkCommentFail() {
+        commented = false;
+    }
 }

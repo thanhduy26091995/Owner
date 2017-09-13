@@ -9,8 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -76,7 +76,7 @@ public class DetailJobSentRequestActivity extends AuthenticationBaseActivity imp
     @BindView(R.id.progressDetailJobDoing)
     ProgressBar progressDetailJobDoing;
     @BindView(R.id.lo_clear_job_request)
-    LinearLayout lo_clear_job_request;
+    Button lo_clear_job_request;
     @BindView(R.id.txtExpired_request_detail_post)
     TextView txtExpired_request_detail_post;
     @BindView(R.id.txtIsTools)

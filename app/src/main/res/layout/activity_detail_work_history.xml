@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
     android:orientation="vertical"
     tools:context="com.hbbsolution.owner.history.view.DetailWorkHistoryActivity">
 
@@ -37,10 +36,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/color_line_view" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -59,14 +54,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/description" />
+                    android:text="@string/description"
+                    android:textStyle="bold"
+                    android:textColor="@color/grey_800"/>
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_marginTop="-5dp"
-                android:background="@color/color_line_view" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -83,7 +74,9 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
+                        android:layout_marginLeft="@dimen/margin_padding_10dp"
+                        android:layout_marginRight="@dimen/margin_padding_10dp"
+                        android:layout_marginBottom="@dimen/margin_padding_10dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/detail_work_history_type"
@@ -148,11 +141,6 @@
                         android:text="@string/mang_theo_dung_cu"
                         android:textColor="@color/home_background_your_tasks" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:background="@color/color_line_view" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -291,7 +279,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/doer" />
+                    android:text="@string/doer"
+                    android:textStyle="bold"
+                    android:textColor="@color/grey_800"/>
             </LinearLayout>
 
             <LinearLayout
@@ -301,10 +291,6 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:background="@color/color_line_view" />
 
                 <RelativeLayout
                     android:id="@+id/rela_info"
@@ -312,7 +298,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="@dimen/margin_padding_05dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/detail_helper_history_avatar"

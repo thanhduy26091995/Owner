@@ -65,7 +65,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:text="@string/ic_mail"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"/>
 
                 <EditText
                     android:id="@+id/edit_email"
@@ -101,7 +102,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:text="@string/ic_fullname"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"/>
 
                 <EditText
                     android:id="@+id/edit_full_name"
@@ -138,7 +140,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:text="@string/ic_gender"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"/>
 
                 <EditText
                     android:id="@+id/edit_gender"
@@ -171,10 +174,13 @@
                 <com.hbbsolution.owner.base.IconTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
                     android:text="@string/ic_phone_portr"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:layout_alignBaseline="@+id/edit_number"
+                    android:layout_alignBottom="@+id/edit_number"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/colorAccent"/>
 
                 <EditText
                     android:id="@+id/edit_number"
@@ -210,7 +216,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:text="@string/ic_home"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"/>
 
                 <com.hbbsolution.owner.utils.CustomEditText
                     android:id="@+id/edit_location"
@@ -239,7 +246,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingBottom="20dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp">
 
@@ -247,7 +254,7 @@
                 android:id="@+id/button_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/home_background_history"
+                android:background="@drawable/background_button_blue"
                 android:text="@string/sign_up_next"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"

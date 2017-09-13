@@ -355,7 +355,6 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
-                    android:layout_marginLeft="@dimen/margin_padding_20dp"
                     android:background="@android:color/darker_gray" />
 
                 <TextView

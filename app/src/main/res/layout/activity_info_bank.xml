@@ -54,7 +54,9 @@
                 android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
                 android:paddingTop="10dp"
-                android:text="@string/accountinformation" />
+                android:text="@string/accountinformation"
+                android:textStyle="bold"
+                android:textColor="@color/grey_800"/>
         </LinearLayout>
 
         <View
