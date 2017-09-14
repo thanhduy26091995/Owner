@@ -455,6 +455,6 @@
     <string name="status_88">You just got a new application</string>
     <string name="status_0">The applicant just refused your work</string>
     <string name="status_2">The applicant just accepted your request</string>
-    <string name="status_10">The applicant just accepted your request</string>
-    <string name="status_11">The applicant just accepted your request</string>
+    <string name="status_10">Cash received!</string>
+    <string name="status_11">No cash received!</string>
 </resources>

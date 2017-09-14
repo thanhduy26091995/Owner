@@ -443,7 +443,7 @@
     <string name="status_88">Người giúp việc vừa ứng tuyển vào công việc của bạn</string>
     <string name="status_0">Người giúp việc vừa hủy công việc đã nhận</string>
     <string name="status_2">Người giúp việc vừa chấp nhận yêu cầu của bạn</string>
-    <string name="status_10">The applicant just accepted your request</string>
-    <string name="status_11">The applicant just accepted your request</string>
+    <string name="status_10">Đã nhận được tiền mặt</string>
+    <string name="status_11">Chưa nhận được tiền mặt</string>
 
 </resources>
