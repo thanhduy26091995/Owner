@@ -41,7 +41,7 @@ import com.hbbsolution.owner.api.ApiClient;
 import com.hbbsolution.owner.base.BaseActivity;
 import com.hbbsolution.owner.base.OwnerApplication;
 import com.hbbsolution.owner.home.view.HomeActivity;
-import com.hbbsolution.owner.maid_near_by.view.MaidNearByActivity;
+import com.hbbsolution.owner.maid_near_by_new_version.view.MaidNearByNewActivity;
 import com.hbbsolution.owner.more.phuc_tran.view.ForgotPassActivity;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.BodyResponse;
 import com.hbbsolution.owner.more.viet_pham.Model.signin_signup.DataUpdateResponse;
@@ -182,7 +182,7 @@ public class SignInActivity extends BaseActivity implements MoreView, FirebaseAu
         btnWorkAroundHere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentMaidNearBy = new Intent(SignInActivity.this, MaidNearByActivity.class);
+                Intent intentMaidNearBy = new Intent(SignInActivity.this, MaidNearByNewActivity.class);
                 intentMaidNearBy.putExtra("FromSignIn", true);
                 startActivity(intentMaidNearBy);
             }

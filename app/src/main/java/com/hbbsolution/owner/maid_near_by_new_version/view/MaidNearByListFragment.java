@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.base.InternetConnection;
 import com.hbbsolution.owner.maid_near_by_new_version.adapter.MaidNearByNewAdapter;
+import com.hbbsolution.owner.maid_near_by_new_version.filter.model.FilterModelSingleton;
 import com.hbbsolution.owner.maid_near_by_new_version.presenter.MaidNearByNewPresenter;
 import com.hbbsolution.owner.maid_profile.view.MaidProfileActivity;
 import com.hbbsolution.owner.model.Maid;
@@ -226,6 +227,8 @@ public class MaidNearByListFragment extends Fragment implements LocationListener
                 }
                 if (location != null) {
                     showProgress();
+                    //save data
+                    FilterModelSingleton.getInstance().saveLocation(mLat, mLng);
                     mMaidNearByNewPresenter.getMaidNearBy(mLat, mLng);
                 } else {
                     ShowSnackbar.showSnack(getActivity(), getResources().getString(R.string.locationisnotfound));

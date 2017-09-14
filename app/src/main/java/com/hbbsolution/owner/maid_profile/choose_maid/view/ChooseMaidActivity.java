@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,6 +32,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.adapter.SuggetAdapter;
@@ -45,6 +48,7 @@ import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.GooglePlacesAPI;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 
@@ -140,6 +144,8 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     private InputMethodManager inputManager;
     private boolean isTool;
+    private int REQUEST_CODE_PLACES = 5;
+    private Double mLat, mLng;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -179,6 +185,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         txtDate_start_work.setOnClickListener(this);
         rad_type_money_work.setOnClickListener(this);
         rad_type_money_khoan.setOnClickListener(this);
+        edtAddressPost.setOnClickListener(this);
         mPackageId = "000000000000000000000001";
         //get data
         presenter.getAllTypeJob();
@@ -494,9 +501,67 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
         } else if (v == txt_post_complete) {
             if (checkDataComplete()) {
                 showProgressDialog();
-                presenter.getLocationAddress(edtAddressPost.getText().toString());
+                postData();
+            }
+        } else if (v == edtAddressPost) {
+            GooglePlacesAPI.showGooglePlaces(ChooseMaidActivity.this, REQUEST_CODE_PLACES);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PLACES && resultCode == RESULT_OK) {
+            Place place = PlacePicker.getPlace(data, this);
+            String mAddressPost = String.format("%s", place.getAddress());
+            edtAddressPost.setText(mAddressPost);
+            mLat = place.getLatLng().latitude;
+            mLng = place.getLatLng().longitude;
+        }
+    }
+
+    private void postData() {
+        Double price = null, hour = null;
+        String title = edtTitlePost.getText().toString();
+        String description = edtDescriptionPost.getText().toString();
+        String address = edtAddressPost.getText().toString();
+        if (chb_tools_work.isChecked()) {
+            mChosenTools = true;
+        }
+        if (rad_type_money_work.isChecked()) {
+            price = Double.parseDouble(edt_monney_work.getText().toString().replace(".", ""));
+        } else {
+            // hour = Double.parseDouble(edtHourWork.getText().toString());
+        }
+        String dateStartWork = getTimeWork(txtTime_start.getText().toString());
+        String dateEndWork = getTimeWork(txtTime_end.getText().toString());
+        //send request
+        if (!note.equals("")) {
+            if (!description.equals("")) {
+                description += "\r\n" + note;
+            } else {
+                description = note;
             }
         }
+
+        if (mPackageId.equals("000000000000000000000002")) {
+            price = 0.0;
+        }
+
+        if (liner_tool.getVisibility() == View.GONE) {
+            mChosenTools = false;
+        }
+
+        // if (!description.equals("")) {
+        String maidInfoId = null;
+        if (mMaidInfo != null) {
+            maidInfoId = mMaidInfo.getId();
+        } else if (datum != null) {
+            maidInfoId = datum.getId().getId();
+        } else if (workHistory != null) {
+            maidInfoId = workHistory.getStakeholders().getReceived().getId();
+        }
+        presenter.sendRequest(maidInfoId, title, mPackageId, mTypeJob, description, price, address, mLat, mLng, dateStartWork, dateEndWork, hour, mChosenTools);
     }
 
     private boolean checkDataComplete() {
@@ -648,49 +713,9 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     @Override
     public void getLocationAddress(GeoCodeMapResponse geoCodeMapResponse) {
-        Double price = null, hour = null;
         double lat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
         double lng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
-        String title = edtTitlePost.getText().toString();
-        String description = edtDescriptionPost.getText().toString();
-        String address = edtAddressPost.getText().toString();
-        if (chb_tools_work.isChecked()) {
-            mChosenTools = true;
-        }
-        if (rad_type_money_work.isChecked()) {
-            price = Double.parseDouble(edt_monney_work.getText().toString().replace(".", ""));
-        } else {
-            // hour = Double.parseDouble(edtHourWork.getText().toString());
-        }
-        String dateStartWork = getTimeWork(txtTime_start.getText().toString());
-        String dateEndWork = getTimeWork(txtTime_end.getText().toString());
-        //send request
-        if (!note.equals("")) {
-            if (!description.equals("")) {
-                description += "\r\n" + note;
-            } else {
-                description = note;
-            }
-        }
 
-        if (mPackageId.equals("000000000000000000000002")) {
-            price = 0.0;
-        }
-
-        if (liner_tool.getVisibility() == View.GONE) {
-            mChosenTools = false;
-        }
-
-        // if (!description.equals("")) {
-        String maidInfoId = null;
-        if (mMaidInfo != null) {
-            maidInfoId = mMaidInfo.getId();
-        } else if (datum != null) {
-            maidInfoId = datum.getId().getId();
-        } else if (workHistory != null) {
-            maidInfoId = workHistory.getStakeholders().getReceived().getId();
-        }
-        presenter.sendRequest(maidInfoId, title, mPackageId, mTypeJob, description, price, address, lat, lng, dateStartWork, dateEndWork, hour, mChosenTools);
         //  }
 //        else {
 //            hideProgressDialog();

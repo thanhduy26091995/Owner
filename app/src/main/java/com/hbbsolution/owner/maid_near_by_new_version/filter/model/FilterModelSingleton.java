@@ -32,4 +32,10 @@ public class FilterModelSingleton {
         isSaved = true;
         mFilterModel = filterModel;
     }
+
+    public void saveLocation(Double mLat, Double mLng) {
+        isSaved = true;
+        mFilterModel.setLat(mLat);
+        mFilterModel.setLng(mLng);
+    }
 }

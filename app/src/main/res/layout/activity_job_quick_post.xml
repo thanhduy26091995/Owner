@@ -49,10 +49,10 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_below="@+id/appbar"
-        android:layout_toRightOf="@+id/progressPostJob"
-        android:layout_toEndOf="@+id/progressPostJob">
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/progressPostJob"
+        android:layout_toRightOf="@+id/progressPostJob">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,8 +79,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:hint="@string/title_job_post"
-                        android:paddingTop="5dp"
                         android:inputType="text"
+                        android:paddingTop="5dp"
                         android:textSize="16sp" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -108,8 +108,8 @@
                         android:background="@android:color/transparent"
                         android:focusable="false"
                         android:hint="@string/types_of_work"
-                        android:paddingTop="5dp"
                         android:inputType="text"
+                        android:paddingTop="5dp"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
                 </android.support.design.widget.TextInputLayout>
@@ -129,13 +129,16 @@
                     android:padding="10dp"
                     android:textColorHint="@color/home_background_history">
 
-                    <com.hbbsolution.owner.utils.CustomEditText
+                    <com.daniribalbert.customfontlib.views.CustomFontEditText
                         android:id="@+id/edtAddressPost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
+                        android:editable="false"
+                        android:clickable="true"
+                        android:focusableInTouchMode="false"
                         android:hint="@string/address_job_post"
-                        android:inputType="textPostalAddress"
+                        android:inputType="none"
                         android:paddingTop="5dp"
                         android:textSize="16sp" />
                 </android.support.design.widget.TextInputLayout>
@@ -156,9 +159,9 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
+                    android:focusable="false"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
-                    android:focusable="false"
                     android:textSize="16sp"
                     android:visibility="gone" />
 

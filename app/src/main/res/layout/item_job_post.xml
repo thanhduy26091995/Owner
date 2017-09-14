@@ -3,34 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.daimajia.swipe.SwipeLayout
-        android:id="@+id/swipe_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<com.daimajia.swipe.SwipeLayout-->
+        <!--android:id="@+id/swipe_post"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <LinearLayout
-            android:id="@+id/bottom_delete"
-            android:layout_width="@dimen/width_img_itemnews"
-            android:layout_height="wrap_content"
-            android:background="@color/red_new"
-            android:gravity="center"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/bottom_delete"-->
+            <!--android:layout_width="@dimen/width_img_itemnews"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/red_new"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="vertical">-->
 
-            <com.hbbsolution.owner.base.IconTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ic_delete"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
+            <!--<com.hbbsolution.owner.base.IconTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/ic_delete"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="25sp" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_05dp"
-                android:text="@string/job_post_new_delete"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/margin_padding_05dp"-->
+                <!--android:text="@string/job_post_new_delete"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="16sp" />-->
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/linear_data"
@@ -217,7 +217,7 @@
                 android:background="@android:color/darker_gray" />
 
         </LinearLayout>
-    </com.daimajia.swipe.SwipeLayout>
+    <!--</com.daimajia.swipe.SwipeLayout>-->
 
 
     <LinearLayout

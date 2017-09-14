@@ -34,6 +34,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.adapter.SuggetAdapter;
@@ -42,6 +44,7 @@ import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.GooglePlacesAPI;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
 import com.hbbsolution.owner.work_management.model.jobpost.JobPostResponse;
@@ -151,6 +154,8 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
     private InputMethodManager inputManager;
 
     private boolean isTool;
+    private int REQUETS_CODE_PLACES = 4;
+    private Double mLat, mLng;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -193,6 +198,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         txtDate_start_work.setOnClickListener(this);
         rad_type_money_work.setOnClickListener(this);
         rad_type_money_khoan.setOnClickListener(this);
+        edtAddressPost.setOnClickListener(this);
 
 
         if (rad_type_money_work.isChecked()) {
@@ -454,34 +460,18 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
 //                Log.d("money", edt_monney_work.getText().toString().replace(".",""));
                 showProgressDialog();
                 if (checkDataComplete()) {
-                    mJobPostPresenter.getLocaltionAddress(edtAddressPost.getText().toString());
+                    postData();
                 }
                 break;
+            case R.id.edtAddressPost: {
+                GooglePlacesAPI.showGooglePlaces(JobPostActivity.this, REQUETS_CODE_PLACES);
+                break;
+            }
 
         }
     }
 
-    @Override
-    public void getAllTypeJob(TypeJobResponse typeJobResponse) {
-        txt_post_complete.setEnabled(true);
-        if (Constants.listTypeJob.size() == 0) {
-            Constants.listTypeJob = typeJobResponse.getData();
-            for (TypeJob typeJob : Constants.listTypeJob) {
-                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
-                listTypeJobName.add(typeJob.getName());
-            }
-        } else {
-            for (TypeJob typeJob : Constants.listTypeJob) {
-                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
-                listTypeJobName.add(typeJob.getName());
-            }
-        }
-    }
-
-    @Override
-    public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
-        double lat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
-        double lng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+    private void postData() {
         mAddressPost = edtAddressPost.getText().toString();
         mTitlePost = edtTitlePost.getText().toString();
         mDescriptionPost = edtDescriptionPost.getText().toString();
@@ -517,13 +507,49 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
         }
 
         //if (!mDescriptionPost.trim().equals("")) {
-            if (isPost) {
-                mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                        mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-            } else {
-                mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
-                        mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        if (isPost) {
+            mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mLat, mLng,
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        } else {
+            mJobPostPresenter.updatePostJob(mIdTask, mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mLat, mLng,
+                    mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUETS_CODE_PLACES && resultCode == RESULT_OK) {
+            Place place = PlacePicker.getPlace(data, this);
+            mAddressPost = String.format("%s", place.getAddress());
+            edtAddressPost.setText(mAddressPost);
+            mLat = place.getLatLng().latitude;
+            mLng = place.getLatLng().longitude;
+        }
+    }
+
+    @Override
+    public void getAllTypeJob(TypeJobResponse typeJobResponse) {
+        txt_post_complete.setEnabled(true);
+        if (Constants.listTypeJob.size() == 0) {
+            Constants.listTypeJob = typeJobResponse.getData();
+            for (TypeJob typeJob : Constants.listTypeJob) {
+                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+                listTypeJobName.add(typeJob.getName());
             }
+        } else {
+            for (TypeJob typeJob : Constants.listTypeJob) {
+                hashMapTypeJob.put(typeJob.getName(), typeJob.getId());
+                listTypeJobName.add(typeJob.getName());
+            }
+        }
+    }
+
+    @Override
+    public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
+        double lat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
+        double lng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+
 //        }
 //        else {
 //            hideProgressDialog();

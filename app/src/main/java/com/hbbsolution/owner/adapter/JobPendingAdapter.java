@@ -93,14 +93,14 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
             }
         });
 
-        holder.linearDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (callback != null) {
-                    callback.onItemClickDelete(mDatum);
-                }
-            }
-        });
+//        holder.linearDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (callback != null) {
+//                    callback.onItemClickDelete(mDatum);
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -130,15 +130,15 @@ public class JobPendingAdapter extends RecyclerView.Adapter<JobPendingAdapter.Jo
             txtExpired = (TextView) itemView.findViewById(R.id.txtExpired_request_detail_post);
             lo_background = (LinearLayout) itemView.findViewById(R.id.lo_background);
             txtType = (TextView) itemView.findViewById(R.id.txtType);
-            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_post);
+//            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_post);
             linearData = (LinearLayout) itemView.findViewById(R.id.linear_data);
-            linearDelete = (LinearLayout) itemView.findViewById(R.id.bottom_delete);
+          //  linearDelete = (LinearLayout) itemView.findViewById(R.id.bottom_delete);
 
             //config swipe
-            swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, itemView.findViewById(R.id.bottom_delete));
-            swipeLayout.setRightSwipeEnabled(true);
-            swipeLayout.setLeftSwipeEnabled(false);
+//            swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+//            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, itemView.findViewById(R.id.bottom_delete));
+//            swipeLayout.setRightSwipeEnabled(true);
+//            swipeLayout.setLeftSwipeEnabled(false);
         }
     }
 

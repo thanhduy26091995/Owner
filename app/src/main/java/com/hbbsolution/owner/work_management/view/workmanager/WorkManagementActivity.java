@@ -19,7 +19,6 @@ import com.hbbsolution.owner.base.AuthenticationBaseActivity;
 import com.hbbsolution.owner.home.view.HomeActivity;
 import com.hbbsolution.owner.utils.ConnectivityReceiver;
 import com.hbbsolution.owner.utils.Constants;
-import com.hbbsolution.owner.utils.NonSwipeableViewPager;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.view.jobpost.JobPostActivity;
 
@@ -42,7 +41,7 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
     @BindView(R.id.tabs)
     TabLayout tabLayout;
     @BindView(R.id.viewpager)
-    NonSwipeableViewPager mViewPager;
+    ViewPager mViewPager;
     @BindView(R.id.imgNo_internet)
     ImageView imgNo_internet;
 
@@ -95,7 +94,7 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
     }
 
     private void createFragment() {
-        mViewPager = (NonSwipeableViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         setupViewPagerUser(mViewPager);
         tabLayout.setupWithViewPager(mViewPager);

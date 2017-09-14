@@ -15,6 +15,7 @@
  */
 package com.hbbsolution.owner.run_face.view;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.graphics.Bitmap;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -111,7 +113,7 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
 //        mCompareImageModel = new CompareImageModel();
 //        mCompareImageModel.setConfidence(0.79);
 //        mCompareImageModel.setImageServer("http://res.cloudinary.com/nguyencaoky/image/upload/v1499395868/wquharvyugja3yi7n0e8.jpg");
-//        mCompareImageModel.setImageGallery("/storage/emulated/0/Pictures/1505199594101.jpg");
+//        mCompareImageModel.setImageGallery("/storage/emulated/0/Pictures/1505356514811.jpg");
 
         Double mConfidence = mCompareImageModel.getConfidence() * 100;
         mRateMatch = mConfidence.intValue();
@@ -227,15 +229,16 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
                 EventBus.getDefault().postSticky(true);
                 EventBus.getDefault().postSticky("2");
             }
-            if (ringtoneProcess.isPlaying()) {
+            if (ringtoneProcess != null && ringtoneProcess.isPlaying()) {
                 ringtoneProcess.stop();
             }
-            if (ringtoneFailed.isPlaying()) {
+            if (ringtoneFailed != null && ringtoneFailed.isPlaying()) {
                 ringtoneFailed.stop();
             }
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public void isLoadImageSuccess(boolean result) {
         hideProgress();

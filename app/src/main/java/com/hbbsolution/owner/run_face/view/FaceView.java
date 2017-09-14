@@ -17,12 +17,10 @@ package com.hbbsolution.owner.run_face.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -119,34 +117,34 @@ public class FaceView extends View {
      * positioning the facial landmark graphics.
      */
     private double drawBitmap(Canvas canvas) {
-        double viewWidth = canvas.getWidth();
-        double viewHeight = canvas.getHeight();
-        double imageWidth = mBitmap.getWidth();
+        double viewWidth = canvas.getWidth() ;
+        double viewHeight = canvas.getHeight() ;
+        double imageWidth = mBitmap.getWidth() ;
         double imageHeight = mBitmap.getHeight();
         Log.d("FIRST_1", "" + imageWidth + "/ " + imageHeight);
         double scale = Math.min(viewWidth / imageWidth, viewHeight / imageHeight);
 
 
-        //Rect destBounds = new Rect(0, 0, (int) (imageWidth * scale), (int) (imageHeight * scale));
-        // canvas.drawBitmap(mBitmap, null, destBounds, null);
+        Rect destBounds = new Rect(0, 0, (int) (imageWidth * scale), (int) (imageHeight * scale));
+        canvas.drawBitmap(mBitmap, null, destBounds, null);
 
 //        Bitmap workingBitmap = Bitmap.createBitmap(mBitmap);
 //        Bitmap mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
 //        canvas = new Canvas(mutableBitmap);
 
 
-        BitmapShader bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-
-        Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(1);
-        paint.setShader(bitmapShader);
+//        BitmapShader bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+//
+//        Paint paint = new Paint();
+//        paint.setColor(Color.BLUE);
+//        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+//        paint.setStrokeWidth(1);
+//        paint.setShader(bitmapShader);
 
         //  Bitmap mutableBitmap = mBitmap.copy(Bitmap.Config.ARGB_8888, true);
         // canvas = new Canvas(mutableBitmap);
 
-        canvas.drawCircle((float) viewWidth / 2, (float) viewHeight / 2, (float) viewWidth / 2, paint);
+        //canvas.drawCircle((float) viewWidth / 2, (float) viewHeight / 2, (float) viewWidth / 2, paint);
         // canvas.drawBitmap(mBitmap, null, destBounds, null);
         return scale;
     }
@@ -167,7 +165,7 @@ public class FaceView extends View {
 
         Paint mFacePositionPaint = new Paint();
         mFacePositionPaint.setStyle(Paint.Style.STROKE);
-        mFacePositionPaint.setStrokeWidth(2);
+        mFacePositionPaint.setStrokeWidth(1);
         mFacePositionPaint.setColor(Color.RED);
 
         for (int i = 0; i < mFaces.size(); ++i) {
@@ -203,18 +201,18 @@ public class FaceView extends View {
                 paint.setStyle(Paint.Style.FILL_AND_STROKE);
                 paint.setStrokeWidth(1);
                 paint.setColor(mColors[j % mColors.length]);
-                final int cx = (int) (landmark.getPosition().x );
-                final int cy = (int) (landmark.getPosition().y );
-                //canvas.drawCircle(cx, cy, 5, paint);
+                final int cx = (int) (landmark.getPosition().x * scale);
+                final int cy = (int) (landmark.getPosition().y * scale);
+             //   canvas.drawCircle(cx, cy, 5, paint);
 
                 Landmark landmarkPre = face.getLandmarks().get((j + 2) % face.getLandmarks().size());
-                final int cxPre = (int) (landmarkPre.getPosition().x);
-                final int cyPre = (int) (landmarkPre.getPosition().y);
+                final int cxPre = (int) (landmarkPre.getPosition().x * scale);
+                final int cyPre = (int) (landmarkPre.getPosition().y * scale);
                 canvas.drawLine(cx, cy, cxPre, cyPre, paintLine);
 
                 Landmark landmarkNext = face.getLandmarks().get((j + 1) % face.getLandmarks().size());
-                final int cxNext = (int) (landmarkNext.getPosition().x );
-                final int cyNext = (int) (landmarkNext.getPosition().y );
+                final int cxNext = (int) (landmarkNext.getPosition().x * scale);
+                final int cyNext = (int) (landmarkNext.getPosition().y * scale);
                 canvas.drawLine(cx, cy, cxNext, cyNext, paintLine);
             }
         }

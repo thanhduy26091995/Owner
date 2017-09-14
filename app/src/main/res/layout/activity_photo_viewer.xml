@@ -78,8 +78,7 @@
                 android:id="@+id/faceView_server"
                 android:layout_width="196dp"
                 android:layout_height="196dp"
-                android:layout_marginLeft="@dimen/margin_padding_20dp"
-                android:layout_marginRight="@dimen/margin_padding_20dp"
+                android:layout_margin="27dp"
                 android:layout_weight="1"
                 android:src="@drawable/avatar" />
 
@@ -88,8 +87,7 @@
                 android:id="@+id/faceView_compare_uri"
                 android:layout_width="196dp"
                 android:layout_height="196dp"
-                android:layout_marginLeft="@dimen/margin_padding_20dp"
-                android:layout_marginRight="@dimen/margin_padding_20dp"
+                android:layout_margin="27dp"
                 android:layout_weight="1"
                 android:src="@drawable/avatar" />
 

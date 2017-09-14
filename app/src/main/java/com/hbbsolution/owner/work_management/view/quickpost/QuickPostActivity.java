@@ -34,6 +34,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.BottomSheetAdapter;
 import com.hbbsolution.owner.adapter.SuggetAdapter;
@@ -43,6 +45,7 @@ import com.hbbsolution.owner.model.Suggest;
 import com.hbbsolution.owner.model.TypeJob;
 import com.hbbsolution.owner.model.TypeJobResponse;
 import com.hbbsolution.owner.utils.Constants;
+import com.hbbsolution.owner.utils.GooglePlacesAPI;
 import com.hbbsolution.owner.utils.SessionManagerUser;
 import com.hbbsolution.owner.utils.ShowAlertDialog;
 import com.hbbsolution.owner.work_management.model.geocodemap.GeoCodeMapResponse;
@@ -152,6 +155,9 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
     private Calendar calendarForTime1, calendarForTime2;
 
     private InputMethodManager inputManager;
+    private int REQUEST_CODE_PLACES = 5;
+    private Double mLat, mLng;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -166,8 +172,6 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         progressDialog = new ProgressDialog(QuickPostActivity.this);
 
         checkConnectionInterner();
-
-
 
         //setup view
         toolbar.setTitle("");
@@ -269,6 +273,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         txtDate_start_work.setOnClickListener(this);
         rad_type_money_work.setOnClickListener(this);
         rad_type_money_khoan.setOnClickListener(this);
+        edtAddressPost.setOnClickListener(this);
     }
 
     private void setRecyclerView() {
@@ -415,10 +420,30 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 //                checkLocaltionOfOwner();
                 showProgressDialog();
                 if (checkDataComplete()) {
-                    mJobPostPresenter.getLocaltionAddress(edtAddressPost.getText().toString());
+                    if (mLat == null && mLng == null) {
+                        mJobPostPresenter.getLocaltionAddress(edtAddressPost.getText().toString());
+                    } else {
+                        postData();
+                    }
                 }
                 break;
+            case R.id.edtAddressPost: {
+                GooglePlacesAPI.showGooglePlaces(QuickPostActivity.this, REQUEST_CODE_PLACES);
+                break;
+            }
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PLACES && resultCode == RESULT_OK) {
+            Place place = PlacePicker.getPlace(data, this);
+            mAddressPost = String.format("%s", place.getAddress());
+            edtAddressPost.setText(mAddressPost);
+            mLat = place.getLatLng().latitude;
+            mLng = place.getLatLng().longitude;
         }
     }
 
@@ -427,10 +452,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
 
     }
 
-    @Override
-    public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
-        double lat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
-        double lng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+    private void postData() {
         mAddressPost = edtAddressPost.getText().toString();
         mTitlePost = edtTitlePost.getText().toString();
         mDescriptionPost = edtDescriptionPost.getText().toString();
@@ -466,17 +488,16 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
         }
 
 //        if (!mDescriptionPost.equals("")) {
-        mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, lat, lng,
+        mJobPostPresenter.postJob(mTitlePost, mTypeJob, mDescriptionPost, mAddressPost, mLat, mLng,
                 mChosenTools, mPackageId, mPrice, mTimeStartWork, mTimeEndWork);
-        // }
-//        else {
-//            hideProgressDialog();
-//            txt_post_complete.setEnabled(true);
-//            ShowAlertDialog.showAlert(getResources().getString(R.string.check_complete_all_information), QuickPostActivity.this);
-//        }
-//        if (checkDataComplete()) {
-//            posData(geoCodeMapResponse);
-//        }
+    }
+
+    @Override
+    public void getLocaltionAddress(GeoCodeMapResponse geoCodeMapResponse) {
+        mLat = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLat();
+        mLng = geoCodeMapResponse.getResults().get(0).getGeometry().getLocation().getLng();
+        //post data
+        postData();
     }
 
     @Override
