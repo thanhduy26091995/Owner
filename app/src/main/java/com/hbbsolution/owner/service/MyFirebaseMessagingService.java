@@ -113,14 +113,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             title = getResources().getString(R.string.notification);
-            body = "CONFIRM_DIRECT";
+            body = getResources().getString(R.string.status_10);
         } else if (data.get("status").equals("11")) {
             Intent intent = new Intent(this, HistoryActivity.class);
             intent.putExtra("tab", 2);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             title = getResources().getString(R.string.notification);
-            body = "CANCEL_DIRECT";
+            body = getResources().getString(R.string.status_11);
         } else if (data.get("status").equals("88")) {
             Intent intent = new Intent(this, WorkManagementActivity.class);
             intent.putExtra("tabMore", 0);
