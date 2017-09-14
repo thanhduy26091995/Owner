@@ -47,11 +47,13 @@
             android:id="@+id/tvIntro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quick looking for job now"
+            android:text="@string/title_home"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_xxxlagre"
+            android:padding="@dimen/margin_padding_05dp"
+            android:background="@drawable/background_shadow"
             />
         <LinearLayout
             android:id="@+id/lnButton"
