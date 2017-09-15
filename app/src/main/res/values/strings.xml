@@ -251,7 +251,7 @@
     <string name="paymentmethods">PAYMENT METHODS</string>
     <string name="thanhtoanonline">Online payment</string>
     <string name="thanhtoantienmat">Cash payment</string>
-    <string name="taikhoanGV24">GV24 account</string>
+    <string name="taikhoanGV24">NGV247 account</string>
     <!--payment screen end-->
 
     <string name="loading">Loading...</string>

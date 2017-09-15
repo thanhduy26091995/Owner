@@ -139,7 +139,6 @@
                                         android:id="@+id/txtBill"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
                                         android:ellipsize="end"
                                         android:maxLines="1"
                                         android:text="@string/invoicemumber"
@@ -151,7 +150,6 @@
                                         android:id="@+id/txtSeriBill"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
                                         android:layout_marginTop="@dimen/margin_padding_05dp"
                                         android:ellipsize="end"
                                         android:maxLines="1"
@@ -357,7 +355,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        app:cardElevation="@dimen/margin_padding_30dp"
+        app:cardElevation="4dp"
         card_view:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -381,8 +379,8 @@
                 android:layout_marginTop="@dimen/margin_padding_10dp"
                 android:background="@color/colorWhite"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/margin_padding_30dp"
-                android:paddingRight="@dimen/margin_padding_40dp">
+                android:paddingLeft="@dimen/margin_padding_20dp"
+                android:paddingRight="@dimen/margin_padding_20dp">
 
                 <LinearLayout
                     android:id="@+id/lo_Gv24"

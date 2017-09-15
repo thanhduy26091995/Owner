@@ -119,7 +119,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             @Override
             public int getSpanSize(int position) {
 //                int mod = position % 6;
-                if (position == 0)
+                if (listTypeJob.get(position).getName().length() > 10)
                     return 2;
                 else
                     return 1;

@@ -30,7 +30,7 @@ import de.greenrobot.event.EventBus;
  * Created by buivu on 04/05/2017.
  */
 
-public class WorkManagementActivity extends AuthenticationBaseActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener  {
+public class WorkManagementActivity extends AuthenticationBaseActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -51,6 +51,7 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
     private ViewPagerAdapter adapter;
 
     public static Activity mWorkManagementActivity = null;
+    private boolean start = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +60,8 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
         mWorkManagementActivity = this;
         ButterKnife.bind(this);
         checkConnection();
+
+        start = getIntent().getBooleanExtra("start", true);
 
         //setupView
         toolbar.setTitle("");
@@ -69,10 +72,12 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
         txtManagement_compose_toothbar.setOnClickListener(this);
         imgNo_internet.setOnClickListener(this);
         createFragment();
-        tabMore = getIntent().getIntExtra("tabMore", 0);
-        if (tabMore != null) {
+
+        tabMore = getIntent().getIntExtra("tabMore", -1);
+        if (tabMore != -1) {
             mViewPager.setCurrentItem(tabMore);
         }
+
     }
 
     @Override
@@ -122,7 +127,7 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
                     } else {
                         ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), WorkManagementActivity.this);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     ShowAlertDialog.showAlert(getResources().getString(R.string.check_number_job_post), WorkManagementActivity.this);
                 }
                 break;
@@ -161,30 +166,38 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
 
     @Override
     protected void onResume() {
-        if (isPause) {
-            if (mTab) {
-                this.finish();
-                Intent refresh = new Intent(this, WorkManagementActivity.class);
-                startActivity(refresh);
+        if (tabMore == -1) {
+            if (isPause) {
+                if (mTab) {
+                    this.finish();
+                    Intent refresh = new Intent(this, WorkManagementActivity.class);
+                    startActivity(refresh);
 //                adapter.clearFragment();
 //                createFragment();
 //                mViewPager.setCurrentItem(mPositionTab);
-                mPositionTab = -1;
-                isPause = false;
-                mTab = false;
+                    mPositionTab = -1;
+                    isPause = false;
+                    mTab = false;
+                }
+            } else {
+                if (mPositionTab == -1) {
+                    mViewPager.setCurrentItem(0);
+                } else {
+                    if (!start) {
+                        mViewPager.setCurrentItem(mPositionTab);
+                        mPositionTab = -1;
+                    } else {
+                        mViewPager.setCurrentItem(0);
+                    }
+                }
+            }
+
+            if (Constants.isLoadTabDoing) {
+                mViewPager.setCurrentItem(2);
+                Constants.isLoadTabDoing = false;
             }
         } else {
-            if (mPositionTab == -1) {
-                mViewPager.setCurrentItem(0);
-            } else {
-                mViewPager.setCurrentItem(mPositionTab);
-                mPositionTab = -1;
-            }
-        }
-
-        if (Constants.isLoadTabDoing) {
-            mViewPager.setCurrentItem(2);
-            Constants.isLoadTabDoing = false;
+            tabMore = -1;
         }
         super.onResume();
     }

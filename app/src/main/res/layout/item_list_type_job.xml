@@ -16,6 +16,6 @@
         android:inputType="textMultiLine"
         android:padding="@dimen/boder_padding_recycleview"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/font_30"
+        android:textSize="@dimen/text_size_type_job"
         android:textStyle="bold" />
 </LinearLayout>
