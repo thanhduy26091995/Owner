@@ -111,7 +111,7 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
         mCompareImageModel = (CompareImageModel) getIntent().getSerializableExtra("CompareImage");
 
 //        mCompareImageModel = new CompareImageModel();
-//        mCompareImageModel.setConfidence(0.79);
+//        mCompareImageModel.setConfidence(0.65);
 //        mCompareImageModel.setImageServer("http://res.cloudinary.com/nguyencaoky/image/upload/v1499395868/wquharvyugja3yi7n0e8.jpg");
 //        mCompareImageModel.setImageGallery("/storage/emulated/0/Pictures/1505356514811.jpg");
 
@@ -300,7 +300,9 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
             safeDetector.release();
 
             //run
-            mDuration = 100 * (mRateMatch / 2);
+            //mDuration = 100 * (mRateMatch / 2);
+
+            mDuration = 15000;
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -333,8 +335,8 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
             public void run() {
                 while (mProcess < mRateMatch) {
                     try {
-                        Thread.sleep(200);
-                        mProcess += 2;
+                        Thread.sleep((int) 15000 / mRateMatch);
+                        mProcess += 1;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -356,7 +358,7 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
                                         mTextViewResult.setText(getResources().getString(R.string.check_in_try_again));
                                         mTextViewResult.setTextColor(getResources().getColor(R.color.red_new));
                                         //tắt nhạc process
-                                        ringtoneProcess.stop();
+                                        // ringtoneProcess.stop();
                                         //phát nhạc in correct
                                         playNotificationSound("incorrect", false);
                                         //hiển thị kết quả
