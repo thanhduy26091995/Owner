@@ -304,7 +304,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     //show timepicker
     private void getTimePicker() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -316,7 +316,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     }
 
     private void getTimePicker2() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", getResources().getConfiguration().locale);
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -436,7 +436,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     }
 
     private void getTimeCurrent() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", getResources().getConfiguration().locale);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", getResources().getConfiguration().locale);
         calendarForTime1 = Calendar.getInstance();
         calendarForTime2 = Calendar.getInstance();
         int date = calendarForTime1.get(Calendar.DATE);
@@ -623,7 +623,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
         String startTime = start;
         String endTime = end;
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", getResources().getConfiguration().locale);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", getResources().getConfiguration().locale);
         Date d1 = null, d2 = null;
 
         try {
@@ -726,7 +726,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
 
     private String getTimeWork(String mTimeWork) {
 
-        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy hh:mm aa", getResources().getConfiguration().locale);
+        DateFormat mCreateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm", getResources().getConfiguration().locale);
         String _TimeWork = txtDate_start_work.getText().toString() + " " + mTimeWork;
         Date mTimeAt = null;
         try {
@@ -751,7 +751,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
     private boolean CompareTime(String start, String end) {
         String startTime = start;
         String endTime = end;
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         Date d1 = null, d2 = null;
         try {
             d1 = sdf.parse(startTime);

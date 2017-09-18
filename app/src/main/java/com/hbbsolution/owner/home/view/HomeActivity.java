@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import com.daniribalbert.customfontlib.views.CustomFontTextView;
 import com.hbbsolution.owner.R;
 import com.hbbsolution.owner.adapter.TypeJobAdapter;
 import com.hbbsolution.owner.base.AuthenticationBaseActivity;
@@ -48,6 +49,9 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     Button mLayout_History;
     @BindView(R.id.imgAvatar)
     CircleImageView imgAvatar;
+    @BindView(R.id.tvIntro)
+    CustomFontTextView tvIntro;
+
 //    @BindView(R.id.rcv_type_job)
 //    RecyclerView rcv_type_job;
 
@@ -97,6 +101,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
 //
         if (Constants.listTypeJob.size() > 0) {
             rcv_type_job.setVisibility(View.VISIBLE);
+            tvIntro.setVisibility(View.VISIBLE);
             this.listTypeJob = Constants.listTypeJob;
             compareValueInModel(this.listTypeJob);
             for (TypeJob typeJob : this.listTypeJob) {
@@ -109,7 +114,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         setRecyclerView();
 
         //Set Avatar
-        ImageLoader.getInstance().loadImageAvatar(HomeActivity.this,sessionManagerUser.getUserDetails().get(SessionManagerUser.KEY_IMAGE),imgAvatar);
+        ImageLoader.getInstance().loadImageAvatar(HomeActivity.this, sessionManagerUser.getUserDetails().get(SessionManagerUser.KEY_IMAGE), imgAvatar);
 
     }
 
@@ -119,7 +124,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
             @Override
             public int getSpanSize(int position) {
 //                int mod = position % 6;
-                if (listTypeJob.get(position).getName().length() > 10)
+                if (position == 0)
                     return 2;
                 else
                     return 1;

@@ -24,7 +24,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/margin_padding_20dp"
                 android:paddingRight="@dimen/margin_padding_20dp"
-                android:paddingTop="@dimen/margin_padding_30dp">
+                android:paddingTop="@dimen/margin_padding_10dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                             android:id="@+id/bt_work_around_here"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_padding_20dp"
+                            android:layout_marginTop="@dimen/margin_padding_10dp"
                             android:background="@drawable/background_button_yellow"
                             android:text="@string/home_maid_around"
                             android:textAllCaps="false"
@@ -62,7 +62,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_padding_20dp">
+                        android:layout_marginTop="@dimen/margin_padding_10dp">
 
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
@@ -76,7 +76,6 @@
                                 android:id="@+id/edit_username"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@string/font_family_thin"
                                 android:inputType="textEmailAddress"
                                 android:textColor="@android:color/black"
                                 android:textColorLink="@android:color/transparent" />
@@ -101,7 +100,6 @@
                                 android:id="@+id/edit_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@string/font_family_thin"
                                 android:hint="@string/sign_in_password"
                                 android:inputType="textPassword"
                                 android:textColor="@android:color/black"
@@ -114,7 +112,7 @@
                         android:id="@+id/bt_sign_in"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_padding_20dp"
+                        android:layout_marginTop="@dimen/margin_padding_10dp"
                         android:background="@drawable/background_button_blue"
                         android:text="@string/sign_in_sign_in"
                         android:textAllCaps="false"
@@ -158,7 +156,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_20dp"
+                android:layout_marginTop="@dimen/margin_padding_10dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 

@@ -113,6 +113,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     private ProgressDialog progressDialog;
     private CommentHistoryPresenter commentHistoryPresenter;
     private boolean commented;
+    private int typePayment = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -340,7 +341,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void getWalletSuccess(long wallet) {
         walletOwner = wallet;
-        payment_money_account.setText(getResources().getString(R.string.accountbalance) + ": " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
+        payment_money_account.setText(getResources().getString(R.string.accountbalance) + " " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(wallet) + " VND"));
     }
 
     @Override
@@ -354,6 +355,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //        txt_lo_payment.setVisibility(View.GONE);
         hideProgressDialog();
         if (billGv24Response.getStatus()) {
+            typePayment = 1;
             PaymentSuccess();
         } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), PaymentActivity.this);
@@ -374,6 +376,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //        progressPayment.setVisibility(View.GONE);
 //        txt_lo_payment.setVisibility(View.GONE);
         if (billGv24Response.getStatus()) {
+            typePayment = 3;
             PaymentSuccess();
         } else {
             ShowAlertDialog.showAlert(getResources().getString(R.string.thatbai), PaymentActivity.this);
@@ -427,10 +430,16 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void PaymentSuccess() {
+        String message;
+        if (typePayment == 1) {
+            message = getResources().getString(R.string.thanhtoanthanhcong) + " " + getResources().getString(R.string.accountbalance) + " " + String.valueOf(NumberFormat.getNumberInstance(Locale.GERMANY).format(walletOwner - totalPrice) + " VND");
+        } else {
+            message = getResources().getString(R.string.thanhtoanthanhcong);
+        }
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setCancelable(false);
         alertDialog.setTitle(getResources().getString(R.string.notification));
-        alertDialog.setMessage(getResources().getString(R.string.thanhtoanthanhcong));
+        alertDialog.setMessage(message);
         alertDialog.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -486,8 +495,11 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void hideProgressDialog() {
-        if (progressDialog.isShowing() && progressDialog != null) {
-            progressDialog.dismiss();
+        try {
+            if (progressDialog.isShowing() && progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        } catch (Exception e) {
         }
     }
 

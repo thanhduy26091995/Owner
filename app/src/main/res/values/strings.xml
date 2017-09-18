@@ -114,7 +114,7 @@
 
     <!--Page more activity start-->
     <string name="more_job_statistic">General statistic</string>
-    <string name="more_notification">Announcement</string>
+    <string name="more_notification">Notification</string>
     <string name="more_languge">Language</string>
     <string name="english">English</string>
     <string name="vietnamese">Tiếng Việt</string>
@@ -123,7 +123,7 @@
     <string name="more_contact">Contact</string>
     <string name="gender_men">Male</string>
     <string name="gender_women">Female</string>
-    <string name="signout">Sign Out</string>
+    <string name="signout">Sign out</string>
     <string name="signoutContent">Are you sure to sign out?</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
@@ -202,7 +202,7 @@
     <string name="waiting_work">Work-in-process</string>
     <string name="post_work">Posted work</string>
     <string name="recharge">Recharge</string>
-    <string name="sodutaikhoan">Account balance:</string>
+    <string name="sodutaikhoan">Account balance: </string>
     <plurals name="million">
         <item quantity="one">million</item>
         <item quantity="other">millions</item>
@@ -246,7 +246,7 @@
     <string name="payment_date">Payment date:</string>
     <string name="timework">Time of working:</string>
     <string name="totalprice">Total:</string>
-    <string name="accountbalance">Account balance</string>
+    <string name="accountbalance">Account balance: </string>
     <string name="invoicemumber">Invoice number</string>
     <string name="paymentmethods">PAYMENT METHODS</string>
     <string name="thanhtoanonline">Online payment</string>
@@ -352,7 +352,7 @@
 
     <string name="dang_xacthuc">Validating... This process will take a few minutes</string>
     <string name="xacnhannguoigiupviec">Partner verification</string>
-    <string name="chon_nguoi_giup_viec_thanh_cong">Congrats! You have your right parner!</string>
+    <string name="chon_nguoi_giup_viec_thanh_cong">Congratulation! You have your right parner!</string>
     <string name="thanhtoanthanhcong">Payment successful!</string>
     <string name="xoa_that_bai">Failed to delete!</string>
     <string name="request_sent_successfully">Request sent successfully!</string>

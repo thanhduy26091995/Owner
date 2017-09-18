@@ -52,8 +52,9 @@
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_xxxlagre"
-            android:padding="@dimen/margin_padding_05dp"
+            android:padding="@dimen/margin_padding_10dp"
             android:background="@drawable/background_shadow"
+            android:visibility="gone"
             />
         <LinearLayout
             android:id="@+id/lnButton"
@@ -106,7 +107,7 @@
             android:scrollbars="vertical"
             android:layout_above="@+id/lnButton"
             android:layout_below="@+id/tvIntro"
-            android:layout_margin="@dimen/margin_padding_05dp"/>
+            android:layout_margin="@dimen/margin_padding_05dp" />
     </RelativeLayout>
 
 

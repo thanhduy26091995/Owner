@@ -196,7 +196,7 @@
     <string name="waiting_work">Công việc đang xử lý</string>
     <string name="post_work">Công việc đã đăng</string>
     <string name="recharge">Nạp tiền vào tài khoản</string>
-    <string name="sodutaikhoan">Số dư tài khoản:</string>
+    <string name="sodutaikhoan">Số dư tài khoản: </string>
     <plurals name="million">
         <item quantity="one">triệu</item>
         <item quantity="other">triệu</item>
@@ -337,7 +337,7 @@
     <string name="dang_xacthuc">Đang xác thực...Việc này có thể mất khá nhiều thời gian</string>
     <string name="xacnhannguoigiupviec">Xác nhận người giúp việc</string>
     <string name="chon_nguoi_giup_viec_thanh_cong">Bạn đã chọn người giúp việc thành công !</string>
-    <string name="thanhtoanthanhcong">Thanh toán thành công</string>
+    <string name="thanhtoanthanhcong">Thanh toán thành công!</string>
     <string name="xoa_that_bai">Xóa thất bại</string>
 
     <string name="request_sent_successfully">Gửi yêu cầu thành công!</string>
