@@ -420,6 +420,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 mbundleComment.putString("nameHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getName());
                 mbundleComment.putString("addressHelper", mLiabilitiesHistory.getTask().getStakeholders().getReceived().getInfo().getAddress().getName());
                 mbundleComment.putInt("total", mLiabilitiesHistory.getPrice());
+
 //                itPaymentOnline.putExtra("mbundleComment",mbundleComment);
             }
             itPaymentOnline.putExtra("mbundleComment", mbundleComment);
