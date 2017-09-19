@@ -134,7 +134,6 @@ public class FaceView extends View {
 
 
 //        BitmapShader bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-//
 //        Paint paint = new Paint();
 //        paint.setColor(Color.BLUE);
 //        paint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -144,7 +143,7 @@ public class FaceView extends View {
         //  Bitmap mutableBitmap = mBitmap.copy(Bitmap.Config.ARGB_8888, true);
         // canvas = new Canvas(mutableBitmap);
 
-        //canvas.drawCircle((float) viewWidth / 2, (float) viewHeight / 2, (float) viewWidth / 2, paint);
+       // canvas.drawCircle((float) viewWidth / 2, (float) viewHeight / 2, (float) viewWidth / 2, paint);
         // canvas.drawBitmap(mBitmap, null, destBounds, null);
         return scale;
     }
