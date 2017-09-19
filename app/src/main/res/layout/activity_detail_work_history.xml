@@ -381,14 +381,15 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/color_line_view" />
 
-                <TextView
+                <Button
                     android:id="@+id/txt_history_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="20dp"
                     android:text="@string/yourcomment"
-                    android:textColor="@color/home_background_history"
-                    android:textSize="@dimen/text_size_large" />
+                    android:background="@drawable/background_button_blue"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"/>
 
                 <TextView
                     android:id="@+id/tvContentComment"

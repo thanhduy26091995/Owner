@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:inputType="textMultiLine"
         android:padding="@dimen/boder_padding_recycleview"
         android:textColor="@color/colorWhite"

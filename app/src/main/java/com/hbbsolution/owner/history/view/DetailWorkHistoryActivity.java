@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     TextView tvAddressHelper;
 
     @BindView(R.id.txt_history_comment)
-    TextView tvComment;
+    Button tvComment;
     @BindView(R.id.rela_info)
     RelativeLayout rlInfo;
     @BindView(R.id.tvContentComment)
