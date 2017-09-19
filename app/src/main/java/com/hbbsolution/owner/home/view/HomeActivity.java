@@ -251,6 +251,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
         if (typeJobResponse.getStatus()) {
             Constants.listTypeJob = typeJobResponse.getData();
             rcv_type_job.setVisibility(View.VISIBLE);
+            tvIntro.setVisibility(View.VISIBLE);
             if (Constants.listTypeJob.size() == 0) {
                 Constants.listTypeJob = typeJobResponse.getData();
                 this.listTypeJob = Constants.listTypeJob;

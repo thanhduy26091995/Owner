@@ -60,8 +60,6 @@ public class DetailWorkHistoryActivity extends AppCompatActivity implements View
     RelativeLayout rlInfo;
     @BindView(R.id.tvContentComment)
     TextView tvContentComment;
-    @BindView(R.id.v_line)
-    View vLine;
     @BindView(R.id.txtIsTools)
     TextView txtIsTools;
 
