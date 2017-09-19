@@ -428,6 +428,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
                 }
                 break;
             case R.id.edtAddressPost: {
+                edtAddressPost.setEnabled(false);
                 GooglePlacesAPI.showGooglePlaces(QuickPostActivity.this, REQUEST_CODE_PLACES);
                 break;
             }
@@ -445,6 +446,7 @@ public class QuickPostActivity extends AuthenticationBaseActivity implements Job
             mLat = place.getLatLng().latitude;
             mLng = place.getLatLng().longitude;
         }
+        edtAddressPost.setEnabled(true);
     }
 
     @Override

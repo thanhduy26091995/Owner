@@ -464,6 +464,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
                 }
                 break;
             case R.id.edtAddressPost: {
+                edtAddressPost.setEnabled(false);
                 GooglePlacesAPI.showGooglePlaces(JobPostActivity.this, REQUETS_CODE_PLACES);
                 break;
             }
@@ -526,6 +527,7 @@ public class JobPostActivity extends AuthenticationBaseActivity implements JobPo
             mLat = place.getLatLng().latitude;
             mLng = place.getLatLng().longitude;
         }
+        edtAddressPost.setEnabled(true);
     }
 
     @Override

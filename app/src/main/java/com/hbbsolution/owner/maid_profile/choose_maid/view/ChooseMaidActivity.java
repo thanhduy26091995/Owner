@@ -504,6 +504,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
                 postData();
             }
         } else if (v == edtAddressPost) {
+            edtAddressPost.setEnabled(false);
             GooglePlacesAPI.showGooglePlaces(ChooseMaidActivity.this, REQUEST_CODE_PLACES);
         }
     }
@@ -518,6 +519,7 @@ public class ChooseMaidActivity extends AuthenticationBaseActivity implements Vi
             mLat = place.getLatLng().latitude;
             mLng = place.getLatLng().longitude;
         }
+        edtAddressPost.setEnabled(true);
     }
 
     private void postData() {
