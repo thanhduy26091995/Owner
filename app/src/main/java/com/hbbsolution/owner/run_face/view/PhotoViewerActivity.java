@@ -24,6 +24,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -113,7 +114,7 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
 //        mCompareImageModel = new CompareImageModel();
 //        mCompareImageModel.setConfidence(0.65);
 //        mCompareImageModel.setImageServer("http://res.cloudinary.com/nguyencaoky/image/upload/v1499395868/wquharvyugja3yi7n0e8.jpg");
-//        mCompareImageModel.setImageGallery("/storage/emulated/0/Pictures/1505356514811.jpg");
+//        mCompareImageModel.setImageGallery("/storage/emulated/0/Pictures/1505726980650.jpg");
 
         Double mConfidence = mCompareImageModel.getConfidence() * 100;
         mRateMatch = mConfidence.intValue();
@@ -140,6 +141,82 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
 
     }
 
+    private Bitmap getFaceFocus(Bitmap bitmapInput) {
+        Bitmap bitmapResult = null;
+
+        FaceDetector detector = new FaceDetector.Builder(getApplicationContext())
+                .setTrackingEnabled(false)
+                .setLandmarkType(FaceDetector.ALL_LANDMARKS)
+                .build();
+
+        // This is a temporary workaround for a bug in the face detector with respect to operating
+        // on very small images.  This will be fixed in a future release.  But in the near term, use
+        // of the SafeFaceDetector class will patch the issue.
+        Detector<Face> safeDetector = new SafeFaceDetector(detector);
+
+        // Create a frame from the bitmap and run face detection on the frame.
+        Frame frame = new Frame.Builder().setBitmap(bitmapInput).build();
+        SparseArray<Face> faces = safeDetector.detect(frame);
+        if (faces.size() > 0) {
+            Face face = faces.get(0);
+            if (face!=null) {
+                int x = (int) (face.getPosition().x - face.getWidth() / 2) > 0 ? (int) (face.getPosition().x - face.getWidth() / 2) : 0;
+                int y = (int) (face.getPosition().y - face.getHeight() / 2) > 0 ? (int) (face.getPosition().y - face.getHeight() / 2) : 0;
+                //
+                float xOffset = face.getWidth() / 2;
+                float yOffset = face.getHeight() / 2;
+                float left = x;
+                float top = y;
+                float right = x + face.getWidth();
+                float bottom = y + face.getHeight();
+
+//        int width = (int) (right - left) > bitmapInput.getWidth() ? bitmapInput.getWidth() : (int) (right - left);
+                float density = getResources().getDisplayMetrics().density;
+                Log.d("DENSITY", "" + density);
+                int width = (int) ((int) face.getWidth() * density) > bitmapInput.getWidth() ? bitmapInput.getWidth() - x : (int) ((int) face.getWidth() * density);
+//           if  (bottom - top) > bitmapInput.getHeight() ? bitmapInput.getHeight() : (int) (bottom - top);
+                int heigth = (int) ((int) face.getHeight() * density) > bitmapInput.getHeight() ? bitmapInput.getHeight() - y : (int) ((int) face.getHeight() * density);
+                bitmapResult = Bitmap.createBitmap(bitmapInput, x, y, width, heigth);
+                bitmapInput.recycle();
+                return bitmapResult;
+            }
+        }
+        return bitmapInput;
+    }
+
+    public int getSquareCropDimensionForBitmap(Bitmap bitmap) {
+        //use the smallest dimension of the image to crop to
+        return Math.min(bitmap.getWidth(), bitmap.getHeight());
+    }
+
+    private Bitmap centerCropBitmap2(Bitmap bitmap) {
+        int dimension = getSquareCropDimensionForBitmap(bitmap);
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension);
+        return bitmap;
+    }
+
+    private Bitmap centerCropBitmap(Bitmap srcBmp) {
+        Bitmap dstBmp = null;
+        if (srcBmp.getWidth() >= srcBmp.getHeight()) {
+            dstBmp = Bitmap.createBitmap(
+                    srcBmp,
+                    srcBmp.getWidth() / 2 - srcBmp.getHeight() / 2 - 100,
+                    0,
+                    srcBmp.getHeight(),
+                    srcBmp.getHeight()
+            );
+
+        } else {
+            dstBmp = Bitmap.createBitmap(
+                    srcBmp,
+                    0,
+                    srcBmp.getHeight() / 2 - srcBmp.getWidth() / 2 - 100,
+                    srcBmp.getWidth(),
+                    srcBmp.getWidth() + 100
+            );
+        }
+        return dstBmp;
+    }
 
     private String getRealPathFromURI(Uri contentURI) {
         String result = "";
@@ -262,6 +339,9 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
             // on very small images.  This will be fixed in a future release.  But in the near term, use
             // of the SafeFaceDetector class will patch the issue.
             final Detector<Face> safeDetector = new SafeFaceDetector(detector);
+
+            bitmapServer = centerCropBitmap(bitmapServer);
+            bitmapGallery = centerCropBitmap(bitmapGallery);
 
             // Create a frame from the bitmap and run face detection on the frame.
             Frame frameServer = new Frame.Builder().setBitmap(bitmapServer).build();
