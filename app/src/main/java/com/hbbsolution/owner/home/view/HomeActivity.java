@@ -229,6 +229,7 @@ public class HomeActivity extends AuthenticationBaseActivity implements HomeView
     public String changeCharInPosition(int position, char ch, String str) {
         char[] charArray = str.toCharArray();
         charArray[position] = ch;
+
         return new String(charArray);
     }
 

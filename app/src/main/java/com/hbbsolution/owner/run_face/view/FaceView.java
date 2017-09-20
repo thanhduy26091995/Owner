@@ -159,7 +159,7 @@ public class FaceView extends View {
     private void drawFaceAnnotations(final Canvas canvas, final double scale) {
         final Paint paintLine = new Paint();
         paintLine.setStyle(Paint.Style.STROKE);
-        paintLine.setStrokeWidth(1);
+        paintLine.setStrokeWidth(3);
         paintLine.setColor(Color.GREEN);
 
         Paint mFacePositionPaint = new Paint();

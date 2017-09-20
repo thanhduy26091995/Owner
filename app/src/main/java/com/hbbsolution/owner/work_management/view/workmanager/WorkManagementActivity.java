@@ -56,6 +56,7 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().registerSticky(this);
         setContentView(R.layout.activity_work_management);
         mWorkManagementActivity = this;
         ButterKnife.bind(this);
@@ -96,6 +97,7 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.bind(this).unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     private void createFragment() {
@@ -148,15 +150,13 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().registerSticky(this);
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
     }
-
 
     @Override
     protected void onPause() {
@@ -166,15 +166,13 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
 
     @Override
     protected void onResume() {
+        super.onResume();
         if (tabMore == -1) {
             if (isPause) {
                 if (mTab) {
                     this.finish();
                     Intent refresh = new Intent(this, WorkManagementActivity.class);
                     startActivity(refresh);
-//                adapter.clearFragment();
-//                createFragment();
-//                mViewPager.setCurrentItem(mPositionTab);
                     mPositionTab = -1;
                     isPause = false;
                     mTab = false;
@@ -183,15 +181,10 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
                 if (mPositionTab == -1) {
                     mViewPager.setCurrentItem(0);
                 } else {
-                    if (!start) {
-                        mViewPager.setCurrentItem(mPositionTab);
-                        mPositionTab = -1;
-                    } else {
-                        mViewPager.setCurrentItem(0);
-                    }
+                    mViewPager.setCurrentItem(mPositionTab);
+                    mPositionTab = -1;
                 }
             }
-
             if (Constants.isLoadTabDoing) {
                 mViewPager.setCurrentItem(2);
                 Constants.isLoadTabDoing = false;
@@ -199,7 +192,7 @@ public class WorkManagementActivity extends AuthenticationBaseActivity implement
         } else {
             tabMore = -1;
         }
-        super.onResume();
+
     }
 
     @Override

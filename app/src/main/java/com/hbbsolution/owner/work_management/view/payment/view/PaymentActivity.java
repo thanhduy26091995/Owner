@@ -146,6 +146,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+
     private void setData() {
         date = new Date();
         Bundle extras = getIntent().getExtras();
@@ -285,11 +286,22 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            EventBus.getDefault().postSticky(true);
-            EventBus.getDefault().postSticky("2");
-            super.onBackPressed();
+            if(mDatum!=null) {
+                EventBus.getDefault().postSticky(true);
+                EventBus.getDefault().postSticky("2");
+            }
+            finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mDatum!=null) {
+            EventBus.getDefault().postSticky(true);
+            EventBus.getDefault().postSticky("2");
+        }
+        super.onBackPressed();
     }
 
     private void confirm(final int formPayment) {

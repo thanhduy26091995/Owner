@@ -340,8 +340,8 @@ public class PhotoViewerActivity extends BaseActivity implements View.OnClickLis
             // of the SafeFaceDetector class will patch the issue.
             final Detector<Face> safeDetector = new SafeFaceDetector(detector);
 
-            bitmapServer = centerCropBitmap(bitmapServer);
-            bitmapGallery = centerCropBitmap(bitmapGallery);
+//            bitmapServer = centerCropBitmap(bitmapServer);
+//            bitmapGallery = centerCropBitmap(bitmapGallery);
 
             // Create a frame from the bitmap and run face detection on the frame.
             Frame frameServer = new Frame.Builder().setBitmap(bitmapServer).build();
